@@ -1,0 +1,41 @@
+Yintersync_General_features = FM (General_features :  OS Vendor OnlineCloudStorage PriorFileVersions ; OS : Windows ; Vendor : Yinter ;  )
+fm_Yintersync = FM(File_Synchronization_Software : ID ; )
+foreach(f in Yintersync_*) do
+insert f into fm_Yintersync.File_Synchronization_Software with mand
+end
+removeFeature fm_Yintersync.ID
+removeVariable Yintersync_General_features
+
+WindowsLiveMesh_General_features = FM (General_features :  [OS] Vendor OnlineCloudStorage [PriorFileVersions] ; OS : (Windows | WindowsMobile | OSX) ; Vendor : Microsoft ; General_features -> !PriorFileVersions;  )
+fm_WindowsLiveMesh = FM(File_Synchronization_Software : ID ; )
+foreach(f in WindowsLiveMesh_*) do
+insert f into fm_WindowsLiveMesh.File_Synchronization_Software with mand
+end
+removeFeature fm_WindowsLiveMesh.ID
+removeVariable WindowsLiveMesh_General_features
+
+MicrosoftSyncToy_General_features = FM (General_features :  OS Vendor [OnlineCloudStorage] [PriorFileVersions] ; OS : Windows ; Vendor : Microsoft ; General_features -> !OnlineCloudStorage; General_features -> !PriorFileVersions;  )
+fm_MicrosoftSyncToy = FM(File_Synchronization_Software : ID ; )
+foreach(f in MicrosoftSyncToy_*) do
+insert f into fm_MicrosoftSyncToy.File_Synchronization_Software with mand
+end
+removeFeature fm_MicrosoftSyncToy.ID
+removeVariable MicrosoftSyncToy_General_features
+
+DimioDSyncronize_General_features = FM (General_features :  OS Vendor [OnlineCloudStorage] [PriorFileVersions] ; OS : Windows ; Vendor : Dimio ; General_features -> !OnlineCloudStorage; General_features -> !PriorFileVersions;  )
+fm_DimioDSyncronize = FM(File_Synchronization_Software : ID ; )
+foreach(f in DimioDSyncronize_*) do
+insert f into fm_DimioDSyncronize.File_Synchronization_Software with mand
+end
+removeFeature fm_DimioDSyncronize.ID
+removeVariable DimioDSyncronize_General_features
+
+WindowsLiveSync_General_features = FM (General_features :  [OS] Vendor OnlineCloudStorage [PriorFileVersions] ; OS : (Windows | OSX) ; Vendor : Microsoft ; OnlineCloudStorage : BrowsingOnly ; General_features -> !PriorFileVersions;  )
+fm_WindowsLiveSync = FM(File_Synchronization_Software : ID ; )
+foreach(f in WindowsLiveSync_*) do
+insert f into fm_WindowsLiveSync.File_Synchronization_Software with mand
+end
+removeFeature fm_WindowsLiveSync.ID
+removeVariable WindowsLiveSync_General_features
+
+finalFM = merge sunion fm_*

@@ -1,0 +1,24 @@
+B_Suppliers = FM (Suppliers :  [NWKlayer] [Beaconing] [GTS] [Security] Mesh_ClusterConfiguration [PowerSaving] [MessageFragmentation] ; Suppliers -> !Beaconing; Suppliers -> !GTS; Suppliers -> !PowerSaving; Suppliers -> !MessageFragmentation;  )
+
+A_Suppliers = FM (Suppliers :  [NWKlayer] [Beaconing] [GTS] [Security] [Mesh_ClusterConfiguration] [PowerSaving] [MessageFragmentation] ; Suppliers -> !NWKlayer; Suppliers -> !Security; Suppliers -> !Mesh_ClusterConfiguration; Suppliers -> !PowerSaving; Suppliers -> !MessageFragmentation;  )
+
+C_Suppliers = FM (Suppliers :  [NWKlayer] [Beaconing] [GTS] [Security] [Mesh_ClusterConfiguration] [PowerSaving] MessageFragmentation ; Suppliers -> !Mesh_ClusterConfiguration;  )
+
+fm_A = FM(SuppliersHartmann : ID ; )
+foreach(f in A_*) do
+insert f into fm_A.SuppliersHartmann with mand
+end
+removeFeature fm_A.ID
+
+fm_B = FM(SuppliersHartmann : ID ; )
+foreach(f in B_*) do
+insert f into fm_B.SuppliersHartmann with mand
+end
+removeFeature fm_B.ID
+
+fm_C = FM(SuppliersHartmann : ID ; )
+foreach(f in C_*) do
+insert f into fm_C.SuppliersHartmann with mand
+end
+removeFeature fm_C.ID
+

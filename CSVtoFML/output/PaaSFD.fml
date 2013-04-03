@@ -1,0 +1,64 @@
+OpenShift_PaaS = FM (PaaS :  [SupportedLanguage] ApplicationServer Autoscaling HTTPS [Database] [FileSystemWriting] IaaS ; SupportedLanguage : (Java | JEE6 | Perl | Python | PHP | Ruby) ; ApplicationServer : JBossAppServer7 ; Database : (MySQL | MongoDB) ; PaaS -> !FileSystemWriting;  )
+
+Stackato_PaaS = FM (PaaS :  [SupportedLanguage] ApplicationServer Autoscaling HTTPS [Database] [FileSystemWriting] IaaS ; SupportedLanguage : (Java | Node_Js | Perl | Python | PHP | Ruby) ; ApplicationServer : Nginx ; Database : (MySQL | PostgreSQL | MongoDB | Redis) ; IaaS : AmazonEC2 ; PaaS -> !FileSystemWriting;  )
+
+GoogleAppEngine_PaaS = FM (PaaS :  [SupportedLanguage] ApplicationServer Autoscaling HTTPS Database [FileSystemWriting] IaaS ; SupportedLanguage : (Java | Python | Go) ; ApplicationServer : Jetty ; Database : GoogleCloudSQL ; IaaS : Google ; PaaS -> !FileSystemWriting;  )
+
+DotCloud_PaaS = FM (PaaS :  [SupportedLanguage] [ApplicationServer] Autoscaling HTTPS [Database] FileSystemWriting IaaS ; SupportedLanguage : (Java | Grails | JRuby | ColdFusion | Scala | PHP | Python | Ruby | Perl | Node_Js | Opa) ; ApplicationServer : (Jetty | Tomcat | Nginx) ; Database : (MySQL | PostgreSQL | MongoDB | CouchDB | Redis) ; IaaS : AmazonEC2 ;  )
+
+Heroku_PaaS = FM (PaaS :  [SupportedLanguage] [ApplicationServer] Autoscaling HTTPS Database FileSystemWriting [IaaS] ; SupportedLanguage : (Java | Node_Js | Scala | Ruby | Python | Clojure) ; ApplicationServer : (Jetty7_4 | Tomcat7) ; Database : PostgreSQL ;  )
+
+CloudBees_PaaS = FM (PaaS :  [SupportedLanguage] ApplicationServer Autoscaling HTTPS [Database] FileSystemWriting IaaS ; SupportedLanguage : (Java | Grails | JRuby | ColdFusion | Scala) ; ApplicationServer : Tomcat ; Database : (MySQL | CouchDB | MongoDB) ; IaaS : AmazonEC2 ;  )
+
+CloudFoundry_PaaS = FM (PaaS :  [SupportedLanguage] ApplicationServer Autoscaling HTTPS [Database] [FileSystemWriting] [IaaS] ; SupportedLanguage : (Ruby | Spring | Java | Grails | Node_Js | Sinatra | Scala | Python) ; ApplicationServer : Nginx ; Database : (MySQL | MongoDB | Redis) ; PaaS -> !FileSystemWriting;  )
+
+Jelastic_PaaS = FM (PaaS :  SupportedLanguage [ApplicationServer] Autoscaling HTTPS [Database] FileSystemWriting [IaaS] ; SupportedLanguage : Java ; ApplicationServer : (Tomcat6 | Tomcat7 | Jetty6 | GlassFish3) ; Database : (MariaDB | MySQL | PostgreSQL | MongoDB) ; IaaS : (Europe | NorthAmerica) ;  )
+
+fm_GoogleAppEngine = FM(PaaSFD : ID ; )
+foreach(f in GoogleAppEngine_*) do
+insert f into fm_GoogleAppEngine.PaaSFD with mand
+end
+removeFeature fm_GoogleAppEngine.ID
+
+fm_CloudFoundry = FM(PaaSFD : ID ; )
+foreach(f in CloudFoundry_*) do
+insert f into fm_CloudFoundry.PaaSFD with mand
+end
+removeFeature fm_CloudFoundry.ID
+
+fm_CloudBees = FM(PaaSFD : ID ; )
+foreach(f in CloudBees_*) do
+insert f into fm_CloudBees.PaaSFD with mand
+end
+removeFeature fm_CloudBees.ID
+
+fm_Jelastic = FM(PaaSFD : ID ; )
+foreach(f in Jelastic_*) do
+insert f into fm_Jelastic.PaaSFD with mand
+end
+removeFeature fm_Jelastic.ID
+
+fm_DotCloud = FM(PaaSFD : ID ; )
+foreach(f in DotCloud_*) do
+insert f into fm_DotCloud.PaaSFD with mand
+end
+removeFeature fm_DotCloud.ID
+
+fm_Stackato = FM(PaaSFD : ID ; )
+foreach(f in Stackato_*) do
+insert f into fm_Stackato.PaaSFD with mand
+end
+removeFeature fm_Stackato.ID
+
+fm_OpenShift = FM(PaaSFD : ID ; )
+foreach(f in OpenShift_*) do
+insert f into fm_OpenShift.PaaSFD with mand
+end
+removeFeature fm_OpenShift.ID
+
+fm_Heroku = FM(PaaSFD : ID ; )
+foreach(f in Heroku_*) do
+insert f into fm_Heroku.PaaSFD with mand
+end
+removeFeature fm_Heroku.ID
+
