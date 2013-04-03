@@ -1,0 +1,176 @@
+grammar org.xtext.example.mydsl.VariCell with org.eclipse.xtext.common.Terminals
+
+generate variCell "http://www.xtext.org/example/mydsl/VariCell"
+
+
+//"A domain-specific language can parameterize command line input".
+//OK, let us start with an DSL 
+//for extracting feature models from sources (e.g., semi-structured products specification)
+
+SToFMModel :
+		importViews=ImportViews // a set of views
+		splName=SPLName // aka name of the integrated view aka root feature name in the resulting feature model
+		schema=StructuringInformation? // e.g., relationship between views
+		default=Default? // default interpretation of data for *all* views
+		scoping+=ScopingView* // the interpretation can be overriden in each view
+;
+
+ImportViews : 'import:' (views+=DataView)+;
+DataView : file=STRING ('as' viewname=ID)? ; // TODO: by default, the name of each view is the name of the file
+
+
+// basically, root name
+SPLName : 'name:' name=(STRING|ID) ;
+
+
+/*
+Wikipedia:
+A hierarchy is an arrangement of items (objects, names, values, categories, etc.) 
+in which the items are represented as being "above," "below," or "at the same level as" one another. 
+Here: items are views/(features within a view) 
+// by default, all views (resp. features within a view) are at the same level, below the high-level concept (e.g., SPL name or view name)
+TODO: I would say that even features in a specific view can be hierarchycally organize
+*/
+StructuringInformation : {StructuringInformation} 'structure:' (relations+=ItemRelation)* (abstract+=ItemGeneralization)* (mp+=ItemMapping)*;
+
+// basically, a parent-child hierarchy
+ItemRelation : view1=(ID|STRING) rel=(KindRelation) view2=(ID|STRING) ;  
+
+enum KindRelation : BELOW='below'|ABOVE='above'|MOVE='moveIn'|COPY='copyIn' ; 
+
+//http://www.utexas.edu/its/archive/windows/database/datamodeling/dm/erintro.html: 
+//A generalization hierarchy is a form of abstraction that specifies that two or more entities that share common attributes can be generalized into a higher level entity type called a supertype or generic entity. 
+//The lower-level of entities become the subtype, or categories, to the supertype. Subtypes are dependent entities.
+
+ItemGeneralization : generalize=(ID|STRING) ('generalize'|'abstract') (views+=(ID|STRING))+ ;  
+
+// item corresponds to ....
+// e.g., SQL correspondsTo (MySQL or PostgreSQL or SQLite)
+// I made a difference between replace and correspondsTo
+// replace: pfts no longer appear in the resulting feature model whereas nfeature is added
+// correspondsTo: nfeature is added in the resulting feature model as well as pfts 
+// (nfeature is basically an optional feature (TODO: where in the hierarchy?) related to pfts features by propositional constraints)
+ItemMapping : item=(ID|STRING) act=('replace'|'correspondsTo') pfts=PredicateItem ; 
+
+// more complex mappings are proposed, involving some complex, advanced, predicate functions
+// e.g., ("Free and Open Source"=YES) && ("License Cost/ Fee"=NO) => NoMoney 
+// basically, data transformation (rewriting rules)
+
+// TODO: we can extend to more complex predicates
+PredicateItem : Or_expr ;
+
+Or_expr returns IExpression:
+ And_expr ({Or_expr.left=current} 'or' right=And_expr)*;
+
+And_expr returns IExpression:
+ Unary_expr ({And_expr.left=current} 'and' right=Unary_expr)*;
+
+Unary_expr returns IExpression:
+ Neg_expr |
+ Primary_expr ;
+ 
+Neg_expr : 'not' expr=Primary_expr ; 
+Primary_expr returns IExpression : 
+ 	name=(ID|STRING) | 
+ 	'(' Or_expr ')' ;
+
+
+
+Default : {Default} ('default:'|'allviews:'|'all:') // TODO: choose the best keyword
+											configs=ParsingConfiguration?
+											products=ScopingProducts? ;
+											//deprecated: fts=ScopingFeatures => features scoping should be specified in a view
+											//deprecated alignment=Rewriting? =>  features rewrite should be specified in a view
+											//deprecated interpretation=MultiValuesInterpretation =>  multi values interpretation should be specified in a view;
+											
+
+// could be generalized to other formats (domain-specific options) like XML, CSV, RDF, etc.
+// parsing options can be specified for all views and/or overriden for some views 
+ParsingConfiguration : {ParsingConfiguration} 'parsing:' // at the moment it is limited to CSV parsing
+												productID=Key? //deprecated: KeyID
+												format=FormatSpecification? // otherwise, we "guess" the format with the filename extension
+												sinterpret=SyntacticalInterpretation?
+												separator=CSVSeparator? // specific to CSV
+												mseparator=CSVMultiSeparator? // specific to CSV
+												; 
+
+
+FormatSpecification : 'format:' fileformat=FileFormat ;
+enum FileFormat : CSV='CSV' | RDF='RDF' | XML='XML' ;
+
+
+SyntacticalInterpretation : {SyntacticalInterpretation} 'variability:'
+								opt=Optional? 
+								yes=Mandatory?
+								no=NotPresent? 
+								na=Unknown?
+								;
+								
+// note: the identifier can be composed of several identifiers
+// A unique key comprises a single column or a set of columns. 
+// http://en.wikipedia.org/wiki/Key_field
+// http://en.wikipedia.org/wiki/Composite_key
+// A key field is a field or set of fields (a key is then said to be a composite key) of a database (typically a relational database) table which together form a unique identifier for a database record (a table entry). 
+// The aggregate of these fields is usually referred to simply as "the key". 
+// note: do not confond with surrogate keys: http://en.wikipedia.org/wiki/Surrogate_key													
+
+//KeyID : Key | CompositeKey ;
+Key : 'key:' cid+=(STRING)+ ; // by default, only the first column 
+//CompositeKey : 'compositeKey:' cid+=(STRING)+ ; 
+
+
+CSVSeparator : 'separator:' (sep=STRING) ; // note: we authorize only one separator per CSV file which is consistent with RFC
+CSVMultiSeparator : 'multivalued_separator:'  (seps+=STRING)+ ; // here, we authorize more than one separator, even for one CSV file
+
+// default values to interpret as optional/partial, yes, no, N/A
+Optional : 'optional:' values+=(STRING)+ ; // default: Opt / Partial
+Mandatory : 	'mandatory:' 	values+=(STRING)+ ; // default: Yes, true
+NotPresent : 		'notpresent:' 	values+=(STRING)+ ; // default: No, false
+Unknown :        'unknown:' 	values+=(STRING)+ ; // default: N/A, N_A, Unknown
+//DefaultValue : 'default_value:' values+=(STRING)+ ; // TODO: Charles
+
+									
+// by default, the name of each view gives the name of the root feature
+// e.g., if the name of the view is "Data storage", 
+// then the feature model that describes the view "Data storage" has "DataStorage" as root feature name
+
+ScopingView : 'view:' view=ID  // scoping is either applied to all view or to a specific view
+						viewname=ViewName?
+						schema=StructuringInformation?
+						config=ParsingConfiguration? 
+						products=ScopingProducts?
+						fts=ScopingFeatures?
+						alignment=Rewriting?
+						interpretation=MultiValuesInterpretation? 
+						// TODO: specify domain-specific constraints
+						;
+						
+ViewName : 'rootname:' name=STRING ;
+					
+ScopingProducts : ProductInclusionExclusion ;
+ScopingFeatures : FeatureInclusionExclusion ;
+
+FeatureInclusionExclusion : (except=ExceptFeature|only=OnlyFeature) ;
+ExceptFeature : 'except_features:' fts+=(ID|STRING)+ ;  // negative: all but ...
+OnlyFeature : 'only_features:' fts+=(ID|STRING)+ ; // positive: keeping only ...
+
+// due to composite key, manage qualified identifier
+// e.g., only_products: ATI.Nvidia
+ProductInclusionExclusion : (except=ExceptProduct|only=OnlyProduct) ;
+ExceptProduct : 'except_products:' pds+=(ID|STRING)+ ;  // negative: all but ...
+OnlyProduct : 'only_products:' pds+=(ID|STRING)+ ; // positive: keeping only ...
+
+
+// see also StructuringInformation
+Rewriting : ('rewriting:'|'renaming:') oft=(ID|STRING) '=>' nft=STRING;
+
+MultiValuesInterpretation : 'multivalues:' (multi+=MultiValueInterpretation)+ ; 
+
+// val is the name of a column
+MultiValueInterpretation : val=(ID|STRING) '=>' (variability=VariabilityInterpretation) ;
+
+// TODO: generalize to i..j (XOR ~> 1..1)
+enum VariabilityInterpretation : XOR='Alternatives' | OR='OR-Alternatives' | OPT='Optional' | MAND='Mandatory' | CONCAT='Concat' ;
+
+
+
