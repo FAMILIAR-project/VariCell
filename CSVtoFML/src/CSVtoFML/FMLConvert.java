@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import Exceptions.ErrorInFMLConversion;
+import FeatureName.FeatureName;
 import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
 import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
 import fr.unice.polytech.modalis.familiar.operations.FDOverApproximationStrategy;
@@ -391,6 +392,8 @@ public class FMLConvert {
 				throw new ErrorInFMLConversion("Already used entity id name ! " + tmp);
 		}
 	}
+	
+	
 
 	/**
 	 * @param name
@@ -402,7 +405,11 @@ public class FMLConvert {
 	public static String makeNameValid(String name) {
 		if (name == null || name.compareTo("") == 0)
 			return "";
-
+		
+		if (FeatureName.isQuotable(name)) {
+			return FeatureName.quote(name); 
+		}
+		
 		name = name.replace(System.getProperty("line.separator"), "");
 		String validName = "";
 		int i = 0;
@@ -550,7 +557,7 @@ public class FMLConvert {
 		String prod;
 		ValueMode mod = ValueMode.Mandatory;
 		while (l < splitted.length) {
-			stuck = FMLConvert.makeNameValid(splitted[l]);
+			stuck = FMLConvert.makeNameValid(splitted[l].trim());
 			nbr = _numberDead + _numberOptional;
 			nbr2 = _numberTextual;
 			prod = transformValueToProd(stuck, FMLConvert.makeNameValid(convModArr.getViewName()), labelName, tmpConstraint,
@@ -664,7 +671,7 @@ public class FMLConvert {
 			throws ErrorInFMLConversion {
 		String labelName;
 		String value;
-		String validID = FMLConvert.makeNameValid(id);
+		String validID = FMLConvert.makeIdentifierValid(id);
 		ArrayList<String> arr;
 		if (!_identifiors.containsKey(validID)) {
 			arr = new ArrayList<String>();
@@ -750,8 +757,48 @@ public class FMLConvert {
 		if(multivaluesMovement)	composeMultivaluesXorGroups(tmpSubProduction, tmpProd);
 
 		// end of the FAMILIAR fm
-		_entriesFMStep1.put(FMLConvert.makeNameValid(id) + "_" + validViewName, "FM (" + validViewName + " : " + tmpSubProduction + " ; "
+		_entriesFMStep1.put(FMLConvert.makeIdentifierValid(id) + "_" + validViewName, "FM (" + validViewName + " : " + tmpSubProduction + " ; "
 				+ tmpProd + tmpConstraint + " )");
+	}
+
+	private static String makeIdentifierValid(String name) {
+		if (name == null || name.compareTo("") == 0)
+			return "";
+		
+		name = name.replace(System.getProperty("line.separator"), "");
+		String validName = "";
+		int i = 0;
+		boolean firstCharPassed = false;
+		char charr;
+		int cha;
+		while (i < name.length()) {
+			charr = name.charAt(i);
+			cha = (int) charr;
+			if (!firstCharPassed) {
+				if (cha > 47 && cha < 58) {
+					validName = "X";
+					name = "X" + name;
+					firstCharPassed = true;
+				} else if (cha > 96 && cha < 123) {
+					validName = "" + (char) (cha - 32);
+					firstCharPassed = true;
+				} else if (cha > 64 && cha < 91) {
+					validName = "" + charr;
+					firstCharPassed = true;
+				} else {
+					firstCharPassed = false;
+				}
+			} else if ((cha > 47 && cha < 58) || (cha > 64 && cha < 91) || cha == 95 || (cha > 96 && cha < 123)) {
+				validName = validName + charr;
+			} else // {
+					// if (cha != 32) {
+			if (cha == 47 || cha == 92 || cha == 46)
+				validName = validName + "_";
+			// }
+			// }
+			i++;
+		}
+		return validName;
 	}
 
 	/**
@@ -1177,7 +1224,7 @@ public class FMLConvert {
 	 * Default Mandatory value is : YES <br />
 	 * Case insensitive!<br />
 	 * Please use naming convention of FAMILIAR : letter first (better upper
-	 * letter) and no special character as : space, "'"(��! ... But underscore
+	 * letter) and no special character as : space, "'"(������! ... But underscore
 	 * is accepted.
 	 * 
 	 * @param mandatoryValues
@@ -1192,7 +1239,7 @@ public class FMLConvert {
 	 * Default Optional values are : N_A, OPT, OPTIONAL<br />
 	 * Case insensitive!<br />
 	 * Please use naming convention of FAMILIAR : letter first (better upper
-	 * letter) and no special character as : space, "'"(��! ... But underscore
+	 * letter) and no special character as : space, "'"(������! ... But underscore
 	 * is accepted.
 	 * 
 	 * @param optionalValues
@@ -1211,7 +1258,7 @@ public class FMLConvert {
 	 * Default Optional values are : No<br />
 	 * Case insensitive!<br />
 	 * Please use naming convention of FAMILIAR : letter first (better upper
-	 * letter) and no special character as : space, "'"(��! ... But underscore
+	 * letter) and no special character as : space, "'"(������! ... But underscore
 	 * is accepted.<br />
 	 * 
 	 * @param optionalValues
@@ -1458,7 +1505,7 @@ public class FMLConvert {
 //				Formula<String> diffFormula = MergeAnalyzer.diff(formulaMerged, formulaSkeleton);
 //
 //				// input: fmv (le FM squelette)
-//				// diffFormula: la formule que tu as calcul� pour le diff
+//				// diffFormula: la formule que tu as calcul��� pour le diff
 //
 //				AllConfigsBDD allBDD = new AllConfigsBDD(FMLCommandInterpreter.getBuilder());
 //				Set<Set<String>> sols = allBDD.process(diffFormula);

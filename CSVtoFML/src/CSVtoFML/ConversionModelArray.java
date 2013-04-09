@@ -423,7 +423,7 @@ public abstract class ConversionModelArray {
 			return false;
 		if (_data.get(identifier).size() > this.getNbActualColumns())
 			return false;
-		return _data.get(identifier).add(value);
+		return _data.get(identifier).add(value.trim());
 	}
 
 	/**
@@ -439,6 +439,7 @@ public abstract class ConversionModelArray {
 		Boolean out = true;
 		while (valuesIT.hasNext()) {
 			value = valuesIT.next();
+			//value = value.trim() ; 
 			out = out && addValueToRow(identifier, value);
 		}
 		return out;

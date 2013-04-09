@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.xtext.example.mydsl.fML.FeatureEdgeKind;
 
+import FeatureName.FeatureName;
 import fr.unice.polytech.modalis.familiar.experimental.FGroup;
-import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
 import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
 import fr.unice.polytech.modalis.familiar.parser.FMLCommandInterpreter;
 import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
@@ -15,6 +15,7 @@ import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
 import fr.unice.polytech.modalis.familiar.variable.FeatureVariable;
 import fr.unice.polytech.modalis.familiar.variable.SetVariable;
 import fr.unice.polytech.modalis.familiar.variable.VariabilityOperatorVariable;
+import fr.unice.polytech.modalis.familiar.variable.Variable;
 import gsd.synthesis.Expression;
 
 public class FMStatUtility {
@@ -91,7 +92,6 @@ public class FMStatUtility {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Integer ManFeaturesNumber() throws Exception {
-		FMLCommandInterpreter _environment = null;
 		String rootFeature = _fm.root().getValue();
 		SetVariable features = (SetVariable) _fm.features();
 		Set set = features.getVars();
@@ -102,12 +102,12 @@ public class FMStatUtility {
 		
 		while(it.hasNext()) {
 			var = it.next();
-			
-			if(!var.getFtName().equals(rootFeature)) {
-				command = "\nop = operator " + _fm.getIdentifier() + "." + var.getFtName() + "\n";
-				_fm.getShell().parse(command);	
-				_environment = _fm.getShell().getCurrentEnv();
-				if(((VariabilityOperatorVariable) _environment.getVariable("op")).getFek()==FeatureEdgeKind.MANDATORY)
+			String ftName = var.getFtName() ; 
+			ftName = FeatureName.quoteNeedsBe(ftName) ; 
+			if(!ftName.equals(rootFeature)) {
+				command = "\nop = operator " + _fm.getIdentifier() + "." + ftName + "\n";
+				Variable op = _fm.getShell().parse(command);
+				if(((VariabilityOperatorVariable) op).getFek()==FeatureEdgeKind.MANDATORY)
 					nbManFeatures++;
 			}
 		}
@@ -174,9 +174,9 @@ public class FMStatUtility {
 		
 		while(it.hasNext()) {
 			var = it.next();
-			
-			if(!var.getFtName().equals(rootFeature)) {
-				command = "op = operator " + _fm.getIdentifier() + "." + var.getFtName();
+			String ftName = FeatureName.quoteNeedsBe(var.getFtName()) ; 
+			if(!ftName.equals(rootFeature)) {
+				command = "op = operator " + _fm.getIdentifier() + "." + ftName;
 				_fm.getShell().parse(command);	
 				_environment = _fm.getShell().getCurrentEnv();
 				

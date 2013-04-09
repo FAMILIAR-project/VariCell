@@ -229,7 +229,7 @@ public class CSVParser extends CSVAbstract {
 	private void stringArrayHeaderToList(String[] input) throws NotValidCSVFileException {
 		int i = 0;
 		while (i < input.length) {
-			input[i] = input[i].replace(" ", "");
+			input[i] = input[i].trim() ; // replace(" ", "");
 			if (input[i].compareTo(_identifior) == 0)
 				_identifiorID = i;
 			else {
@@ -265,10 +265,10 @@ public class CSVParser extends CSVAbstract {
 		int i = 0;
 		String identifier = "";
 		if (input.length > _identifiorID)
-			identifier = input[_identifiorID].replace(" ", "");
+			identifier = input[_identifiorID].trim() ; // input[_identifiorID].replace(" ", "");
 		else
 			throw new NotValidCSVFileException("No identifier on this line.");
-		if (!addRow(identifier))
+		if (!addRow(identifier.trim()))
 			throw new NotValidCSVFileException("You are trying to add 2 rows with the same identifier : " + identifier);
 		while (i < getNbActualColumns() + 1) {
 			if (i != _identifiorID)
@@ -279,8 +279,9 @@ public class CSVParser extends CSVAbstract {
 				 */
 				if (i >= input.length || input[i] == null || input[i].replace(" ", "").compareTo("") == 0)
 					addValueToRow(identifier, _defaultCharacter);
-				else
-					addValueToRow(identifier, input[i].replace(" ", ""));
+				else {
+					addValueToRow(identifier, input[i].trim()) ; //input[i].replace(" ", ""));
+				}
 			i++;
 		}
 		return identifier;
