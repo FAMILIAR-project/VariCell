@@ -340,7 +340,7 @@ public abstract class UseCase {
 	public void generateFinalFMToFile(String path) throws Exception {
 		if (!_hasConverted)
 			conversion();
-		_converter.writeFinalFeatureModelToFile(path, "finalFM");
+		_converter.writeFinalFeatureModelToFile(path, FMLConvert.FM_VARIABLE_IDENTIFIER, _shell);
 		
 		
 	}
@@ -493,6 +493,13 @@ public abstract class UseCase {
 	
 	public void setExcelPath(String path) {
 		_toExcel.setPath(path);
+	}
+	
+	public void generateFinalFFormulaToFile(String path) throws Exception {
+		if (!_hasConverted)
+			conversion();
+		_converter.writeFinalFormulaToFile(path, FMLConvert.FLA_VARIABLE_IDENTIFIER, _shell);
+		
 	}
 
 }

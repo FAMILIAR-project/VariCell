@@ -25,4 +25,5 @@ public class GeneralUseCase extends UseCase {
 		_converter = new GeneralToFMLConverter(_viewIDs, folder, multivaluesMovement, varicellFileName);
 		_converter.setVerbose(_debug);
 	}
+	
 }

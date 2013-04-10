@@ -44,8 +44,10 @@ public class Launcher {
 			bench.addFlag("Squeleton_To_File");
 			useCase.generateFinalFMToFile("Ressources/usesCases/"+folder+"/FML/finalFM.fml");
 			bench.addFlag("Final_FM_To_File");
-			useCase.showMetricsForFinalFM();
-			bench.addFlag("Metrics (output)");
+			useCase.generateFinalFFormulaToFile("Ressources/usesCases/"+folder+"/FML/finalFla.bdd");
+			bench.addFlag("Final_Formula_To_File");
+			//useCase.showMetricsForFinalFM();
+			//bench.addFlag("Metrics (output)");
 			System.out.println(bench);
 			
 		} catch (Exception e) {

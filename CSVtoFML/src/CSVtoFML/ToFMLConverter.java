@@ -3,6 +3,8 @@ package CSVtoFML;
 import java.io.File;
 import java.util.ArrayList;
 
+import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
+
 /**
  * 
  * @author Charles Vanbeneden
@@ -153,10 +155,10 @@ public abstract class ToFMLConverter {
 		return out;
 	}
 
-	public Boolean writeFinalFeatureModelToFile(String path, String variableName) throws Exception {
+	public Boolean writeFinalFeatureModelToFile(String path, String variableName, FMLShell shell) throws Exception {
 		if (!_generationFML)
 			generateFMLFromConversionModel();
-		boolean out = _converter.writeFinalFeatureModelToFile(path, variableName, _verbose);
+		boolean out = _converter.writeFinalFeatureModelToFile(path, variableName, _verbose, shell);
 		if (_verbose) {
 			System.out.println("****************************");
 			System.out.println("WRITING FINAL FM TO FILE");
@@ -168,6 +170,16 @@ public abstract class ToFMLConverter {
 		}
 		return out;
 	}
+	
+	/*
+	private static FMLShell _shell = null ;  
+	
+	public FMLShell mkShell() {
+		if (_shell == null)
+			_shell = FMLShell.instantiateStandalone(System.in) ;
+		return _shell ; 
+	}
+	*/
 
 	public FMLConvert getFMLConverter() throws Exception {
 		if (!_generationFML)
@@ -246,6 +258,23 @@ public abstract class ToFMLConverter {
 			}
 		}
 		return fileNames;
+	}
+
+	public Boolean writeFinalFormulaToFile(String path, String variableName, FMLShell shell) throws Exception {
+		if (!_generationFML)
+			generateFMLFromConversionModel();
+		boolean out = _converter.writeFinalFormulaToFile(path, variableName, _verbose, shell);
+		if (_verbose) {
+			System.out.println("****************************");
+			System.out.println("WRITING FINAL FORMULA TO FILE");
+			System.out.println("****************************");
+			if (out)
+				System.out.println("Writed to " + path);
+			else
+				System.out.println("Problem writing to " + path);
+		}
+		return out;
+		
 	}
 
 }

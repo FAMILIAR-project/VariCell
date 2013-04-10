@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.Vector;
 
 import Exceptions.ErrorInFMLConversion;
-import FeatureName.FeatureName;
 import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
 import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
 import fr.unice.polytech.modalis.familiar.operations.FDOverApproximationStrategy;
@@ -22,6 +21,8 @@ import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDD;
 import fr.unice.polytech.modalis.familiar.operations.Mode;
 import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
+import fr.unice.polytech.modalis.familiar.variable.FeatureName;
+import fr.unice.polytech.modalis.familiar.variable.Variable;
 import gsd.synthesis.FeatureModel;
 
 /**
@@ -41,6 +42,11 @@ public class FMLConvert {
 	 * Reserved keyword for the identifier
 	 */
 	private static final String KEYWORD_ID = "ID";
+
+	public static final String FLA_VARIABLE_IDENTIFIER = "finalFla";
+
+	public static final String FM_VARIABLE_IDENTIFIER = "finalFM";
+	
 
 	/**
 	 * Targeted model we want to process to construct a feature model it
@@ -1061,9 +1067,16 @@ public class FMLConvert {
 		if (_finalScriptStep3 != null)
 			return _finalScriptStep3;
 		_finalScriptStep3 = new ArrayList<String>();
-		if (!_skeletonOptimisation)
+		if (!_skeletonOptimisation) {
 			// merging all the id fm into a final fm
-			_finalScriptStep3.add("finalFM = merge sunion fm_*");
+			_finalScriptStep3.add("mergedFla" + " = merge --lazy union fm_*\n");
+			_finalScriptStep3.add("\n" + FLA_VARIABLE_IDENTIFIER + " = convert " + "mergedFla" + " into bdd\n");
+			_finalScriptStep3.add(FM_VARIABLE_IDENTIFIER + " = merge union fm_*");
+			// _finalScriptStep3.add("\nserialize " + FM_VARIABLE_IDENTIFIER + " into fmlbdd\n");
+		
+		}
+		
+		
 		// _finalScriptStep4.add("println finalFM");
 		return _finalScriptStep3;
 	}
@@ -1614,9 +1627,6 @@ public class FMLConvert {
 		return writeToFile(path, makeNameValid(varName) + " = " + getFinalFeatureModel(verbose, shell));
 	}
 	
-	public Boolean writeFinalFeatureModelToFile(String path, String varName, Boolean verbose) throws ErrorInFMLConversion {
-		return writeFinalFeatureModelToFile(path, varName, verbose, FMLShell.instantiateStandalone(System.in));
-	}
 	
 	/*
 	 * added by Taran
@@ -1755,4 +1765,20 @@ public class FMLConvert {
 	public ValueMode getValueModePublic(String value) {
 		return getValueMode(value);
 	}
+
+	public boolean writeFinalFormulaToFile(String path, String varName, Boolean verbose, FMLShell shell) throws Exception {
+		if (varName.compareTo("") == 0)
+			throw new ErrorInFMLConversion("Invalid varName input!");
+		try {
+			Variable var = shell.getCurrentEnv().getVariable(varName) ; 
+			return writeToFile(path, var.getValue());
+		}
+		catch (Exception e) {
+			throw new ErrorInFMLConversion("Impossible to retrieve variable name " + varName);
+		}
+		
+		
+	}
+
+	
 }
