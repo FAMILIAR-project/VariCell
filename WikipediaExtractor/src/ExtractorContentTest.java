@@ -21,7 +21,8 @@ public class ExtractorContentTest {
 		
 				     
 		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
-		String wikiPageName = "Comparison_of_video_converters" ;
+		String wikiPageName = "Comparison_of_FTP_client_software" ; //"Comparison_of_hardware_random_number_generators" ; //"Comparison_of_image_formats" ; //"Comparison_of_video_editing_software" ; // "Comparison_of_video_codecs" ; //"Comparison_of_container_formats" ; 
+							 //"Comparison_of_video_converters" ;
 		String content = wikipediaExtractor.getContent(wikiPageName) ;
 		
 		assertNotNull(content);
@@ -36,13 +37,15 @@ public class ExtractorContentTest {
 		
 		//Document doc = Jsoup.connect("http://en.wikipedia.org/w/index.php?title=" + wikiPageName).get();
 		Document doc = Jsoup.parse(htmlContent);
-		
-		
 		Elements sections = doc.getElementsByClass("section") ; 
+		
+		// FIXME what about no section ?
+		//treatSection(doc.body());
 		for (Element section : sections) {
-			treatSection(section);		
-			
+			treatSection(section);				
 		}
+		
+		
 		//System.err.println("doc=" + sections);
 		//System.err.println("doc=" + doc.getElementsByTag("title"));
 		//System.err.println("doc=" + doc.title());
@@ -59,7 +62,18 @@ public class ExtractorContentTest {
 		
 		// 1. get section name
 		// FIXME what is it does not exist?
-		String sectionName = section.getElementsByTag("h2").first().text() ;
+		// FIXME can be "h3"
+		Elements sect2 = section.getElementsByTag("h2") ; 
+		String sectionName = null ; 
+		if (!sect2.isEmpty())
+			sectionName = sect2.first().text() ; // FIXME what about more than 1 ?
+		else {
+			Elements sect3 = section.getElementsByTag("h3") ;
+			if (!sect3.isEmpty())
+				sectionName = sect3.first().text() ;
+		}
+		// FIXME can be subsection
+		
 		
 		// FIXME (1. optional step) some comments
 		
@@ -67,91 +81,45 @@ public class ExtractorContentTest {
 		Elements tables = section.getElementsByTag("table");
 		if (!tables.isEmpty()) 
 			System.err.println("\n****** " + sectionName + " *******\n");
-		
-		
+
 		List<List<Product>> products = new ArrayList<List<Product>>();
 		
 		for (Element table : tables) {
+			
+			
+			
+			
 			// (0. optional step) act as subviewname
-			Elements caption = table.getElementsByTag("caption") ;
-			if (!caption.isEmpty()) {
-				String captionName = caption.first().text() ; 
-				System.err.println("caption:" + captionName);
-			}
-			// 1 headers
-			List<Header> headers = new ArrayList<Header>() ;
-			List<Header> headersWithNestedHeaders = new ArrayList<Header>() ;
-			List<List<Header>> nestedHeaders = new ArrayList<List<Header>>() ;
+			Elements caption = table.select("caption") ;
+			String captionName = null ; 
+			if (!caption.isEmpty()) 
+				captionName = caption.first().text() ;
 			
-			int levelHeader = 0 ; // FIXME nested header > 1
-			for (Element row : table.select("tr")) {
-				
-				
-				if (levelHeader == 0) {
-					for (Element header : row.select("th")) {
-						Header headerV = new Header(header.text()); 
-						Elements colspan = header.getElementsByAttribute("colspan");
-						if (!colspan.isEmpty()) 
-							headersWithNestedHeaders.add(headerV);
-		                headers.add(headerV);
-		            }
-					levelHeader++ ; 
-				}
-				
-				else if (levelHeader == 1) {
-					// nested header
-					List<Header> nHeaders = new ArrayList<Header>();
-					for (Element header : row.select("th")) {
-						Header headerV = new Header(header.text()); 
-		                nHeaders.add(headerV);
-		            }
-					nestedHeaders.add(nHeaders);
-					
-				}
-				
+			
+			
+			/*** 
+			 * Headers
+			 */
+			//
+			List<Header> rHeaders = collectHeaders(table);		
+			
+			boolean sortable = !table.select("[class=sortable wikitable]").isEmpty() 
+					||  !table.select("[class=wikitable sortable]").isEmpty() 
+					;
+			// FIXME: other cases
+			Elements heads = table.select("thead") ; 
+			if (sortable && 
+					(!heads.isEmpty())) {
+				rHeaders =  collectHeaders(heads.first());
 			}
 			
-			// FIXME assign a "number" of appearance for headers 
-			// especially important for nested headers (colspan="3")
-			List<Header> rHeaders = new ArrayList<Header>() ; 
-			int n = 0 ; 
-			for (Header header : headers) {
-				// nested
-				if (headersWithNestedHeaders.contains(header)) {
-					List<Header> nHeaders = nestedHeaders.get(n);
-					for (Header nH : nHeaders) {
-						rHeaders.add(nH);
-					}
-				}
-				else {
-					rHeaders.add(header);
-				}
+			// 2 treat row					
+			List<Product> product = null ;
+			if (sortable) {
+				product = treatRows (table.select("tbody").first(), sectionName, captionName, rHeaders, sortable);
 			}
-			
-			//System.err.println("rHeaders=" + rHeaders);
-			
-			// at this step, cell (I, J) corresponds to value of the J-th header of I-th product 
-			// 2 treat row
-			int I = 0 ; 			
-			List<Product> product = new ArrayList<Product>() ;
-			for (Element row : table.select("tr")) {
-               
-				Elements lines = row.select("td");
-				
-				Product p = new Product ("product_" + I + "_of_" + sectionName, rHeaders);
-				int J = 0 ; 
-				for (Element line : lines) {
-					p.add(J, line.text());
-					J++ ; 
-				}
-				
-				// necessarily a tr with a td
-				if (!lines.isEmpty()) {
-					product.add(p);
-					I++ ; 
-				}
-				
-            }
+			else
+			 	product = treatRows (table, sectionName, captionName, rHeaders, sortable);
 			products.add(product);
 						
 			// 
@@ -164,7 +132,6 @@ public class ExtractorContentTest {
 			for (Product product : list) {				
 				Header primaryHeader = product.getHeaders().get(0);
 				product.setName(product.getValue(primaryHeader.getName()));
-				
 				System.err.println("" + product);
 			}
 		}
@@ -172,5 +139,100 @@ public class ExtractorContentTest {
 		
 		
 	}
+
+	// at this step, cell (I, J) corresponds to value of the J-th header of I-th product 
+	private List<Product> treatRows(Element table, String sectionName, String captionName, List<Header> rHeaders, boolean sortable) {
+		int I = 0 ; 	
+		List<Product> product = new ArrayList<Product>() ;
+		for (Element row : table.select("tr")) {
+           
+			Elements lines ; 
+			if (sortable) {
+				lines = row.select("th"); // first entry is a header in sortable table
+				lines.addAll(row.select("td"));
+			}
+			else {
+				lines = row.select("td");
+			}
+			
+			
+			Product p = new Product ("product_" + I, mkStructuralInformation (sectionName, captionName), rHeaders);
+			int J = 0 ; 
+			for (Element line : lines) {
+				p.add(J, line.text());
+				J++ ; 
+			}
+			
+			// necessarily a tr with a td
+			if (!lines.isEmpty()) {
+				product.add(p);
+				I++ ; 
+			}
+			
+        }
+		return product ; 
+	}
+
+	private List<Header> collectHeaders(Element table) {
+		List<Header> headers = new ArrayList<Header>() ;
+		List<Header> headersWithNestedHeaders = new ArrayList<Header>() ;
+		List<List<Header>> nestedHeaders = new ArrayList<List<Header>>() ;
+		
+		int levelHeader = 0 ; // FIXME nested header > 1
+		
+		
+		for (Element row : table.select("tr")) {
+			
+			
+			if (levelHeader == 0) {
+				for (Element header : row.select("th")) {
+					Header headerV = new Header(header.text()); 
+					Elements colspan = header.getElementsByAttribute("colspan");
+					if (!colspan.isEmpty()) 
+						headersWithNestedHeaders.add(headerV);
+	                headers.add(headerV);
+	            }
+				levelHeader++ ; 
+			}
+			
+			else if (levelHeader == 1) {
+				// nested header
+				List<Header> nHeaders = new ArrayList<Header>();
+				for (Element header : row.select("th")) {
+					Header headerV = new Header(header.text()); 
+	                nHeaders.add(headerV);
+	            }
+				nestedHeaders.add(nHeaders);
+				
+			}
+			
+		}
+		
+		// FIXME table.select("thead"); 
+		
+		// FIXME assign a "number" of appearance for headers 
+		// especially important for nested headers (colspan="3")
+		List<Header> rHeaders = new ArrayList<Header>() ; 
+		int n = 0 ; 
+		for (Header header : headers) {
+			// nested
+			if (headersWithNestedHeaders.contains(header)) {
+				List<Header> nHeaders = nestedHeaders.get(n);
+				for (Header nH : nHeaders) {
+					rHeaders.add(nH);
+				}
+			}
+			else {
+				rHeaders.add(header);
+			}
+		}
+		return rHeaders ; 
+	}
+
+	private String mkStructuralInformation(String sectionName, String captionName) {
+		if (captionName == null)
+			return sectionName ; 
+		return sectionName + " -> " + captionName ; 
+ 	}
 
 }
