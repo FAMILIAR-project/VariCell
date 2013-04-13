@@ -16,7 +16,11 @@
  */
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.sweble.wikitext.engine.Page;
@@ -52,6 +56,8 @@ import org.sweble.wikitext.lazy.utils.XmlAttributeGarbage;
 import org.sweble.wikitext.lazy.utils.XmlCharRef;
 import org.sweble.wikitext.lazy.utils.XmlEntityRef;
 
+import CSVtoFML.CSVWriter;
+import Exceptions.NotValidCSVFileException;
 import de.fau.cs.osr.ptk.common.Visitor;
 import de.fau.cs.osr.ptk.common.ast.AstNode;
 import de.fau.cs.osr.ptk.common.ast.NodeList;
@@ -81,6 +87,8 @@ import de.fau.cs.osr.utils.StringUtils;
  * value of the call to <code>visit(c)</code>.</li>
  * </ul>
  */
+// AM: I give up with this kind of Visitor
+@Deprecated
 public class TextConverter
 	extends 
 		Visitor
@@ -334,21 +342,71 @@ public class TextConverter
 	public void visit(Table table) throws IOException
 	{
 		rewriteNewline();
+		
+		initNewTableProcessing() ; 
+		
 		write("<table");
 		iterate(table.getXmlAttributes());
 		write(">");
 		iterate(table.getBody());
 		rewriteNewline();
 		write("</table>");
+		
+		endNewTableProcessing() ; 
+		
+		
 		rewriteNewline();
 
 	}
+	
+	
+	
+	/*
+	 * CSV builders
+	 */
+
+	private Collection<CSVWriter> _csvs = new ArrayList<CSVWriter>() ;
+	public Collection<CSVWriter> get_csvs() {
+		return _csvs;
+	}
+
+	public void set_csvs(Collection<CSVWriter> _csvs) {
+		this._csvs = _csvs;
+	}
+
+
+
+	private CSVWriter _csvWriter ;
+	private int nCsv = 0 ; 
+	
+	private void initNewTableProcessing() {
+		
+		try {
+			_csvWriter = new CSVWriter("csv" + nCsv, ",", "", "NameOfTheSection" + nCsv);
+			nCsv++ ; 
+		} catch (NotValidCSVFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		_csvs.add(_csvWriter);		
+		
+	}
+	
+	private void endNewTableProcessing() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+
 	private void rewriteNewline() {
 		write('\n');		
 	}
 
 	public void visit(TableCaption caption) throws IOException
 	{
+		// TODO: useful comments we can mine and perhpas exploit
 		rewriteNewline();
 		write("<caption");
 		iterate(caption.getXmlAttributes());
@@ -366,25 +424,54 @@ public class TextConverter
 		iterate(row.getXmlAttributes());
 		write(">");
 		rewriteNewline();
+		activateRowProcessing();
 		iterate(row.getBody());
 		rewriteNewline();
 		write("</tr>");
 		rewriteNewline();
 
 	}
+	private void activateRowProcessing() {
+		_nProductID++ ; 
+		_csvWriter.addRow("productID" + _nProductID);
+		
+		
+	}
+
 	public void visit(TableHeader header) throws IOException
 	{
 		rewriteNewline();
+		
 		write("<th");
 		iterate(header.getXmlAttributes());
 		write(">");
 		rewriteNewline();
+
+		activateHeaderProcessing();
 		iterate(header.getBody());
+		endupHeaderProcessing();
 		rewriteNewline();
 		write("</th>");
+	
 		rewriteNewline();
 
 	}
+	
+	private StringBuilder _headerName ; 
+	private boolean _isHeader ;
+	private void endupHeaderProcessing() {
+		_csvWriter.addLabel(_headerName.toString());
+		_isHeader = false ; 
+		
+		
+	}
+
+	private void activateHeaderProcessing() {
+		 _headerName = new StringBuilder() ; 
+		_isHeader = true ; 
+		
+	}
+
 	public void visit(TableCell cell) throws IOException
 	{
 		rewriteNewline();
@@ -392,13 +479,35 @@ public class TextConverter
 		iterate(cell.getXmlAttributes());
 		write(">");
 		rewriteNewline();
+		activateCellProcessing();
 		iterate(cell.getBody());
+		endupCellProcessing();
 		rewriteNewline();
 		write("</td>");
 		rewriteNewline();
 
 	}
 	
+	private StringBuilder _cellName ; 
+	private boolean _isCell  ;
+	private int _nProductID = 0 ; 
+	private void endupCellProcessing() {
+		_csvWriter.addValueToRow("productID" + _nProductID, _cellName.toString());
+		
+		_isCell = false ; 
+		
+		
+	}
+
+	private void activateCellProcessing() {
+		 _cellName = new StringBuilder() ; 
+		_isCell = true ; 
+		
+	}
+	
+	
+
+
 	public void visit(Template tmpl) throws IOException
 	{
 		write("{");
@@ -527,6 +636,13 @@ public class TextConverter
 		needSpace = false;
 		pastBod = true;
 		line.append(s);
+		
+		if (_isHeader) 
+			_headerName.append(s);
+		if (_isCell)
+			_cellName.append(s);
+		
+		
 	}
 	
 	private void write(String s)

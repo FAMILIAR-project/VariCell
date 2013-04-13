@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.apache.commons.io.FileUtils;
 import org.sweble.wikitext.engine.CompiledPage;
@@ -12,6 +14,8 @@ import org.sweble.wikitext.engine.PageTitle;
 import org.sweble.wikitext.engine.utils.HtmlPrinter;
 import org.sweble.wikitext.engine.utils.SimpleWikiConfiguration;
 import org.sweble.wikitext.lazy.LinkTargetException;
+
+import CSVtoFML.CSVWriter;
 
 
 /**
@@ -55,7 +59,7 @@ public class WikiTabularExtractor {
         final int wrapCol = 80;
         StringWriter w = new StringWriter();
         
-        /*
+        
 
         HtmlPrinter p = new HtmlPrinter(w, pageTitle.getFullTitle());
         p.setCssResource("/org/sweble/wikitext/engine/utils/HtmlPrinter.css", "");
@@ -64,10 +68,28 @@ public class WikiTabularExtractor {
         p.go(cp.getPage());
         
         
-        return w.toString();*/
-        
+        return w.toString();
+        /*
         TextConverter p = new TextConverter(config, wrapCol);
-		return (String) p.go(cp.getPage());
+		String str =  (String) p.go(cp.getPage());
+		
+		Collection<CSVWriter> csvs = p.get_csvs() ;
+		for (CSVWriter csvWriter : csvs) {
+			System.err.println("csvWriter(" + csvWriter.getIdentifior()+ ")=");
+			System.err.println("" + csvWriter.getCSVString()); 
+			csvWriter.writeCSVToFile("/Users/macher1/Documents/SANDBOX/" + csvWriter.getIdentifior() + ".csv");
+			}*/
+			
+		/*
+			Iterator<String> itLabels = csvWriter.getHeadLabelsIterator() ;
+			while(itLabels.hasNext()) {
+				String label = itLabels.next() ; 
+				System.err.println("" + label);
+			}*/			
+			
+		
+		
+		//return str ; 
 		
 	}
 
