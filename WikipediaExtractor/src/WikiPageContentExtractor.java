@@ -18,7 +18,7 @@ import com.google.gson.Gson;
  */
 public class WikiPageContentExtractor {
 
-	private static final String WIKIPEDIA_BASE_URL = "http://en.wikipedia.org/w/api.php?";
+	public static final String WIKIPEDIA_BASE_URL = "http://en.wikipedia.org/w/api.php?";
 
 
 	/**
@@ -66,8 +66,9 @@ public class WikiPageContentExtractor {
 		 //  "fName=" + URLEncoder.encode("???", "UTF-8") +
 	     //  "&lName=" + URLEncoder.encode("???", "UTF-8") ;
 	}
+	
 
-	private String executeGet(String targetURL, String urlParameters)
+	public String executeGet(String targetURL, String urlParameters)
 	  {
 	    URL url;
 	    HttpURLConnection connection = null;  

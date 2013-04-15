@@ -1,10 +1,12 @@
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,6 +17,54 @@ import org.sweble.wikitext.lazy.LinkTargetException;
 
 
 public class ExtractorContentTest {
+	
+	public static String URL_BASE_NAME = "http://en.wikipedia.org" ; 
+	
+	@Test
+	public void collectAllComparisonOf() throws IOException {
+		
+		List<Element> hrefs = new ArrayList<Element>() ; 
+		_collectAllComparisonOf("/w/index.php?title=Special%3APrefixIndex&prefix=Comparison&namespace=0&hideredirects=1",  hrefs);
+		
+		System.err.println("#hrefs=" + hrefs.size());
+		StringBuilder content = new StringBuilder() ; 
+		content.append("Title ; URL\n") ; // header
+		for (Element href : hrefs) {
+			String hText = href.attr("title");
+			String hURL = href.attr("href") ;
+			content.append("" + hText + " ; " + URL_BASE_NAME + hURL + "\n");
+		}
+		
+		FileUtils.writeStringToFile(new File ("comparisonsData.csv"), content.toString());
+			
+	}
+
+	private void _collectAllComparisonOf(String url, List<Element> hrefs) throws IOException {
+		
+		Document doc = Jsoup.connect("" + URL_BASE_NAME + url).get();
+		Elements aHrefs = doc.select("a[href]");
+	
+		Element urlNext = null ;
+		for (Element aHref : aHrefs) {
+				Element h = aHref.getElementsByAttribute("href").first() ; // val() ;
+				String hText = h.attr("title");
+				String hURL = h.attr("href") ; 
+				if (hText.contains("Comparison") && hURL.startsWith("/wiki/")) {
+					hrefs.add(aHref);
+				}
+				String aText = aHref.text() ; 
+				if (aText.contains("Next page") && hURL.startsWith("/w/index.php?"))
+					urlNext = aHref ; 
+					
+					
+			
+		}
+
+		if (urlNext != null) {
+			_collectAllComparisonOf(urlNext.attr("href"), hrefs) ; 
+		}
+		
+	}
 
 	@Test
 	public void test() throws FileNotFoundException, IOException, LinkTargetException, CompilerException {
