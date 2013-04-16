@@ -71,7 +71,10 @@ public class ExtractorContentTest {
 		
 				     
 		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
-		String wikiPageName =   "Comparison_of_BitTorrent_clients" ; 
+		String wikiPageName = "Comparison_of_Subversion_clients"; 
+				//"Comparison_of_SSH_clients" ; 
+				//"Comparison_of_Prolog_implementations" ;    
+				//"Comparison_of_BitTorrent_clients" ; 
 							 //"Comparison_of_FTP_client_software" ; 
 							 //"Comparison_of_hardware_random_number_generators" ; //"Comparison_of_image_formats" ; //"Comparison_of_video_editing_software" ; // "Comparison_of_video_codecs" ; //"Comparison_of_container_formats" ; 
 							 //"Comparison_of_video_converters" ;
@@ -204,8 +207,11 @@ public class ExtractorContentTest {
 					List<Header> headers = p.getHeaders() ;
 					boolean isHeader = true ; 
 					for (Header header : headers) {
-						String hName = header.getName() ; 
-						if (!hName.contains(p.getValue(hName))) {
+						String hName = header.getName() ;
+						String pValue = p.getValue(hName) ;
+						if (pValue == null)
+							continue ; 
+						if (!hName.contains(pValue)) {
 							isHeader = false ; 
 						}						
 					}
@@ -364,7 +370,8 @@ public class ExtractorContentTest {
 			
 			if (levelHeader == 0) {
 				for (Element header : row.select("th")) {
-					Header headerV = new Header(header.text()); 
+					String hName = header.text() ; 
+					Header headerV = new Header(hName); 
 					Elements colspan = header.getElementsByAttribute("colspan");
 					if (!colspan.isEmpty()) 
 						headersWithNestedHeaders.add(headerV);
@@ -377,7 +384,8 @@ public class ExtractorContentTest {
 				// nested header
 				List<Header> nHeaders = new ArrayList<Header>();
 				for (Element header : row.select("th")) {
-					Header headerV = new Header(header.text()); 
+					String hName = header.text() ; 
+					Header headerV = new Header(hName); 
 	                nHeaders.add(headerV);
 	            }
 				nestedHeaders.add(nHeaders);
@@ -399,6 +407,7 @@ public class ExtractorContentTest {
 				for (Header nH : nHeaders) {
 					rHeaders.add(nH);
 				}
+				n++ ; 
 			}
 			else {
 				rHeaders.add(header);
