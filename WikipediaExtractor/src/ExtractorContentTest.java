@@ -71,7 +71,7 @@ public class ExtractorContentTest {
 		
 				     
 		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
-		String wikiPageName = "Comparison_of_FTP_client_software" ; //"Comparison_of_hardware_random_number_generators" ; //"Comparison_of_image_formats" ; //"Comparison_of_video_editing_software" ; // "Comparison_of_video_codecs" ; //"Comparison_of_container_formats" ; 
+		String wikiPageName = "Comparison_of_BitTorrent_clients" ; //"Comparison_of_FTP_client_software" ; //"Comparison_of_hardware_random_number_generators" ; //"Comparison_of_image_formats" ; //"Comparison_of_video_editing_software" ; // "Comparison_of_video_codecs" ; //"Comparison_of_container_formats" ; 
 							 //"Comparison_of_video_converters" ;
 		String content = wikipediaExtractor.getContent(wikiPageName) ;
 		
@@ -87,12 +87,33 @@ public class ExtractorContentTest {
 		
 		//Document doc = Jsoup.connect("http://en.wikipedia.org/w/index.php?title=" + wikiPageName).get();
 		Document doc = Jsoup.parse(htmlContent);
-		Elements sections = doc.getElementsByClass("section") ; 
-		
+		FileUtils.writeStringToFile(new File("output/" + wikiPageName + ".html"), doc.toString());
+
+		//Element docContentEntryPoint = doc ; // doc.getElementsByClass("article-content").first(); 
+		//Elements sections = docContentEntryPoint.getElementsByClass("section") ; 
 		// FIXME what about no section ?
 		//treatSection(doc.body());
-		for (Element section : sections) {
-			treatSection(section);				
+		
+		Elements tabs = doc.select("table"); 
+		
+		List<Catalog> catalogs = new ArrayList<Catalog>();
+		for (Element section : tabs) {
+			treatTable (section, catalogs);
+			
+		}
+		/*for (Element section : sections) {
+			treatSection (section, catalogs);
+			
+		}*/
+		
+		// set the "ID" / names
+		// clean up
+		for (Catalog catalog : catalogs) {
+			System.err.println("***" +  catalog.getStructuralInformation() + "****");
+			for (Product product : catalog) {
+				System.err.println("" + product);
+			}
+			System.err.println("\n\n");
 		}
 		
 		
@@ -108,20 +129,110 @@ public class ExtractorContentTest {
 		
 	}
 
-	private void treatSection(Element section) {
+	private void treatTable(Element table, List<Catalog> catalogs) {
+		// 1. get section name
+			// FIXME what is it does not exist?
+			// FIXME can be "h3"
+ 
+			Elements sect2 = table.parents().select("h2"); // section.getElementsByTag("h2") ; 
+			String s2 = null ; 			
+			if (!sect2.isEmpty())
+				s2 = sect2.first().text() ; // FIXME what about more than 1 ?
+			
+			String s3 = null ; 
+			Elements sect3 = table.parents().select("h3") ;
+			if (!sect3.isEmpty())
+				s3 = sect3.first().text() ;
+			
+			String dt = null ; 
+			Elements sectDT = table.parents().select("p") ;
+			if (!sectDT.isEmpty()) {
+				String contentDT = sectDT.first().text() ;
+				if (contentDT.startsWith(";"))
+					dt = contentDT.replaceAll(";", "") ;  
+			}
+			
+	
+			// FIXME (1. optional step) some comments
+	
+
+				
+				
+			// (0. optional step) act as subviewname
+			Elements caption = table.select("caption") ;
+			String captionName = null ; 
+			if (!caption.isEmpty()) 
+				captionName = caption.first().text() ;
+			
+			
+			
+			/*** 
+			 * Headers
+			 */
+			//
+			List<Header> rHeaders = collectHeaders(table);		
+			
+			boolean sortable = !table.select("[class=sortable wikitable]").isEmpty() 
+					||  !table.select("[class=wikitable sortable]").isEmpty() 
+					;
+			// FIXME: other cases
+			Elements heads = table.select("thead") ; 
+			if (sortable && 
+					(!heads.isEmpty())) {
+				rHeaders =  collectHeaders(heads.first());
+			}
+			
+			// 2 treat row					
+			Catalog product = null ;
+			Tree<String> structuralInformation = mkStructuralInformation (s2, s3, dt, captionName) ; 
+			if (sortable) {
+				product = treatRows (table.select("tbody").first(), structuralInformation, rHeaders, sortable);
+			}
+			else
+			 	product = treatRows (table, structuralInformation, rHeaders, sortable);
+			catalogs.add (product);
+						
+			// 
+				
+		
+			
+			// set the "ID" / names
+			// clean up
+			for (Catalog catalog : catalogs) {
+				for (Product p : catalog) {				
+					Header primaryHeader = p.getHeaders().get(0);
+					p.setName(p.getValue(primaryHeader.getName()));
+				}
+			}
+		
+	}
+
+	private void treatSection(Element section, List<Catalog> catalogs) {
 		
 		// 1. get section name
 		// FIXME what is it does not exist?
 		// FIXME can be "h3"
 		Elements sect2 = section.getElementsByTag("h2") ; 
-		String sectionName = null ; 
+		String s2 = null ; 
+		
 		if (!sect2.isEmpty())
-			sectionName = sect2.first().text() ; // FIXME what about more than 1 ?
-		else {
-			Elements sect3 = section.getElementsByTag("h3") ;
-			if (!sect3.isEmpty())
-				sectionName = sect3.first().text() ;
+			s2 = sect2.first().text() ; // FIXME what about more than 1 ?
+		
+		String s3 = null ; 
+		Elements sect3 = section.getElementsByTag("h3") ;
+		if (!sect3.isEmpty())
+			s3 = sect3.first().text() ;
+		
+		String dt = null ; 
+		Elements sectDT = section.getElementsByTag("p") ;
+		if (!sectDT.isEmpty()) {
+			String contentDT = sectDT.first().text() ;
+			if (contentDT.startsWith(";"))
+				dt = contentDT.replaceAll(";", "") ;  
 		}
+		
+		
+
 		// FIXME can be subsection
 		
 		
@@ -129,14 +240,12 @@ public class ExtractorContentTest {
 		
 		// 2. retrieve tabular
 		Elements tables = section.getElementsByTag("table");
-		if (!tables.isEmpty()) 
-			System.err.println("\n****** " + sectionName + " *******\n");
+		//if (!tables.isEmpty()) 
+			//System.err.println("\n****** " + s2 + " " + s3 + " *******\n");
 
-		List<List<Product>> products = new ArrayList<List<Product>>();
 		
-		for (Element table : tables) {
-			
-			
+		
+		for (Element table : tables) {		
 			
 			
 			// (0. optional step) act as subviewname
@@ -164,13 +273,14 @@ public class ExtractorContentTest {
 			}
 			
 			// 2 treat row					
-			List<Product> product = null ;
+			Catalog product = null ;
+			Tree<String> structuralInformation = mkStructuralInformation (s2, s3, dt, captionName) ; 
 			if (sortable) {
-				product = treatRows (table.select("tbody").first(), sectionName, captionName, rHeaders, sortable);
+				product = treatRows (table.select("tbody").first(), structuralInformation, rHeaders, sortable);
 			}
 			else
-			 	product = treatRows (table, sectionName, captionName, rHeaders, sortable);
-			products.add(product);
+			 	product = treatRows (table, structuralInformation, rHeaders, sortable);
+			catalogs.add (product);
 						
 			// 
 			
@@ -178,11 +288,10 @@ public class ExtractorContentTest {
 		
 		// set the "ID" / names
 		// clean up
-		for (List<Product> list : products) {
-			for (Product product : list) {				
+		for (Catalog catalog : catalogs) {
+			for (Product product : catalog) {				
 				Header primaryHeader = product.getHeaders().get(0);
 				product.setName(product.getValue(primaryHeader.getName()));
-				System.err.println("" + product);
 			}
 		}
 	
@@ -190,10 +299,11 @@ public class ExtractorContentTest {
 		
 	}
 
+	// Catalog aka list of product
 	// at this step, cell (I, J) corresponds to value of the J-th header of I-th product 
-	private List<Product> treatRows(Element table, String sectionName, String captionName, List<Header> rHeaders, boolean sortable) {
+	private Catalog treatRows(Element table, Tree<String> structuralInformation, List<Header> rHeaders, boolean sortable) {
 		int I = 0 ; 	
-		List<Product> product = new ArrayList<Product>() ;
+		Catalog product = new Catalog(structuralInformation) ; // FIXME structuralInformation
 		for (Element row : table.select("tr")) {
            
 			Elements lines ; 
@@ -206,7 +316,7 @@ public class ExtractorContentTest {
 			}
 			
 			
-			Product p = new Product ("product_" + I, mkStructuralInformation (sectionName, captionName), rHeaders);
+			Product p = new Product ("product_" + I, structuralInformation, rHeaders);
 			int J = 0 ; 
 			for (Element line : lines) {
 				p.add(J, line.text());
@@ -279,10 +389,25 @@ public class ExtractorContentTest {
 		return rHeaders ; 
 	}
 
-	private String mkStructuralInformation(String sectionName, String captionName) {
-		if (captionName == null)
-			return sectionName ; 
-		return sectionName + " -> " + captionName ; 
+	private Tree<String> mkStructuralInformation(String... fts) {
+		boolean first = true ;
+		Tree<String> t = null ;
+		String lastFt = null ; 
+		for (String ft : fts) {
+			if (ft == null || ft.isEmpty())
+				continue ; 
+			if (first) {
+				first = false ; 
+				t = new Tree<String>(ft); 
+				lastFt = ft ; 
+			}
+			else {
+				t.addLeaf(lastFt, ft);
+				lastFt = ft ; 
+			}
+		}
+		
+		return t ; 
  	}
 
 }
