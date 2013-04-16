@@ -71,7 +71,9 @@ public class ExtractorContentTest {
 		
 				     
 		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
-		String wikiPageName = "Comparison_of_BitTorrent_clients" ; //"Comparison_of_FTP_client_software" ; //"Comparison_of_hardware_random_number_generators" ; //"Comparison_of_image_formats" ; //"Comparison_of_video_editing_software" ; // "Comparison_of_video_codecs" ; //"Comparison_of_container_formats" ; 
+		String wikiPageName =   "Comparison_of_BitTorrent_clients" ; 
+							 //"Comparison_of_FTP_client_software" ; 
+							 //"Comparison_of_hardware_random_number_generators" ; //"Comparison_of_image_formats" ; //"Comparison_of_video_editing_software" ; // "Comparison_of_video_codecs" ; //"Comparison_of_container_formats" ; 
 							 //"Comparison_of_video_converters" ;
 		String content = wikipediaExtractor.getContent(wikiPageName) ;
 		
@@ -130,9 +132,7 @@ public class ExtractorContentTest {
 	}
 
 	private void treatTable(Element table, List<Catalog> catalogs) {
-		// 1. get section name
-			// FIXME what is it does not exist?
-			// FIXME can be "h3"
+			// 1. get section name
  
 			Elements sect2 = table.parents().select("h2"); // section.getElementsByTag("h2") ; 
 			String s2 = null ; 			
@@ -151,18 +151,14 @@ public class ExtractorContentTest {
 				if (contentDT.startsWith(";"))
 					dt = contentDT.replaceAll(";", "") ;  
 			}
-			
-	
-			// FIXME (1. optional step) some comments
-	
-
-				
-				
-			// (0. optional step) act as subviewname
+					
+					
 			Elements caption = table.select("caption") ;
 			String captionName = null ; 
 			if (!caption.isEmpty()) 
 				captionName = caption.first().text() ;
+			
+			// FIXME other forms of structural information 
 			
 			
 			
@@ -195,15 +191,33 @@ public class ExtractorContentTest {
 			// 
 				
 		
-			
 			// set the "ID" / names
 			// clean up
+			
 			for (Catalog catalog : catalogs) {
+				List<Product> toRemove = new ArrayList<Product>() ;
 				for (Product p : catalog) {				
 					Header primaryHeader = p.getHeaders().get(0);
 					p.setName(p.getValue(primaryHeader.getName()));
+					
+					// some products are headers (each value equals to header name)
+					List<Header> headers = p.getHeaders() ;
+					boolean isHeader = true ; 
+					for (Header header : headers) {
+						String hName = header.getName() ; 
+						if (!hName.contains(p.getValue(hName))) {
+							isHeader = false ; 
+						}						
+					}
+					if (isHeader) {
+						toRemove.add(p);
+					}
 				}
+				if (!toRemove.isEmpty())
+					catalog.removeAll(toRemove);
 			}
+			
+		
 		
 	}
 
@@ -286,15 +300,15 @@ public class ExtractorContentTest {
 			
 		}
 		
+	
 		// set the "ID" / names
 		// clean up
 		for (Catalog catalog : catalogs) {
-			for (Product product : catalog) {				
-				Header primaryHeader = product.getHeaders().get(0);
-				product.setName(product.getValue(primaryHeader.getName()));
+			for (Product p : catalog) {				
+				Header primaryHeader = p.getHeaders().get(0);
+				p.setName(p.getValue(primaryHeader.getName()));
 			}
 		}
-	
 		
 		
 	}
@@ -303,7 +317,7 @@ public class ExtractorContentTest {
 	// at this step, cell (I, J) corresponds to value of the J-th header of I-th product 
 	private Catalog treatRows(Element table, Tree<String> structuralInformation, List<Header> rHeaders, boolean sortable) {
 		int I = 0 ; 	
-		Catalog product = new Catalog(structuralInformation) ; // FIXME structuralInformation
+		Catalog product = new Catalog(structuralInformation) ; 
 		for (Element row : table.select("tr")) {
            
 			Elements lines ; 
@@ -325,7 +339,11 @@ public class ExtractorContentTest {
 			
 			// necessarily a tr with a td
 			if (!lines.isEmpty()) {
-				product.add(p);
+				if (sortable && (I == 0)) {
+					// header (first entry) is not a product
+				}
+				else
+					product.add(p);
 				I++ ; 
 			}
 			
