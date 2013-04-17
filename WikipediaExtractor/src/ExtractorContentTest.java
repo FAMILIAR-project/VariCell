@@ -71,7 +71,12 @@ public class ExtractorContentTest {
 		
 				     
 		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
-		String wikiPageName = "Comparison_of_Subversion_clients"; 
+		String wikiPageName = "Comparison_of_Java_virtual_machines"; 
+				// "Comparison_of_XML_editors" ;   
+				//"Comparison_of_free_web_hosting_services"; 
+				//"Comparison_of_free_and_open-source_software_licenses" ;  
+				//"Comparison_of_file_systems" ;
+				//"Comparison_of_Subversion_clients"; 
 				//"Comparison_of_SSH_clients" ; 
 				//"Comparison_of_Prolog_implementations" ;    
 				//"Comparison_of_BitTorrent_clients" ; 
@@ -373,9 +378,14 @@ public class ExtractorContentTest {
 					String hName = header.text() ; 
 					Header headerV = new Header(hName); 
 					Elements colspan = header.getElementsByAttribute("colspan");
-					if (!colspan.isEmpty()) 
+					if (!colspan.isEmpty()) {
 						headersWithNestedHeaders.add(headerV);
+						int v = Integer.parseInt(colspan.first().attr("colspan"));
+						headerV.setNumbersOfNestedHeaders(v) ; 
+					}
+					
 	                headers.add(headerV);
+	                
 	            }
 				levelHeader++ ; 
 			}
@@ -389,7 +399,7 @@ public class ExtractorContentTest {
 	                nHeaders.add(headerV);
 	            }
 				nestedHeaders.add(nHeaders);
-				
+				levelHeader++ ; 
 			}
 			
 		}
@@ -399,20 +409,40 @@ public class ExtractorContentTest {
 		// FIXME assign a "number" of appearance for headers 
 		// especially important for nested headers (colspan="3")
 		List<Header> rHeaders = new ArrayList<Header>() ; 
-		int n = 0 ; 
+		List<Header> nHeaders = nestedHeaders.get(0); // FIXME 0 at the moment but normally it can be refined
+
+		int lastIndex = 0 ; 
 		for (Header header : headers) {
 			// nested
-			if (headersWithNestedHeaders.contains(header)) {
-				List<Header> nHeaders = nestedHeaders.get(n);
+			if (headersWithNestedHeaders.contains(header)) { // header has nested headers
+				
+				int nNestedHeaders = header.getNumbersOfNestedHeaders() ; // number of hested headers 
+				
+				// now associating an header to nested headers
+				// nHeaders[lastIndex...lastIndex+nNestedHeaders]
+				
+				int v = 0;
+				int u = 0 ; 
 				for (Header nH : nHeaders) {
-					rHeaders.add(nH);
+					if (u++ < lastIndex)
+						continue ; 
+					rHeaders.add(nH);	
+					if (v < nNestedHeaders) {						
+						header.addNestedHeader(nH);
+						nH.addParentHeader(header);
+						v++ ; 	
+					}
+					
 				}
-				n++ ; 
+				lastIndex += nNestedHeaders ; 
+				
 			}
 			else {
 				rHeaders.add(header);
 			}
+			
 		}
+		//System.err.println("rHeaders=" + rHeaders);
 		return rHeaders ; 
 	}
 

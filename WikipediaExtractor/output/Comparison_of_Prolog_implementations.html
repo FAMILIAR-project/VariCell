@@ -1,0 +1,912 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Video</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Video</h1> 
+   <div class="article-content"> 
+    <p> The following <b>Comparison of Prolog implementations</b> provides a reference for the relative feature sets and performance of different implementations of the <a href="Prolog">Prolog</a> computer <a href="programming language">programming language</a>. </p> 
+    <div class="section"> 
+     <h2>Portability</h2> 
+     <div class="section-body"> 
+      <p> There are Prolog implementations that are radically different, with different syntax and different semantics (e.g. Visual Prolog)<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> and sub-communities have developed around different implementations.<span class="unknown-node">&lt;ref .../&gt;</span> </p> 
+      <p> Code that strictly conforms to the ISO-Prolog core language is portable across ISO-compliant implementations. However, the ISO standard for modules was never accepted by most Prolog implementors.<span class="unknown-node">&lt;ref .../&gt;</span> </p> 
+      <p> Factors that can adversely affect portability include: use of bounded vs. unbounded integer arithmetic, additional types such as string objects, advanced numeric types (rationals, complex), feature extensions such as <a href="Unicode">Unicode</a>, threads, and tabling.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Use of libraries unavailable in other implementations and library organisation:<span class="unknown-node">&lt;ref .../&gt;</span> </p> 
+      <blockquote>
+       Currently, the way predicates are spread over the libraries and system built-ins differs enormously. [...] Fortunately, there are only few cases where we find predicates with the same name but different semantics (e.g. 
+       <tt>delete/3</tt>)
+      </blockquote> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Main features</h2> 
+     <div class="section-body"> 
+      <table class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th colspan="3"> <p> Platform </p> </th> 
+         <th colspan="8"> <p> Features </p> </th> 
+         <th colspan="3"> <p> Toolkit </p> </th> 
+         <th> <p> Prolog Mechanics </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="background:#ffdead;"> <p> Name </p> </th> 
+         <th style="background:#ffdead;"> <p> OS </p> </th> 
+         <th style="background:#ffdead;"> <p> Licence </p> </th> 
+         <th style="background:#ffdead;"> <p> Native Graphics </p> </th> 
+         <th style="background:#ffdead;"> <p> Compiled Code </p> </th> 
+         <th style="background:#ffdead;"> <p> Unicode </p> </th> 
+         <th style="background:#ffdead;"> <p> Object Oriented </p> </th> 
+         <th style="background:#ffdead;"> <p> Native OS Control </p> </th> 
+         <th style="background:#ffdead;"> <p> Stand Alone Executable </p> </th> 
+         <th style="background:#ffdead;"> <p> C Interface<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th style="background:#ffdead;"> <p> Java Interface<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th style="background:#ffdead;"> <p> Interactive Interpreter </p> </th> 
+         <th style="background:#ffdead;"> <p> Debugger </p> </th> 
+         <th style="background:#ffdead;"> <p> Code Profiler </p> </th> 
+         <th style="background:#ffdead;"> <p> Syntax </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="BProlog">BProlog</a> </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Microsoft Windows">Windows</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> Free for non-commercial uses </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ISO-Prolog, plus event-handling, CLP(FD), and tabling </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JIProlog">JIProlog</a> </p> </td> 
+         <td> <p> <a href="JVM">JVM</a>, <a href="Android (operating system)">Android</a> </p> </td> 
+         <td> <p> Shareware and Commercial </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> via Java </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> via Java </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> ISO-Prolog </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Ciao (programming language)">Ciao</a> </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Microsoft Windows">Windows</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <a href="GPL">GPL</a>, <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ISO-Prolog, plus extensions </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.lpa.co.uk/dos.htm">DOS-PROLOG</a> </p> </td> 
+         <td> <p> <a href="MS-DOS">MS-DOS</a> </p> </td> 
+         <td> <p> <a href="Shareware">Shareware</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Edinburgh Prolog </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GNU Prolog">GNU Prolog</a> </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Microsoft Windows">Windows</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a>, <a href="LGPL">LGPL</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> ISO-Prolog </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.jekejeke.ch/">Jekejeke Prolog</a> </p> </td> 
+         <td> <p> <a href="JVM">JVM</a>, <a href="Android (operating system)">Android</a> </p> </td> 
+         <td> <p> <a href="http://www.jekejeke.ch/idatab/doclet/prod/en/docs/20_lics/package.jsp">Distribution Evaluation</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ISO-Prolog, Java API </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://jlogic.sourceforge.net/">JLog</a> </p> </td> 
+         <td> <p> <a href="JVM">JVM</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> ISO-Prolog </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://jlogic.sourceforge.net/">JScriptLog</a> </p> </td> 
+         <td> <p> Web Browser </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> ISO-Prolog </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://java.net/projects/jTrolog">jTrolog</a> </p> </td> 
+         <td> <p> <a href="JVM">JVM</a> </p> </td> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> ISO-Prolog <a href="http://jtrolog.dev.java.net/test_results/resultsISO.html">tests</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.lpa.co.uk/win.htm">LPA-PROLOG</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Edinburgh Prolog with extensions </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Open Prolog </p> </td> 
+         <td> <p> <a href="Mac OS">Mac OS</a> </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Poplog">Poplog</a> Prolog </p> </td> 
+         <td> <p> <a href="Linux">Linux</a> (32- and 64-bit), <a href="Unix">Unix</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> Free Open Source </p> </td> 
+         <td> <p> Only through <a href="POP-11">POP-11</a>, on Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Edinburgh Prolog, with interfaces to Poplog Common Lisp and Pop-11 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SICStus Prolog">SICStus Prolog</a> </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <a href="Software license">Commercial</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Comparison of Prolog standards compliance">ISO-Prolog</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Strawberry Prolog">Strawberry Prolog</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="Unix">Unix</a> </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a>, Commercial </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Not ISO-Prolog + extensions </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SWI-Prolog">SWI-Prolog</a> </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ISO-Prolog, Edinburgh Prolog </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="tuProlog">tuProlog</a> </p> </td> 
+         <td> <p> <a href="JVM">JVM</a>, <a href="Android (operating system)">Android</a> </p> </td> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> ISO-Prolog </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Visual Prolog">Visual Prolog</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a>, Commercial </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XSB">XSB Prolog</a> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="Solaris (operating system)">Solaris</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ISO-Prolog, tabled WFS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="YAP-Prolog">YAP-Prolog</a> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="Solaris (operating system)">Solaris</a>, <a href="Mac OS X">Mac OS X</a>, <a href="HP-UX">HP-UX</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> or Artistic (user choice) </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Edinburgh, ISO-Prolog, Quintus and SICStus Prolog compatible </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Operating system and Web-related features</h2> 
+     <div class="section-body"> 
+      <table class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th colspan="5"> </th> 
+         <th colspan="4"> <p> Web-related </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="background:#ffdead;"> <p> Name </p> </th> 
+         <th style="background:#ffdead;"> <p> Conditional compilation </p> </th> 
+         <th style="background:#ffdead;"> <p> Sockets </p> </th> 
+         <th style="background:#ffdead;"> <p> Multi-threading </p> </th> 
+         <th style="background:#ffdead;"> <p> Tabling </p> </th> 
+         <th style="background:#ffdead;"> <p> HTTP client </p> </th> 
+         <th style="background:#ffdead;"> <p> HTTP server </p> </th> 
+         <th style="background:#ffdead;"> <p> HTML Parser </p> </th> 
+         <th style="background:#ffdead;"> <p> RDF Triple store </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="BProlog">BProlog</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Ciao (programming language)">Ciao</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GNU Prolog">GNU Prolog</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.jekejeke.ch/">Jekejeke Prolog</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="LPA-Prolog">LPA-Prolog</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SICStus Prolog">SICStus Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SWI-Prolog">SWI-Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Visual Prolog">Visual Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XSB">XSB</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="YAP-Prolog">YAP-Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Static analysis</h2> 
+     <div class="section-body"> 
+      <table class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th style="background:#ffdead;"> <p> Name </p> </th> 
+         <th style="background:#ffdead;"> <p> Type checker </p> </th> 
+         <th style="background:#ffdead;"> <p> Determinacy checker </p> </th> 
+         <th style="background:#ffdead;"> <p> Call-pattern checker </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Ciao (programming language)">Ciao</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GNU Prolog">GNU Prolog</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.jekejeke.ch/">Jekejeke Prolog</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SICStus Prolog">SICStus Prolog</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SWI-Prolog">SWI-Prolog</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Visual Prolog">Visual Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XSB">XSB</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="YAP-Prolog">YAP-Prolog</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Optimizations</h2> 
+     <div class="section-body"> 
+      <table class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th style="background:#ffdead;"> <p> Name </p> </th> 
+         <th style="background:#ffdead;"> <p> <a href="Tail-call optimization">Tail-Call Optimization</a> </p> </th> 
+         <th style="background:#ffdead;"> <p> Choice Point Elimination </p> </th> 
+         <th style="background:#ffdead;"> <p> Environment Trimming </p> </th> 
+         <th style="background:#ffdead;"> <p> <a href="Term_indexing">Just-in-Time Indexing</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Ciao (programming language)">Ciao</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GNU Prolog">GNU Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.jekejeke.ch/">Jekejeke Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SICStus Prolog">SICStus Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SWI-Prolog">SWI-Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Visual Prolog">Visual Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XSB">XSB</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="YAP-Prolog">YAP-Prolog</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Benchmarks</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> Benchmarking issues: <a href="http://www.cs.kuleuven.be/publicaties/rapporten/cw/CW312.abs.html">Odd Prolog benchmarking</a>, Performance differences.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></li> 
+       <li> Benchmarking software: <a href="http://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/lang/prolog/code/library/0.html">older</a>, <a href="http://www.ims.uni-stuttgart.de/ftp/pub/languages/prolog/benchmarks/Dobry's_Benchmarks.txt">Dobry</a>, <a href="http://portal.acm.org/citation.cfm?id=893977">Aquarius benchmark suite</a>, (Bothe, 1990),<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="http://www.cs.kuleuven.be/~bmd/hProlog/iclpgcbenches.tar.gz">(Demoen et al. 2001)</a>, <a href="http://www.cs.unipr.it/China/Benchmarks/descriptions">benchmark descriptions</a></li> 
+       <li> Benchmarking results: <a href="http://probp.com/performance.htm">B-Prolog</a>, <a href="http://www.sics.se/isl/sicstuswww/site/performance.html">SICStus</a>, XSB,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> SICStus vs Yap vs hProlog<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></li> 
+       <li> Benchmarking results: <a href="http://www.michaels-website.de/2010/08/prolog-in-the-jvm-survey-of-prolog-engines-written-in-java">Survey of java prolog engines</a> by Michael Zeising</li> 
+       <li> Benchmarking results: <a href="http://rulebench.projects.semwebcentral.org">OpenRuleBench yearly open-source benchmark of rule engines</a> </li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://www.complang.tuwien.ac.at/ulrich/prolog_misc/systems.html">Overview of Prolog Systems</a> by Ulrich Neumerkel</li> 
+      </ul> 
+      <ul> 
+       <li> <a href="http://www.complang.tuwien.ac.at/ulrich/iso-prolog/conformity_assessment">Conformity assessment I: Syntax</a></li> 
+      </ul> 
+      <p> <a href="Category:Prolog programming language family">Category:Prolog programming language family</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>
