@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
@@ -12,11 +14,28 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+import org.prop4j.And;
+import org.prop4j.Literal;
+import org.prop4j.Node;
+import org.prop4j.Or;
 import org.sweble.wikitext.engine.CompilerException;
 import org.sweble.wikitext.lazy.LinkTargetException;
 
+import com.google.common.collect.Sets;
 
-public class ExtractorContentTest {
+import de.ovgu.featureide.fm.core.editing.NodeCreator;
+
+import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDDSPLOT;
+import fr.unice.polytech.modalis.familiar.operations.ImplicationGraphUtil;
+import fr.unice.polytech.modalis.familiar.operations.featureide.SATFMLFormula;
+import fr.unice.polytech.modalis.familiar.test.FMLTest;
+import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
+import fr.unice.polytech.modalis.familiar.variable.Variable;
+import fr.unice.polytech.modalis.familiar.variable.featureide.FeatureModelVariableSATFormula;
+import gsd.graph.ImplicationGraph;
+
+
+public class ExtractorContentTest extends FMLTest {
 	
 	public static String URL_BASE_NAME = "http://en.wikipedia.org" ; 
 	
@@ -118,13 +137,51 @@ public class ExtractorContentTest {
 		
 		// set the "ID" / names
 		// clean up
+		
+		
+		// FIXME here it is specific 
+		
+		/*
+		 * Scoping directives here
+		 */
+		
+		for (Catalog catalog : catalogs) {
+			String[] columnNames = {} ; //{ "Latest release date", "Latest stable version", "First public release", "Creator", "Name" }  ;
+			for (String columnName : columnNames) {
+				if (!catalog.hasHeader(columnName)) 
+					continue ; 
+				if (!catalog.removeColumn(columnName)) {
+					System.err.println("Unable to remove the column " + columnName);
+				}
+			}
+			
+			
+			
+		}
+		
+		
+		List<FeatureModelVariable> fmvs = new ArrayList<FeatureModelVariable>() ; 
 		for (Catalog catalog : catalogs) {
 			System.err.println("***" +  catalog.getStructuralInformation() + "****");
+			if (!catalog.getName().equals("General information"))
+				continue ; 
 			for (Product product : catalog) {
-				System.err.println("" + product);
+				FeatureModelVariable fmv = product.toFeatureDiagram() ;
+				fmvs.add(fmv);
+				
 			}
 			System.err.println("\n\n");
 		}
+		
+		
+		for (FeatureModelVariable fmv : fmvs) {
+			System.err.println("\n" + fmv.getIdentifier() + " = " + fmv);
+			
+		}
+		
+		_shell.setVerbose(true);
+		FeatureModelVariable fmMerged = new FMLMergerBDDSPLOT(fmvs, _builder).union(); 
+		System.err.println("fmMerged = " + fmMerged);
 		
 		
 		//System.err.println("doc=" + sections);
@@ -137,6 +194,37 @@ public class ExtractorContentTest {
 		
 		
 		
+	}
+
+	
+
+	private FeatureModelVariable mergeSATUnion(List<FeatureModelVariable> fmvs) {
+		Node n = new Literal(NodeCreator.varFalse); 
+		Set<String> fts = new HashSet<String>();
+		for (FeatureModelVariable fmv : fmvs) {
+			fts.addAll(fmv.features().names());
+		}
+		
+		
+		for (FeatureModelVariable fmv : fmvs) {
+			Node fmvNode = new SATFMLFormula(fmv).getNode() ;
+			Set<String> fmvFts = fmv.features().names() ;
+			Set<String> toNegates = Sets.difference(fts, fmvFts);
+			Node nots = new Literal(NodeCreator.varTrue);
+			for (String toNegate : toNegates) {
+				nots = new And(nots, new Literal(toNegate, false));
+			}
+			
+			fmvNode = new And(fmvNode, nots); 
+			n = new Or(n, fmvNode); //.toCNF(); 
+		}
+		
+		System.err.println("#" + fts.size());
+		//n = n.toCNF() ;
+		ImplicationGraph<String> ig = new SATFMLFormula(n).computeImplicationGraph(fts);
+		ImplicationGraphUtil.debugImplicationGraph(ig);
+		
+		return new FeatureModelVariableSATFormula("", new SATFMLFormula(n)) ; 
 	}
 
 	private void treatTable(Element table, List<Catalog> catalogs) {
@@ -328,7 +416,7 @@ public class ExtractorContentTest {
 	// at this step, cell (I, J) corresponds to value of the J-th header of I-th product 
 	private Catalog treatRows(Element table, Tree<String> structuralInformation, List<Header> rHeaders, boolean sortable) {
 		int I = 0 ; 	
-		Catalog product = new Catalog(structuralInformation) ; 
+		Catalog product = new Catalog(structuralInformation, rHeaders) ; 
 		for (Element row : table.select("tr")) {
            
 			Elements lines ; 
