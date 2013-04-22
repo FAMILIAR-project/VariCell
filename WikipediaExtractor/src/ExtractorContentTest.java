@@ -26,7 +26,9 @@ import com.google.common.collect.Sets;
 import de.ovgu.featureide.fm.core.editing.NodeCreator;
 
 import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDDSPLOT;
+import fr.unice.polytech.modalis.familiar.operations.FMLMergerDisjunctiveSAT;
 import fr.unice.polytech.modalis.familiar.operations.ImplicationGraphUtil;
+import fr.unice.polytech.modalis.familiar.operations.SATDisjunctiveFormula;
 import fr.unice.polytech.modalis.familiar.operations.featureide.SATFMLFormula;
 import fr.unice.polytech.modalis.familiar.test.FMLTest;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
@@ -180,8 +182,10 @@ public class ExtractorContentTest extends FMLTest {
 		}
 		
 		_shell.setVerbose(true);
-		FeatureModelVariable fmMerged = new FMLMergerBDDSPLOT(fmvs, _builder).union(); 
-		System.err.println("fmMerged = " + fmMerged);
+		FeatureModelVariable fmMerged = //new FMLMergerDisjunctiveSAT(fmvs).union();
+					new FMLMergerBDDSPLOT(fmvs, _builder).union(); 
+		//System.err.println("#IG " + fmMerged.computeImplicationGraph().edges().size()); 
+		//System.err.println("fmMerged = " + fmMerged);
 		
 		
 		//System.err.println("doc=" + sections);
@@ -195,38 +199,7 @@ public class ExtractorContentTest extends FMLTest {
 		
 		
 	}
-
 	
-
-	private FeatureModelVariable mergeSATUnion(List<FeatureModelVariable> fmvs) {
-		Node n = new Literal(NodeCreator.varFalse); 
-		Set<String> fts = new HashSet<String>();
-		for (FeatureModelVariable fmv : fmvs) {
-			fts.addAll(fmv.features().names());
-		}
-		
-		
-		for (FeatureModelVariable fmv : fmvs) {
-			Node fmvNode = new SATFMLFormula(fmv).getNode() ;
-			Set<String> fmvFts = fmv.features().names() ;
-			Set<String> toNegates = Sets.difference(fts, fmvFts);
-			Node nots = new Literal(NodeCreator.varTrue);
-			for (String toNegate : toNegates) {
-				nots = new And(nots, new Literal(toNegate, false));
-			}
-			
-			fmvNode = new And(fmvNode, nots); 
-			n = new Or(n, fmvNode); //.toCNF(); 
-		}
-		
-		System.err.println("#" + fts.size());
-		//n = n.toCNF() ;
-		ImplicationGraph<String> ig = new SATFMLFormula(n).computeImplicationGraph(fts);
-		ImplicationGraphUtil.debugImplicationGraph(ig);
-		
-		return new FeatureModelVariableSATFormula("", new SATFMLFormula(n)) ; 
-	}
-
 	private void treatTable(Element table, List<Catalog> catalogs) {
 			// 1. get section name
  
