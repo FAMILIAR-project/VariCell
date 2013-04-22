@@ -25,13 +25,19 @@ import com.google.common.collect.Sets;
 
 import de.ovgu.featureide.fm.core.editing.NodeCreator;
 
+import fr.unice.polytech.modalis.familiar.operations.CNFtoExpression;
+import fr.unice.polytech.modalis.familiar.operations.ExpressionUtility;
 import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDDSPLOT;
 import fr.unice.polytech.modalis.familiar.operations.FMLMergerDisjunctiveSAT;
 import fr.unice.polytech.modalis.familiar.operations.ImplicationGraphUtil;
+import fr.unice.polytech.modalis.familiar.operations.Mode;
 import fr.unice.polytech.modalis.familiar.operations.SATDisjunctiveFormula;
 import fr.unice.polytech.modalis.familiar.operations.featureide.SATFMLFormula;
+import fr.unice.polytech.modalis.familiar.parser.ConvertAnalyzer;
+import fr.unice.polytech.modalis.familiar.parser.FMBuilder;
 import fr.unice.polytech.modalis.familiar.test.FMLTest;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
+import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariableBDDFormula;
 import fr.unice.polytech.modalis.familiar.variable.Variable;
 import fr.unice.polytech.modalis.familiar.variable.featureide.FeatureModelVariableSATFormula;
 import gsd.graph.ImplicationGraph;
@@ -183,7 +189,8 @@ public class ExtractorContentTest extends FMLTest {
 		
 		_shell.setVerbose(true);
 		FeatureModelVariable fmMerged = //new FMLMergerDisjunctiveSAT(fmvs).union();
-					new FMLMergerBDDSPLOT(fmvs, _builder).union(); 
+				 // new FMLMergerBDDSPLOT(fmvs, _builder).union() ; 
+					new FeatureModelVariableBDDFormula("", new FMLMergerBDDSPLOT(fmvs, _builder).calculateFormula(Mode.Union), _builder); 
 		//System.err.println("#IG " + fmMerged.computeImplicationGraph().edges().size()); 
 		//System.err.println("fmMerged = " + fmMerged);
 		
