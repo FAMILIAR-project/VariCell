@@ -1,0 +1,1011 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of widget engines</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of widget engines</h1> 
+   <div class="article-content"> 
+    <p> This is a <b>comparison of <a href="widget engine">widget engines</a></b>. This article is not about <a href="widget toolkit">widget toolkits</a> that are used in <a href="computer programming">computer programming</a> to build <a href="graphical user interfaces">graphical user interfaces</a>. </p> 
+    <div class="section"> 
+     <h2>General</h2> 
+     <div class="section-body"> 
+      <p> Widget engines that are discontinued are marked in a different color. </p> 
+      <table class="sortable wikitable" style="text-align: center; font-size: smaller; width: auto;"> 
+       <tbody>
+        <tr>
+         <th style="width: 12em;"> <p> Engine </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Current Version </p> </th> 
+         <th> <p> <a href="software license">License</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="adesklets">adesklets</a> </p> </th> 
+         <td> <p> Sylvain Fourmanoit </p> </td> 
+         <td> <p> 0.6.1 </p> </td> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Adobe Integrated Runtime">Adobe AIR</a> </p> </th> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> <p> 1.5 </p> </td> 
+         <td> <p> Adobe AIR EULA </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AveDesk">AveDesk</a> </p> </th> 
+         <td> <p> Andreas Verhoeven </p> </td> 
+         <td> <p> 1.3 </p> </td> 
+         <td> <p> <a href="Donationware">Donationware</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Dashboard (Mac OS)">Dashboard</a> </p> </th> 
+         <td> <p> <a href="Apple Inc.">Apple Inc.</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{latest stable release/Dashboard}}</span> </p> </td> 
+         <td> <p> Part of <a href="Mac OS X">Mac OS X</a> since <a href="Mac OS X v10.4">version 10.4</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DesktopX">DesktopX</a> </p> </th> 
+         <td> <p> <a href="Stardock">Stardock</a> </p> </td> 
+         <td> <p> 3.5 </p> </td> 
+         <td> <p> <a href="Shareware">Shareware</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="gDesklets">gDesklets</a> </p> </th> 
+         <td> <p> Martin Grimme and Christian Meyer </p> </td> 
+         <td> <p> 0.36 </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Google Desktop#Desktop Gadgets">Google Desktop Gadgets</a> </p> </th> 
+         <td> <p> <a href="Google">Google</a> </p> </td> 
+         <td> <p> 5.0.0701.18382 </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Kapsules">Kapsules</a> </p> </th> 
+         <td> <p> Andrew Powell </p> </td> 
+         <td> <p> 0.9.9 </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="KlipFolio">KlipFolio</a> </p> </th> 
+         <td> <p> <a href="Serence">Serence</a> </p> </td> 
+         <td> <p> 5.0D </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Gadgets">Microsoft Gadgets</a> </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> Part of <a href="Windows Vista">Windows Vista</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NetFront">NetFront</a> </p> </th> 
+         <td> <p> <a href="Access Co. Ltd.">Access Co. Ltd.</a> </p> </td> 
+         <td> <p> 3.5 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Netvibes">Netvibes</a> </p> </th> 
+         <td> <p> <a href="Netvibes">Netvibes</a> </p> </td> 
+         <td> <p> 1.0 </p> </td> 
+         <td> <p> Free <a href="Application programming interface">API</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> </p> </th> 
+         <td> <p> <a href="Opera Software">Opera Software</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{latest stable software release/Opera}}</span> </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Plasma (KDE)">Plasma</a> </p> </th> 
+         <td> <p> KDE (Aaron Seigo, main developer) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Latest stable software release/KDE Software Compilation 4}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Screenlets">Screenlets</a> </p> </th> 
+         <td> <p> Rico Pfaus (AKA RYX) </p> </td> 
+         <td> <p> 0.1.5 </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Serious Samurize">Serious Samurize</a> </p> </th> 
+         <td> <p> Gustaf &amp; Oscar Lundh </p> </td> 
+         <td> <p> 1.64 </p> </td> 
+         <td> <p> <a href="Semi-free software">Semi-free software</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SuperKaramba">SuperKaramba</a> </p> </th> 
+         <td> <p> Hans Karlsson </p> </td> 
+         <td> <p> 0.39 </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <td> <p> <a href="Apple Inc.">Apple Inc.</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a>+<a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WidSets">WidSets</a> </p> </th> 
+         <td> <p> <a href="Nokia">Nokia</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Yahoo! Widgets">Yahoo! Widgets</a> </p> </th> 
+         <td> <p> Ed Voas, Michael Galloway, and Sam Magnuson <span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> 4.5.2 </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Engine </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Current Version </p> </th> 
+         <th> <p> <a href="software license">License</a> </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Operating system support</h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="text-align: center; font-size: smaller; width: auto;"> 
+       <tbody>
+        <tr>
+         <th style="width: 12em;"> <p> Engine </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+         <th> <p> <a href="Windows XP">Windows XP</a> </p> </th> 
+         <th> <p> <a href="Windows Vista">Windows Vista</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="adesklets">adesklets</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Adobe Integrated Runtime">Adobe AIR</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AveDesk">AveDesk</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Dashboard (Mac OS)">Dashboard</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DesktopX">DesktopX</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="gDesklets">gDesklets</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Google Desktop#Desktop Gadgets">Google Desktop Gadgets</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Kapsules">Kapsules</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="KlipFolio">KlipFolio</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Gadgets">Microsoft Gadgets</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NetFront">NetFront</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Netvibes">Netvibes</a> </p> </th> 
+         <td> <p> <a href="http://dev.netvibes.com/doc/uwa_specification">Dashboard bridge</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Plasma (KDE)">Plasma</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Screenlets">Screenlets</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Serious Samurize">Serious Samurize</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SuperKaramba">SuperKaramba</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WidSets">WidSets</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Yahoo! Widgets">Yahoo! Widgets</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Engine </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+         <th> <p> <a href="Windows XP">Windows XP</a> </p> </th> 
+         <th> <p> <a href="Windows Vista">Windows Vista</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Technical</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>Languages</h3> 
+       <div class="section-body"> 
+        <p> What <a href="programming language">programming languages</a> the engines support. Most engines rely upon <a href="interpreted language">interpreted languages</a>. </p> 
+        <table class="wikitable sortable" style="text-align: center; font-size: smaller; width: auto; table-layout: fixed;"> 
+         <tbody>
+          <tr>
+           <th style="width: 12em;"> <p> Engine </p> </th> 
+           <th> <p> <a href="HTML">HTML</a> </p> </th> 
+           <th> <p> <a href="XHTML">XHTML</a> </p> </th> 
+           <th> <p> <a href="Cascading Style Sheets">CSS</a> </p> </th> 
+           <th> <p> <a href="XML">XML</a> </p> </th> 
+           <th> <p> <a href="JavaScript">JavaScript</a> </p> </th> 
+           <th> <p> <a href="Perl">Perl</a> </p> </th> 
+           <th> <p> <a href="Python (programming language)">Python</a> </p> </th> 
+           <th> <p> <a href="Ruby (programming language)">Ruby</a> </p> </th> 
+           <th> <p> <a href="C++">C++</a> </p> </th> 
+           <th> <p> <a href="Executable">Executable</a> </p> </th> 
+          </tr>
+          <tr> 
+           <th> <p> <a href="adesklets">adesklets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Adobe Integrated Runtime">Adobe AIR</a><span class="unknown-node">{{r|...}}</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="AveDesk">AveDesk</a><span class="unknown-node">{{r|...}}</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Dashboard (Mac OS)">Dashboard</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="DesktopX">DesktopX</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="gDesklets">gDesklets</a><span class="unknown-node">{{r|...}}</span><span class="unknown-node">{{r|...}}</span><span class="unknown-node">{{r|...}}</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Google Desktop#Desktop Gadgets">Google Desktop Gadgets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Kapsules">Kapsules</a><span class="unknown-node">{{r|...}}</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="KlipFolio">KlipFolio</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Microsoft Gadgets">Microsoft Gadgets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> (as ActiveX) </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NetFront">NetFront</a><span class="unknown-node">{{r|...}}</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Netvibes">Netvibes</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Opera (web browser)">Opera</a><span class="unknown-node">{{r|...}}</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Plasma (KDE)">Plasma</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Screenlets">Screenlets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Serious Samurize">Serious Samurize</a><span class="unknown-node">{{r|...}}</span><span class="unknown-node">{{r|...}}</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SuperKaramba">SuperKaramba</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="WidSets">WidSets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Yahoo! Widgets">Yahoo! Widgets</a><span class="unknown-node">{{r|...}}</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+          </tr> 
+          <tr class="sortbottom"> 
+           <th> <p> Engine </p> </th> 
+           <th> <p> <a href="HTML">HTML</a> </p> </th> 
+           <th> <p> <a href="XHTML">XHTML</a> </p> </th> 
+           <th> <p> <a href="Cascading Style Sheets">CSS</a> </p> </th> 
+           <th> <p> <a href="XML">XML</a> </p> </th> 
+           <th> <p> <a href="JavaScript">JavaScript</a> </p> </th> 
+           <th> <p> <a href="Perl">Perl</a> </p> </th> 
+           <th> <p> <a href="Python (programming language)">Python</a> </p> </th> 
+           <th> <p> <a href="Ruby (programming language)">Ruby</a> </p> </th> 
+           <th> <p> <a href="C++">C++</a> </p> </th> 
+           <th> <p> <a href="Executable">Executable</a> </p> </th> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Formats and Development</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="text-align: center; font-size: smaller; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th> <p> Engine </p> </th> 
+           <th> <p> <a href="Integrated development environment">IDE</a> </p> </th> 
+           <th> <p> Widget Container </p> </th> 
+           <th> <p> <a href="Internet media type">Widget MIME Type</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="adesklets">adesklets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Adobe Integrated Runtime">Adobe AIR</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> application/vnd.adobe.air-application-installer-package+zip </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="AveDesk">AveDesk</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Dashboard (Mac OS)">Dashboard</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> application/x-macbinary </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="DesktopX">DesktopX</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="EXE">EXE</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="gDesklets">gDesklets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <a href="Tar.gz">Tar.gz</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Google Desktop#Desktop Gadgets">Google Desktop Gadgets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> app/gg </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Kapsules">Kapsules</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="KlipFolio">KlipFolio</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> Proprietary <a href="XML">XML</a> Format </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Microsoft Gadgets">Microsoft Gadgets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> application/x-windows-gadget </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NetFront">NetFront</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> application/x-opera-widgets </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Netvibes">Netvibes</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> Online </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Opera (web browser)">Opera</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> application/x-opera-widgets </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Plasma (KDE)">Plasma</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a>, with plasmoid as extension instead of zip </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Screenlets">Screenlets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <a href="Tar.gz">Tar.gz</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Serious Samurize">Serious Samurize</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SuperKaramba">SuperKaramba</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <a href="Tar.gz">Tar.gz</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="WidSets">WidSets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Yahoo! Widgets">Yahoo! Widgets</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> Proprietary Format, <a href="ZIP (file format)">ZIP</a> </p> </td> 
+           <td> <p> application/vnd.yahoo.Widget </p> </td> 
+          </tr> 
+          <tr class="sortbottom"> 
+           <th> <p> Engine </p> </th> 
+           <th> <p> <a href="Integrated development environment">IDE</a> </p> </th> 
+           <th> <p> Widget Container </p> </th> 
+           <th> <p> <a href="Internet media type">Widget MIME Type</a> </p> </th> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Development Tools</h3> 
+       <div class="section-body"> 
+        <p> As widgets are largely combinations of HTML or XHTML, CSS, and Javascript in most cases, standard AJAX tools, such as <a href="Eclipse (software)">Eclipse ATF</a>, can be used for development. Specialized tools may give access to additional capabilities supplied by frameworks such as <a href="Dojo Toolkit">Dojo</a> or <a href="Rico (Ajax)">Openrico</a>. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{Widget engine}}</span> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Widget Engines}}</span> </p> 
+      <p> <a href="Category:Widget engines">Category:Widget engines</a> <a href="Category:Software comparisons">Widget Engines</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

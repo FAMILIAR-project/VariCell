@@ -1,0 +1,915 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of code generation tools</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of code generation tools</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Cleanup|...}}</span> </p> 
+    <table class="wikitable sortable" border="1"> 
+     <tbody>
+      <tr>
+       <th> <p> Product </p> </th> 
+       <th> <p> Creator </p> </th> 
+       <th> <p> Platform </p> </th> 
+       <th> <p> First public release </p> </th> 
+       <th> <p> Latest stable version </p> </th> 
+       <th> <p> Software license </p> </th> 
+       <th> <p> Open source </p> </th> 
+      </tr>
+      <tr> 
+       <td> <p> <a href="http://www.radarc.net">Radarc</a> </p> </td> 
+       <td> <p> <a href="http://www.icinetic.com/">Icinetic</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2012 </p> </td> 
+       <td> <p> 3.5.0 / 01-15-2013 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.code4green.com">Code4Green-a ultimate code generation tool</a> </p> </td> 
+       <td> <p> <a href="http://www.code4green.com/">Code4Green</a> </p> </td> 
+       <td> <p> Web - Free Online </p> </td> 
+       <td> <p> 2009 </p> </td> 
+       <td> <p> 1.0 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.softfluent.com/products/codefluent-entities">CodeFluent Entities</a> </p> </td> 
+       <td> <p> <a href="http://www.softfluent.com/">SoftFluent</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2005 </p> </td> 
+       <td> <p> 691 - 2013 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.codesmithtools.com/product/generator">CodeSmith Generator</a> </p> </td> 
+       <td> <p> <a href="http://www.codesmithtools.com/">CodeSmith Tools</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2004 </p> </td> 
+       <td> <p> 6.5.0 / 2012-06-06 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> Mixed (Templates and Providers are open sourced). </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="ZumCoder MDD/MDA/ Template Based">ZumCoder MDD/MDA/ Template Based</a> </p> </td> 
+       <td> <p> Agen Consultoria ? Adilson de ALmeida Pedro </p> </td> 
+       <td> <p> Web ? Online </p> </td> 
+       <td> </td> 
+       <td> <p> 1.0 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Acceleo">Acceleo</a> </p> </td> 
+       <td> <p> <a href="Obeo">Obeo</a> </p> </td> 
+       <td> <p> cross-platform (Java / Eclipse) </p> </td> 
+       <td> <p> 2006 </p> </td> 
+       <td> <p> 3.1.0 / 2011-06-23 </p> </td> 
+       <td> <p> <a href="Eclipse Public License">Eclipse Public License</a> </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Accelerator (software)">Accelerator</a> </p> </td> 
+       <td> <p> Surround Technologies </p> </td> 
+       <td> <p> Windows (C# / .NET) </p> </td> 
+       <td> <p> 2007 </p> </td> 
+       <td> <p> 3.0 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> GenerateXY </p> </td> 
+       <td> <p> DotXY </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> </td> 
+       <td> <p> 5.1 </p> </td> 
+       <td> <p> Freeware </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="actifsource">actifsource</a> </p> </td> 
+       <td> <p> <a href="actifsource GmbH">actifsource GmbH</a> </p> </td> 
+       <td> <p> cross-platform (Java / Eclipse) </p> </td> 
+       <td> </td> 
+       <td> <p> 4.6.3 / 2011-08-09 </p> </td> 
+       <td> <p> <a href="Eclipse Public License">Eclipse Public License</a> </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Agile Platform">Agile Platform</a> </p> </td> 
+       <td> <p> <a href="OutSystems">OutSystems</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2001 </p> </td> 
+       <td> <p> 5.1.1.0 / 2010-11-30 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Apeel PHP Code Generator Pro">Apeel PHP Code Generator Pro</a> </p> </td> 
+       <td> <p> <a href="City Business Logic">City Business Logic</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2001 </p> </td> 
+       <td> <p> 11.03b / 2011-09-04 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="AtomWeaver">AtomWeaver</a> </p> </td> 
+       <td> <p> Isomeris </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2010 </p> </td> 
+       <td> <p> 1.3.1 / 2012-02-20 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> GNU AutoGen </p> </td> 
+       <td> <p> Bruce Korb </p> </td> 
+       <td> <p> Unix like, Apple, WinNT <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> 1998 </p> </td> 
+       <td> <p> 5.14 / 2011-12-4 </p> </td> 
+       <td> <p> GPL </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="CodeGenerator360">CodeGenerator360</a> </p> </td> 
+       <td> </td> 
+       <td> <p> Windows (Online Tool) </p> </td> 
+       <td> <p> 2011 </p> </td> 
+       <td> </td> 
+       <td> <p> Freeware </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Code OnTime">Code OnTime</a> </p> </td> 
+       <td> <p> <a href="Code On Time LLC">Code On Time LLC</a> </p> </td> 
+       <td> <p> Windows (c# / .NET) </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Freeware and Subscription </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Cog </p> </td> 
+       <td> <p> Ned Batchelder </p> </td> 
+       <td> <p> cross-platform (Python) </p> </td> 
+       <td> </td> 
+       <td> <p> 2.1 </p> </td> 
+       <td> <p> <a href="MIT license">MIT license</a> </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="DMS Software Reengineering Toolkit">DMS Software Reengineering Toolkit</a> </p> </td> 
+       <td> <p> <a href="Semantic Designs">Semantic Designs</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2001 </p> </td> 
+       <td> <p> 2.0 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="EntiPro">EntiPro</a> </p> </td> 
+       <td> <p> <a href="EntiCraft">EntiCraft</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Genshi (templating language)">Genshi (templating language)</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Edgewall Software </p> </td> 
+       <td> <p> cross-platform (Python) </p> </td> 
+       <td> <p> 2006-08-03 </p> </td> 
+       <td> <p> 0.5.1 / 2008-07-09 </p> </td> 
+       <td> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Iron Speed Designer">Iron Speed Designer</a> </p> </td> 
+       <td> <p> <a href="Iron Speed, Inc.">Iron Speed, Inc.</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2001 </p> </td> 
+       <td> <p> 9.2.0 / 2012-10-04 <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="JCodeBox">JCodeBox</a> </p> </td> 
+       <td> </td> 
+       <td> <p> cross-platform (Java) </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Jinja (Template engine)">Jinja (Template engine)</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <a href="Pocoo team">Pocoo team</a> </p> </td> 
+       <td> <p> cross-platform (Python) </p> </td> 
+       <td> </td> 
+       <td> <p> 2.1.1 </p> </td> 
+       <td> <p> BSD </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Kid (templating language)">Kid (templating language)</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Ryan Tomayko </p> </td> 
+       <td> <p> cross-platform (Python) </p> </td> 
+       <td> </td> 
+       <td> <p> 0.9.6 / 2006-12-20 </p> </td> 
+       <td> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Mako (template engine)">Mako</a> </p> </td> 
+       <td> <p> Michael Bayer </p> </td> 
+       <td> <p> cross-platform (Python) </p> </td> 
+       <td> </td> 
+       <td> <p> 0.2.3 / 2008-05-12 </p> </td> 
+       <td> <p> MIT </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Microsoft Visual Studio LightSwitch">Microsoft Visual Studio LightSwitch</a> </p> </td> 
+       <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2011 </p> </td> 
+       <td> <p> 2011-07-26 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="M-Power">M-Power</a> </p> </td> 
+       <td> <p> <a href="mrc">mrc</a><span class="unknown-node">{{Disambiguation needed|...}}</span> </p> </td> 
+       <td> <p> cross-platform (Java) </p> </td> 
+       <td> <p> 2004 </p> </td> 
+       <td> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="MOLGENIS">MOLGENIS</a> </p> </td> 
+       <td> <p> Morris Swertz<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> cross-platform (Java) </p> </td> 
+       <td> <p> 2004 </p> </td> 
+       <td> <p> 3.3 </p> </td> 
+       <td> <p> LGPLv3 </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="MyGeneration">MyGeneration</a> </p> </td> 
+       <td> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> OMS.Ice ? T4 Text Template Generator <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Olaf Meyer </p> </td> 
+       <td> <p> Windows ( .NET ) </p> </td> 
+       <td> <p> 2012 </p> </td> 
+       <td> <p> 1.4 / 2012-05-30 </p> </td> 
+       <td> <p> <a href="Eclipse Public License">Eclipse Public License</a> </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="OpenMDX">OpenMDX</a> </p> </td> 
+       <td> </td> 
+       <td> <p> cross-platform (Java) </p> </td> 
+       <td> <p> 2004-01-28 </p> </td> 
+       <td> <p> 2.4 / 2009-03-26 </p> </td> 
+       <td> <p> BSD </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> [PHPRunner] </p> </td> 
+       <td> <p> <a href="Xlinesoft">Xlinesoft</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2003 </p> </td> 
+       <td> <p> 5.3 / 2010-10-15 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Text Template Transformation Toolkit">T4</a> </p> </td> 
+       <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+       <td> <p> Windows </p> </td> 
+       <td> <p> 2005 </p> </td> 
+       <td> <p> 2010 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Umple">Umple</a> </p> </td> 
+       <td> <p> <a href="University of Ottawa">University of Ottawa</a> </p> </td> 
+       <td> <p> cross-platform (Java / Eclipse) </p> </td> 
+       <td> <p> 2010 </p> </td> 
+       <td> <p> 1.12 / 2011-04-21 </p> </td> 
+       <td> <p> <a href="MIT license">MIT license</a> </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Velocity apache">Velocity apache</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <a href="Apache Software Foundation">Apache Software Foundation</a> </p> </td> 
+       <td> <p> cross-platform (Java) </p> </td> 
+       <td> </td> 
+       <td> <p> 1.6.2 / 2009-03-19 </p> </td> 
+       <td> <p> <a href="Apache License">Apache License</a> 2.0 </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Code-g">Code-g</a> flexible pattern based code generator </p> </td> 
+       <td> <p> Abstractmeta </p> </td> 
+       <td> <p> Java </p> </td> 
+       <td> </td> 
+       <td> <p> 0.30 / 2012-05-20 </p> </td> 
+       <td> <p> <a href="Apache License">Apache License</a> 2.0 </p> </td> 
+       <td> <p> Yes </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="XACT X4MR">XACT X4MR</a> </p> </td> 
+       <td> <p> Applied Conversion Technologies Inc </p> </td> 
+       <td> <p> Virtual DOS </p> </td> 
+       <td> <p> 1994 </p> </td> 
+       <td> <p> 3 / 1997-08-01 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+       <td> <p> No </p> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2> Technical </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" border="1"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Implementation Language </p> </th> 
+         <th> <p> Active; Passive <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Model<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Typical input </p> </th> 
+         <th> <p> Other input </p> </th> 
+         <th> <p> Typical output </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.radarc.net">Radarc</a> </p> </td> 
+         <td> <p> C# </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Mixed </p> </td> 
+         <td> <p> User-defined models, EDMX, XML </p> </td> 
+         <td> <p> Templates </p> </td> 
+         <td> <p> User Interface Layer, Services Layer, Business Logic Layer, Data Access Layer, Database, IoC, Test... (MVC, Windows 8, Windows Phone 8, Webforms, Azure...) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.softfluent.com/products/codefluent-entities">CodeFluent Entities</a> </p> </td> 
+         <td> <p> C# </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Mixed </p> </td> 
+         <td> <p> User-defined models, <a href="Database schema">Database schema</a> </p> </td> 
+         <td> <p> Templates </p> </td> 
+         <td> <p> .NET classes, Persistence layers (<a href="Microsoft SQL Server">Microsoft SQL Server</a>, <a href="Oracle database">Oracle</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="MySQL">MySQL</a>), WCF Services, ASP .NET websites... </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.codesmithtools.com/product/generator">CodeSmith Generator</a> </p> </td> 
+         <td> <p> C#, VB.NET, JavaScript </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Mixed </p> </td> 
+         <td> <p> <a href="Database schema">Database schema</a> (ADOX, DB2 zOS, ISeries, MySQL, Oracle, Postgre, SQL Anywhere, SQL Compact, SQL Server, SQLite, VistaDB), C# or VB.NET source code, Any meta data source.. E.G., Web Services, SharePoint, UML, XSD, XML, DBML, EDMX, JSON, HBM, HTML and more... </p> </td> 
+         <td> <p> Templates </p> </td> 
+         <td> <p> Any textual output such as C#, VB.NET, C/C++, XML, SQL, JSON, JavaScript, HTML, or any other plain text format. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ZumCoder/MDA">ZumCoder/MDA</a> </p> </td> 
+         <td> <p> PHP </p> </td> 
+         <td> <p> Passive<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Mixed </p> </td> 
+         <td> <p> XSD, DBML, Database Schema(Mysql,SqlServer,PostegreSQL,SQLite),HTML forms,PHP class and (ZML &quot;ZumCoder Model Language&quot;, a XML define structure </p> </td> 
+         <td> <p> Templates </p> </td> 
+         <td> <p> Any textual language, depends upon your template code, you can write your own template to outputs the language of your preference </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Acceleo">Acceleo</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> User-defined <a href="Eclipse Modeling Framework">EMF</a> based models (UML, Ecore, user defined metamodels) </p> </td> 
+         <td> <p> Any EMF based input (Xtext DSLs, GMF graphical models, etc.) </p> </td> 
+         <td> <p> Any textual language. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Accelerator (software)">Accelerator</a> </p> </td> 
+         <td> <p> C# </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> <a href="Database schema">Database schema</a> </p> </td> 
+         <td> <p> XML Schema, Templates and configuration tables </p> </td> 
+         <td> <p> C#, WPF, Silverlight, ASP.NET, WCF, WebServices(complete application) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> GenerateXY </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> User-defined Models </p> </td> 
+         <td> <p> XML, CSV, Java, ... (extensible) </p> </td> 
+         <td> <p> Any textual language, predefined modules for Java, HTML, XML </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="actifsource">actifsource</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> User-defined Models </p> </td> 
+         <td> <p> Import from UML, Ecore. </p> </td> 
+         <td> <p> Any textual language. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Agile Platform">Agile Platform</a> </p> </td> 
+         <td> <p> .Net </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> User defined models based on the OutSystems visual modeling language </p> </td> 
+         <td> <p> Java, C#, Javascript </p> </td> 
+         <td> <p> ASP.Net and JEE </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apeel PHP Code Generator Pro">Apeel PHP Code Generator Pro</a> </p> </td> 
+         <td> <p> Delphi </p> </td> 
+         <td> <p> Passive </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> <a href="Database schema">Database schema</a> </p> </td> 
+         <td> <p> PHP, HTML, CSS </p> </td> 
+         <td> <p> Full Application ? PHP, CSS, Apeel Open Source Framework. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AtomWeaver">AtomWeaver</a> </p> </td> 
+         <td> <p> C++, Lua </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> Tree models built using a cooperative template system, based on the ABSE modeling approach </p> </td> 
+         <td> <p> Code in any language </p> </td> 
+         <td> <p> Any textual language </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Code4Green">Code4Green</a> </p> </td> 
+         <td> <p> C#, VB.net, ASP.net, SharePoint, SQL, JAVA, classical ASP, HTML, XML </p> </td> 
+         <td> <p> Active<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> Code4Green - an online ultimate code generation tool with a green cause of plantation of trees on each 10,000 LOC </p> </td> 
+         <td> <p> Code in C#, VB.net, ASP.net, SharePoint, SQL, JAVA, classical ASP, HTML, XML </p> </td> 
+         <td> <p> Output determined by the selected language type. It is a plain text. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> GNU AutoGen </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> Autogen definitions (lists of <a href="key-value pair">key-value pairs</a> or hierarchical data arranged like <a href="Struct (C programming language)">C structs</a>), Autogen templates (fixed output plus inline macros for conditional or repetitive emission of code blocks or evaluation of <a href="Bourne shell">Bourne shell</a> or <a href="Scheme (programming language)">Scheme</a> expressions) </p> </td> 
+         <td> <p> XML, CGI data </p> </td> 
+         <td> <p> Output determined by template (any language or even plain text); additional support for emitting <a href="header guard">header guards</a>, certain licenses, option parsers, and <a href="finite state machine">finite state machines</a> in C </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Cog </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> <p> Active<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Mixed </p> </td> 
+         <td> <p> Any code </p> </td> 
+         <td> <p> Java C# C++ C Perl Python Ruby TCL Javascript Fortran Lisp Scheme Cobol XSLT JSP PHP Yacc SQL XML System Configuration Files </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CodeGenerator360">CodeGenerator360</a> </p> </td> 
+         <td> <p> C# </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> Database Schema </p> </td> 
+         <td> <p> XML Schema </p> </td> 
+         <td> <p> Stored Procedures, .NET DAL, C# ASP.NET Pages, Visual Studio 2010 Solution and Project Files </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CodeOnTime">CodeOnTime</a> </p> </td> 
+         <td> <p> C# </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> </td> 
+         <td> <p> Database Tables </p> </td> 
+         <td> <p> Templates and Various XML configuration tables </p> </td> 
+         <td> <p> C# ASP.NET </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://webEbenezer.net">C++ Middleware Writer</a> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> </td> 
+         <td> <p> DSL instance / Middle file </p> </td> 
+         <td> <p> Include files </p> </td> 
+         <td> <p> C++ marshalling code </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DMS Software Reengineering Toolkit">DMS Software Reengineering Toolkit</a> </p> </td> 
+         <td> <p> Several code generation DSLs (attribute grammars, tree patterns, source-to-source rewrites) </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> DSLs represented as <a href="abstract syntax">abstract syntax</a> trees </p> </td> 
+         <td> <p> DSL instance </p> </td> 
+         <td> <p> Well-formed output language code fragments </p> </td> 
+         <td> <p> Any programming language (proven for C, C++, Java, C#, PHP, COBOL) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="gSoap">gSoap</a> </p> </td> 
+         <td> <p> C / C++ </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <a href="WSDL">WSDL</a> specifications </p> </td> 
+         <td> </td> 
+         <td> <p> C / C++ code that can be used to communicate with WebServices. XML with the definitions obtained. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Iron Speed Designer">Iron Speed Designer</a> </p> </td> 
+         <td> <p> C# / VB.NET </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> <a href="Database schema">Database schema</a> </p> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> ASP.NET (Full application, including C# code, VB code, XML, Stored Procedures, etc.) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Jostraca">Jostraca</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Active <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> Any code </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Any code; Java, JSP </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JCodeBox">JCodeBox</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> </td> 
+         <td> <p> Java (Full Web Application) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Microsoft Visual Studio LightSwitch">Microsoft Visual Studio LightSwitch</a> </p> </td> 
+         <td> <p> C# / VB.NET </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> <a href="Database schema">Database schema</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Complete <a href="Silverlight">Silverlight</a> application (Desktop or Web) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MyGeneration">MyGeneration</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .NET </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> OMS.Ice ? T4 Text Template Generator </p> </td> 
+         <td> <p> C# </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Mixed </p> </td> 
+         <td> <p> T4 text template, C# or VB </p> </td> 
+         <td> <p> C# partial classes </p> </td> 
+         <td> <p> Any textual output such as C#, VB, C/C++, XML, or any other plain text format </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PHPRunner">PHPRunner</a> </p> </td> 
+         <td> <p> PHP/ASP/C#/VB.NET </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> <a href="Database schema">Database schema</a> </p> </td> 
+         <td> <p> PHP, ASPX, HTML, CSS, </p> </td> 
+         <td> <p> PHP, ASP, ASP.NET (Full Web application, including C#, VB.NET, PHP, ASP code, HTML, Javascript, CSS, etc.) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Pro*C </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Inline </p> </td> 
+         <td> <p> SQL in C </p> </td> 
+         <td> </td> 
+         <td> <p> C </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Spring Roo">Spring Roo</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> Java and automatically-introspected project metadata </p> </td> 
+         <td> <p> Shell commands </p> </td> 
+         <td> <p> Java (Full Web Application including Java source, AspectJ source, XML, JSP, Spring application contexts, build tools, property files etc.) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Text Template Transformation Toolkit">T4</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Passive </p> </td> 
+         <td> </td> 
+         <td> <p> T4 Template/<a href="Text File">Text File</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Any text format such as <a href="XML">XML</a>, <a href="XAML">XAML</a>, <a href="C Sharp (programming language)">C#</a> files or just plain text files. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Umple">Umple</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> Java, PHP, Ruby with embedded Umple code </p> </td> 
+         <td> <p> Pure Umple code describing associations, patterns, state machines etc. </p> </td> 
+         <td> <p> Java, PHP, Ruby, ECcore, Umlet, Yuml, Textuml, JSON, Papyrus XMI </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href=" Appsroller Web Form Generator"> Appsroller Web Form Generator</a> </p> </td> 
+         <td> <p> Javascript </p> </td> 
+         <td> <p> Active </p> </td> 
+         <td> <p> Web Tier </p> </td> 
+         <td> <p> Any code </p> </td> 
+         <td> <p> Javascript </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Velocity apache">Velocity apache</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Passive <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Tier </p> </td> 
+         <td> <p> Any code </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Java </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> XDocLet </p> </td> 
+         <td> </td> 
+         <td> <p> Active<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Munger </p> </td> 
+         <td> <p> JavaDoc </p> </td> 
+         <td> </td> 
+         <td> <p> EJB support beans </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XACT X4MR">XACT X4MR</a> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> Passive </p> </td> 
+         <td> </td> 
+         <td> <p> Language_A Source,<br /> Language_A-to-Language_B Transform Rules </p> </td> 
+         <td> <p> CHILL, CMS2, FORTRAN, COBOL, JOVIAL, PASCAL, PL/1, PLM86 </p> </td> 
+         <td> <p> Compilable Language_B Source; <br /> Application_A Documentation; <br />Application_B Documentation </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h1> References </h1> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Code Generation Tools, Comparison Of}}</span> <a href="Category:Computer programming tools">Category:Computer programming tools</a> <a href="Category:Software comparisons">Code generation tools</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

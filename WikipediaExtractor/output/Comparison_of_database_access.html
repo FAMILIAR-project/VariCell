@@ -1,0 +1,493 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of database access</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of database access</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Confusing|...}}</span> <span class="unknown-node">{{ProgLangCompare}}</span> This is an article <a href="Comparability">comparing</a> <a href="database">database</a> <a href="programming language">programming languages</a>. </p> 
+    <div class="section"> 
+     <h2> Database input commands </h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3> Database and table management </h3> 
+       <div class="section-body"> 
+        <table class="wikitable"> 
+         <tbody>
+          <tr>
+           <th> <p> Database </p> </th> 
+           <th> <p> Create database </p> </th> 
+           <th> <p> Delete database </p> </th> 
+           <th> <p> List databases </p> </th> 
+           <th> <p> Use a db </p> </th> 
+           <th> <p> Create table </p> </th> 
+           <th> <p> Delete table </p> </th> 
+           <th> <p> List tables </p> </th> 
+           <th> <p> List table fields </p> </th> 
+          </tr>
+          <tr> 
+           <td> <p> <a href="MySQL">MySQL</a> </p> </td> 
+           <td> <p> create database <i>dbname</i>; </p> </td> 
+           <td> <p> drop database <i>dbname</i>; </p> </td> 
+           <td> <p> show databases; </p> </td> 
+           <td> <p> use <i>dbname</i>; </p> </td> 
+           <td> <p> create table <i>tbname</i>; </p> </td> 
+           <td> <p> drop table <i>tbname</i>; </p> </td> 
+           <td> <p> show tables; </p> </td> 
+           <td> <p> describe <i>tbname</i>; </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PostgreSQL">PostgreSQL</a> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Sqlite">Sqlite</a> ver 3 </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> $ sqlite3 <i>filename</i> </p> </td> 
+           <td> <p> create table <i>tbname</i> (<i>field1</i> <i>value_type1</i>, <i>field2</i> <i>value_type2</i>, ... ) </p> </td> 
+           <td> <p> drop table <i>tbname</i> </p> </td> 
+           <td> <p> .tables </p> </td> 
+           <td> <p> .schema </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Using data in a table </h3> 
+       <div class="section-body"> 
+        <table class="wikitable"> 
+         <tbody>
+          <tr>
+           <th> <p> Database </p> </th> 
+           <th> <p> show all data in all fields </p> </th> 
+           <th> <p> show all data in some fields </p> </th> 
+           <th> <p> show filtered data in all fields </p> </th> 
+          </tr>
+          <tr> 
+           <td> <p> <a href="MySQL">MySQL</a> </p> </td> 
+           <td> <p> select * from &quot;tbname&quot;; </p> </td> 
+           <td> <p> select &quot;fields&quot; from &quot;tbname&quot;; </p> </td> 
+           <td> <p> select * from &quot;tbname&quot; where &quot;filter_expr&quot;; </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Filtering expressions </h3> 
+       <div class="section-body"> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Altering tables </h3> 
+       <div class="section-body"> 
+        <table class="wikitable"> 
+         <tbody>
+          <tr>
+           <th> <p> Database </p> </th> 
+           <th> <p> Add new column </p> </th> 
+           <th> <p> Delete column </p> </th> 
+           <th> <p> Change column </p> </th> 
+           <th> <p> Add element </p> </th> 
+           <th> <p> Delete element </p> </th> 
+          </tr>
+          <tr> 
+           <td> <p> <a href="MySQL">MySQL</a> </p> </td> 
+           <td> <p> alter table &quot;tbname&quot; add column &quot;column_name&quot;; </p> </td> 
+           <td> <p> alter table &quot;tbname&quot; drop column &quot;column_name&quot;; </p> </td> 
+           <td> <p> alter table &quot;tbname&quot; change &quot;old&quot; &quot;new&quot; &quot;newtype&quot;; </p> </td> 
+           <td> <p> insert into &quot;tbname&quot; (&quot;fields&quot;) values (&quot;values&quot;); </p> </td> 
+           <td> <p> delete from &quot;tbname&quot; where &quot;expr&quot;; </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Managing users and permissions </h3> 
+       <div class="section-body"> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> MySQL databases </h2> 
+     <div class="section-body"> 
+      <table class="wikitable"> 
+       <tbody>
+        <tr>
+         <th> <p> <a href="Programming Language">Prog Language</a> </p> </th> 
+         <th> <p> Access server </p> </th> 
+         <th> <p> Use database </p> </th> 
+         <th> <p> List databases </p> </th> 
+         <th> <p> List tables </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> raw MySQL access </p> </td> 
+         <td> </td> 
+         <td> <p> use <i>db</i>; </p> </td> 
+         <td> <p> show databases; </p> </td> 
+         <td> <p> show tables; </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PHP">PHP</a> </p> </td> 
+         <td> <p> $link = mysql_connect(host, user, password); or </p> <p> $db = new mysqli(host, user, password); </p> </td> 
+         <td> <p> mysql_select_db(<i>name</i>, $link); or </p> <p> $db = new mysqli(host, user, password, <i>name</i>); or </p> <p> $db-&gt;select_db(<i>name</i>); </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> db = MySQLdb.connect(host = &quot;hostname&quot;, user = &quot;username&quot;, passwd = &quot;password&quot;, db = &quot;dbname&quot;, connect_timeout = 5) </p> </td> 
+         <td> <p> import MySQLdb </p> </td> 
+         <td> <p> c=db.cursor(); c.execute(&quot;show databases&quot;); c.fetchall() </p> </td> 
+         <td> <p> c.execute(&quot;show tables&quot;); c.fetchall() </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <div class="section"> 
+       <h3> Reading from tables </h3> 
+       <div class="section-body"> 
+        <table class="wikitable"> 
+         <tbody>
+          <tr>
+           <th> <p> <a href="Programming Language">Prog Language</a> </p> </th> 
+           <th> <p> Describe </p> </th> 
+           <th> <p> List table content </p> </th> 
+           <th> <p> Search </p> </th> 
+          </tr>
+          <tr> 
+           <td> <p> raw MySQL access </p> </td> 
+           <td> <p> describe <i>tablename</i>; </p> </td> 
+           <td> <p> select <i>field</i> from <i>tablename</i>; </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Databases in Object-Relational mapping systems </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{see also|...}}</span> There are ORMs to manage a database: </p> 
+      <ul> 
+       <li> <a href="django (web framework)">django (web framework)</a></li> 
+       <li> <a href="SQLObject">SQLObject</a></li> 
+       <li> others</li> 
+      </ul> 
+      <div class="section"> 
+       <h3> Defining the object </h3> 
+       <div class="section-body"> 
+        <div class="section"> 
+         <h4> Django </h4> 
+         <div class="section-body"> 
+          <p> This class represents a row of a table named &quot;Table&quot; </p> 
+          <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> class Table(models.Model): </p> 
+          <pre>    field1_name = models.&quot;field_name&quot;()
+    field2_name = models.&quot;field_name&quot;()
+</pre> 
+          <pre>    # More explicit examples
+    integer_field = models.IntegerField()
+    char_field = models.CharField(max_length=1000)
+</pre> 
+          <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Using a table </h3> 
+       <div class="section-body"> 
+        <table class="wikitable"> 
+         <tbody>
+          <tr>
+           <th> </th> 
+           <th> <p> Read value </p> </th> 
+           <th> <p> Change value </p> </th> 
+           <th> <p> Search </p> </th> 
+           <th> <p> Inserting </p> </th> 
+          </tr>
+          <tr> 
+           <td> <p> django </p> </td> 
+           <td> <p> table_var.&quot;field_name&quot; </p> </td> 
+           <td> <p> table_var.&quot;field_name&quot; = &quot;value&quot; </p> </td> 
+           <td> <p> table_var = Table.objects.filter( &quot;expr&quot; ) </p> </td> 
+           <td> <p> table_var = Table() <br /> table_var.save() </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="ODBC">ODBC</a></li> 
+       <li><a href="JDBC">JDBC</a></li> 
+       <li><a href="MySQL">MySQL</a></li> 
+       <li><a href="PostgreSQL">PostgreSQL</a></li> 
+      </ul> 
+      <p> <a href="Category:Database APIs"> </a> <a href="Category:Free database management systems">Category:Free database management systems</a> <a href="Category:Programming languages">Category:Programming languages</a> <a href="Category:SQL data access">Category:SQL data access</a> </p> 
+      <p> <span class="unknown-node">{{database-stub}}</span> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

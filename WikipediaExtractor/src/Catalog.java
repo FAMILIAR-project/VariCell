@@ -8,7 +8,7 @@ public class Catalog implements Collection<Product> {
 	
 	private List<Product> _products = new ArrayList<Product>() ;
 	private Tree<String> _structuralInformation;
-	private List<Header> _headers = new ArrayList<Header>() ;; 
+	private List<Header> _headers = new ArrayList<Header>() ; 
 
 	public Catalog(Tree<String> structuralInformation, List<Header> rHeaders) {
 		setStructuralInformation(structuralInformation) ;

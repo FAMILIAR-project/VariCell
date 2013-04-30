@@ -1,0 +1,783 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of browser synchronizers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of browser synchronizers</h1> 
+   <div class="article-content"> 
+    <p> The following tables compare general and technical information for a number of web-based <a href="browser synchronizer">browser synchronizers</a>. Please see the individual products' articles for further information. This article is not all-inclusive or necessarily up-to-date. Unless otherwise specified in footnotes, comparisons are based on the stable versions. </p> 
+    <p> <a href="Transmute_Bookmark">Transmute</a> is excluded because it is a Windows-based offline tool (which has privacy advantages). <a href="Xmarks">Xmarks</a> use to provide an option to avoid the Xmarks server, which required using a <a href="WebDAV">WebDAV</a> or <a href="FTP">FTP</a> server to store bookmarks, however this feature is no longer reasonably available. <i>If any other tools offer a privacy advantage, list them in this paragraph or add a column to the tables.</i> </p> 
+    <p> Another aspect of synchronization not covered in this table is <a href="OPML">OPML</a> import and export. Exporting OPML enables many other tools to read the feeds, bookmarks/favorites and other browser data. There may be significant differences in capability between multiple levels of subscription - <i>some tools such as Transmute have three levels of subscription.</i> </p> 
+    <div class="section"> 
+     <h2>General</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="width: auto; text-align: center; table-layout: fixed;"> 
+       <tbody>
+        <tr>
+         <th> <p> Client </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Software license </p> </th> 
+         <th> <p> Latest release </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="BookmarkSync">BookmarkSync</a> </p> </th> 
+         <td> <p> Jack Dean </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Latest stable software release/BookmarkSync}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> Link </p> </th> 
+         <td> <p> <a href="Opera Software">Opera Software</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="Opera (web browser)">Opera</a>: <span class="unknown-node">{{Latest stable software release/Opera}}</span><br /><a href="Opera Mini">Opera Mini</a>: <span class="unknown-node">{{Latest stable software release/Opera Mini}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SiteBar">SiteBar</a> Server </p> </th> 
+         <td> <p> Ondrej Brablc </p> </td> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> 3.3.9 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Firefox Sync">Firefox Sync</a> </p> </th> 
+         <td> <p> <a href="Mozilla Foundation">Mozilla Foundation</a> </p> </td> 
+         <td> <p> <a href="Mozilla Public License">Mozilla Public License</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Latest stable software release/Firefox Sync}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xmarks">Xmarks</a> </p> </th> 
+         <td> <p> Xmarks </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Latest stable software release/Xmarks}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Client </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Software license </p> </th> 
+         <th> <p> Latest release </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Operating system support</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="width: auto; text-align: center; table-layout: fixed;"> 
+       <tbody>
+        <tr>
+         <th colspan="4"> <a href="Personal computer">PC</a> <a href="operating system">operating system</a> </th> 
+         <th colspan="5"> <a href="Mobile operating system">Mobile operating system</a> </th> 
+         <th> </th> 
+        </tr>
+        <tr> 
+         <th> <p> Client </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+         <th> <p> <a href="OS X">OS X</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th> <p> <a href="FreeBSD">FreeBSD</a> </p> </th> 
+         <th> <p> <a href="iOS">iOS</a> </p> </th> 
+         <th> <p> <a href="Android (operating system)">Android</a> </p> </th> 
+         <th> <p> <a href="BlackBerry OS">BlackBerry OS</a> </p> </th> 
+         <th> <p> <a href="Symbian">Symbian</a> </p> </th> 
+         <th> <p> <a href="Windows Phone">Windows Phone</a> </p> </th> 
+         <th> <p> other </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BookmarkSync">BookmarkSync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> Link </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Firefox Sync">Firefox Sync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xmarks">Xmarks</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes-no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes-no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes-no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes-no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Client </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+         <th> <p> <a href="OS X">OS X</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th> <p> <a href="FreeBSD">FreeBSD</a> </p> </th> 
+         <th> <p> <a href="iOS">iOS</a> </p> </th> 
+         <th> <p> <a href="Android (operating system)">Android</a> </p> </th> 
+         <th> <p> <a href="BlackBerry OS">BlackBerry OS</a> </p> </th> 
+         <th> <p> <a href="Symbian">Symbian</a> </p> </th> 
+         <th> <p> <a href="Windows Phone">Windows Phone</a> </p> </th> 
+         <th> <p> other </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Syncable Browsers</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="width: auto; text-align: center; table-layout: fixed;"> 
+       <tbody>
+        <tr>
+         <th> <p> Client </p> </th> 
+         <th> <p> <a href="Internet Explorer">Internet Explorer</a> </p> </th> 
+         <th> <p> <a href="Mozilla Firefox">Mozilla Firefox</a> </p> </th> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> </p> </th> 
+         <th> <p> <a href="Safari (web browser)">Safari</a> </p> </th> 
+         <th> <p> <a href="Google Chrome">Google Chrome</a> </p> </th> 
+         <th> <p> other </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="BookmarkSync">BookmarkSync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Mac Only) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> Link </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Firefox Sync">Firefox Sync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><a href="SeaMonkey">SeaMonkey</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xmarks">Xmarks</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span>, but there is a <a href="https://addons.opera.com/en/addons/extensions/details/xmarks-mini/1.0/?display=en">sync viewer in a menu</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Mac Only) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Client </p> </th> 
+         <th> <p> <a href="Internet Explorer">Internet Explorer</a> </p> </th> 
+         <th> <p> <a href="Mozilla Firefox">Mozilla Firefox</a> </p> </th> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> </p> </th> 
+         <th> <p> <a href="Safari (web browser)">Safari</a> </p> </th> 
+         <th> <p> <a href="Google Chrome">Google Chrome</a> </p> </th> 
+         <th> <p> other </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Syncable Items</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="width: auto; text-align: center; table-layout: fixed;"> 
+       <tbody>
+        <tr>
+         <th> <p> Client </p> </th> 
+         <th> <p> <a href="Bookmark (World Wide Web)">Bookmarks</a> </p> </th> 
+         <th> <p> <a href="Favicon">Favicons</a> </p> </th> 
+         <th> <p> Browsing history </p> </th> 
+         <th> <p> Form history </p> </th> 
+         <th> <p> <a href="Web feed">Web feed</a> subscriptions </p> </th> 
+         <th> <p> <a href="Web search engine">Search engine</a> plugins </p> </th> 
+         <th> <p> Passwords </p> </th> 
+         <th> <p> Dictionary </p> </th> 
+         <th> <p> Other </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="BookmarkSync">BookmarkSync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> Link </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> in 11.50 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Firefox Sync">Firefox Sync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xmarks">Xmarks</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Firefox) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (deprecated) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Client </p> </th> 
+         <th> <p> <a href="Bookmark (World Wide Web)">Bookmarks</a> </p> </th> 
+         <th> <p> <a href="Favicon">Favicons</a> </p> </th> 
+         <th> <p> Browsing history </p> </th> 
+         <th> <p> Form history </p> </th> 
+         <th> <p> <a href="Web feed">Web feed</a> subscriptions </p> </th> 
+         <th> <p> <a href="Web search engine">Search engine</a> plugins </p> </th> 
+         <th> <p> Passwords </p> </th> 
+         <th> <p> Dictionary </p> </th> 
+         <th> <p> Other </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Features</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="width: auto; text-align: center; table-layout: fixed;"> 
+       <tbody>
+        <tr>
+         <th> <p> Client </p> </th> 
+         <th> <p> Encrypted transfer </p> </th> 
+         <th> <p> Encrypted storage </p> </th> 
+         <th> <p> Server changing </p> </th> 
+         <th> <p> Web-based UI </p> </th> 
+         <th> <p> Exporting </p> </th> 
+         <th> <p> Link verification </p> </th> 
+         <th> <p> Duplicate link checker </p> </th> 
+         <th> <p> Notes </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="Arado Websearch">Arado Websearch</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> It doesn't provide any server for built-in internet based sync. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> BookKit </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Official site doesn't longer exist: <a href="http://www.bookkit.com/">http://www.bookkit.com/</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bookmark.com">Bookmark</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Server-side backup, restore of bookmarks, sync profiles so that only certain bookmarks sync to certain browsers. Feb 12, 2012: Doesn't work properly with IE9 (bookmarks don't appear on web UI). </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bookmark Base">Bookmark Base</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Bookmark editor, different browsers. It doesn't provide any server for built-in internet based sync: its portability is based on USB drives. Official site doesn't longer exist: <a href="http://www.bookmarkbase.com/">http://www.bookmarkbase.com/</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BookmarkSync">BookmarkSync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Feb 12, 2012: Sync doesn't work properly. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bookmark Sync and Sort">Bookmark Sync and Sort</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Chipmark">Chipmark</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Provides IE plug-in and Firefox extension. Feb 12, 2012: Registration process in official site <a href="https://www.chipmark.com">https://www.chipmark.com</a> fails with the following message: &quot;There was an error communicating with our mail server, or the email address entered was not valid. Registration was not successful. Please try again at a later time.&quot;. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Link Commander </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> It doesn't provide any server for built-in internet based sync. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Network Menus">Network Menus</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> Feb 12, 2012: Stops IE9 from loading when trying to install the plug-in. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> Link </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (only webbased) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="oSync">oSync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Portable Bookmarks">Portable Bookmarks</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> It doesn't provide any server for built-in internet based sync: its portability is based on USB drives. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Power Favorites">Power Favorites</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Extensions for Firefox and Opera. <a href="http://www.desksware.com/bookmark-manager.htm.">http://www.desksware.com/bookmark-manager.htm.</a> Feb 12, 2012: It doesn't automatically sync with IE9 (export/import based). </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SyncBookmarks">SyncBookmarks</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> Feb 12, 2012: Last modified timestamp on official download site (<a href="http://syncbkmk.sourceforge.net/download/index.html)">http://syncbkmk.sourceforge.net/download/index.html)</a> is 01/02/2007 04:28:512012. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Firefox Sync">Firefox Sync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Data is encrypted on the client and not accessible even to <a href="Mozilla Foundation">Mozilla</a> server operators.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="xbelSync">xbelSync</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> It doesn't provide any server for built-in internet based sync. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xmarks">Xmarks</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><a href="http://wiki.foxmarks.com/wiki/Foxmarks:_Frequently_Asked_Questions#Is_encryption_supported.3F">1</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (web) </p> </td> 
+         <td> <p> Server-side backup, restore of bookmarks, sync profiles so that only certain bookmarks sync to certain browsers; password storage is deprecated, Xmarks recommends using LastPass instead. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zinkmo">Zinkmo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> IE plug-in. Feb 12, 2012: Official site <a href="http://www.zinkmo.com/">http://www.zinkmo.com/</a> is down. </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Client </p> </th> 
+         <th> <p> Encrypted transfer </p> </th> 
+         <th> <p> Encrypted storage </p> </th> 
+         <th> <p> server changing </p> </th> 
+         <th> <p> webbased UI </p> </th> 
+         <th> <p> exporting </p> </th> 
+         <th> <p> Link Verification </p> </th> 
+         <th> <p> Duplicate Link Checker </p> </th> 
+         <th> <p> Notes </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Comparison of online backup services">Comparison of online backup services</a></li> 
+       <li><a href="Comparison of file hosting services">Comparison of file hosting services</a></li> 
+       <li><a href="Comparison of revision control software">Comparison of revision control software</a></li> 
+       <li><a href="Comparison of file synchronization software">Comparison of file synchronization software</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{web browsers}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Browser Synchronizers}}</span> <a href="Category:Web browsers">*</a> <a href="Category:Web browser comparisons">Browser synchronizers</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

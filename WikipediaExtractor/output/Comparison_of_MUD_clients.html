@@ -1,0 +1,1298 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of MUD clients</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of MUD clients</h1> 
+   <div class="article-content"> 
+    <div class="section"> 
+     <h2> Operating systems </h2> 
+     <div class="section-body"> 
+      <p> The operating systems the clients can run on. </p> 
+      <table class="sortable wikitable"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+         <th> <p> <a href="GNU/Linux">GNU/Linux</a> </p> </th> 
+         <th> <p> <a href="BSD">BSD</a> </p> </th> 
+         <th> <p> <a href="Unix">Unix</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> Atlantis </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GGMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Gnome-Mud </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> JamochaMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KBtin </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KildClient </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KMuddy </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Lyntin </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> mcl </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> muby </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Mudlet </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MudMagic </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MUSHclient">MUSHclient</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Portal </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Potato </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Powwow </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Pueblo/UE </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SimpleMU </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Soiled </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TinTin++">TinTin++</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TinyFugue">TinyFugue</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Trebuchet </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Wintin.Net </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="zMUD">zMUD</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li>PFI: <a href="Platform independent">Platform independent</a> or <a href="Interpreter (computing)">Interpreted</a> software</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Protocol support </h2> 
+     <div class="section-body"> 
+      <p> Information about what protocols the clients support. </p> 
+      <table class="sortable wikitable"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> <a href="ANSI escape code">COLOR</a> </p> </th> 
+         <th> <p> <a href="VT100">VT100</a> </p> </th> 
+         <th> <p> <a href="Transport Layer Security">SSL</a> </p> </th> 
+         <th> <p> <a href="TELNET">NAWS</a> </p> </th> 
+         <th> <p> <a href="TELNET">EOR</a> </p> </th> 
+         <th> <p> <a href="TELNET">ECHO</a> </p> </th> 
+         <th> <p> <a href="MCCP">MCCP</a> </p> </th> 
+         <th> <p> <a href="MXP (computing)">MXP</a> </p> </th> 
+         <th> <p> <a href="MUD Sound Protocol">MSP</a> </p> </th> 
+         <th> <p> <a href="MUD Master Chat Protocol">MMCP</a> </p> </th> 
+         <th> <p> <a href="xterm">256 colors</a> </p> </th> 
+         <th> <p> <a href="Unicode">Unicode</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> Atlantis </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GGMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Gnome-Mud </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> JamochaMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KBtin </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KildClient </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KMuddy </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Lyntin </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> mcl </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> muby </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Mudlet </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MudMagic </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MUSHclient">MUSHclient</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Portal </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Potato </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Powwow </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Pueblo/UE </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SimpleMU </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Soiled </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TinTin++">TinTin++</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TinyFugue">TinyFugue</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Trebuchet </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Wintin.Net </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> zMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li> A locally ran <a href="MCCP">MCCP</a> or <a href="Transport Layer Security">SSL</a> <a href="proxy server">proxy server</a> can be used by clients that do not support MCCP or SSL natively.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Scripting support </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> <a href="C Sharp (programming language)">C#</a> </p> </th> 
+         <th> <p> Client-Specific </p> </th> 
+         <th> <p> <a href="Lua (programming language)">Lua</a> </p> </th> 
+         <th> <p> <a href="Perl">Perl</a> </p> </th> 
+         <th> <p> <a href="Python (programming language)">Python</a> </p> </th> 
+         <th> <p> <a href="Ruby (programming language)">Ruby</a> </p> </th> 
+         <th> <p> TINTIN </p> </th> 
+         <th> <p> <a href="VB.NET">VB.NET</a> </p> </th> 
+         <th> <p> <a href="Tcl">Tcl</a> </p> </th> 
+         <th> <p> <a href="PHP">PHP</a> </p> </th> 
+         <th> <p> <a href="JScript">JScript</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> Atlantis </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GGMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Gnome-Mud </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> JamochaMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KBtin </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KildClient </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KMuddy </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Lyntin </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> mcl </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> muby </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Mudlet </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MudMagic </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MUSHclient">MUSHclient</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Portal </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Potato </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Powwow </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Pueblo/UE </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SimpleMU </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Soiled </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TinTin++">TinTin++</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TinyFugue">TinyFugue</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Trebuchet </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Wintin.Net </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> zMUD </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> WSH: <a href="Windows Script Host">Windows Script Host</a> allows the execution of various scripting languages.</li> 
+       <li> CLI: <a href="command-line interface">command-line interface</a> using <a href="redirection (computing)">redirection</a>, not to be confused with <a href="system (C standard library)">system (C standard library)</a></li> 
+       <li> Many clients provide their own scripting language, sometimes in addition to another scripting language.</li> 
+       <li> Clients providing a modified version of the original TINTIN scripting language are listed as supporting TINTIN.</li> 
+      </ul> 
+      <p> <span class="unknown-node">{{MUDs}}</span> </p> 
+      <p> <a href="Category:MUD clients">*</a> <a href="Category:Software comparisons">MUD clients</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

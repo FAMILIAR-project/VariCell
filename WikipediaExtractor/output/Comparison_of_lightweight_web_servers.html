@@ -1,0 +1,601 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of lightweight web servers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of lightweight web servers</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{mergeto|...}}</span> <span class="unknown-node">{{Original research|...}}</span> <b>Lightweight web servers</b> are <a href="web server">web servers</a> which have been designed to run with very small resource overhead because of hardware, environment, or simply for the challenge of it. </p> 
+    <p> Many of these servers have been created as a mental exercise to determine if a modern webserver could be written to run on limited resources such as those provided in a <a href="graphing calculator">graphing calculator</a>, a <a href="Commodore 64">Commodore 64</a>, or in 64 kB (64 <a href="kibibyte">KiB</a>) total of memory<span class="unknown-node">{{Citation needed|...}}</span>. Others have been written as commercial or open source endeavors to create <a href="embedded HTTP server">webservers with low overhead for embedded systems</a> (network router configuration pages) or low memory requirements. </p> 
+    <div class="section"> 
+     <h2>Overview</h2> 
+     <div class="section-body"> 
+      <p> A list of <i>notable</i> lightweight web servers follows: </p> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Server </p> </th> 
+         <th> <p> <a href="Software developer">Creator/Developer</a> </p> </th> 
+         <th> <p> <a href="Operating system">Operating Systems</a> </p> </th> 
+         <th> <p> <a href="Programming language">Development Language</a> </p> </th> 
+         <th> <p> <a href="Software license">License</a> </p> </th> 
+         <th> <p> Last release version </p> </th> 
+         <th> <p> Release date </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Boa (web server)">Boa</a> </p> </td> 
+         <td> <p> Paul Phillips </p> </td> 
+         <td> <p> <a href="GNU/Linux">GNU/Linux</a>, <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> 0.94.13 </p> </td> 
+         <td> <p> 2005-02-23 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Cherokee (Webserver)">Cherokee</a> </p> </td> 
+         <td> <p> &Aacute;lvaro L&oacute;pez Ortega </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a>, <a href="GNU/Linux">GNU/Linux</a>, <a href="Solaris (operating system)">Solaris</a>, <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1.0.18<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2011-01-19 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Hiawatha webserver">Hiawatha</a> </p> </td> 
+         <td> <p> Hugo Leisink </p> </td> 
+         <td> <p> <a href="POSIX">POSIX</a>, <a href="Unix">Unix</a>, <a href="Linux">Linux</a>, <a href="BSD">BSD</a>, <a href="OS X">OS X</a>, <a href="QNX">QNX</a>, <a href="Windows">Windows</a>, <a href="Haiku (operating system)">Haiku</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> 2<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 8.8.1 </p> </td> 
+         <td> <p> 2013-03-05<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="HTTP File Server">HTTP File Server</a> </p> </td> 
+         <td> <p> Massimo Melina (aka rejetto) </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Delphi </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> 2.2f </p> </td> 
+         <td> <p> 2009-02-17 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="IIS Express">IIS Express</a> </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Proprietary software">Closed source</a> </p> </td> 
+         <td> <p> 7.5 </p> </td> 
+         <td> <p> 2011-01-18 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="lighttpd">lighttpd</a> </p> </td> 
+         <td> <p> Jan Kneschke </p> </td> 
+         <td> <p> Unix, Linux </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1.4.32<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2012-11-21 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Mongoose (web server)">Mongoose</a> </p> </td> 
+         <td> <p> Sergey Lyubka </p> </td> 
+         <td> <p> Windows, Unix, Linux </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> 3.3 </p> </td> 
+         <td> <p> 2012-09-23<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Mongrel2">Mongrel2</a> </p> </td> 
+         <td> <p> <a href="Zed Shaw">Zed A. Shaw</a> </p> </td> 
+         <td> <p> Unix, Linux </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1.8.0 </p> </td> 
+         <td> <p> 2012-07-26<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Mongrel (web server)">Mongrel</a> </p> </td> 
+         <td> <p> <a href="Zed Shaw">Zed A. Shaw</a> </p> </td> 
+         <td> <p> Unix, Linux </p> </td> 
+         <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> 2 or Ruby License<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1.1.5 </p> </td> 
+         <td> <p> 2008-05-22<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="NanoHTTPD">NanoHTTPD</a> </p> </td> 
+         <td> <p> Jarno Elonen </p> </td> 
+         <td> <p> Java enabled, including mobile </p> </td> 
+         <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> Modified <a href="BSD licenses">BSD</a> </p> </td> 
+         <td> <p> 1.25 </p> </td> 
+         <td> <p> 2012-02-12 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="nginx">nginx</a> </p> </td> 
+         <td> <p> <a href="NGINX, Inc.">NGINX, Inc.</a> </p> </td> 
+         <td> <p> Unix-like, Windows </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+         <td> <p> 1.2.8<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2013-02-12 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Perlbal">Perlbal</a> </p> </td> 
+         <td> <p> <a href="Brad Fitzpatrick">Brad Fitzpatrick</a> </p> </td> 
+         <td> <p> Any OS with Perl </p> </td> 
+         <td> <p> <a href="Perl">Perl</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> / <a href="Artistic License">Artistic</a> </p> </td> 
+         <td> <p> 1.73 </p> </td> 
+         <td> <p> 2009-10-13 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Resin Server">Resin Server</a> </p> </td> 
+         <td> <p> Scott Ferguson </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Windows">Windows</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <a href="Java (programming language)">Java</a>, <a href="C programming language">C</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> 4.026 </p> </td> 
+         <td> <p> 2012-02-29 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="thttpd">thttpd</a> </p> </td> 
+         <td> <p> Acme Labs </p> </td> 
+         <td> <p> Unix </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+         <td> <p> 2.25b </p> </td> 
+         <td> <p> 2003-12-29 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Tntnet">Tntnet</a> </p> </td> 
+         <td> <p> Tommi M&auml;kitalo </p> </td> 
+         <td> <p> Unix </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="LGPL">LGPL</a> </p> </td> 
+         <td> <p> 2.1 </p> </td> 
+         <td> <p> 2012-04-02 </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Server </p> </th> 
+         <th> <p> <a href="Software developer">Creator/Developer</a> </p> </th> 
+         <th> <p> <a href="Operating system">Operating Systems</a> </p> </th> 
+         <th> <p> <a href="Programming language">Development Language</a> </p> </th> 
+         <th> <p> <a href="Software license">Software license</a> </p> </th> 
+         <th> <p> Last release version </p> </th> 
+         <th> <p> Release date </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Operating system support</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th style="width: 20em; text-align: left"> <p> Server </p> </th> 
+         <th style="width: 6em"> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+         <th style="width: 6em"> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th style="width: 6em"> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+         <th style="width: 6em"> <p> <a href="BSD">BSD</a> </p> </th> 
+         <th style="width: 6em"> <p> <a href="Solaris (operating system)">Solaris</a> </p> </th> 
+         <th style="width: 6em"> <p> <a href="QNX">QNX</a> </p> </th> 
+         <th style="width: 6em"> <p> <a href="SafeRTOS">SafeRTOS</a> </p> </th> 
+         <th style="width: 6em"> <p> standalone software </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Boa (web server)">Boa</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Cherokee (Webserver)">Cherokee</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Hiawatha webserver">Hiawatha</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="HTTP File Server">HTTP File Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="IIS Express">IIS Express</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="lighttpd">lighttpd</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Mongoose (web server)">Mongoose</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Mongrel (web server)">Mongrel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="NanoHTTPD">NanoHTTPD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="nginx">nginx</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Perlbal">Perlbal</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Resin Server">Resin Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="thttpd">thttpd</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Tntnet">Tntnet</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Comparison of web servers">Comparison of web servers</a></li> 
+       <li> <a href="Embedded HTTP server">Embedded HTTP server</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+      <p> <a href="Category:Web server software"> </a> <a href="Category:Internet Protocol based network software">Category:Internet Protocol based network software</a> <a href="Category:Software comparisons">Web Servers, lightweight</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

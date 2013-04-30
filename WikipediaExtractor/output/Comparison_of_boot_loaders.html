@@ -1,0 +1,1319 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of boot loaders</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of boot loaders</h1> 
+   <div class="article-content"> 
+    <p> The following tables compare general and technical information for a number of available <a href="Booting">boot loaders</a>. </p> 
+    <div class="section"> 
+     <h2>Features</h2> 
+     <div class="section-body"> 
+      <table style="font-size: 85%" class="sortable wikitable"> 
+       <tbody>
+        <tr>
+         <th rowspan="2"> <p> Name </p> </th> 
+         <th rowspan="2"> <p> <a href="Software license">License</a> </p> </th> 
+         <th colspan="3"> <p> It can reside in </p> </th> 
+         <th colspan="8"> <p> Boot from </p> </th> 
+         <th colspan="9"> <p> Can boot </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="Master boot record">MBR</a> only </p> </th> 
+         <th> <p> <a href="Master boot record">MBR</a> / <a href="Volume boot record">VBR</a> </p> </th> 
+         <th> <p> <a href="Floppy">Floppy</a> </p> </th> 
+         <th> <p> <a href="Hard disk">Hard disk</a> </p> </th> 
+         <th> <p> Second Hard disk </p> </th> 
+         <th> <p> <a href="Logical disk">Logical partitions</a> </p> </th> 
+         <th> <p> <a href="CD-ROM">CD-ROM</a> </p> </th> 
+         <th> <p> <a href="Floppy disk">Floppy</a> </p> </th> 
+         <th> <p> <a href="Universal Serial Bus">USB</a> </p> </th> 
+         <th> <p> <a href="Zip drive">Zip</a> </p> </th> 
+         <th> <p> <a href="Local area network">LAN</a> </p> </th> 
+         <th> <p> <a href="MS-DOS">MS-DOS</a> </p> </th> 
+         <th> <p> <a href="Windows 9x">Windows 9x</a>/<a href="Windows Me">Me</a> </p> </th> 
+         <th> <p> <a href="Windows NT">Windows NT series</a> </p> </th> 
+         <th> <p> <a href="Windows Vista">Windows Vista</a>/<a href="Windows 7">7</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th> <p> <a href="ReactOS">ReactOS</a> </p> </th> 
+         <th> <p> <a href="MenuetOS">MenuetOS</a> </p> </th> 
+         <th> <p> <a href="*BSD">*BSD</a> </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac&nbsp;OS&nbsp;X</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Acronis Disk Director Suite">Acronis OS Selector</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AiR-Boot">AiR-Boot</a> </p> </th> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Akernelloader">Akernelloader</a> </p> </th> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Barebox">Barebox</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License#Version 2">GPLv2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Boot Camp (software)">Boot Camp</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> BootIt Next Generation </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BootKey">BootKey</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="bootman">bootman</a> </p> </th> 
+         <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BootX (Apple)">BootX (Apple)</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BootX (Linux)">BootX (Linux)</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Darwin Boot Loader">Darwin Boot Loader</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Das U-Boot">Das U-Boot</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License#Version 2">GPLv2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> (FreeBSD) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GAG (boot loader)">GAG</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> (SafeBoot) </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU GRUB">GRUB Legacy</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU GRUB">GNU GRUB</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License#Version 3">GPLv3</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GRUB4DOS">GRUB4DOS</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Gujin">Gujin</a> <a href="http://gujin.sourceforge.net/">1</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Gummiboot (software)">Gummiboot</a> </p> </th> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL 2.1</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LILO (boot loader)">LILO</a> </p> </th> 
+         <td> <p> <a href="BSD licenses">BSD license</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> (FreeBSD, PC-BSD, ...) </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="loadlin">loadlin</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MasterBooter">MasterBooter</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NTLDR">NTLDR</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OSL2000 Boot Manager">OSL2000 Boot Manager</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PLoP Bootmanager">PLoP Bootmanager</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="RedBoot">RedBoot</a> </p> </th> 
+         <td> <p> mod <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Smart Boot Manager">Smart Boot Manager</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SPFdisk">SPFdisk</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SYSLINUX">SYSLINUX</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XOSL">XOSL</a> </p> </th> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Boot Manager">Windows Boot Manager</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="FreeLoader">FreeLoader</a> (ReactOS Boot Loader) </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th rowspan="2"> <p> Name </p> </th> 
+         <th rowspan="2"> <p> <a href="Software license">Software license</a> </p> </th> 
+         <th colspan="3"> <p> It can reside in </p> </th> 
+         <th colspan="8"> <p> Boot from </p> </th> 
+         <th colspan="9"> <p> Can boot </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Master boot record">MBR</a> only </p> </th> 
+         <th> <p> <a href="Master boot record">MBR</a> / <a href="Volume boot record">VBR</a> </p> </th> 
+         <th> <p> <a href="Floppy">Floppy</a> </p> </th> 
+         <th> <p> <a href="Hard disk">Hard disk</a> </p> </th> 
+         <th> <p> Second hard disk </p> </th> 
+         <th> <p> <a href="Logical disk">Logical partitions</a> </p> </th> 
+         <th> <p> <a href="CD-ROM">CD-ROM</a> </p> </th> 
+         <th> <p> <a href="Floppy disk">Floppy</a> </p> </th> 
+         <th> <p> <a href="Universal Serial Bus">USB</a> </p> </th> 
+         <th> <p> <a href="Zip drive">Zip</a> </p> </th> 
+         <th> <p> <a href="Local area network">LAN</a> </p> </th> 
+         <th> <p> <a href="MS-DOS">MS-DOS</a> </p> </th> 
+         <th> <p> <a href="Windows 9x">Windows 9x</a>/<a href="Windows Me">Me</a> </p> </th> 
+         <th> <p> <a href="Windows NT">Windows NT series</a> </p> </th> 
+         <th> <p> <a href="Windows Vista">Windows Vista</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th> <p> <a href="ReactOS">ReactOS</a> </p> </th> 
+         <th> <p> <a href="MenuetOS">MenuetOS</a> </p> </th> 
+         <th> <p> <a href="*BSD">*BSD</a> </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac&nbsp;OS&nbsp;X</a> </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <br /><br /> </p> 
+      <table class="wikitable" border="1"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Advanced command </p> </th> 
+         <th> <p> Scriptable </p> </th> 
+         <th> <p> Supported architecture </p> </th> 
+         <th> <p> Supported filesystem </p> </th> 
+         <th> <p> Supported OS </p> </th> 
+         <th> <p> Supported executable </p> </th> 
+         <th> <p> Supported protocol </p> </th> 
+         <th> <p> Supported decompression </p> </th> 
+         <th> <p> Others </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU GRUB">GRUB Legacy</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> i386(pc) </p> </td> 
+         <td> <p> FAT16, FAT32, MINIX fs, Linux ext2fs, ReiserFS, JFS, XFS, VSTa fs </p> </td> 
+         <td> <p> FreeBSD, NetBSD, OpenBSD, GNU/Linux </p> </td> 
+         <td> <p> ELF </p> </td> 
+         <td> <p> TFTP </p> </td> 
+         <td> <p> gzip </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU GRUB">GRUB 2</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> i386(PC, coreboot, OLPC, Mac), PowerPC(Mac, Pegasos II), Sun UltraSPARC(SPARC v9) </p> </td> 
+         <td> <p> ext2, ext3, ext4, btrfs, zfs, ufs, minix, iso9660, udf, jfs, hfs, hfs+, afs, affs, sfs, xfs, reiserfs, tar, cpio, ntfs, FAT16, FAT32 </p> </td> 
+         <td> <p> Linux(PC, mac), FreeBSD(pc), OpenBSD(pc), NetBSD(pc) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LILO (boot loader)">LILO</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> i386(PC) </p> </td> 
+         <td> <p> agnostic </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> bzip2, gzip </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> LOLO (Logic PD) </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ARM7, ARM9, ARM11, Cortex-A8, StrongARM, SH, ColdFire </p> </td> 
+         <td> <p> FAT16, FAT32, YAFFS1, YAFFS2 </p> </td> 
+         <td> <p> Linux, WinCE </p> </td> 
+         <td> <p> ELF, binary, BIN (WinCE), SREC </p> </td> 
+         <td> <p> TFTP </p> </td> 
+         <td> <p> Supported devices: MCF54xx, MCF5329, MCF5373, LLH7A400, LLH7A404, LLH79520, LLH79524, LSH7727, LSH7750, LSH7760, PXA270, PXA320, IMX31, IMX27, OMAP35xx, OMAP37xx </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SYSLINUX">SYSLINUX</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> i386(pc) </p> </td> 
+         <td> <p> ext2, ext3, ext4, btrfs, FAT16, FAT32, iso9660, udf, ntfs(since 4.06), ? </p> </td> 
+         <td> <p> GNU/Linux </p> </td> 
+         <td> <p> None </p> </td> 
+         <td> <p> TFTP </p> </td> 
+         <td> <p> gzip, bzip2, lzo, zip, lzma, ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Akernelloader">Akernelloader</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> x86 (PC) </p> </td> 
+         <td> <p> FAT32,ext2,ext3 </p> </td> 
+         <td> <p> GNU/Linux </p> </td> 
+         <td> <p> ELF,Binary </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Yaboot">Yaboot</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> PowerPC(Open Firmware) </p> </td> 
+         <td> <p> ext2, ext3, ? </p> </td> 
+         <td> <p> GNU/Linux, ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="RedBoot">RedBoot</a> </p> </th> 
+         <td> <p> yes </p> </td> 
+         <td> <p> yes (boot only) </p> </td> 
+         <td> <p> ARM, ColdFire, H8300, x86, Freescale/Motorola 68000, MIPS, PPC, SH, SPARC, SPARCLite </p> </td> 
+         <td> <p> JFFS2 </p> </td> 
+         <td> <p> Linux, eCos </p> </td> 
+         <td> <p> ELF </p> </td> 
+         <td> <p> TFTP, serial (X-modem) </p> </td> 
+         <td> <p> gzip </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Das U-Boot">Das U-Boot</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> PPC, ARM, AVR32, Blackfin, ColdFire, IXP, Leon2, m68k, MicroBlaze, MIPS, NIOS, NIOS2, PXA, x86, StrongARM, SH2, SH3, SH4, ... </p> </td> 
+         <td> <p> FAT, VFAT, ext2, ext3, ext4, jffs2, cramfs, reiserfs, yaffs2, ubifs, nfs </p> </td> 
+         <td> <p> 4_4bsd, Artos, Dell, Esix, FreeBSD, Irix, Linux, LynxOS, NCR, NetBSD, OpenBSD, pSOS, QNX, RTEMS, SCO, Solaris, SVR4, U-Boot, VXworks </p> </td> 
+         <td> <p> ELF, U-Boot image format </p> </td> 
+         <td> <p> TFTP, NFS, serial (S-Record, Y-Modem, Kermit binary protocol) </p> </td> 
+         <td> <p> bzip2, gzip, lzma </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Barebox">Barebox</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> ARM, Blackfin, NIOS2, MIPS, x86, PPC </p> </td> 
+         <td> <p> FAT, VFAT, cramfs, nfs </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> TFTP, NFS, serial (S-Record, Y-Modem) </p> </td> 
+         <td> <p> bzip2, gzip, lzma </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> kboot </p> </th> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> i386, PowerPC64 </p> </td> 
+         <td> <p> most supported by Linux Kernel (ext2, ext3, ext4, reiserfs, xfs, jfs, etc..) </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> HTTP, FTP, TFTP </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> SSH, NFS support. kexec-based bootloader. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Runnix </p> </th> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> kexec and SYSLINUX based bootloader. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> kexec-loader </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> i386 </p> </td> 
+         <td> <p> most supported by Linux Kernel (ext2, ext3, ext4, reiserfs, xfs, jfs, etc..) </p> </td> 
+         <td> <p> Linux/multiboot </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> No networking </p> </td> 
+         <td> <p> gzip (for kernel modules) </p> </td> 
+         <td> <p> Kernel/multiboot module support </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NTLDR">NTLDR</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> i386(PC) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> default bootloader on Windows NT </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FREELDR </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> i386(PC), ARM, PowerPC </p> </td> 
+         <td> <p> ext2, FAT12, FAT16, FAT32, ISO, NTFS </p> </td> 
+         <td> <p> ReactOS, Linux, Windows NT 4.0, Windows 2000, Windows XP, Windows 2003 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> clone of NTLDR </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> boot0 </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> FreeBSD's <a href="master boot record">master boot record</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> extipl </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <a href="IBM Public License">IBM IPL</a> upper compatible </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Multiple Boot Manager </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> PC DOS, MS-DOS, Windows, OS/2, Linux, FreeBSD, NetBSD, OpenBSD, BeOS, B-right/V, Solaris, OpenStep, Plan 9, EOTA<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> bootload (Technologic Systems) </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> ARM </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Advanced command </p> </th> 
+         <th> <p> Scriptable </p> </th> 
+         <th> <p> Supported architecture </p> </th> 
+         <th> <p> Supported filesystem </p> </th> 
+         <th> <p> Supported OS </p> </th> 
+         <th> <p> Supported executable </p> </th> 
+         <th> <p> Supported protocol </p> </th> 
+         <th> <p> Supported decompression </p> </th> 
+         <th> <p> Others </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Notes </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> External links </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://www.reactos.org/wiki/FreeLoader">FreeLoader in the ReactOS Wiki</a></li> 
+       <li> <a href="http://www.plop.at/">PLoP</a> Let you boot legacy PCs from CD-ROM and USB without BIOS support</li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Boot Loaders}}</span> <a href="Category:Software comparisons">BOOT Loaders</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

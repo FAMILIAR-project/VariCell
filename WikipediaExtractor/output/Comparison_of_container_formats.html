@@ -1,0 +1,1136 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of container formats</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of container formats</h1> 
+   <div class="article-content"> 
+    <p> This table compares features of <a href="container format (digital)">container formats</a> (video file formats). To see which multimedia players support which container format, look at <a href="comparison of video player software">comparison of media players</a>. </p> 
+    <div class="section"> 
+     <h2>Information</h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" border="1" cellpadding="1" cellspacing="0" style="font-size: 85%; text-align: center; width: auto"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name and file extension, if different </p> </th> 
+         <th> <p> <a href="Proprietor">Proprietor</a>/Developer </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> <a href="Variable bit rate">Variable bit rate</a> audio </p> </th> 
+         <th> <p> <a href="Variable frame rate">Variable frame rate</a> </p> </th> 
+         <th> <p> Chapters </p> </th> 
+         <th> <p> <a href="Subtitle (captioning)">Captions</a> (<a href="Subtitles">Subtitles</a>) </p> </th> 
+         <th> <p> <a href="Video format">Video formats</a> supported </p> </th> 
+         <th> <p> <a href="Audio format">Audio formats</a> supported </p> </th> 
+         <th> <p> <a href="Metadata">Metadata</a>/<a href="Tag (metadata)">Tags</a> supported </p> </th> 
+         <th> <p> Menu Support (like <a href="DVD">DVD</a>) </p> </th> 
+         <th> <p> <a href="Streaming Media">Streaming</a> Support </p> </th> 
+         <th> <p> Attachment Support<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> 3D Support (codec) </p> </th> 
+         <th> <p> 3D Support at container level </p> </th> 
+         <th> <p> Supported by hardware players </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="3GP">3GP</a> </p> </th> 
+         <td> <p> <a href="3GPP">3GPP</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="3GP">3G2</a> </p> </th> 
+         <td> <p> <a href="3GPP2">3GPP2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Advanced Systems Format">Advanced Systems Format</a> (.asf, .wma, .wmv) </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> Proprietary, patent encumbered </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Audio Video Interleave">AVI</a> </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> through <a href="Resource Interchange File Format">RIFF</a> chunks </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DivX Media Format">DivX Media Format</a> (.divx) </p> </th> 
+         <td> <p> <a href="DivX, Inc.">DivX, Inc.</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Enhanced VOB">EVO</a> </p> </th> 
+         <td> <p> <a href="MPEG">MPEG</a> </p> </td> 
+         <td> <p> Patent encumbered </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> F4V (<a href="Flash Video">Flash Video</a>) </p> </th> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> <p> Patent encumbered </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FLV (<a href="Flash Video">Flash Video</a>) </p> </th> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> <p> Patent encumbered </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Matroska">Matroska</a> (.mkv, .mk3d, .mka, .mks) </p> </th> 
+         <td> <p> CoreCodec, Inc.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Freely licensed<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span>Virtually anything </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span>Virtually anything </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span>under development by CoreCodec<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Multimedia Container Format">MCF</a> </p> </th> 
+         <td> <p> <a href="http://mcf.sourceforge.net/">Community</a> </p> </td> 
+         <td> <p> BSD-style license for specs, GNU for tools </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MPEG-4 Part 14">MP4</a> </p> </th> 
+         <td> <p> <a href="MPEG">MPEG</a> </p> </td> 
+         <td> <p> Patent encumbered </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MPEG">MPEG</a> Video File (.mpg, .mpeg) </p> </th> 
+         <td> <p> <a href="MPEG">MPEG</a> </p> </td> 
+         <td> <p> Patent encumbered </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MPEG program stream">MPEG program stream</a> PS (.m2p, .ps) </p> </th> 
+         <td> <p> <a href="MPEG">MPEG</a> </p> </td> 
+         <td> <p> Patent encumbered </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MPEG transport stream">MPEG transport stream</a> TS (.ts) </p> </th> 
+         <td> <p> <a href="MPEG">MPEG</a> </p> </td> 
+         <td> <p> Patent encumbered </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> BDAV MPEG-2 transport stream (<a href=".m2ts">.m2ts</a>) </p> </th> 
+         <td> <p> <a href="Blu-ray Disc Association">Blu-ray Disc Association</a> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MXF">MXF</a> </p> </th> 
+         <td> <p> <a href="SMPTE">SMPTE</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> Virtually anything </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> Virtually anything </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Ogg">Ogg</a> </p> </th> 
+         <td> <p> <a href="Xiph.org">Xiph.org</a> </p> </td> 
+         <td> <p> Patent-free, <a href="Free software">Free software</a> implementations available </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="QuickTime File Format">QuickTime</a> (.mov, .qt) </p> </th> 
+         <td> <p> <a href="Apple Computer">Apple</a> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="RMVB">RMVB</a> </p> </th> 
+         <td> <p> <a href="RealNetworks">RealNetworks</a> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VOB">VOB</a>+<a href="IFO">IFO</a> </p> </th> 
+         <td> <p> <a href="DVD Forum">DVD Forum</a> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WebM">WebM</a> </p> </th> 
+         <td> <p> <a href="WebM Project">WebM Project</a> </p> </td> 
+         <td> <p> perpetual license grant to patents </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no2|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> </th> 
+         <th> <p> <a href="Proprietor">Proprietor</a>/Developer </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> <a href="Variable bit rate">Variable bit rate</a> audio </p> </th> 
+         <th> <p> <a href="Variable frame rate">Variable frame rate</a> </p> </th> 
+         <th> <p> Chapters </p> </th> 
+         <th> <p> <a href="Subtitle (captioning)">Captions</a> (<a href="Subtitles">Subtitles</a>) </p> </th> 
+         <th> <p> Video formats supported </p> </th> 
+         <th> <p> Audio formats supported </p> </th> 
+         <th> <p> Metadata/Tags supported </p> </th> 
+         <th> <p> Menu Support (like <a href="DVD">DVD</a>) </p> </th> 
+         <th> <p> <a href="Streaming Media">Streaming</a> Support </p> </th> 
+         <th> <p> Attachment Support </p> </th> 
+         <th> <p> 3D Support (codec) </p> </th> 
+         <th> <p> 3D Support at container level </p> </th> 
+         <th> <p> Supported by hardware players </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Formats supported</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>Audio formats supported</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="font-size: smaller; text-align: center; width: 100%; table-layout: fixed;"> 
+         <tbody>
+          <tr> 
+           <th rowspan="2" style="width: 12em"> </th> 
+           <th colspan="9"> <p> <a href="Lossy compression">Lossy compression</a> </p> </th> 
+           <th> </th> 
+           <th colspan="6"> <p> <a href="Lossless compression">Lossless compression</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MP3">MP3</a> </p> </th> 
+           <th> <p> <a href="Windows Media Audio">WMA</a> </p> </th> 
+           <th> <p> <a href="RealAudio">RealAudio</a> </p> </th> 
+           <th> <p> <a href="Vorbis">Vorbis</a> </p> </th> 
+           <th> <p> <a href="Opus (audio format)">Opus</a> </p> </th> 
+           <th> <p> <a href="Musepack">Musepack</a> </p> </th> 
+           <th> <p> <a href="Advanced Audio Coding">AAC</a> </p> </th> 
+           <th> <p> <a href="Dolby Digital">AC-3</a> </p> </th> 
+           <th> <p> <a href="DTS Coherent Acoustics">DTS</a> </p> </th> 
+           <th> <p> <a href="Pulse-code modulation">PCM</a> </p> </th> 
+           <th> <p> <a href="Monkey's Audio">APE</a> </p> </th> 
+           <th> <p> <a href="FLAC">FLAC</a> </p> </th> 
+           <th> <p> <a href="Apple Lossless">ALAC</a> </p> </th> 
+           <th> <p> <a href="WavPack">WavPack</a> </p> </th> 
+           <th> <p> <a href="Meridian Lossless Packing">MLP / Dolby TrueHD</a> </p> </th> 
+           <th> <p> <a href="DTS (sound system)#DTS audio codec">DTS-HD</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="QuickTime File Format">QuickTime</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Audio Video Interleave">AVI</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no2}}</span> not officially </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Matroska">Matroska</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MPEG-4 Part 14">MP4</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no2}}</span> not officially </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Material eXchange Format">MXF</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ogg">Ogg</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Video formats supported</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="font-size: smaller; text-align: center; width: 100%; table-layout: fixed;"> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> <a href="MPEG-1 Part 2">MPEG-1</a> </p> </th> 
+           <th> <p> <a href="H.262/MPEG-2 Part 2">MPEG-2</a> </p> </th> 
+           <th> <p> <a href="MPEG-4 Part 2">MPEG-4 (A)SP</a> </p> </th> 
+           <th> <p> <a href="H.264/MPEG-4 AVC">H.264/MPEG-4 AVC</a> </p> </th> 
+           <th> <p> <a href="Windows Media Video">VC-1/WMV</a> </p> </th> 
+           <th> <p> <a href="RealVideo">RealVideo</a> </p> </th> 
+           <th> <p> <a href="Theora">Theora</a> </p> </th> 
+           <th> <p> <a href="Microsoft MPEG4 V2">Microsoft MPEG4 V2</a> </p> </th> 
+           <th> <p> <a href="VP8">VP8</a> </p> </th> 
+           <th> <p> <a href="Multiview Video Coding">MVC</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="QuickTime File Format">QuickTime</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Audio Video Interleave">AVI</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ogg">Ogg</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Matroska">Matroska</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MPEG-4 Part 14">MP4</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Material eXchange Format">MXF</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Caption (Subtitle) formats supported</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="font-size: smaller; text-align: center; width: 100%; table-layout: fixed;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th> <p> <a href="QuickTime File Format">QuickTime</a> </p> </th> 
+           <th> <p> <a href="Audio Video Interleave">AVI</a> </p> </th> 
+           <th> <p> <a href="OGM">OGM</a> </p> </th> 
+           <th> <p> <a href="Matroska">Matroska</a> </p> </th> 
+           <th> <p> <a href="MPEG-4 Part 14">MP4</a> </p> </th> 
+           <th> <p> <a href="Material eXchange Format">MXF</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="AQTitle">AQTitle</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="JACOSub">JACOSub</a> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MicroDVD">MicroDVD</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MPEG-4 Part 17">MPEG-4 Timed Text</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MPlayer">MPSub</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ogg Kate">Ogg Kate</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ogg Writ">Ogg Writ</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Phoenix Subtitle">Phoenix Subtitle</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="PowerDivX">PowerDivX</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="RealText">RealText</a> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SAMI">SAMI</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Structured Subtitle Format">Structured Subtitle Format</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SubRip">SubRip</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Gloss Subtitle">Gloss Subtitle</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Advanced SubStation Alpha">(Advanced)</a> <a href="SubStation Alpha">SubStation Alpha</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SubViewer">SubViewer</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Universal Subtitle Format">Universal Subtitle Format</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="VSFilter">VobSub</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="XSUB">XSUB</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">{{expand section|...}}</span> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Portal|...}}</span> </p> 
+      <ul> 
+       <li> <a href="Comparison of video encoders">Comparison of video encoders</a></li> 
+       <li> <a href="List of codecs">List of codecs</a> 
+        <ul> 
+         <li> <a href="Open source codecs and containers">Open source codecs and containers</a></li> 
+        </ul> </li> 
+       <li> <a href="Comparison of video codecs">Comparison of video codecs</a></li> 
+       <li> <a href="Comparison of audio codecs">Comparison of audio codecs</a> 
+        <ul> 
+         <li> <a href="Enhanced podcast">Enhanced podcast</a></li> 
+        </ul> </li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes and references</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Container Formats}}</span> <a href="Category:Software comparisons">Container Formats</a> <a href="Category:Container formats">*Comparison</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,1335 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of numerical analysis software</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of numerical analysis software</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Expand list|...}}</span> </p> 
+    <p> The following tables provide a <b>comparison of <a href="numerical analysis">numerical analysis</a> software</b>. </p> 
+    <div class="section"> 
+     <h2> Applications </h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3> General </h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: smaller; text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> Creator </p> </th> 
+           <th> <p> Development started </p> </th> 
+           <th> <p> First public release </p> </th> 
+           <th> <p> Latest stable version </p> </th> 
+           <th> <p> Cost (<a href="United States dollar">USD</a>) </p> </th> 
+           <th> <p> License </p> </th> 
+           <th> <p> Notes </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ADMB">ADMB</a> </p> </th> 
+           <td> <p> D. Fournier, ADMB Project </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> 11 / 2012 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="BSD_Licenses#3-clause">BSD 3-clause (aka new) License</a> </p> </td> 
+           <td> <p> Automatic differentiation makes it well suited to complex minimization problems </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ch (computer programming)">Ch</a> </p> </th> 
+           <td> <p> SoftIntegration </p> </td> 
+           <td> </td> 
+           <td> <p> 2001 </p> </td> 
+           <td> <p> 7.0 / 2012 </p> </td> 
+           <td> <p> $399(commercial) / $199 (academic) / Free (student) </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> C/C++ based numerical computing and graphical plotting<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Data Analyser MadArtSoft">Data Analyser MadArtSoft</a> </p> </th> 
+           <td> <p> MadArtSoft Ltd. </p> </td> 
+           <td> <p> 2011 </p> </td> 
+           <td> <p> 2011 </p> </td> 
+           <td> <p> 1.2 / 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> Numeric computation for business featuring. import data from any data source. Cube OLAP, generate reports, predictions, forecasts. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="DADiSP">DADiSP</a> </p> </th> 
+           <td> <p> DSP Development </p> </td> 
+           <td> <p> 1984 </p> </td> 
+           <td> <p> 1986 </p> </td> 
+           <td> <p> 6.5 / 2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> Numeric computations for science and engineering featuring a <a href="spreadsheet">spreadsheet</a> like interface. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Euler (software)">Euler Math Toolbox</a> </p> </th> 
+           <td> <p> R. Grothmann </p> </td> 
+           <td> <p> 1987 </p> </td> 
+           <td> <p> 1988 </p> </td> 
+           <td> <p> 9.4 / 2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> Also a computer algebra system through interface with Maxima </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Fityk">Fityk</a> </p> </th> 
+           <td> <p> M. Wojdyr </p> </td> 
+           <td> </td> 
+           <td> <p> 2002 </p> </td> 
+           <td> <p> 1.0.1 / 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> interactive graphics, scriptable, specialized in curve fitting and peak fitting, 2D only </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="FreeMat">FreeMat</a> </p> </th> 
+           <td> <p> Samit Basu </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> 4.1 / November 28, 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> Codeless interface to external <a href="C (programming language)">C</a>, <a href="C++">C++</a>, and <a href="Fortran">Fortran</a> code. Mostly compatible with MATLAB. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GAUSS (software)">GAUSS</a> </p> </th> 
+           <td> <p> Aptech Systems </p> </td> 
+           <td> </td> 
+           <td> <p> 1984 </p> </td> 
+           <td> <p> 12 / October 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> mainly used in econometrics </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="IGOR Pro">IGOR Pro</a> </p> </th> 
+           <td> <p> WaveMetrics </p> </td> 
+           <td> <p> 1986 </p> </td> 
+           <td> <p> 1988 </p> </td> 
+           <td> <p> 6.03A / 2008 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> interactive graphics, programmable, 2D/3D, used for science and engineering, large data sets. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="J (programming language)">J</a> </p> </th> 
+           <td> <p> Jsoftware </p> </td> 
+           <td> <p> 1989 </p> </td> 
+           <td> <p> 1990 </p> </td> 
+           <td> <p> 7.0.1 / 2/1/2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> online access to: J Application Library (JAL) </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="jBEAM">jBEAM</a> </p> </th> 
+           <td> <p> AMS </p> </td> 
+           <td> <p> 1998 </p> </td> 
+           <td> <p> 1999 </p> </td> 
+           <td> <p> 6.4 / 2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> mathematics, interactive graphics 2D/3D, scriptable, used for science and engineering, very large data sets, desktop or client/server, open Java framework </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SCaViS">SCaViS</a> </p> </th> 
+           <td> <p> S.Chekanov (jwork.org) </p> </td> 
+           <td> <p> 2005 </p> </td> 
+           <td> <p> 2005 </p> </td> 
+           <td> <p> 1.0 / 2013 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> Free for non-commercial use </p> </td> 
+           <td> <p> mathematics, symbolic calculations, algebra, data analysis, data mining, interactive 2D/3D graphics, Java scriptable, used for science and engineering, <a href="Cross-platform">Cross-platform</a> (written in Java) </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Julia (programming language)">Julia</a> </p> </th> 
+           <td> <p> Jeff Bezanson, Stefan Karpinski, Viral B. Shah, and other <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> contributors </p> </td> 
+           <td> <p> 2009 </p> </td> 
+           <td> <p> 2011 </p> </td> 
+           <td> <p> Daily builds (2012) </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="MIT License">MIT License</a> </p> </td> 
+           <td> <p> Open source language and environment for scientific computing. Direct calls of C functions from code (no wrappers or special APIs needed). Designed for cloud parallel computing in mind with LLVM JIT as a backend. Lightweight &quot;green&quot; threading (coroutines). Efficient support for Unicode. Powerful shell-like capabilities for managing other processes. Lisp-like macros and other metaprogramming facilities. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="LabVIEW">LabVIEW</a> </p> </th> 
+           <td> <p> <a href="National Instruments">National Instruments</a> </p> </td> 
+           <td> </td> 
+           <td> <p> 1985 </p> </td> 
+           <td> <p> 2010 / August 2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> <a href="Graphical programming">Graphical</a> and textual (.m file script) programming approaches </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Maple (software)">Maple</a> </p> </th> 
+           <td> <p> <a href="Waterloo Maple Inc.">Maplesoft</a> </p> </td> 
+           <td> <p> 1980 </p> </td> 
+           <td> <p> 1982 </p> </td> 
+           <td> <p> 14 / 2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> Mainly a <a href="computer algebra system">computer algebra system</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mathcad">Mathcad</a> </p> </th> 
+           <td> <p> <a href="Parametric Technology Corporation">Parametric Technology Corporation</a> </p> </td> 
+           <td> <p> 1985 </p> </td> 
+           <td> <p> 1986 </p> </td> 
+           <td> <p> 14.0 / February 12, 2007 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> Mainly a <a href="computer algebra system">computer algebra system</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mathematica">Mathematica</a> </p> </th> 
+           <td> <p> <a href="Wolfram Research">Wolfram Research</a> </p> </td> 
+           <td> <p> 1986 </p> </td> 
+           <td> <p> 1988 </p> </td> 
+           <td> <p> 9.0.0 / November 2012 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> also computer algebra system </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MATLAB">MATLAB</a> </p> </th> 
+           <td> <p> <a href="MathWorks">MathWorks</a> </p> </td> 
+           <td> <p> the late 1970s </p> </td> 
+           <td> </td> 
+           <td> <p> R2012b / September 11, 2012 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> Numerical computation and simulation with extended 2D/3D visualization, mainly used by engineers. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Maxima">Maxima</a> </p> </th> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> 1982 </p> </td> 
+           <td> <p> 5.28.0 / 27 August 2012 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> Mainly a <a href="computer algebra system">computer algebra system</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Data Language">GNU Data Language</a> </p> </th> 
+           <td> <p> Marc Schellens </p> </td> 
+           <td> </td> 
+           <td> <p> 2004 </p> </td> 
+           <td> <p> 0.9.1 / 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> aimed as a drop-in replacement for IDL/PV-WAVE </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Octave">GNU Octave</a> </p> </th> 
+           <td> <p> John W. Eaton </p> </td> 
+           <td> <p> 1988 </p> </td> 
+           <td> <p> 1993 </p> </td> 
+           <td> <p> 3.6.3 / September 4, 2012 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> General numerical computing package with lots of extension modules. Syntax mostly compatible with MATLAB </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Origin (software)">Origin</a> </p> </th> 
+           <td> <p> OriginLab </p> </td> 
+           <td> </td> 
+           <td> <p> 1991 </p> </td> 
+           <td> <p> 8.0 SR4 / 2008 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> interactive graphics, programmable, 2D/3D, used for science and engineering, large data sets. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Perl Data Language">Perl Data Language</a> </p> </th> 
+           <td> <p> Karl Glazebrook </p> </td> 
+           <td> <p> late 1990s </p> </td> 
+           <td> <p> c. 1997 </p> </td> 
+           <td> <p> 2.4.10 / 2012 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="Artistic License">Artistic License</a> </p> </td> 
+           <td> <p> Used for astrophysics, solar physics, oceanography, biophysics, and simulation. 2D plotting via PGPLOT, PLPlot bindings; 3D via GL. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="R (programming language)">R</a> </p> </th> 
+           <td> <p> R Foundation </p> </td> 
+           <td> <p> 1997 </p> </td> 
+           <td> <p> 1997 </p> </td> 
+           <td> <p> 2.15.3 / March 01, 2013 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> Primarily for statistics, but there are many interfaces to open-source numerical software </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Sage (mathematics software)">Sage</a> </p> </th> 
+           <td> <p> <a href="William A. Stein">William Stein</a> </p> </td> 
+           <td> </td> 
+           <td> <p> 2005 </p> </td> 
+           <td> <p> 5.3 / September 8, 2012 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> Programmable, includes computer algebra, 2D+3D plotting. Interfaces to many open-source software. Web based interface <a href="HTTP">HTTP</a> or <a href="HTTPS">HTTPS</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="S-Lang (programming language)">S-Lang</a> </p> </th> 
+           <td> <p> John E. Davis </p> </td> 
+           <td> </td> 
+           <td> <p> 1992 </p> </td> 
+           <td> <p> 2.2.0 / 2009 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a>, <a href="Artistic License">Artistic License</a> (1.x only) </p> </td> 
+           <td> <p> Available as a standalone (slsh) and embedded interpreter (<a href="JED (text editor)">jed</a>, <a href="slrn">slrn</a>, ...) </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Scilab">Scilab</a> </p> </th> 
+           <td> <p> <a href="Scilab Enterprises">Scilab Enterprises</a> Was:<a href="Inria">Inria</a> </p> </td> 
+           <td> <p> 1990 </p> </td> 
+           <td> <p> 1994 </p> </td> 
+           <td> <p> 5.4.0 / October 1, 2012 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="CeCILL">CeCILL</a> license </p> </td> 
+           <td> <p> Open source, community supported. Programmable, direct support of 2D+3D plotting. Interfaces to many other software packages. Interfacing to external modules written in C, Ada or other languages. Language syntax similar to MATLAB. Used for numerical computing in engineering and physics. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SimplexNumerica (software)">SimplexNumerica</a> </p> </th> 
+           <td> <p> Dipl.-Phys.-Ing. Ralf Wirtz </p> </td> 
+           <td> </td> 
+           <td> <p> 1986 </p> </td> 
+           <td> <p> 9.0 / 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> interactive graphics, 2D/3D render engine, used for science and engineering, Excel im-/export. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Sysquake">Sysquake</a> </p> </th> 
+           <td> <p> <a href="Calerga">Calerga</a> </p> </td> 
+           <td> </td> 
+           <td> <p> 1998 </p> </td> 
+           <td> <p> 4.1 / 2008 </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> interactive graphics </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="TK Solver">TK Solver</a> </p> </th> 
+           <td> <p> <a href="Universal Technical Systems, Inc.">Universal Technical Systems, Inc.</a> </p> </td> 
+           <td> <p> late 1970s </p> </td> 
+           <td> <p> 1982 </p> </td> 
+           <td> <p> 5.0.141 / 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> Numerical computation and rule-based application development </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Vcmaster">Vcmaster</a> </p> </th> 
+           <td> <p> Veith Christoph GmbH </p> </td> 
+           <td> <p> 1996 </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dts|...}}</span> (2012.05) </p> </td> 
+           <td> <p> ?800, free student version </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> documentation and calculation program </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="VisSim">VisSim</a> </p> </th> 
+           <td> <p> Visual Solutions </p> </td> 
+           <td> </td> 
+           <td> <p> 1989 </p> </td> 
+           <td> <p> 7.0a / 2008 </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> <a href="Visual programming language">Visual Language</a> for simulation and <a href="Model Based Design">Model Based Design</a>. Used in business, science and engineering. Performs complex scalar or matrix based ODE solving with parametric optimization. Has 2D and 3D plotting, 3D animation, and state transition built in. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Yorick (programming language)">Yorick</a> </p> </th> 
+           <td> <p> n/a </p> </td> 
+           <td> <p> n/a </p> </td> 
+           <td> <p> n/a </p> </td> 
+           <td> <p> 2.1.06 / 17 April 2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> Open source. Programmable, callable 2D+3D plotting. Language syntax similar to C. Interfacing to other software packages via C calls. </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Operating system support </h3> 
+       <div class="section-body"> 
+        <p> The <a href="operating system">operating systems</a> the software can run on natively (without <a href="emulator">emulation</a>). </p> 
+        <table class="wikitable sortable" style="text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+           <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+           <th> <p> <a href="Linux">Linux</a> </p> </th> 
+           <th> <p> <a href="Berkeley Software Distribution">BSD</a> </p> </th> 
+           <th> <p> <a href="Unix">Unix</a> </p> </th> 
+           <th> <p> <a href="DOS">DOS</a> </p> </th> 
+           <th> <p> <a href="Android (operating system)">Android</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ADMB">ADMB</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ch (computer programming)">Ch</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="DADiSP">DADiSP</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Euler (software)">Euler Math Toolbox</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="FreeMat">FreeMat</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GAUSS (software)">GAUSS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="IGOR Pro">IGOR Pro</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="J (programming language)">J</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="jBEAM">jBEAM</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SCaViS">SCaViS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> Julia </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="LabVIEW">LabVIEW</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Maple (software)">Maple</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mathematica">Mathematica</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MATLAB">MATLAB</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Data Language">GNU Data Language</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Octave">GNU Octave</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Origin (software)">Origin</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Perl Data Language">Perl Data Language</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="R (programming language)">R</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Sage (computer algebra system)">Sage</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="S-Lang (programming language)">S-Lang</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Scilab">Scilab</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SimplexNumerica (software)">SimplexNumerica</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Sysquake">Sysquake</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="TK Solver">TK Solver</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="The Unscrambler">The Unscrambler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="VisSim">VisSim</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Language features </h3> 
+       <div class="section-body"> 
+        <p> Colors indicate features available as </p> 
+        <table> 
+         <tbody>
+          <tr>
+           <td> <p> <span class="unknown-node">{{yes|...}}</span>basic system capabilities </p> </td> 
+          </tr>
+          <tr> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span>official or officially supported extensions and libraries </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span><a href="third-party software component">third-party software components</a> or not supported </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable" style="text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> Standalone <a href="executable">executables</a> creation support </p> </th> 
+           <th> <p> <a href="Symbolic computation">Symbolic computation</a> support </p> </th> 
+           <th> <p> <a href="Object-oriented programming">OOP</a> support </p> </th> 
+           <th> <p> <a href="Graphical user interface">GUI</a> creation support </p> </th> 
+           <th> <p> <a href="Array_data_type#Multi-dimensional_arrays">Multi-dimensional arrays</a> as <a href="primitive data type">primitive data type</a> </p> </th> 
+           <th> <p> Centralized extension library website </p> </th> 
+           <th> <p> Can call code in other languages </p> </th> 
+           <th> <p> Can be called from other languages </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="J (programming language)">J</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span><a href="Javascript">Javascript</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span><a href="Javascript">Javascript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Maple (software)">Maple</a> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span><a href="C (programming language)">C</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Fortran">Fortran</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span> <a href="MATLAB">MATLAB</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="VisualBasic">VisualBasic</a>, <a href="Java (programming language)">Java</a> and <a href="C (programming language)">C</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mathematica">Mathematica</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span><a href="Java (programming language)">Java</a>, <a href=".NET Framework">.NET</a>, <a href="C++">C++</a>, <a href="FORTRAN">FORTRAN</a>, <a href="CUDA">CUDA</a>, <a href="OpenCL">OpenCL</a>, <a href="R Statistics">R</a> </p> </td> 
+           <td> 
+            <table> 
+             <tbody>
+              <tr>
+               <td> <p> <span class="unknown-node">{{yes|...}}</span><a href="Java (programming language)">Java</a>, <a href=".NET Framework">.NET</a>, <a href="C++">C++</a> </p> </td> 
+              </tr>
+              <tr> 
+               <td> <p> <span class="unknown-node">{{depends|...}}</span><a href="Microsoft Excel">Excel</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="LabVIEW">LabVIEW</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+              </tr> 
+              <tr> 
+               <td> <p> <span class="unknown-node">{{no|...}}</span><a href="Haskell (programming language)">Haskell</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="AppleScript">AppleScript</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Racket (programming language)">Racket</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Visual Basic">Visual Basic</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Python (programming language)">Python</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><a href="Clojure">Clojure</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="MATLAB">MATLAB</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+              </tr> 
+             </tbody>
+            </table> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MATLAB">MATLAB</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span>with extension library<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> 
+            <table> 
+             <tbody>
+              <tr>
+               <td> <p> <span class="unknown-node">{{yes|...}}</span> Through MEX<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> files: <a href="C (programming language)">C</a>, <a href="C++">C++</a>, <a href="FORTRAN">FORTRAN</a>. Also compiled <a href="Java (programming language)">Java</a> and <a href="ActiveX">ActiveX</a> components. </p> </td> 
+              </tr>
+              <tr> 
+               <td> <p> <span class="unknown-node">{{no|...}}</span><a href="Mathematica">Mathematica</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+              </tr> 
+             </tbody>
+            </table> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span><a href=".NET Framework">.NET</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Java (programming language)">Java</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Microsoft Excel">Excel</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Data Language">GNU Data Language</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span> GUI Widgets since v.0.9 but still incomplete </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span><a href="C (programming language)">C</a>, <a href="Python (programming language)">Python</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span><a href="Python (programming language)">Python</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Octave">GNU Octave</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> with mkoctfile </p> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span> only with <a href="GiNaC">GiNaC</a> extension </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span><a href="C++">C++</a>, <a href="FORTRAN">FORTRAN</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Perl">Perl</a>,<span class="unknown-node">&lt;ref .../&gt;</span> <a href="Tcl">Tcl</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span><a href="Java (programming language)">Java</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Perl">Perl</a>,<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <a href="C++">C++</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Perl Data Language">PDL</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span>C via perlXS; C, Python, F77, etc. via Inline </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span>Perl, C<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="R (programming language)">R</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> 
+            <table> 
+             <tbody>
+              <tr>
+               <td> <p> <span class="unknown-node">{{Yes|...}}</span> <a href="C (programming language)">C</a>, <a href="C++">C++</a>, <a href="FORTRAN">FORTRAN</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+              </tr>
+              <tr> 
+               <td> <p> <span class="unknown-node">{{Depends|...}}</span><a href="MATLAB">MATLAB</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+              </tr> 
+              <tr> 
+               <td> <p> <span class="unknown-node">{{No|...}}</span><a href="Python (programming language)">Python</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+              </tr> 
+             </tbody>
+            </table> </td> 
+           <td> 
+            <table> 
+             <tbody>
+              <tr>
+               <td> <p> <span class="unknown-node">{{Depends|...}}</span><a href="Microsoft Excel">Excel</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+              </tr>
+              <tr> 
+               <td> <p> <span class="unknown-node">{{No|...}}</span><a href="Python (programming language)">Python</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+              </tr> 
+             </tbody>
+            </table> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="TK Solver">TK Solver</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Depends|...}}</span><a href=".NET Framework">.NET</a> <a href="Microsoft Excel">Excel</a> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Libraries </h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3> General </h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: smaller; text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> Creator </p> </th> 
+           <th> <p> Language </p> </th> 
+           <th> <p> First public release </p> </th> 
+           <th> <p> Latest stable version </p> </th> 
+           <th> <p> Cost (<a href="United States dollar">USD</a>) </p> </th> 
+           <th> <p> License </p> </th> 
+           <th> <p> Notes </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ALGLIB">ALGLIB</a> </p> </th> 
+           <td> <p> Sergey Bochkanov </p> </td> 
+           <td> <p> C++, C#, FreePascal, VBA </p> </td> 
+           <td> <p> 2006 </p> </td> 
+           <td> <p> 2.6.0 / 06.2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> GPL </p> </td> 
+           <td> <p> General purpose numerical analysis library. Uses automatic code generation to support several programming languages. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Scientific Library">GNU Scientific Library</a> </p> </th> 
+           <td> <p> GNU Project </p> </td> 
+           <td> <p> C </p> </td> 
+           <td> <p> 1996 </p> </td> 
+           <td> <p> 1.14 / 03.2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> General purpose numerical analysis library. Targets GNU/Linux, can be built on almost any *nix OS with Ansi C compiler. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ILNumerics.Net">ILNumerics.Net</a> </p> </th> 
+           <td> <p> H. Kutschbach </p> </td> 
+           <td> <p> C# </p> </td> 
+           <td> <p> 2007 </p> </td> 
+           <td> <p> 1.3.14 / 08.2008 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+           <td> <p> aims .Net/mono, 2D/3D plottings (beta) </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="IMSL Numerical Libraries">IMSL Numerical Libraries</a> </p> </th> 
+           <td> <p> Rogue Wave Software </p> </td> 
+           <td> <p> C, Java, C#, Fortran, Python </p> </td> 
+           <td> <p> 1970 </p> </td> 
+           <td> <p> many components </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> General purpose numerical analysis library. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SCaViS">SCaViS</a> </p> </th> 
+           <td> <p> jwork.org (S.Chekanov) </p> </td> 
+           <td> <p> Java, Android </p> </td> 
+           <td> <p> 2005 </p> </td> 
+           <td> <p> 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> Free for non-commercial use </p> </td> 
+           <td> <p> General numerical calculations, statistics and interactive 2D/3D graphics for data and function presentation </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NAG Numerical Library">NAG Numerical Library</a> </p> </th> 
+           <td> <p> <a href="Numerical Algorithms Group">The Numerical Algorithms Group</a> </p> </td> 
+           <td> <p> C, Fortran </p> </td> 
+           <td> <p> 1971 </p> </td> 
+           <td> <p> many components </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> General purpose numerical analysis library. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NMath">NMath</a> </p> </th> 
+           <td> <p> <a href="CenterSpace Software">CenterSpace Software</a> </p> </td> 
+           <td> <p> C# </p> </td> 
+           <td> <p> 2003 </p> </td> 
+           <td> <p> 5.0 / February 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> Math and statistical libraries for the <a href=".NET Framework">.NET Framework</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> ocamlmath<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+           <td> <p> IREM<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> des Pays de la Loire<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> OCaml </p> </td> 
+           <td> <p> 2011 </p> </td> 
+           <td> <p> 0.3 / 2012 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="LGPL">LGPL</a> </p> </td> 
+           <td> <p> General purpose calculations either for compilation or interactive use </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SciPy">SciPy</a> </p> </th> 
+           <td> <p> <a href="Enthought">Enthought</a> </p> </td> 
+           <td> <p> Python </p> </td> 
+           <td> <p> 1995 </p> </td> 
+           <td> <p> 0.9.0 / 2011-02-27 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+           <td> <p> Adds numerical programming capabilities to the <a href="Python (programming language)">Python programming language</a>. Related to <a href="Numpy">Numpy</a>, and therefore connected to the previous Numeric and Numarray packages for Python </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Operating system support </h3> 
+       <div class="section-body"> 
+        <p> The <a href="operating system">operating systems</a> the software can run on natively (without <a href="emulator">emulation</a>). </p> 
+        <table class="wikitable sortable" style="text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+           <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+           <th> <p> <a href="Linux">Linux</a> </p> </th> 
+           <th> <p> <a href="Berkeley Software Distribution">BSD</a> </p> </th> 
+           <th> <p> <a href="Unix">Unix</a> </p> </th> 
+           <th> <p> <a href="DOS">DOS</a> </p> </th> 
+           <th> <p> <a href="Android (operating system)">Android</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ALGLIB">ALGLIB</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Scientific Library">GNU Scientific Library</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ILNumerics.Net">ILNumerics.Net</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SCaViS">SCaViS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="IMSL Numerical Libraries">IMSL Numerical Libraries</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NAG Numerical Library">NAG Numerical Library</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NMath">NMath</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> ocamlmath<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SciPy">SciPy</a> (Python packages) </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="List of numerical analysis software">List of numerical analysis software</a></li> 
+       <li><a href="Comparison of statistical packages">Comparison of statistical packages</a></li> 
+       <li><a href="Comparison of computer algebra systems">Comparison of computer algebra systems</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> External links </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://www.scientificweb.com/ncrunch/ncrunch5.pdf">Comparison of mathematical programs for data analysis</a> Stefan Steinhaus, ScientificWeb.com</li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Numerical analysis software}}</span> </p> 
+      <p> <a href="Category:Numerical software"> </a> <a href="Category:Comparisons of mathematical software">Numerical analysis software</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,331 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of MySQL database engines</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of MySQL database engines</h1> 
+   <div class="article-content"> 
+    <p> This is a comparison between the two primary database engines (<a href="InnoDB">InnoDB</a> and <a href="MyISAM">MyISAM</a>) for the <a href="MySQL">MySQL</a> <a href="database management system">database management system</a> (DBMS). A <b>database engine</b> (or &quot;storage engine&quot;) is the underlying software component that a DBMS uses to <a href="create, read, update and delete">create, read, update and delete</a> (CRUD) <a href="data">data</a> from a <a href="database">database</a>. <span class="unknown-node">{{POV|...}}</span> <span class="unknown-node">{{refimprove|...}}</span> </p> 
+    <table class="wikitable"> 
+     <tbody>
+      <tr> 
+       <th> Name </th> 
+       <th> Free </th> 
+       <th> <p> Transactional </p> </th> 
+      </tr> 
+      <tr> 
+       <td> <a href="Aria (storage engine)">Aria</a> </td> 
+       <td> GPL </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> BlitzDB </td> 
+       <td> GPL </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="Falcon (storage engine)">Falcon</a> </td> 
+       <td> GPL </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="InnoDB">InnoDB</a> </td> 
+       <td> GPL </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="MyISAM">MyISAM</a> </td> 
+       <td> GPL </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="InfiniDB">InfiniDB</a> </td> 
+       <td> CPL </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="TokuDB">TokuDB</a> </td> 
+       <td> Modified GPL </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="XtraDB">XtraDB</a> </td> 
+       <td> GPL </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2>Comparison between InnoDB and MyISAM</h2> 
+     <div class="section-body"> 
+      <ol> 
+       <li>InnoDB recovers from a crash or other unexpected shutdown by replaying its logs. MyISAM must fully scan and repair or rebuild any indexes or possibly tables which had been updated but not fully flushed to disk. Since the InnoDB approach is approximately fixed time while the MyISAM time grows with the size of the data files, InnoDB offers greater availability as database sizes grow.</li> 
+       <li>InnoDB, with innodb_flush_log_at_trx_commit set to 1, flushes the transaction log after each transaction, greatly improving reliability.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> MyISAM has to be run on top of a fully journaled filesystem, such as ext4 mounted with data=journal, to provide the same resilience against data file corruption. (The journal can be put on an <a href="Solid-state drive">SSD</a> device for improved MyISAM performance, similarly, the InnoDB log can be placed on a non-journaled filesystem such as ext2 running on an SSD for a similar performance boost. Reliability is not sacrificed in either case.)</li> 
+       <li>InnoDB can be run in a mode where it has lower reliability but in some cases higher performance. Setting innodb_flush_log_at_trx_commit to 0 switches to a mode where transactions are not committed to disk before control is returned to the caller. Instead, disk flushes happen on a timer.<span class="unknown-node">&lt;ref .../&gt;</span></li> 
+       <li>InnoDB automatically groups together multiple concurrent inserts and flushes them to disk at the same time.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></li> 
+       <li>MyISAM relies on the filesystem block cache for caching reads to the data rows and indexes, while InnoDB does this within the engine itself, combining the row caches with the index caches.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></li> 
+       <li>InnoDB will store rows in <a href="primary key">primary key</a> order if present, else first <a href="unique key">unique key</a> order. This can be significantly faster if the key is chosen to be good for common operations.<span class="unknown-node">{{Citation needed|...}}</span> If there is no primary key or unique key InnoDB will use an internally generated unique integer key and will physically store records in roughly insert order, as MyISAM does. Alternatively, an autoincrementing primary key field can be used to achieve the same effect.</li> 
+       <li>InnoDB provides updatable <a href="Lempel?Ziv?Welch">LZW</a> compressed page storage for both data and indexes. MyISAM compressed tables can't be updated.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></li> 
+       <li>When operating in fully <a href="ACID">ACID</a>-compliant modes, InnoDB must do a flush to disk at least once per transaction, though it will combine flushes for inserts from multiple connections. For typical hard drives or arrays, this will impose a limit of about 200 update transactions per second. For applications which require higher transaction rates, disk controllers with write caching and battery backup will be required in order to maintain transactional integrity. InnoDB also offers several modes which reduce this effect, naturally leading to a loss of transactional integrity guarantees, though still retaining greater reliability than MyISAM. MyISAM has none of this overhead, but only because it does not support transactions.</li> 
+       <li>MyISAM uses table-level locking on updates and deletes to any existing row, with an option to append new rows instead of taking a lock and inserting them into free space. InnoDB uses row-level locking. For large database applications where many rows are often updated, row-level locking is crucial because a single table-level lock significantly reduces concurrency in the database.</li> 
+       <li>Both InnoDB and MyISAM support <a href="Full text search">full-text search</a>, with InnoDB gaining full-text index support in MySQL 5.6.4.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></li> 
+      </ol> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://dev.mysql.com/doc/mysql/en/myisam-storage-engine.html">MySQL Documentation on MyISAM Storage Engine</a></li> 
+       <li> <a href="http://www.geeksww.com/tutorials/database_management_systems/mysql/installation/mysql_tablecache_informationschema_and_open_files_limit.php">MyISAM's open files limit and table-cache problem explained</a></li> 
+       <li> <a href="http://www.mysqlperformanceblog.com/2006/06/17/using-myisam-in-production/">The article about problems which will occur in using MyISAM</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{MySQL}}</span> </p> 
+      <p> <a href="Category:Database engines"> </a> <a href="Category:MySQL">Category:MySQL</a> <a href="Category:Database software comparisons">MySQL</a> </p> 
+      <p> <span class="unknown-node">{{database-software-stub}}</span> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

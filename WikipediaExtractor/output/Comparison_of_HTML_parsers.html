@@ -1,0 +1,361 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of HTML parsers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of HTML parsers</h1> 
+   <div class="article-content"> 
+    <table class="wikitable sortable" style="width: auto; font-size: smaller"> 
+     <tbody>
+      <tr> 
+       <th> <p> Parser </p> </th> 
+       <th> <p> <a href="software license">License</a> </p> </th> 
+       <th> <p> Implementation language(s) </p> </th> 
+       <th> <p> Latest release date </p> </th> 
+       <th> <p> HTML Parsing standard compliance<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Beautiful Soup">Beautiful Soup</a> </p> </td> 
+       <td> <p> <a href="Python Software Foundation License">Python Software Foundation License</a> </p> </td> 
+       <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+       <td> <p> 2012-08-20 </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://code.google.com/p/html5lib/">html5lib</a> </p> </td> 
+       <td> <p> <a href="MIT License">MIT License</a> </p> </td> 
+       <td> <p> <a href="Python (programming language)">Python</a> and <a href="PHP">PHP</a> </p> </td> 
+       <td> <p> 2012-02-11<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://search.cpan.org/~gaas/HTML-Parser/">HTML::Parser</a> </p> </td> 
+       <td> <p> <a href="Perl license">Perl license</a> </p> </td> 
+       <td> <p> <a href="Perl">Perl</a> </p> </td> 
+       <td> <p> 2013-03-28 </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="HTML Tidy">HTML Tidy</a> </p> </td> 
+       <td> <p> <a href="W3C license">W3C license</a> </p> </td> 
+       <td> <p> <a href="ANSI C">ANSI C</a> </p> </td> 
+       <td> <p> 2009-03-25<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://htmlcleaner.sourceforge.net/">HtmlCleaner</a> </p> </td> 
+       <td> <p> <a href="BSD License">BSD License</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+       <td> <p> 2010-12-22<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://jerichohtml.sourceforge.net/">Jericho HTML Parser</a> </p> </td> 
+       <td> <p> <a href="Eclipse Public License">Eclipse Public License</a> </p> </td> 
+       <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+       <td> <p> 2012-10-30<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="https://npmjs.org/package/jsdom">jsdom</a> </p> </td> 
+       <td> <p> <a href="MIT license">MIT license</a> </p> </td> 
+       <td> <p> <a href="JavaScript">JavaScript</a> </p> </td> 
+       <td> <p> 2012-07-12 </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://jsoup.org/">jsoup</a> </p> </td> 
+       <td> <p> <a href="MIT license">MIT license</a> </p> </td> 
+       <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+       <td> <p> 2013-01-27<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://jtidy.sourceforge.net/">JTidy</a> </p> </td> 
+       <td> <p> <a href="http://jtidy.sourceforge.net/license.html">JTidy License</a> </p> </td> 
+       <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+       <td> <p> 2009-12-01<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="libxml2">libxml2</a> <a href="http://www.xmlsoft.org/html/libxml-HTMLparser.html">HTMLparser</a> </p> </td> 
+       <td> <p> <a href="MIT License">MIT License</a> </p> </td> 
+       <td> <p> <a href="C (programming language)">C (programming language)</a> </p> </td> 
+       <td> <p> 2012-09-11<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://nekohtml.sourceforge.net/">NekoHTML</a> </p> </td> 
+       <td> <p> <a href="Apache License 2.0">Apache License 2.0</a> </p> </td> 
+       <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+       <td> <p> 2013-02-27<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://ccil.org/~cowan/XML/tagsoup/">TagSoup</a> </p> </td> 
+       <td> <p> <a href="Apache License 2.0">Apache License 2.0</a> </p> </td> 
+       <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+       <td> <p> 2011-07-07 </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://about.validator.nu/htmlparser/">Validator.nu HTML Parser</a> </p> </td> 
+       <td> <p> <a href="MIT License">MIT License</a> </p> </td> 
+       <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+       <td> <p> 2012-06-05 </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr class="sortbottom"> 
+       <th> <p> Parser </p> </th> 
+       <th> <p> <a href="software license">License</a> </p> </th> 
+       <th> <p> Implementation language(s) </p> </th> 
+       <th> <p> Latest release date </p> </th> 
+       <th> <p> HTML Parsing standard compliance </p> </th> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <a href="Category:HTML">Category:HTML</a> <a href="Category:Comparisons">Category:Comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

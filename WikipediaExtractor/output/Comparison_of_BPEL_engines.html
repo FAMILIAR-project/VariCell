@@ -1,0 +1,418 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of BPEL engines</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of BPEL engines</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Use dmy dates|...}}</span> This article is a <b>comparison of <a href="BPEL">BPEL</a> and <a href="BPMN">BPMN</a> engines</b>. </p> 
+    <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: 100%;"> 
+     <tbody>
+      <tr> 
+       <th> <p> Product </p> </th> 
+       <th> <p> Product Page </p> </th> 
+       <th> <p> Vendor </p> </th> 
+       <th> <p> Edition </p> </th> 
+       <th> <p> Release Date </p> </th> 
+       <th> <p> Framework </p> </th> 
+       <th> <p> Compatibility </p> </th> 
+       <th> <p> License </p> </th> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="ActiveVOS">ActiveVOS</a> </p> </td> 
+       <td> <p> <a href="http://www.activevos.com/products-features.php">1</a> </p> </td> 
+       <td> <p> Active Endpoints <a href="http://www.activevos.com/">2</a> </p> </td> 
+       <td> <p> 8.0 </p> </td> 
+       <td> <p> September 2010 </p> </td> 
+       <td> <p> <a href="Servlet">Servlet</a> or <a href="Java EE">Java EE</a> </p> </td> 
+       <td> <p> <a href="BPMN">BPMN</a> 2.0; <a href="WS-BPEL">WS-BPEL</a>; <a href="BPEL4People"> BPEL4People / WS-HumanTask</a>; <a href="http://www.activevos.com/products-features.php#StandardsSupported">standards</a> </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="ExpressBPEL">ExpressBPEL</a> </p> </td> 
+       <td> <p> <a href="http://www.codebrewtech.com/products.html">3</a> </p> </td> 
+       <td> <p> CodeBrew Technology <a href="http://www.codebrewtech.com/">4</a> </p> </td> 
+       <td> <p> 1.0 </p> </td> 
+       <td> <p> December 2012 </p> </td> 
+       <td> <p> Apache Axis </p> </td> 
+       <td> <p> WS-BPEL 2.0 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Apache ODE">Apache ODE</a><br /> </p> </td> 
+       <td> <p> <a href="http://ode.apache.org/">5</a><br /> <a href="http://pxe.intalio.org/confluence/display/PXE/Home">6</a> </p> </td> 
+       <td> <p> <a href="Apache Software Foundation">ASF</a><br /> (donated by <a href="Intalio">Intalio</a>) </p> </td> 
+       <td> <p> 1.3.4<br />1.0.164 </p> </td> 
+       <td> <p> 9 June 2010<br />7 June 2006 </p> </td> 
+       <td> <p> <a href="Apache Axis">Apache Axis</a>, <a href="JBI">JBI</a><br /><a href="Java EE">Java EE</a> </p> </td> 
+       <td> <p> BPEL4WS 1.1, <a href="WS-BPEL">WS-BPEL</a> 2.0<br /> ( <a href="BPEL4People"> WS-HumanTask</a> with <a href="http://incubator.apache.org/hise/">Apache HISE</a> ) </p> </td> 
+       <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Microsoft BizTalk Server">BizTalk Server</a> </p> </td> 
+       <td> <p> <a href="http://www.microsoft.com/biztalk/default.mspx">7</a> </p> </td> 
+       <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+       <td> <p> Biztalk 2010 </p> </td> 
+       <td> <p> 2010 </p> </td> 
+       <td> <p> <a href=".NET Framework">.NET</a> </p> </td> 
+       <td> <p> <a href="BPEL">BPEL</a>, <a href="BPMN">BPMN</a>, <a href="RFID">RFID</a>, <a href="WSDL">WSDL</a>, <a href="UDDI">UDDI</a>, WS-*, ... </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="IBOLT">iBolt</a> Server </p> </td> 
+       <td> <p> <a href="http://www.magicsoftware.com/bin/en.jsp?enDisplay=view&amp;enDispWhat=Zone&amp;enDispWho=tech_t_idp&amp;enZone=tech_t_idp&amp;enPage=InnerPage">8</a> </p> </td> 
+       <td> <p> <a href="Magic Software Enterprises">Magic Software Enterprises</a> </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="Java EE">Java EE</a> </p> </td> 
+       <td> <p> BPEL4WS </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="jBPM">jBPM</a> </p> </td> 
+       <td> <p> <a href="http://www.jboss.org/jbpm/">9</a> </p> </td> 
+       <td> <p> <a href="jBoss">jBoss</a> </p> </td> 
+       <td> <p> 5.3.0 </p> </td> 
+       <td> <p> 15 May 2012 </p> </td> 
+       <td> <p> <a href="Java EE">Java EE</a> </p> </td> 
+       <td> <p> <a href="BPMN">BPMN</a> 2.0 </p> </td> 
+       <td> <p> <a href="LGPL">LGPL</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Open ESB">Open ESB</a> </p> </td> 
+       <td> <p> <a href="http://java.net/projects/open-esb">10</a> </p> </td> 
+       <td> <p> <a href="Oracle Corporation">Oracle Corporation</a> </p> </td> 
+       <td> <p> 2.0 </p> </td> 
+       <td> <p> 10 February 2009 </p> </td> 
+       <td> <p> <a href="Java EE">Java EE</a>, <a href="JBI">JBI</a> </p> </td> 
+       <td> <p> <a href="WS-BPEL">WS-BPEL</a> 2.0 </p> </td> 
+       <td> <p> <a href="Open Source">Open Source</a>, <a href="CDDL">CDDL</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Oracle BPEL Process Manager">Oracle BPEL Process Manager</a><br />(formerly <a href="Collaxa">Collaxa</a> BPEL Orchestration Server) </p> </td> 
+       <td> <p> <a href="http://www.oracle.com/technology/products/ias/bpel/index.html">11</a> </p> </td> 
+       <td> <p> <a href="Oracle Corporation">Oracle Corporation</a> </p> </td> 
+       <td> <p> 11g </p> </td> 
+       <td> <p> April 2010 </p> </td> 
+       <td> <p> <a href="Java EE">Java EE</a> </p> </td> 
+       <td> <p> <a href="WS-BPEL">WS-BPEL</a> 2.0, BPMN 2.0 </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="OW2 Orchestra">OW2 Orchestra</a> </p> </td> 
+       <td> <p> <a href="http://orchestra.ow2.org/">12</a> </p> </td> 
+       <td> <p> <a href="OW2">OW2</a> </p> </td> 
+       <td> <p> 4.9.0 </p> </td> 
+       <td> <p> 23 Januar 2012 </p> </td> 
+       <td> <p> <a href="Apache Axis">Apache Axis</a><br /><a href="Apache CXF">Apache CXF</a><br /><a href="OSGi">OSGi</a><br /><a href="Java EE">Java EE</a> </p> </td> 
+       <td> <p> <a href="WS-BPEL">WS-BPEL</a> 2.0 </p> </td> 
+       <td> <p> <a href="LGPL">LGPL</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Parasoft">Parasoft</a> BPEL Maestro </p> </td> 
+       <td> <p> <a href="http://www.parasoft.com/jsp/products/bpel.jsp?itemId=114">13</a> </p> </td> 
+       <td> <p> <a href="Parasoft">Parasoft</a> </p> </td> 
+       <td> <p> 5.0.1 </p> </td> 
+       <td> <p> 25 February 2010 </p> </td> 
+       <td> <p> <a href="Servlet">Servlet</a> </p> </td> 
+       <td> <p> <a href="WS-BPEL">WS-BPEL</a>, <a href="BPEL4People"> BPEL4People / WS-HumanTask</a> </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Petals ESB "> Petals BPEL Engine</a><br /> </p> </td> 
+       <td> <p> <a href="http://easybpel.petalslink.com/">14</a><br /> <a href="http://petals.ow2.org/download-jbi-components.html">15</a> </p> </td> 
+       <td> <p> <a href="Petals Link">Petals Link</a><br /> </p> </td> 
+       <td> <p> 1.0.1 </p> </td> 
+       <td> <p> 8 December 2009 </p> </td> 
+       <td> <p> <a href="Java EE">Java EE</a> </p> </td> 
+       <td> <p> <a href="WS-BPEL">WS-BPEL</a> 2.0, <a href="Web Services Description Language "> WSDL</a> 1.1 and 2.0 </p> </td> 
+       <td> <p> <a href="LGPL">LGPL</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="SAP Exchange Infrastructure">SAP Exchange Infrastructure</a> </p> </td> 
+       <td> <p> <a href="http://www.sap.com/platform/netweaver/components/xi/index.epx">16</a> </p> </td> 
+       <td> <p> <a href="SAP AG">SAP AG</a> </p> </td> 
+       <td> <p> 3.0 </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> BPEL </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Virtuoso Universal Server">Virtuoso Universal Server</a> </p> </td> 
+       <td> <p> <a href="http://virtuoso.openlinksw.com/">17</a> </p> </td> 
+       <td> <p> <a href="OpenLink Software">OpenLink Software</a> </p> </td> 
+       <td> <p> 4.5 </p> </td> 
+       <td> <p> 2006 </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="UDDI">UDDI</a>, <a href="WS-BPEL">WS-BPEL</a>, <a href="WS-*">WS-*</a> </p> </td> 
+       <td> <p> <a href="GPL">GPL</a> and Proprietary </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="WebSphere Process Server">WebSphere Process Server</a> </p> </td> 
+       <td> <p> <a href="http://www-306.ibm.com/software/integration/wps/">18</a> </p> </td> 
+       <td> <p> <a href="IBM">IBM</a> </p> </td> 
+       <td> <p> 6.0.1.3 </p> </td> 
+       <td> <p> 29 September 2006 </p> </td> 
+       <td> <p> <a href="Java EE">Java EE</a> </p> </td> 
+       <td> <p> <a href="WS-BPEL">WS-BPEL</a> </p> </td> 
+       <td> <p> Proprietary </p> </td> 
+      </tr> 
+      <tr> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Business Process Execution Language">Business Process Execution Language</a></li> 
+       <li> <a href="Comparison of business integration software">Comparison of business integration software</a></li> 
+      </ul> 
+      <p> <a href="Category:Software comparisons">BPEL engines</a> <a href="Category:Middleware">Category:Middleware</a> <a href="Category:Workflow technology">Category:Workflow technology</a> <a href="Category:Process management">Category:Process management</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

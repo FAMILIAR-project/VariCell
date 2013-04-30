@@ -1,0 +1,89 @@
+{{Programming language comparisons}}
+{{multiple issues|lead missing=February 2012|one source=February 2012|technical=February 2012}}
+
+== On the surface ==
+[[Visual Basic .NET|Visual Basic.NET]] was initially released in 2002 as the next iteration in Visual Basic. To the dismay of existing Visual Basic programmers, however, the new platform bore little resemblance to its predecessor{{Citation needed|date=February 2013}}. Whilst development houses expected to be able to recompile their [[Visual Basic]] source to a .NET target, the reality of the situation was that [[Visual Basic .NET|Visual Basic.NET]] was a vastly different paradigm. Microsoft has made nothing unclear about the fact that [[Visual Basic .NET|Visual Basic.NET]] is provided as a bridge or stop-gap for developers coming from [[Visual Basic]] and has never given the language the same attention as [[C Sharp (programming language)|C#]].{{Citation needed|reason=reliable source needed for the whole sentence|date=February 2013}} 
+
+In all fairness, though, obvious syntactic differences aside, [[Visual Basic .NET|Visual Basic.NET]] provides much the same functionality as [[C Sharp (programming language)|C#]] (since they both compile down to [[Common Intermediate Language|MSIL]], with the most glaring difference being the case insensitivity of [[Visual Basic .NET|Visual Basic.NET]], maintaining the original case-insensitivity of [[Visual Basic]]), which is more of a problem for [[C Sharp (programming language)|C#]] programmers trying to inter-operate with [[Visual Basic .NET|Visual Basic.NET]] developers than anything else.
+
+The basic syntax remains very similar: conditions, loops, procedures, sub-routines are declared and written in the same manner (see [[Visual Basic]]). However, the underlying libraries are vastly different and the dream of recompiling for the .NET target should be quickly forgotten{{Citation needed|reason=reliable source needed for the whole sentence|date=February 2013}}. Mobility from prior [[Visual Basic]] iterations to [[Visual Basic .NET|Visual Basic.NET]] really are ports of existing code : programmers with experience in both worlds are required to effectively target the new platform with older logic. The [[Visual Basic .NET|Visual Basic.NET]] developer will have to learn the use of the basic .NET types rather than what they have been used to in [[Visual Basic]]. 
+
+A programmer who has only worked with [[Visual Basic]] may have a bit of a learning curve to migrate to [[Visual Basic .NET|Visual Basic.NET]]. A programmer who is versed in another language or who has had exposure to the .NET runtime should be able to cope. It would be better to think of [[Visual Basic .NET|Visual Basic.NET]] as an interface to .NET rather than a continuation of [[Visual Basic]]{{Citation needed|reason=reliable source needed for the whole sentence|date=February 2013}}
+
+== Taking a (slightly) closer look ==
+There are some immediate changes that developers should take note of:
+
+=== More C-like syntax ===
+[[Visual Basic .Net|Visual Basic.Net]] allows for the <code>+=</code> and <code>-=</code> operators so that longer lines like:
+
+<syntaxhighlight lang="vbnet">
+variable = variable + 1
+</syntaxhighlight>
+
+can now be written as:
+
+<syntaxhighlight lang="vbnet">
+variable += 1
+</syntaxhighlight>
+
+However, increment and decrement operators are ''not'' supported.
+
+=== Short-circuited logic ===
+In prior iterations of [[Visual Basic]], all statements in a condition would have been evaluated even if the outcome of the condition could be determined before evaluating a condition. For example:
+<syntaxhighlight lang="vbnet">
+If foo() And bar() Then
+  ' code here is executed if foo() and bar() both return True, however, if foo() returns False, bar() is still evaluated
+End If
+</syntaxhighlight>
+This was not only inefficient, but could lead to unexpected results for any person used to another language. In [[Visual Basic .Net|Visual Basic.NET]], the new AndAlso and OrElse<ref>http://msdn.microsoft.com/en-us/library/wz3k228a.aspx</ref> operators have been added to provide [[short-circuit evaluation]] like many other languages.
+
+=== Explicit pointer-like types are no more ===
+Var* variable types are deprecated in [[Visual Basic .NET|Visual Basic.NET]]. The common runtime decides which types are reference types and which types are value types so this is no longer the domain of the programmer.
+
+=== Default values for types: no longer your choice ===
+A not-often-used feature of [[Visual Basic]] was the ability to define default values for types with Def* statements. This has been deprecated but shouldn't affect many people.
+
+=== Properties: Let and Set ===
+Class properties not longer require the Let and Set statements
+
+=== Debug printing ===
+Debug{{Not a typo|.}}Print is replaced with Debug{{Not a typo|.}}Write and Debug{{Not a typo|.}}WriteLine
+
+=== Procedures ===
+A procedure call must have parentheses in Visual Basic .NET.
+
+Visual Basic .NET requires a ByVal or ByRef specification for parameters. In Visual Basic the specification could be omitted, implying ByRef by default. Most development environments, such as [[Visual Studio .NET]], will automatically insert a ByVal, so in effect the default is ByVal, not ByRef. There are tools to convert Visual Basic code to VB.NET, such as the Visual Basic Upgrade Wizard that was included in Visual Studio .NET 2002 and 2003. Conversion tools automatically insert a ByRef if necessary, preserving the semantics of the Visual Basic application.
+
+=== Zero-based arrays ===
+[[Visual Basic]] has traditionally employed 1-based arrays. This was the source of many out-by-one errors in Visual Basic programs, most especially when dealing with interoperability across program library boundaries. While the .NET Common Language Runtime can support arrays with any base value, [[Visual Basic .NET|Visual Basic.NET]] and [[C#]] provide only zero-based arrays and lists, and the .NET [[Common Language Infrastructure|Common Language Specification]] requires zero-based arrays for interoperability between .NET languages.
+
+=== Variant data type is gone ===
+In languages compiling down to  .NET platform, types are strict. Whilst the runtime allows for anonymous object which don't have a pre-defined, named type, the type of a variable may not change over the course of its life-time, hence the need to drop the Variant data-type. The loss of the type is, however, a good thing: the Variant data type imposed a performance overhead.
+
+=== True OOP ===
+[[Visual Basic]] developers always had the "nearly" OOP language. You can create classes, sure, but that's about where it stops. [[Visual Basic .NET|Visual Basic.Net]] introduces, for the first time to the [[Visual Basic]] community, the concept of true object-oriented programming with the following new features:
+# inheritance
+# function overloading
+
+Although no language targeting .NET allows for multiple inheritance for classes?multiple inheritance of interfaces is supported.
+
+=== Forget COM... Mostly ===
+Whilst the IDE does a reasonable job of hiding the fact, the dependence on ActiveX objects is dropped in [[Visual Basic .NET|Visual Basic.NET]] (although there are mechanisms for interfacing with [[Component Object Model|COM]] in .NET <ref>http://msdn.microsoft.com/en-us/library/aa645736(v=vs.71).aspx</ref>) in favour of .NET components offering similar functionality. This shift is good for the [[Visual Basic]] developer since much of the performance issues in [[Visual Basic]] arose around the cost of the COM interface.
+
+=== Elementary geometry management via the Forms designer ===
+One of the true banes of a [[Visual Basic]] developer's life has always been writing resize code. Whilst the WinForms paradigm leaves a lot to be desired in the geometry management department in the face of toolkits like [[Qt (framework)|Qt]] and [[GTK+]], at least the developer can anchor widgets on forms instead of having to write reams of code in OnResize handlers.
+
+=== Option Explicit is not an option anymore ===
+One of the sources of strange bugs was the Option Explicit clause (or rather, the default stance that it wasn't required in [[Visual Basic]] programs). With Option Explicit omitted, the developer was free to not declare variables: defining a variable (setting it to a value) or, indeed, ''referencing'' a variable, brought said variable into existence. The problem with this feature is that if the variable hadn't been defined somewhere earlier in code, the default value for that type was assigned to the newly created variable. Other languages which allow variable declaration through definition (such as [[Python (programming language)|Python]]) will normally throw errors when attempting to reference an unbound variable. [[Visual Basic]] with Option Explicit omitted, would just substitute the default value for the type (e.g. 0 for an integer, an empty string for a string, False for a boolean) and continue with program logic, resulting in some of the most arcane bugs to track down.
+[[Visual Basic .NET|Visual Basic.NET]] is rebooted, essentially with Option Explicit turned on?all the time. The lazy developer will have to learn to declare her variables and the more pedantic developer will have an easier time debugging the code of his lazy co-worker.
+
+==External links==
+<!-- Please do not add spam here. See http://en.wikipedia.org/wiki/Wikipedia:External links for what is appropriate and what not (for example, forums). -->
+* [http://visualbasic.about.com/od/imhoinmyhumbleopinion/ss/FiveChanges_8.htm The top 5 changes between VB 6 and VB.NET]
+
+==References==
+{{Reflist}}
+
+{{.NET}}
+
+[[Category:BASIC programming language]]

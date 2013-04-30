@@ -1,0 +1,683 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of the Hare and Droop quotas</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of the Hare and Droop quotas</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Multiple issues|...}}</span> In elections that use the <a href="Single transferable vote">single transferable vote (STV)</a> method, <i>quotas</i> are used (a) for the determination of candidates considered elected; and (b) for the calculation of surplus votes to be redistributed.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> Two quotas in common use are the <a href="Hare quota">Hare quota</a> and the <a href="Droop quota">Droop quota</a>. </p> 
+    <div class="section"> 
+     <h2>General comparison</h2> 
+     <div class="section-body"> 
+      <p> The earliest versions of <a href="Single transferable vote">STV</a> used the <a href="Hare quota">Hare quota</a>. The Hare quota is equal to the total valid poll (V) divided by the total number of seats (n), or V&nbsp;/&nbsp;n. </p> 
+      <p> The <a href="Droop quota">Droop quota</a> is smaller than the Hare quota, and was first suggested <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> because it is the smallest quota that, like the Hare quota, ensures that the number of candidates who reach the quota will not be greater than the number of seats to be filled. Any quota smaller than the Droop quota carries a real, or at least theoretical, risk of more candidates being elected than there are seats to be filled. The Droop quota is the next integer larger than V&nbsp;/&nbsp;(n+1). </p> 
+      <p> The difference between the two quotas comes down to what the quota implies. Winners elected under a Hare system <b>represent</b> that proportion of the electorate; winners under a Droop system were <b>elected</b> by that proportion of the electorate. </p> 
+      <p> In an STV election in which there is only one seat to be filled (in other words an <a href="instant-runoff voting">Instant Run-off Voting</a> election) it is possible to use the Hare quota, which will simply be equal to 100% of votes cast. However, it is more efficient to use the Droop quota, which will be equal to an absolute majority of votes cast, meaning 50% plus one, and both quotas will achieve the same result. When voters have only one vote?the single non-transferable vote system?a candidate is sure to win if reaching the Droop quota. </p> 
+      <p> In an STV election in which there are multiple winners the situation is slightly different, particularly with respect to the final seat. </p> 
+      <ul> 
+       <li>The Hare quota is generally kinder to small parties than the Droop quota because they have a better chance to win the final seat. Elected winners with the Hare quota more closely represent the proportionality of the electorate, and this can mean more proportional results for small parties. But this comes at the expense of emphasising the principle of majority rule. In an <a href="open list">open list</a> election held under the Hare quota it is possible for a group of candidates supported by a majority of voters to receive only a minority of seats if those voters do not disperse their vote relatively evenly across all their supported candidates, see Scenario 1 below. In contrast, such an outcome will not happen in an election held under the Droop quota unless voters in the majority do not rank all their preferred candidates or not enough preferred candidates seek office.</li> 
+       <li>The Droop quota is generally kinder to large parties because <i>they</i> have a better chance to win the final seat. This comes at the expense of emphasising the principle of proportional representation. In an election held under the Droop quota it is possible for a group of candidates to over-represent a proportion of voters even though a majority of the remaining voters support a minor party, see Scenario 2 below.</li> 
+      </ul> 
+      <p> The Droop quota is today the most popular quota for STV elections - and almost universal for government STV elections - for two reasons <span class="unknown-node">{{Citation needed|...}}</span>. First, because it can more efficiently elect candidates in the each round of distribution of seats (whether STV or list PR) than is the case with the Hare quota. Second, because the possibility under the Hare quota that a group of candidates supported by a majority of voters to receive only a minority of seats is considered undemocratic <span class="unknown-node">{{Citation needed|...}}</span>. </p> 
+      <p> Examples of the different outcomes between the Hare and the Droop quotas follow: </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Scenario 1</h2> 
+     <div class="section-body"> 
+      <p> An example with STV where the result under the Droop quota more closely reflects the support that voters have for a party, irrespective of the support they have for individuals within the party. </p> 
+      <p> Imagine an election in which there are 5 seats to be filled. There are 6 candidates divided between two groups: Andrea, Carter and Brad are members of the Alpha party; Delilah, Scott and Jennifer are members of the Beta party. There are 120 voters and they vote as follows: </p> 
+      <table border="1" style="margin-left: 3em;"> 
+       <tbody>
+        <tr> 
+         <th colspan="3"> Alpha party </th> 
+         <th colspan="3"> <p> Beta party </p> </th> 
+        </tr> 
+        <tr> 
+         <td valign="top"> <p> <b>31 voters</b> </p> 
+          <ol> 
+           <li> <b>Andrea</b></li> 
+           <li> Carter</li> 
+           <li> Brad</li> 
+          </ol> </td> 
+         <td valign="top"> <p> <b>30 voters</b> </p> 
+          <ol> 
+           <li> <b>Carter</b></li> 
+           <li> Andrea</li> 
+           <li> Brad</li> 
+          </ol> </td> 
+         <td valign="top"> <p> <b>2 voters</b> </p> 
+          <ol> 
+           <li> <b>Brad</b></li> 
+           <li> Andrea</li> 
+           <li> Carter</li> 
+          </ol> </td> 
+         <td valign="top"> <p> <b>20 voters</b> </p> 
+          <ol> 
+           <li> <b>Delilah</b></li> 
+           <li> Scott</li> 
+           <li> Jennifer</li> 
+          </ol> </td> 
+         <td valign="top"> <p> <b>20 voters</b> </p> 
+          <ol> 
+           <li> <b>Scott</b></li> 
+           <li> Delilah</li> 
+           <li> Jennifer</li> 
+          </ol> </td> 
+         <td valign="top"> <p> <b>17 voters</b> </p> 
+          <ol> 
+           <li> <b>Jennifer</b></li> 
+           <li> Delilah</li> 
+           <li> Scott</li> 
+          </ol> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> It can be seen that supporters of the Alpha party all rank all three Alpha party candidates higher than any of the Beta party candidates (the final three preferences of the voters are not shown above because they will not affect the result of the election). Similarly, voters who support the Beta party all give their first three preferences to Beta party candidates. Overall, the Alpha party receives 63 votes out of a total of 120 votes. The Alpha party therefore has a majority of about 53%. The Beta party receives a 47% share of the vote. </p> 
+      <p> Below the election results are shown first under the Hare quota and then under the Droop quota. It can be seen that under the Hare quota, despite receiving 53% of the vote, the Alpha party receives only a minority of seats. When the same election is conducted under the Droop quota, however, the Alpha party's majority is rewarded with a majority of seats. </p> 
+      <p> Note that this issue can be avoided under the Hare quota if the <a href="Robson Rotation">Robson Rotation</a> is used to randomly order the party candidates. </p> 
+      <pre><span class="unknown-node">{{col-begin}}</span>
+</pre> 
+      <p> <span class="unknown-node">{{col-break}}</span> </p> 
+      <div class="section"> 
+       <h3>Count under the Hare quota</h3> 
+       <div class="section-body"> 
+        <ol> 
+         <li> The Hare quota is calculated as 24.</li> 
+         <li> When first preferences are tallied Andrea and Carter have both reached a quota and are declared elected. Andrea has a surplus of 7 and Carter has a surplus of 6. Both surpluses are transferred to Brad (who is of the same party) so the tallies become:</li> 
+        </ol> 
+        <dl> 
+         <dd> 
+          <dl> 
+           <dd> 
+            <ul> 
+             <li>Brad (Alpha party): 15</li> 
+             <li>Delilah (<i>Beta party</i>): 20</li> 
+             <li>Scott (<i>Beta party</i>): 20</li> 
+             <li>Jennifer (<i>Beta party</i>): 17</li> 
+            </ul> 
+           </dd> 
+          </dl> 
+         </dd> 
+        </dl> 
+        <ol> 
+         <li></li>
+         <li value="3"> No candidate has reached a quota. Brad is the candidate with the fewest votes and so he is excluded. Because just three candidates remain and there are only three more seats to be filled, Delilah, Scott and Jennifer are all declared elected.</li> 
+        </ol> 
+        <dl> 
+         <dd>
+          <b>Result:</b> The elected candidates are: 
+          <b>Andrea</b> and 
+          <b>Carter</b> (from the Alpha party), and 
+          <b>Delilah</b>, 
+          <b>Scott</b> and 
+          <b>Jennifer</b> (from the Beta party).
+         </dd> 
+        </dl> 
+        <p> <span class="unknown-node">{{col-break}}</span> &nbsp;&nbsp;&nbsp; <span class="unknown-node">{{col-break}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Count under the Droop quota</h3> 
+       <div class="section-body"> 
+        <ol> 
+         <li>The Droop quota is calculated as 20.</li> 
+         <li>When first preferences are tallied Andrea and Carter have reached the quota and, as before, are declared elected. However this time Andrea has a surplus of 11 and Carter a surplus of 10. These surpluses transfer to Brad and the tallies become:</li> 
+        </ol> 
+        <dl> 
+         <dd> 
+          <dl> 
+           <dd> 
+            <ul> 
+             <li>Brad (Alpha party): 23</li> 
+             <li>Delilah (<i>Beta party</i>): 20</li> 
+             <li>Scott (<i>Beta party</i>): 20</li> 
+             <li>Jennifer (<i>Beta party</i>): 17</li> 
+            </ul> 
+           </dd> 
+          </dl> 
+         </dd> 
+        </dl> 
+        <ol> 
+         <li></li>
+         <li value="3">Brad has now reached a quota and is declared elected. He has no surplus so Jennifer, who this time has the fewest votes, is excluded. Because only Delilah and Scott are left in the count, and there are only two seats left to fill, they are both declared elected.</li> 
+        </ol> 
+        <dl> 
+         <dd>
+          <b>Result</b>: The elected candidates are 
+          <b>Andrea</b>, 
+          <b>Carter</b> and 
+          <i><b>Brad</b></i> (from the Alpha party) and 
+          <b>Delilah</b> and 
+          <b>Scott</b> (from the Beta party).
+         </dd> 
+        </dl> 
+        <p> <span class="unknown-node">{{col-end}}</span> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Scenario 2</h2> 
+     <div class="section-body"> 
+      <p> An example with a <a href="closed list">closed list</a> using the <a href="largest remainder method">largest remainder method</a>. </p> 
+      <p> Imagine an election in which there are 3 seats to be filled. There are 5 candidates divided between 3 groups: Alex, Bobbie and Charlie are members of the Alpha party; Jo is a member of the Beta party; and Kim is a member of the Gamma party. There are 99 voters and they vote as follows: <span class="unknown-node">ImageLink</span> </p> 
+      <table border="1" style="margin-left: 3em;"> 
+       <tbody>
+        <tr> 
+         <th colspan="1"> Alpha party </th> 
+         <th colspan="1"> Beta party </th> 
+         <th colspan="1"> <p> Gamma party </p> </th> 
+        </tr> 
+        <tr> 
+         <td valign="top"> <p> <b>50 voters</b> </p> 
+          <ol> 
+           <li> <b>Alex</b></li> 
+           <li> Bobbie </li> 
+           <li> Chris</li> 
+          </ol> </td> 
+         <td valign="top"> <p> <b>25 voters</b> </p> 
+          <ol> 
+           <li> <b>Jo</b></li> 
+          </ol> </td> 
+         <td valign="top"> <p> <b>24 voters</b> </p> 
+          <ol> 
+           <li> <b>Kim</b></li> 
+          </ol> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{col-begin}}</span> <span class="unknown-node">{{col-break}}</span> </p> 
+      <div class="section"> 
+       <h3>Count under the Hare quota</h3> 
+       <div class="section-body"> 
+        <ol> 
+         <li> The Hare quota is calculated as 33.</li> 
+         <li> When first preferences are tallied Alpha party has one full quota so Alex is declared elected. Alpha party has a surplus of 17.</li> 
+        </ol> 
+        <dl> 
+         <dd> 
+          <dl> 
+           <dd>
+            Alpha Party (Bobbie and Chris) : 17
+           </dd> 
+           <dd>
+            Beta Party (Jo): 25
+           </dd> 
+           <dd>
+            Gamma Party (Kim): 24
+           </dd> 
+          </dl> 
+         </dd> 
+        </dl> 
+        <ol> 
+         <li></li>
+         <li value="3"> No candidate has reached a quota. Alpha is the party with the fewest votes and so Bobbie and Chris are excluded. Because just two candidates remain and there are only two more seats to be filled, Jo and Kim are declared elected.</li> 
+        </ol> 
+        <dl> 
+         <dd>
+          <b>Result:</b> The elected candidates are: 
+          <b>Alex</b> (from the Alpha party), 
+          <b>Jo</b> (from the Beta party), and 
+          <b>Kim</b> (from the Gamma party). The Alpha party won a majority of votes but did not win a majority of seats.
+         </dd> 
+        </dl> 
+        <p> <span class="unknown-node">{{col-break}}</span> &nbsp;&nbsp;&nbsp; <span class="unknown-node">{{col-break}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Count under the Droop quota</h3> 
+       <div class="section-body"> 
+        <ol> 
+         <li>The Droop quota is calculated as 25.</li> 
+         <li>When first preferences are tallied, Alpha party has two full quotas so Alex and Bobbie are declared elected, and Beta party has one full quota so Jo is declared elected. Similarly Alpha party has a surplus of 3 so the tallies become:</li> 
+         <li></li>
+         <li value="3">With three candidates elected there are no more seats to fill.:<b>Result</b>: The elected candidates are <b>Alex</b> and <b>Bobbie</b> (from the Alpha party) and <b>Jo</b> (from the Beta party). The Gamma party is excluded from representation and hence 24% of the voters are in effect disenfranchised.</li> 
+        </ol> 
+        <p> <span class="unknown-node">{{col-end}}</span> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Scenario 3</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>October 2012 City of Melbourne, Australia Municipal Election</h3> 
+       <div class="section-body"> 
+        <p> As a real life example of the implementation of the two quota systems and the impact it has on the outcome of the election results. </p> 
+        <p> The City of Melbourne Council Elections were held in October 2012 with 9 vacancies to be elected from 40 candidates representing 11 teams plus three independents. </p> 
+        <p> Under the Droop quota system the quota (x/(9+1)) was 10% with a wasted quota whilst using the Hare quota (x/9) the quota is 11.11% with no wastage </p> 
+        <p> The total number of formal votes cast was 63,674, The Droop Quota = 6,468 (10.00%)and Hare Quota = 7,074 (11.11%). The distribution of surpluses and excluded candidate votes is determined by the voters order of preferences allocated to each candidate. </p> 
+        <p> <i>Table showing the percentage vote allocation and number of quotas under each system</i> </p> 
+        <table class="wikitable"> 
+         <tbody>
+          <tr> 
+           <th> <p> !!!!! 10.00%!! 11.11% </p> </th> 
+          </tr> 
+          <tr> 
+           <th> Team </th> 
+           <th> No of votes </th> 
+           <th> Vote % </th> 
+           <th> Droop Quotas </th> 
+           <th> <p> Hare Quotas </p> </th> 
+          </tr> 
+          <tr> 
+           <td> OUR MELBOURNE </td> 
+           <td> 3953 </td> 
+           <td> 6.21% </td> 
+           <td> 0.62 </td> 
+           <td> <p> 0.56 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> STEPHEN MAYNE </td> 
+           <td> 3828 </td> 
+           <td> 6.01% </td> 
+           <td> 0.60 </td> 
+           <td> <p> 0.54 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> RESIDENTS FIRST:STOP THE RATES RIP-OFF! </td> 
+           <td> 1929 </td> 
+           <td> 3.03% </td> 
+           <td> 0.30 </td> 
+           <td> <p> 0.27 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> SHANAHAN CHAMBERLIN FOR MELBOURNE </td> 
+           <td> 3686 </td> 
+           <td> 5.79% </td> 
+           <td> 0.58 </td> 
+           <td> <p> 0.52 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> COMMUNITY AND BUSINESS LEADERSHIP </td> 
+           <td> 1267 </td> 
+           <td> 1.99% </td> 
+           <td> 0.20 </td> 
+           <td> <p> 0.18 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> FORWARD TOGETHER </td> 
+           <td> 528 </td> 
+           <td> 0.83% </td> 
+           <td> 0.08 </td> 
+           <td> <p> 0.07 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> THE GREENS </td> 
+           <td> 9942 </td> 
+           <td> 15.61% </td> 
+           <td> 1.56 </td> 
+           <td> <p> 1.41 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> TEAM DOYLE </td> 
+           <td> 23864 </td> 
+           <td> 37.48% </td> 
+           <td> 3.75 </td> 
+           <td> <p> 3.37 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> MORGAN ELLIOTT- PROSPERITY FOR LIVEABILITY </td> 
+           <td> 6114 </td> 
+           <td> 9.60% </td> 
+           <td> 0.96 </td> 
+           <td> <p> 0.86 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> GARY SINGER - JOHN SO MELBOURNE LIVING </td> 
+           <td> 8314 </td> 
+           <td> 13.06% </td> 
+           <td> 1.31 </td> 
+           <td> <p> 1.18 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> Ungrouped </td> 
+           <td> 249 </td> 
+           <td> 0.39% </td> 
+           <td> 0.04 </td> 
+           <td> <p> 0.04 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> Wasted Quota </td> 
+           <td> <p> ||||0.99|| </p> </td> 
+          </tr> 
+          <tr> 
+           <th> Total Formal </th> 
+           <th> 63674 </th> 
+           <th> 100.00% </th> 
+           <th> 10.00 </th> 
+           <th> <p> 9.00 </p> </th> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <b>Winning Candidates</b> </p> 
+        <table class="wikitable"> 
+         <tbody>
+          <tr> 
+           <th> !Droop (x/(y+1))+1 </th> 
+           <th> <p> Hare (x/y) </p> </th> 
+          </tr> 
+          <tr> 
+           <th> Team </th> 
+           <th> Candidate </th> 
+           <th> <p> Candidate </p> </th> 
+          </tr> 
+          <tr> 
+           <td> TEAM DOYLE </td> 
+           <td> LOUEY, Kevin </td> 
+           <td> <p> LOUEY, Kevin </p> </td> 
+          </tr> 
+          <tr> 
+           <td> THE GREENS </td> 
+           <td> OKE, Cathy </td> 
+           <td> <p> OKE, Cathy </p> </td> 
+          </tr> 
+          <tr> 
+           <td> GARY SINGER - JOHN SO MELBOURNE LIVING </td> 
+           <td> ONG, Ken </td> 
+           <td> <p> ONG, Ken </p> </td> 
+          </tr> 
+          <tr> 
+           <td> TEAM DOYLE </td> 
+           <td> WOOD, Arron </td> 
+           <td> <p> WOOD, Arron </p> </td> 
+          </tr> 
+          <tr> 
+           <td> TEAM DOYLE </td> 
+           <td> PINDER-MORTIMER, Beverley </td> 
+           <td> <p> PINDER-MORTIMER, Beverley </p> </td> 
+          </tr> 
+          <tr> 
+           <td> MORGAN ELLIOTT- PROSPERITY FOR LIVEABILITY </td> 
+           <td> WATTS, Jackie </td> 
+           <td> <p> WATTS, Jackie </p> </td> 
+          </tr> 
+          <tr> 
+           <td> OUR MELBOURNE </td> 
+           <td> FOSTER, Richard </td> 
+           <td> <p> FOSTER, Richard </p> </td> 
+          </tr> 
+          <tr> 
+           <td> STEPHEN MAYNE </td> 
+           <td> MAYNE, Stephen </td> 
+           <td> <p> MAYNE, Stephen </p> </td> 
+          </tr> 
+          <tr> 
+           <td> SHANAHAN CHAMBERLIN FOR MELBOURNE </td> 
+           <td> </td> 
+           <td> <p> CHAMBERLIN, Kevin </p> </td> 
+          </tr> 
+          <tr> 
+           <td> THE GREENS </td> 
+           <td> LEPPERT, Rohan </td> 
+           <td> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> Team Doyle (Headed by Melbourne Lord Mayor <a href="Robert Doyle">Robert Doyle</a>) polled 37.5% of the vote. Under the Droop Quota they elected only three representatives and the remaining 7.5% were disenfranchised by being allocated to the wasted quota. </p> 
+        <p> The Greens, who polled just 15.1%, elected two representatives with major teams increasing disproportionally the overall value of their representation. </p> 
+        <p> Using the Hare Quota system Team Doyle's surplus votes would have been distributed and allocated to elect community based candidate Kevin Chamberlin. Every vote is counted and allocated to form part of a candidate's quota in equal proportion. </p> 
+        <pre>
+</pre> 
+        <p> Opponents of the Droop quota argue that each vote should be counted equally and voters that form part of the wasted quota should not be disenfranchised. In a manual count the Droop quota allows for a result to be determined without having to fully distribute all votes. Under a Hare quota all votes would need to be distributed in order to obtain a result. With computerized counting systems the full distribution and the time required is no longer a limiting factor. </p> 
+        <p> In the City of Melbourne scenario it is argued that Greens vote was inflated resulting in them increasing disproportionally their vote and electing two candidates as opposed to just one under a pure proportional Hare system. It is further argued that there is no merit justifying the exclusion of the Team Doyle surplus in determining the results of the proportional ballot. </p> 
+        <p> Using the Droop Quota up to 25% of the total vote in a three member electorate can be ignored, locked into what is referred to as the redundant &quot;Wasted Quota&quot; with voters disenfranchised as a result. In the case of the nine member City of Melbourne Council election the wasted quota is just below 10%. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="List of democracy and elections-related topics">List of democracy and elections-related topics</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of The Hare And Droop Quotas}}</span> <a href="Category:Voting system quotas">Category:Voting system quotas</a> <a href="Category:Single transferable vote">Category:Single transferable vote</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

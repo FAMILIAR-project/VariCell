@@ -1,0 +1,604 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of S.M.A.R.T. tools</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of S.M.A.R.T. tools</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Refimprove|...}}</span> </p> 
+    <p> This is a list of <a href="software">software</a> that reads <a href="S.M.A.R.T.">S.M.A.R.T.</a> (Self-Monitoring, Analysis, and Reporting Technology) data from <a href="hard drives">hard drives</a>. </p> 
+    <table class="wikitable sortable" style="font-size: 90%; text-align: center;"> 
+     <tbody>
+      <tr> 
+       <th style="width:5%"> </th> 
+       <th> <p> Operating system </p> </th> 
+       <th> <p> License, price </p> </th> 
+       <th> <p> User interface </p> </th> 
+       <th> <p> Fixed drives </p> </th> 
+       <th> <p> <a href="USB">USB</a>, <a href="eSATA">eSATA</a> and<br />removable drives </p> </th> 
+       <th> <p> <a href="RAID">RAID</a> support<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+       <th> <p> Shows S.M.A.R.T. attributes </p> </th> 
+       <th> <p> Hard drive<br />self-testing </p> </th> 
+       <th> <p> Notification </p> </th> 
+       <th> <p> Notes </p> </th> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.argusmonitor.com">Argus Monitor</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, ?14,95 or $19.95, 30 days trial </p> </td> 
+       <td> <p> <a href="Graphical user interface">GUI</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> By window, sound, email, program execution at choosable parameter changes, threshold </p> </td> 
+       <td> <p> Also shows temperature of CPU, GPU, CPU core speed, Intel Turbo Boost status, CPU power consumption, system load and system fan speeds. Can control speed of GPU and system fans. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Ashampoo">Ashampoo</a> HDD Control 2 </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, $24.99, 40 days trial </p> </td> 
+       <td> <p> <a href="Graphical user interface">GUI</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{specify|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> Window, tray icon and publish to web page. </p> </td> 
+       <td> <p> Also provides various hard disk management features </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="CornerBowl Disk Monitor">CornerBowl Disk Monitor</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, varies, 20 days trial </p> </td> 
+       <td> <p> <a href="Graphical user interface">GUI</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{specify|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> Window, email alerts, publish to web page, and launch program. </p> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="http://crystalmark.info/software/CrystalDiskInfo/index-e.html">CrystalDiskInfo</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> (<a href="Windows 2000">2000</a>(<a href="x86">x86</a>); <a href="Windows Server 2008">Server 2008</a>, <a href="Windows Server 2003">Server 2003</a>, <a href="Windows 7">7</a>, <a href="Windows Vista">Vista</a>, <a href="Windows XP">XP</a>(<a href="x86">x86</a>/<a href="x86-64">x86-64</a>)) </p> </td> 
+       <td> <p> <a href="Open source software">Open source</a> (<a href="Modified BSD license">Modified BSD license</a>), free </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> Resident &amp; Alarm; Temperature (color code); Sector Count Threshold (Reallocated, Current Pending, Uncorrectable); Total Erase Count (only SSD) </p> </td> 
+       <td> <p> Changeable threshold values (only Sector Count params), <a href="APM">APM</a>/<a href="Automatic acoustic management">AAM</a> control; Event Log; Custom themes (using HTML/CSS) </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Disk Utility">Disk Utility</a> </p> </td> 
+       <td> <p> <a href="Mac OS X">Mac OS X</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span>, although a combined 'status' is available<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> part of Mac OS X </p> </td> 
+      </tr> 
+      <tr> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.easis.com/easis-drive-check.html">EASIS Drive Check</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> Surface test results can send by email </p> </td> 
+       <td> <p> Allows hard copies of current values, supports surface read test to check for sector errors </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="http://www.hdsentinel.com">HD Sentinel</a> </p> </th> 
+       <td> <p> <a href="Microsoft Windows">Windows</a>, Linux </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, 18 EUR (Std) / 28 EUR (Pro), Trial </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> Resident &amp; Alarm; Temperature(color code); Sector Count Threshold(Reallocated, Current Pending, Uncorrectable); Total Erase Count(only SSD) </p> </td> 
+       <td> <p> Individual configuration for every medium, Interface for Disc Doktor/<a href="chkdsk">chkdsk</a>: surface testing, complete testing at restart </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="HD Tune">HD Tune</a> </p> </th> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, free for personal use </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> (v2.55) </p> </td> 
+       <td> <p> v2.55 gives SMART values but no advice. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="HD Tune Pro">HD Tune Pro</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, $34.95 or ?24.95 </p> </td> 
+       <td> <p> GUI and CLI </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> (v4.60) </p> </td> 
+       <td> <p> Give advice. Individual configuration for every medium, Interface for Disc Doktor/<a href="chkdsk">chkdsk</a>: surface testing, complete testing at restart. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.dojonorthsoftware.net/Freebies/HomeServerSMART.aspx">Home Server SMART</a> </p> </td> 
+       <td> <p> <a href="Windows Home Server">Windows Home Server v1</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, Freeware (donation) </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> Raises alerts via Windows Home Server's built-in notification system. (v2.0.10.28) </p> </td> 
+       <td> <p> Home Server SMART is an add-in for Windows Home Server v1 that runs as a Windows service and raises alerts that are visible on connected client desktops. Complete health status of disks can be viewed in the Home Server SMART UI through the WHS Console. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.dojonorthsoftware.net/HomeServerSMART.html">Home Server SMART 2013</a> </p> </td> 
+       <td> <p> <a href="Windows Home Server 2011">Windows Home Server 2011, Windows Small Business Server 2011 Essentials, Windows Storage Server 2008 R2 Essentials</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, Freeware (donation) </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> Desktop; Email; iPhone, iPad and iPod Touch; Android phones and tablets; Windows Phone; desktop clients Growl and Snarl </p> </td> 
+       <td> <p> Home Server SMART 2013 is an add-in for the Windows Server Solutions product family. Complete health status of disks can be viewed in the Home Server SMART 2013 UI through the Dashboard. Fully supports working with disk pooling software <a href="Drive Bender">Drive Bender</a> and <a href="StableBit DrivePool">StableBit DrivePool</a>, as well as Storage Spaces in Windows 8 and Windows Server 2012. Disk self-testing is supported. If a disk failure condition is detected, WindowSMART can back up the data on the failing disk to another disk or over the network. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="GNOME Disks">GNOME Disks</a> </p> </td> 
+       <td> <p> <a href="Linux">Linux</a> </p> </td> 
+       <td> <p> <a href="LGPL">LGPL</a> </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> GNOME pop-up notification </p> </td> 
+       <td> <p> <a href="LiveCD">LiveCDs</a> are available for download, allowing the user to use GNOME Disks without any changes to the computer. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.passmark.com/products/diskcheckup.htm">Passmark disk checkup</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, $15, Freeware for personal use </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> (by email or message window) </p> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.cpuid.com/">PC Wizard</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, Freeware (donation) </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> Estimate health and performance by percentage. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.gtopala.com/">SIW (System information for Windows)</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, Pro : $69.95, Freeware </p> </td> 
+       <td> <p> GUI, <a href="Command-line interface">Command-line interface</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> A tool that gathers detailed information about your system properties and settings and displays it in an comprehensible manner. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.restoringdata.ca/SMART%20Data.php">SMART Data</a> <i>(by ReStoring Data Inc.)</i> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+       <td> <p> <a href="Graphical user interface">GUI</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> By system tray notification and/or email </p> </td> 
+       <td> <p> Shows the hard drive temperature and have the option to export the results and log to a Data Recovery Company such as ReStoring Data for deeper evaluation. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Smartmontools#User_interface">GSmartControl</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <a href="Unix-like">Unix-like</a> (Linux, <a href="Mac OS X">Mac OS X</a>, <a href="*BSD">*BSD</a>, others) and <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="GNU GPL">GNU GPL</a> v2 and v3, free </p> </td> 
+       <td> <p> GUI<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> window, displays drive identity information, capabilities, attributes, and self-test/error logs </p> </td> 
+       <td> <p> Has extensive help information </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="smartmontools">smartmontools</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <a href="Unix-like">Unix-like</a> (Linux, <a href="Mac OS X">Mac OS X</a>, <a href="*BSD">*BSD</a>, others) and <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="GNU GPL">GNU GPL</a> v2, free </p> </td> 
+       <td> <p> <a href="Command-line interface">Command-line interface</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> window, sound, email, program execution at choosable parameter changes, threshold </p> </td> 
+       <td> <p> <a href="LiveCD">LiveCDs</a> are available for download, allowing the user to use smartmontools without any changes to the computer. </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.corecode.at/smartreporter/">SMARTReporter</a> </p> </td> 
+       <td> <p> <a href="Mac OS X">Mac OS X</a> </p> </td> 
+       <td> <p> Proprietary, $5 </p> </td> 
+       <td> <p> <a href="GUI">GUI</a> </p> </td> 
+       <td> <p> ATA, SATA or <a href="eSATA">eSATA</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> </p> </td> 
+       <td> <p> Open Source, Freeware on Mac OS X 10.3+ till v2.3, support for Mac 10.5+ till v2.7, Mac 10.6.6+ with Proprietary v3 </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.volitans-software.com/smart_utility.php">SMART Utility</a> </p> </td> 
+       <td> <p> <a href="Mac OS X">Mac OS X</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, $25 </p> </td> 
+       <td> <p> <a href="GUI">GUI</a> </p> </td> 
+       <td> <p> ATA, SATA </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> <a href="Growl">Growl</a> popups, menu item </p> </td> 
+       <td> <p> Based on <a href="smartmontools">smartmontools</a>, proprietary pre-fail algorithm </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Speccy">Speccy</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, Freeware </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="SpeedFan">SpeedFan</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, Freeware </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> Window, sound, e-mail, running a command; at parameter changes, threshold, temperature </p> </td> 
+       <td> <p> Estimate health and performance by percentage, and offers online drive analysis (and compares from other users). </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Spinrite">Spinrite</a> </p> </td> 
+       <td> <p> <a href="DOS">DOS</a>, <a href="FreeDOS">FreeDOS</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> USD $89 Full / $29 upgrade </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.dojonorthsoftware.net/WindowSMART.html">WindowSMART 2013</a> </p> </td> 
+       <td> <p> <a href="Windows XP">Windows XP</a>, <a href="Windows Vista">Windows Vista</a>, <a href="Windows 7">Windows 7</a>, <a href="Windows 8">Windows 8</a>, <a href="Windows Server 2003">Windows Server 2003</a>, <a href="Windows Server 2008">Windows Server 2008</a>, <a href="Windows Server 2008 R2">Windows Server 2008 R2</a>, <a href="Windows Server 2012">Windows Server 2012</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a>, $25 USD home lifetime license, $35 USD Professional lifetime license </p> </td> 
+       <td> <p> GUI </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes2}}</span> Desktop; Email; iPhone, iPad and iPod Touch; Android phones and tablets; Windows Phone; desktop clients Growl and Snarl </p> </td> 
+       <td> <p> Complete health status of disks can be viewed in the WindowSMART 2012 UI. Fully supports working with disk pooling software <a href="Drive Bender">Drive Bender</a> and <a href="StableBit DrivePool">StableBit DrivePool</a>, as well as Storage Spaces in Windows 8 and Windows Server 2012. Disk self-testing is supported. If a disk failure condition is detected, WindowSMART can back up the data on the failing disk to another disk or over the network. Enterprise management features including Active Directory group policy templates and a Microsoft System Center management pack are also available. Windows 8 Compatible and Compatible with Windows 7 logo certified. </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="width:5%"> </th> 
+       <th> <p> Operating system </p> </th> 
+       <th> <p> License, price </p> </th> 
+       <th> <p> User interface </p> </th> 
+       <th> <p> Fixed drives </p> </th> 
+       <th> <p> <a href="USB">USB</a>, <a href="eSATA">eSATA</a> and<br />removable drives </p> </th> 
+       <th> <p> <a href="RAID">RAID</a> support<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+       <th> <p> Shows S.M.A.R.T. attributes </p> </th> 
+       <th> <p> Hard drive<br />self-testing </p> </th> 
+       <th> <p> Notification </p> </th> 
+       <th> <p> Notes </p> </th> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2> Notes </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references group=&quot;Note&quot; /&gt;</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of S.M.A.R.T. Tools}}</span> <a href="Category:Software comparisons">S.M.A.R.T. Tools</a> <a href="Category:Hard disk computer storage">Category:Hard disk computer storage</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

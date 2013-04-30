@@ -1,0 +1,601 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of Internet Relay Chat bots</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of Internet Relay Chat bots</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Refimprove|...}}</span> </p> 
+    <dl> 
+     <dd>
+      <span class="unknown-node">{{Expand list|...}}</span>
+     </dd> 
+    </dl> 
+    <p> The following table contains general and technical information about a range of <a href="Internet Relay Chat bot">Internet Relay Chat bots</a> (IRC bots). </p> 
+    <div class="section"> 
+     <h2>General</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="width: auto; text-align: center; font-size: smaller; table-layout: fixed;"> 
+       <tbody>
+        <tr>
+         <th> <p> <a href="IRC Bot">IRC Bot</a> </p> </th> 
+         <th> <p> <a href="Software developer">Primary developers</a> </p> </th> 
+         <th> <p> <a href="Software license">Software license</a> </p> </th> 
+         <th> <p> <a href="Operating system">Operating system</a> </p> </th> 
+         <th> <p> <a href="Programming language">Programming language</a> </p> </th> 
+         <th> <p> First public release </p> </th> 
+         <th> <p> Latest version </p> </th> 
+         <th> <p> Notable features </p> </th> 
+         <th> <p> <a href="Website">Website</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> Cinch<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Dominik Honnef, Lee Jarvis </p> </td> 
+         <td> <p> MIT </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> Ruby </p> </td> 
+         <td> <p> 0.3.2 </p> </td> 
+         <td> <p> 2.0.4 (February 05, 2013) </p> </td> 
+         <td> <p> Threaded, object-oriented </p> </td> 
+         <td> <p> <a href="https://github.com/cinchrb/cinch/">1</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Darkbot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Jason Hamilton, juice </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="http://darkbot.sourceforge.net/">2</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Daskeb<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Digit </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a> </p> </td> 
+         <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> minimal starter bot </p> </td> 
+         <td> <p> <a href="http://www.wastedartist.com/scripts/daskeb/daskeb.html">3</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Eggdrop">Eggdrop</a><span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Eggheads </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> December 1993 </p> </td> 
+         <td> <p> 1.6.21 (October 25, 2011) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="http://www.eggheads.org/">4</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> EnergyMech<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Proton </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 3.0.99p3 (July 24, 2009) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="http://www.energymech.net/">5</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FoxEye<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Andriy Grytsenko </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> Jan 2011 (beta) </p> </td> 
+         <td> <p> 0.9b10 (February 24, 2011) </p> </td> 
+         <td> <p> Multithreaded, multinetworked. Encoding chosen per user or network. Extendible by plugins, can be used as client or whatever. Currently supported scripts: Lua, Tcl. </p> </td> 
+         <td> <p> <a href="http://foxeye.sf.net/">6</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Gambot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Derek Hoagland </p> </td> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> <a href="Perl">Perl</a> </p> </td> 
+         <td> <p> 2011-1-1 </p> </td> 
+         <td> <p> 1.0 (July 16, 2011) </p> </td> 
+         <td> <p> Framework for creating bots. Messages handled completely asynchronously. Extensible in any programming language. Can be updated without reconnecting, restarting, or reloading. </p> </td> 
+         <td> <p> <a href="https://github.com/grickit/Gambot">7</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Gozerbot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Bart Thate </p> </td> 
+         <td> <p> <a href="Berkeley Software Distribution">BSD</a> </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 0.9.1.3 </p> </td> 
+         <td> <p> IRC and <a href="Extensible Messaging and Presence Protocol">XMPP</a> bot; can be bridged with <a href="Google Wave">Google Wave</a>; development discontinued<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="http://gozerbot.org/">8</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> guppy<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> team; nicknamed 'G24' </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> 2011-03-20 </p> </td> 
+         <td> <p> 0.4.2 (Nov 20, 2012) </p> </td> 
+         <td> <p> easy to install, modular structure </p> </td> 
+         <td> <p> <a href="http://guppy.gshellz.org/cms/index.php">9</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Ibid<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Jonathan Hitchcock, Michael Gorven, Stefano Rivera </p> </td> 
+         <td> <p> <a href="GPL3">GPL3</a>, core under <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> Python, <a href="Twisted (software)">Twisted</a> in IM protocols </p> </td> 
+         <td> <p> 0.1.0 </p> </td> 
+         <td> <p> 0.1.1 </p> </td> 
+         <td> <p> Twisted engine allows connecting to multiple IM sources, including IRC, XMPP, SILC, <a href="Campfire (software)">Campfire</a>, <a href="NeoModus Direct Connect">NMDC</a> </p> </td> 
+         <td> <p> <a href="http://ibid.omnia.za.net/">10</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Infobot">Infobot</a><span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Kevin Lenzo </p> </td> 
+         <td> <p> <a href="Artistic License">Artistic License</a> </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> <a href="Perl">Perl</a> </p> </td> 
+         <td> <p> August 2004 </p> </td> 
+         <td> <p> 1.5.3 (March 15, 2011) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="http://infobot.sourceforge.net/">11</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> IrcBot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Marlinc </p> </td> 
+         <td> <p> <a href="Berkeley Software Distribution">BSD</a> </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> PHP </p> </td> 
+         <td> <p> 0.1 </p> </td> 
+         <td> <p> 1.2 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="https://github.com/Marlinc/IRCBot">12</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> jenni<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Michael Yanovich </p> </td> 
+         <td> <p> <a href="Eiffel Forum License">EFLv2</a> </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> Python (2) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Threaded, general purpose, includes some games. Easily expandable by writing new modules. </p> </td> 
+         <td> <p> <a href="https://github.com/myano/jenni/">13</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> JSONBOT<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Bart Thate </p> </td> 
+         <td> <p> MIT </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> <p> Apr. 2010 </p> </td> 
+         <td> <p> 0.84.4 (March 23, 2012) </p> </td> 
+         <td> <p> Beta </p> </td> 
+         <td> <p> <a href="http://code.google.com/p/jsonbot/">14</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> JZBot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Alexander Boyd, Maximilian Dirkmann, James Stoker </p> </td> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+         <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="http://jzbot.googlecode.com">15</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Khaos<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Pannekoek </p> </td> 
+         <td> <p> <a href="GPL">GPL-3.0</a> </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+         <td> <p> PHP </p> </td> 
+         <td> <p> 0.1 </p> </td> 
+         <td> <p> 2012-08-04 </p> </td> 
+         <td> <p> Framework for irc bots. Asynchronous irc connections enable complex functionalities. </p> </td> 
+         <td> <p> <a href="https://github.com/Pannekoek/Khaos">16</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Lambdabot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Andrew J. Bromage <i>et al.</i> </p> </td> 
+         <td> <p> MIT </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+         <td> <p> 1.0 </p> </td> 
+         <td> <p> 4.2.3.2 (January 20, 2011) </p> </td> 
+         <td> <p> Many plugins; usable offline as a Haskell development tool; embeddable in <a href="GHCi">GHCi</a> </p> </td> 
+         <td> <p> <a href="http://haskell.org/haskellwiki/Lambdabot">17</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Mozbot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Ian Hickson, Chris Crews </p> </td> 
+         <td> <p> <a href="Mozilla Public License">MPL</a> </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+         <td> <p> Perl </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="http://www.mozilla.org/projects/mozbot/">18</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Pbot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Weaver/Solo </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+         <td> <p> <a href="Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="MIRC scripting language">mIRC Script</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 2.4 (April 1, 2002) </p> </td> 
+         <td> <p> Channel protection bot, written as <a href="mIRC">mIRC</a> script </p> </td> 
+         <td> <p> <a href="http://www.mirc.net/projects.php?go=1218035463">19</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PircBot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Paul Mutton </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Framework for creating bots </p> </td> 
+         <td> <p> <a href="http://www.jibble.org/pircbot.php">20</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> phenny<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Sean B. Palmer </p> </td> 
+         <td> <p> <a href="Eiffel Forum License">EFLv2</a> </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Threaded, can load or disable modules at runtime </p> </td> 
+         <td> <p> <a href="http://inamidst.com/phenny/">21</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> pmxbot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> YouGov, Jamie Turner, Chris Mulligan </p> </td> 
+         <td> <p> MIT </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Designed to be extensible for a work IRC network </p> </td> 
+         <td> <p> <a href="http://bitbucket.org/yougov/pmxbot">22</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Q-bot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Q-bot </p> </td> 
+         <td> <p> <a href="Freeware">Freeware</a> </p> </td> 
+         <td> <p> <a href="Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="C Sharp (programming language)">C#</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Plug-in function </p> </td> 
+         <td> <p> <a href="http://aboutircblog.blogspot.com/2010/06/irc-bot.html">23</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Ruby-rbot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> ruby-rbot </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="http://ruby-rbot.org/">24</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Schongo<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Selig, Posiden, Wil </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Focus on simplicity, highly extandable module system, rapid development cycle </p> </td> 
+         <td> <p> <a href="http://github.com/DarkDna/Schongo">25</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Supybot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Jeremiah Fincher, James Vega and others </p> </td> 
+         <td> <p> <a href="Berkeley Software Distribution">BSD</a> </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> <p> 0.30 </p> </td> 
+         <td> <p> 0.83.4.1 </p> </td> 
+         <td> <p> Many plugins, SSL, multiple networks support, (un)loading plugins, threads, configuration registry, standardized command syntax, argument parsing </p> </td> 
+         <td> <p> <a href="http://sourceforge.net/projects/supybot/">26</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> sircbot </p> </th> 
+         <td> <p> <a href="Alpine Linux">Alpine Linux</a> </p> </td> 
+         <td> <p> <a href="GPL">GPL-2.0</a> </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> C (Lua scriptable) </p> </td> 
+         <td> <p> -- </p> </td> 
+         <td> <p> 2011-12-15 </p> </td> 
+         <td> <p> Simple IRC bot for shell and lua scripts </p> </td> 
+         <td> <p> <a href="http://git.alpinelinux.org/cgit/sircbot">git</a> <a href="http://wiki.alpinelinux.org/wiki/Sircbot">wiki</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> VikingBot<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Tor Henning Ueland </p> </td> 
+         <td> <p> <a href="GPL">GPL-3.0</a> </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> PHP </p> </td> 
+         <td> <p> -- </p> </td> 
+         <td> <p> 2013-01-18 </p> </td> 
+         <td> <p> Simple PHP based IRC bot with support for secure IRC servers and plugin support </p> </td> 
+         <td> <p> <a href="https://github.com/Ueland/VikingBot">27</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Yauib<span class="unknown-node">{{Anchor|...}}</span> </p> </th> 
+         <td> <p> Julien Palard </p> </td> 
+         <td> <p> <a href="BSD licenses">Simplified BSD</a> </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> <p> 2011-03-22 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Plugins can be written in any language </p> </td> 
+         <td> <p> <a href="https://github.com/julienpalard/yauib">28</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{IRC topics}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Internet Relay Chat Bots}}</span> <a href="Category:Internet Relay Chat">Bots, Internet Relay Chat, Comparison of</a> <a href="Category:Internet Relay Chat bots"> </a> <a href="Category:Software comparisons">IRC Bots</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

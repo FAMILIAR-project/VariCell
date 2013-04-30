@@ -1,0 +1,843 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of SSH servers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of SSH servers</h1> 
+   <div class="article-content"> 
+    <p> An <b>SSH server</b> is a software program which uses the <a href="secure shell">secure shell</a> protocol to accept connections from remote computers. SFTP/SCP file transfers and remote terminal connections are popular use cases for a SSH server. This article compares a selection of popular servers. </p> 
+    <div class="section"> 
+     <h2>General</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" text-align:="" width:="" margin:="" auto=""> 
+       <tbody>
+        <tr> 
+         <th style="width: 13em;"> <p> Name </p> </th> 
+         <th> <p> Developer </p> </th> 
+         <th> <p> Status </p> </th> 
+         <th> <p> First release date </p> </th> 
+         <th> <p> Last release </p> </th> 
+         <th> <p> Last release date </p> </th> 
+         <th> <p> <a href="software license">License</a> </p> </th> 
+         <th> <p> Official web page </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.attachmate.com/Products/mft/Security/security.htm">Reflection for Secure IT</a> </p> </td> 
+         <td> <p> <a href="http://www.attachmate.com/">Attachmate</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 2005 </p> </td> 
+         <td> <p> 8.0 </p> </td> 
+         <td> <p> 2012-11-14 </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="http://www.attachmate.com/">Attachmate.com</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.bitvise.com/ssh-server">Bitvise SSH Server</a> <span style="font-weight:normal">(formerly WinSSHD)</span> </p> </td> 
+         <td> <p> Bitvise, Ltd. </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 2001-05 </p> </td> 
+         <td> <p> 5.60 </p> </td> 
+         <td> <p> 2013-03-21<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Freeware for non commercial use </p> </td> 
+         <td> <p> <a href="http://www.bitvise.com/ssh-server">Bitvise SSH Server</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.itefix.no/i2/copssh">CopSSH</a> </p> </td> 
+         <td> <p> Itefix </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 2003-08-12 </p> </td> 
+         <td> <p> 4.5.0 </p> </td> 
+         <td> <p> <a href="https://www.itefix.no/i2/content/copssh-updated-openssh-62">2013-04-06</a> </p> </td> 
+         <td> <p> Commercial, <a href="https://www.itefix.no/i2/content/copssh-free-edition">Free edition</a> </p> </td> 
+         <td> <p> <a href="http://www.itefix.no/i2/copssh">CopSSH</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Dropbear (software)">Dropbear</a> </p> </td> 
+         <td> <p> Matt Johnston </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 2003-04-06<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2013.56 </p> </td> 
+         <td> <p> 2013-03-21<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> <a href="https://matt.ucc.asn.au/dropbear/dropbear.html">Dropbear</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freesshd.com/">freeSSHd SSH Server</a> </p> </td> 
+         <td> <p> <a href="http://www.weonlydo.com/">WEONLYDO Software</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> 1.2.6 </p> </td> 
+         <td> <p> 2009 </p> </td> 
+         <td> <p> Freeware (source available for purchase) </p> </td> 
+         <td> <p> <a href="http://www.freesshd.com/">freeSSHd</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Linoma Software#GoAnywhere Services">GoAnywhere Services</a> </p> </td> 
+         <td> <p> <a href="Linoma Software">Linoma Software</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 2009-09-01 </p> </td> 
+         <td> <p> 3.1.1 </p> </td> 
+         <td> <p> 2012-12-27 </p> </td> 
+         <td> <p> <a href="commercial software">Commercial</a> </p> </td> 
+         <td> <p> <a href="http://www.goanywheremft.com/products/services">GoAnywhere Services</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="lsh">lsh</a> </p> </td> 
+         <td> <p> Niels M&ouml;ller </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 1999-05-23<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2.9-exp </p> </td> 
+         <td> <p> 2007-04-04 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <a href="http://www.lysator.liu.se/~nisse/lsh/">LSH</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://mobassh.mobatek.net/index.php">MobaSSH SSH Server</a> </p> </td> 
+         <td> <p> Mobatek </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> 1.22 </p> </td> 
+         <td> </td> 
+         <td> <p> Freeware for non commercial use </p> </td> 
+         <td> <p> <a href="http://mobassh.mobatek.net/index.php">MobaSSH SSH Server</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSH">OpenSSH</a> </p> </td> 
+         <td> <p> The <a href="OpenBSD">OpenBSD</a> project </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 1999-12-01 </p> </td> 
+         <td> <p> 6.2 </p> </td> 
+         <td> <p> 2013-03-22<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+         <td> <p> <a href="http://www.openssh.com/">OpenSSH</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.pragmasys.com/FortressSSHServer.asp">Pragma Fortress SSH Server</a> </p> </td> 
+         <td> <p> Pragma Systems, Inc. </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 2004-05-24 </p> </td> 
+         <td> <p> 5.0 </p> </td> 
+         <td> <p> 2011-04-20<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="http://www.pragmasys.com/FortressSSHServer.asp">SSH SFTP Server for Windows</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://ssh.com/index.php/products/tectia-ssh-server.html">Tectia SSH Server</a> </p> </td> 
+         <td> <p> <a href="SSH Communications Security">SSH Communications Security</a> (formerly Tectia) </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 1995-07 </p> </td> 
+         <td> <p> 6.2.3 </p> </td> 
+         <td> <p> 2011-12-15 </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="http://www.ssh.com/">SSH.com</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.powershellserver.com">PowerShell Server</a> </p> </td> 
+         <td> <p> <a href="http://www.nsoftware.com/">/n software</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> 6.0.4798 <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2013-02-19 </p> </td> 
+         <td> <p> Commercial, <a href="http://www.powershellserver.com/download">Free Personal Edition</a> </p> </td> 
+         <td> <p> <a href="http://www.powershellserver.com">PowerShell Server</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.k2sxs.com">SilverSHielD</a> </p> </td> 
+         <td> <p> Extenua, Inc. (under the K2SXS brand) </p> </td> 
+         <td> <p> <span class="unknown-node">{{active}}</span> </p> </td> 
+         <td> <p> 2008-10 </p> </td> 
+         <td> <p> 5.3.24.164 </p> </td> 
+         <td> <p> 2013-03-14<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Free for non commercial use </p> </td> 
+         <td> <p> <a href="http://www.k2sxs.com/silvershield/">SilverSHielD</a> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Platform</h2> 
+     <div class="section-body"> 
+      <p> The <a href="operating system">operating systems</a> or <a href="virtual machine">virtual machines</a> the SSH servers are designed to run on without <a href="emulator">emulation</a>; there are several possibilities: </p> 
+      <ul> 
+       <li> <i>No</i> indicates that it does not exist or was never released.</li> 
+       <li> <i>Partial</i> indicates that while it works, the server lacks important functionality compared to versions for other OSs but may still be under development.</li> 
+       <li> <i>Beta</i> indicates that while a version is fully functional and has been released, it is still in development (e.g. for stability).</li> 
+       <li> <i>Yes</i> indicates that it has been officially released in a fully functional, stable version.</li> 
+       <li> <i>Dropped</i> indicates that while the server works, new versions are no longer being released for the indicated OS; the number in parentheses is the last known stable version which was officially released for that OS.</li> 
+       <li> <i>Included</i> indicates that the server comes pre-packaged with or has been integrated into the operating system.</li> 
+      </ul> 
+      <p> The list is not exhaustive, but rather reflects the most common platforms today. </p> 
+      <table class="wikitable sortable" text-align:="" width:="" margin:="" auto=""> 
+       <tbody>
+        <tr> 
+         <th style="width: 13em;"> <p> Name </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+         <th> <p> <a href="Mac OS">Mac OS</a> classic </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+         <th> <p> <a href="Cygwin">Cygwin</a> </p> </th> 
+         <th> <p> <a href="Berkeley Software Distribution">BSD</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th> <p> <a href="Solaris (operating system)">Solaris</a> </p> </th> 
+         <th> <p> <a href="Java (software platform)">Java</a> </p> </th> 
+         <th> <p> <a href="OpenVMS">OpenVMS</a> </p> </th> 
+         <th> <p> <a href="z/OS">z/OS</a> </p> </th> 
+         <th> <p> <a href="AmigaOS">AmigaOS</a> </p> </th> 
+         <th> <p> <a href="AIX">AIX</a> </p> </th> 
+         <th> <p> <a href="HPUX">HPUX</a> </p> </th> 
+         <th> <p> <a href="iOS">iOS</a>: <a href="iPhone">iPhone</a>,<span class="unknown-node">{{r|...}}</span> <a href="iPod Touch">iPod Touch</a> </p> </th> 
+         <th> <p> <a href="webOS">webOS</a> </p> </th> 
+         <th> <p> <a href="Android (operating system)">Android</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.attachmate.com/Products/mft/Security/security.htm">Reflection for Secure IT</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.bitvise.com/ssh-server">Bitvise SSH Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.itefix.no/i2/copssh">CopSSH</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Dropbear (software)">Dropbear</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freesshd.com/">freeSSHd</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Linoma_Software#GoAnywhere_Services">GoAnywhere Services</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ?? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="lsh">lsh</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ?? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://mobassh.mobatek.net/index.php">MobaSSH SSH Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSH">OpenSSH</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{included}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{included}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{included}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{included}}</span> <span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{included}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.pragmasys.com/FortressSSHServer.asp">Pragma Fortress SSH Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ?? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://ssh.com/index.php/products/tectia-ssh-server.html">Tectia SSH Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ?? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.powershellserver.com">PowerShell Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.k2sxs.com/silvershield/">SilverSHielD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Features</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" text-align:="" width:="" margin:="" auto=""> 
+       <tbody>
+        <tr>
+         <th> <p> Name </p> </th> 
+         <th> <p> SSH1 </p> </th> 
+         <th> <p> SSH2 </p> </th> 
+         <th> <p> <a href="Port forwarding">Port forwarding</a> </p> </th> 
+         <th> <p> <a href="SSH file transfer protocol">SFTP</a> </p> </th> 
+         <th> <p> <a href="Secure copy">SCP</a> </p> </th> 
+         <th> <p> Supports <a href="IPv6">IPv6</a> </p> </th> 
+         <th> <p> Supports OpenSSH authorized keys </p> </th> 
+         <th> <p> Privilege separation </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> <a href="http://www.attachmate.com/Products/mft/Security/security.htm">Reflection for Secure IT</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.bitvise.com/ssh-server">Bitvise SSH Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.itefix.no/i2/copssh">CopSSH</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Dropbear (software)">Dropbear</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Linoma_Software#GoAnywhere_Services">GoAnywhere Services</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Lsh">Lsh</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://mobassh.mobatek.net/index.php">MobaSSH SSH Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSH">OpenSSH</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.pragmasys.com/FortressSSHServer.asp">Pragma Fortress SSH Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://ssh.com/index.php/products/tectia-ssh-server.html">Tectia SSH Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.k2sxs.com/silvershield/">SilverSHielD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="List of SFTP server software">List of SFTP server software</a></li> 
+       <li> <a href="Comparison of SSH clients">Comparison of SSH clients</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <p> <a href="Category:Software comparisons">SSH servers</a> <a href="Category:Cryptographic software">Category:Cryptographic software</a> <a href="Category:Internet Protocol based network software">Category:Internet Protocol based network software</a> <a href="Category:Secure Shell">Category:Secure Shell</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

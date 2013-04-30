@@ -1,0 +1,762 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of layout engines (HTML5 media)</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of layout engines (HTML5 media)</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{HTML|...}}</span> The <a href="HTML5">HTML5</a> draft specification defines several <a href="HTML element">tags</a> which allow video and audio to be included natively and <a href="Semantic HTML">semantically</a> in HTML markup. This page compares support for aspects of this specification among layout engines. </p> 
+    <p> <span class="unknown-node">{{Layout engine nomenclature}}</span> <span class="unknown-node">{{Explanation of the tables2}}</span> </p> 
+    <div class="section"> 
+     <h2>Element attributes</h2> 
+     <div class="section-body"> 
+      <p> Media elements allow some attributes to be set directly in the tag. </p> 
+      <table style="text-align: center; width: 95%" class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th style="width: 18%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> <code>&lt;audio&gt;</code> attributes </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>src</code> </p> </th> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>preload</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{table-experimental}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>autoplay</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>loop</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>controls</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> <code>&lt;video&gt;</code> attributes </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>src</code> </p> </th> 
+         <td> <p> rowspan=&quot;8&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;8&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>preload</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{table-experimental}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>autoplay</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>loop</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>controls</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>poster</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>width</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>height</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> <code>&lt;source&gt;</code> attributes </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>src</code> </p> </th> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>type</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>media</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> <code>&lt;track&gt;</code> attributes </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>kind</code> </p> </th> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>label</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>src</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>srclang</code> </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>DOM attributes</h2> 
+     <div class="section-body"> 
+      <p> Some attributes related to media elements are exposed in the <a href="Document Object Model">DOM.</a> </p> 
+      <table style="text-align: center; width: 95%" class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th style="width: 18%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Presto (layout engine)">Presto</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Error state </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>MediaError</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Network state </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>src</code> </p> </th> 
+         <td> <p> rowspan=&quot;7&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td rowspan="6"> <p> ? </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>currentSrc</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>networkState</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>preload</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>buffered</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>load()</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>canPlayType()</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Ready state </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>readyState</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td rowspan="2"> <p> ? </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>seeking</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Playback state </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>currentTime</code> </p> </th> 
+         <td> <p> rowspan=&quot;13&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td rowspan="13"> <p> ? </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>startTime</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>duration</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>paused</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>defaultPlaybackRate</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>playbackRate</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>played</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>seekable</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>ended</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>autoplay</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>loop</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>play()</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>pause()</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Controls </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>controls</code> </p> </th> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td rowspan="3"> <p> ? </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>volume</code><span class="unknown-node">&lt;/code&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>muted</code> </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>DOM events</h2> 
+     <div class="section-body"> 
+      <p> Media elements introduce new events to handle conditions which apply only to those elements, such as pausing/resuming. </p> 
+      <table style="text-align: center; width: 95%" class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th style="width: 18%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Gecko (layout engine)">Gecko</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>loadstart</code> </p> </th> 
+         <td> <p> rowspan=&quot;22&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td rowspan="22"> <p> ? </p> </td> 
+         <td rowspan="22"> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>progress</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>suspend</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>abort</code> </p> </th> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>error</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>emptied</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>stalled</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>play</code> </p> </th> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>pause</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>loadedmetadata</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>loadeddata</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>waiting</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>playing</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>canplay</code> </p> </th> 
+         <td> <p> rowspan=&quot;9&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>canplaythrough</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>seeking</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>seeked</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>timeupdate</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>ended</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>ratechange</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>durationchange</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>volumechange</code> </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Video format support</h2> 
+     <div class="section-body"> 
+      <p> This table documents support for video codecs by the <code>&lt;video&gt;</code> element. </p> 
+      <table style="text-align: center; width: 95%" class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th style="width: 18%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="Ogg">Ogg</a> <a href="Theora">Theora</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="H.264">H.264</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="WebM">WebM</a> <a href="VP8">VP8</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">{{#tag:ref|...}}</span><span class="unknown-node">{{#tag:ref|...}}</span> <span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Audio format support</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{main|...}}</span> This table documents support for audio codecs by the <code>&lt;audio&gt;</code> element. </p> 
+      <table style="text-align: center; width: 95%" class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th style="width: 18%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> Ogg <a href="Vorbis">Vorbis</a> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="WAV">WAV</a> <a href="PCM">PCM</a> </p> </th> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="MP3">MP3</a> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{depends}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="Advanced Audio Coding">AAC</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="Speex">Speex</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="Opus (codec)">Opus</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="HTML5 video">HTML5 video</a></li> 
+       <li> <a href="Use of Ogg formats in HTML5">Use of Ogg formats in HTML5</a></li> 
+       <li> <a href="HTML5 in mobile devices">HTML5 in mobile devices</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist |...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>Trident references</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{Reflist |...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Gecko references</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{Reflist |...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>WebKit references</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{Reflist |...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Presto references</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{Reflist |...}}</span> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html">HTML5 - The Video Element</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Web browser engines}}</span> </p> 
+      <p> <a href="Category:Layout engine comparisons">Category:Layout engine comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

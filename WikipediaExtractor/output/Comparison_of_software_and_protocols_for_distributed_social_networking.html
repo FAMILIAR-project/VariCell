@@ -1,0 +1,810 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of software and protocols for distributed social networking</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of software and protocols for distributed social networking</h1> 
+   <div class="article-content"> 
+    <p> <a href="Distributed social network">Distributed social network</a> projects generally develop <a href="software">software</a>, <a href="Protocol (computing)">protocols</a>, or both. </p> 
+    <table class="wikitable sortable"> 
+     <tbody>
+      <tr> 
+       <th> <p> Project Name </p> </th> 
+       <th> <p> Features </p> </th> 
+       <th> <p> Software </p> </th> 
+       <th> <p> Programming Language </p> </th> 
+       <th> <p> License </p> </th> 
+       <th> <p> Protocols </p> </th> 
+       <th> <p> Privacy Support </p> </th> 
+       <th> <p> <a href="Federation (information technology)">Federation</a> (with other applications or services) </p> </th> 
+       <th> <p> Instances </p> </th> 
+       <th> <p> Maturity (alpha,beta,stable) </p> </th> 
+      </tr> 
+      <tr> 
+       <td> <p> 6d<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Blog, media library, addressbook, themeable, private messaging </p> </td> 
+       <td> <p> server<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> PHP </p> </td> 
+       <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+       <td> <p> <a href="Hypertext Transfer Protocol">HTTP</a> + REST, <a href="microformat">microformats</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+       <td> <p> demo<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><br />5 total </p> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Ampify </p> </td> 
+       <td> <p> Trust-based search, </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Public Domain </p> </td> 
+       <td> <p> <a href="HTTP Secure">HTTPS</a>, Ampify Messaging Protocol </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Appleseed<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Photos, Journals, Messaging, Groups, Privacy controls, Status Updates, Newsfeeds </p> </td> 
+       <td> <p> server<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> PHP </p> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a><span class="unknown-node">&lt;nowiki/&gt;</span>v2 </p> </td> 
+       <td> <p> QuickSocial<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> Appleseed<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Approximately 120 total </p> </td> 
+       <td> <p> beta </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> buddycloud<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> personal and topic channels, buddycloud directory, channel search, channel recommender, media server, friend-finder, mobile and email push service, location, messaging </p> </td> 
+       <td> <p> server,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> client<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> JavaScript, Java </p> </td> 
+       <td> <p> <a href="Apache License">Apache</a> 2.0 </p> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="OStatus">OStatus</a>, Channel Protocol,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Atom (standard)">Atom</a>, <a href="Activity Streams (format)">Activity Streams</a>, Location Query<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> Domains running buddycloud: 52<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> stable </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Cunity<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Friends, Photo Album, Filesharing, Messaging, Pinboard, Newsfeed, Memberlist, Forum, Connecting Cunities </p> </td> 
+       <td> <p> server,<span class="unknown-node">&lt;ref .../&gt;</span> client<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> PHP, Javascript, AJAX, JQuery </p> </td> 
+       <td> <p> <a href="Affero General Public License">AGPL</a> 3.0 </p> </td> 
+       <td> <p> HTTP, P2P </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> Hosted on your own webspace </p> </td> 
+       <td> <p> beta (v1.0) </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Diaspora (software)">Diaspora*</a> </p> </td> 
+       <td> <p> Status messages, blogging, photo sharing, privacy enhanced </p> </td> 
+       <td> <p> server<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Ruby </p> </td> 
+       <td> <p> <a href="Affero General Public License">AGPL</a> 3.0 </p> </td> 
+       <td> <p> changing,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Salmon (protocol)">Salmon</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, through &quot;aspects&quot; </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, application framework in alpha </p> </td> 
+       <td> <p> 54 'pods' listed on Podupti.me<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> stable <a href="https://github.com/diaspora/diaspora/tree/v0.0.3.4">0.0.3.4</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Diaspora X<sup>2</sup><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> <p> client<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> using buddycloud for federation </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a>, buddycloud channels,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Activity Streams (format)">Activity Streams</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> Diaspora X<sup>2</sup><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> DiSo Project<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="WordPress">WordPress</a> plugins<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="microformats">microformats</a> (<a href="XHTML Friends Network">XFN</a>, <a href="hCard">hCard</a>, <a href="XOXO">XOXO</a>), <a href="OpenID">OpenID</a>, <a href="OAuth">OAuth</a>, <a href="Extensible Messaging and Presence Protocol">XMPP</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="DSNP">DSNP</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> <p> DSNPd (server <a href="daemon (computer software)">daemon</a>), ChoiceSocial (web interface)<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Distributed Social Networking Protocol (DSNP)<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <a href="https://friendsinfeed.com/">Friends in Feed</a>, <a href="https://choicesocial.net/">ChoiceSocial.net</a>, <a href="https://distribsocial.net/">DistribSocial.net</a> </p> </td> 
+       <td> <p> beta (v0.6) </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Duuit! </p> </td> 
+       <td> <p> Search, microblogging, email, photos, videos, blogs, webpages, <a href="Extensible Messaging and Presence Protocol">XMPP</a> chat, video chat, collaborative drawing, document creation and editing, feed reader, profiles, files, games, groups, mood, privacy controls, customizable interface </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a><span class="unknown-node">&lt;nowiki/&gt;</span>v2 </p> </td> 
+       <td> <p> <a href="FOAF (software)">FOAF</a>, <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="OpenSocial">OpenSocial</a>, <a href="OAuth">OAuth</a> push/pull, <a href="OStatus">OStatus</a> (next release), scrobbling, <a href="RSS">RSS</a>/<a href="Atom (standard)">Atom</a>, opendd, <a href="PubSubHubbub">PubSubHubbub</a>, email, <a href="IRC">IRC</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{nightly|...}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> beta </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Friend2Friend<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Strong encryption, XML for all data exchange, Data is digitally signed </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Friendica">Friendica</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Rich profiles, networking groups, community/group/celebrity pages, richtext status (not specifically length limited), photo albums, YouTube share, location, like/dislike, multiple profiles w/assignment to specific friends, single sign on to post directly to friend's profiles on co-operating systems. Communications encryption. Fans and one-way relationships. Local and global <a href="directory services">directory services</a>. Ability to restrict connection endpoints. </p> </td> 
+       <td> <p> server<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> PHP </p> </td> 
+       <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+       <td> <p> <a href="OStatus">OStatus</a> components,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Diaspora, Facebook, <a href="OpenID">OpenID</a>, DFRN,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Zot<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> 19 servers accept registration <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> stable </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> GNU Social<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> <p> Server<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> (based on StatusNet) </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="Affero General Public License">AGPLv</a>3 </p> </td> 
+       <td> <p> <a href="OStatus">OStatus</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <a href="http://daisycha.in/">daisycha.in</a> </p> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Jappix<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a> client + Microblogging </p> </td> 
+       <td> <p> server, web client </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="Affero General Public License">AGPL</a> </p> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> demo<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> stable </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Knowee </p> </td> 
+       <td> <p> <a href="OpenID">OpenID</a> Signup, Activity Stream import and export, contact import from Web 2.0 services via XFN and <a href="FOAF (software)">FOAF</a>, automatically updated address book from remote data sources, consolidated profile with RDF/FOAF export, personal SPARQL API </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="W3C Software Notice and License">W3C</a> </p> </td> 
+       <td> <p> <a href="OpenID">OpenID</a>, <a href="FOAF (software)">FOAF</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Kopal<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <a href="OpenID">OpenID</a> Core, multiple profiles </p> </td> 
+       <td> <p> Server<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+       <td> <p> <a href="OpenID">OpenID</a>, Kopal Connect protocol,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Kopal Feed microformat<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Kune (software)">Kune</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> real-time collaborative edition, XMPP chat, groups, calendar, lists, tasks, blogs, <a href="Apache Wave">Apache Wave</a> inbox (modern email), wave extensions (gadgets, robots), public webpages, profiles, galleries (photos, videos), maps, federation, usability </p> </td> 
+       <td> <p> server, integrates <a href="Apache Wave">Apache Wave</a> </p> </td> 
+       <td> <p> Java-based <a href="Google Web Toolkit">GWT</a> (generates AJAX) </p> </td> 
+       <td> <p> <a href="Affero General Public License">AGPLv3</a> </p> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="Wave Federation Protocol">Wave Federation Protocol</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <a href="http://kune.cc">kune.cc</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> demo,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> 3 in total </p> </td> 
+       <td> <p> stable </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Lipsync.it<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Synchronization tool inspired by Dropbox </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Simplified BSD </p> </td> 
+       <td> <p> rsync, lsyncd, OpenSSH </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> planned </p> </td> 
+       <td> </td> 
+       <td> <p> stable </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Libertree">Libertree</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Free Social network inspired by Diaspora* </p> </td> 
+       <td> <p> Server and webclient </p> </td> 
+       <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+       <td> <p> <a href="GNU">GNU</a> <a href="Affero General Public License">Affero GPL</a> version 3 </p> </td> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Lorea<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Profiles, microblogging, streams, groups, plugins, group mailing lists, tasks, calendar, subgroups, tagclouds </p> </td> 
+       <td> <p> <a href="Elgg (software)">Elgg</a>,<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> plugins<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+       <td> <p> <a href="OpenID">OpenID</a>, <a href="Activity Streams">Activity Streams</a>, <a href="PubSubHubbub">PubSubHubbub</a>, <a href="WebID">WebID</a>. Working on: <a href="OStatus">OStatus</a><span class="unknown-node">&lt;ref .../&gt;</span> (60% production), <a href="Extensible Messaging and Presence Protocol">XMPP</a>/psyc (50% development), rdf+sparql (10% development) </p> </td> 
+       <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Supported through plugin.}}</span> </p> </td> 
+       <td> <p> 5: project's group<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> stable </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Movim </p> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a> client + Microblogging </p> </td> 
+       <td> <p> server and webclient </p> </td> 
+       <td> <p> PHP </p> </td> 
+       <td> <p> <a href="Affero General Public License">AGPL</a><span class="unknown-node">&lt;nowiki&gt;...&lt;/nowiki&gt;</span> </p> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+       <td> <p> <a href="http://pod.movim.eu">1</a> </p> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Mr. Privacy </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="Simple Mail Transfer Protocol">SMTP</a>, <a href="Internet Message Access Protocol">IMAP</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Newebe<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> one user = one node ; microblogging, picture sharing, activity stream </p> </td> 
+       <td> <p> Server / web client </p> </td> 
+       <td> <p> Python / Coffeescript </p> </td> 
+       <td> <p> AGPL </p> </td> 
+       <td> <p> <a href="HTTP">HTTP</a>, REST API </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> NoseRub<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> <p> sample server<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> NoseRub protocol / <a href="WebID">WebID</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> demo<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> ObjectCloud </p> </td> 
+       <td> <p> customization, flexible hosting, security, application platform </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> SimPL 2.0 </p> </td> 
+       <td> <p> <a href="OpenID">OpenID</a>, Particle </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> 2 </p> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> OneSocialWeb<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Microblogging </p> </td> 
+       <td> <p> <a href="Openfire">Openfire</a> plugin, clients<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Java </p> </td> 
+       <td> <p> <a href="Apache License">Apache</a> 2 </p> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a>, XMPP extensions<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> OpenLink Data Spaces (ODS)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Profile Management, Blogs, Wikis, Address Books, Calendars, Feed Aggregation, Discussion Forums (includes NNTP support), File Servers (WebDAV based Briefcase). </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Dual (Comercial and <a href="GNU General Public License">GPL</a> for Open Source Edition) </p> </td> 
+       <td> <p> <a href="WebID">WebID</a>, <a href="Webfinger">Webfinger</a>, <a href="OpenID">OpenID</a>, <a href="OAuth">OAuth</a>, <a href="Hypertext Transfer Protocol">HTTP</a>, <a href="SPARQL">SPARQL</a>, <a href="Atom (standard)">Atom</a> Publishing, <a href="PubSubHubbub">PubSubHubbub</a>, Semantic Pingback, <a href="OpenSocial">OpenSocial</a>, Social Graph API, <a href="Portable Contacts">Portable Contacts</a>, more. </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> id.myopenlink.net<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> among others </p> </td> 
+       <td> <p> stable </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="OpenMicroBlogging">OpenMicroBlogger</a> </p> </td> 
+       <td> <p> User-toggleable &quot;apps&quot; to add/remove functionality. RSSCloud and partial <a href="OStatus">OStatus</a> (<a href="PubSubHubbub">PubSubHubbub</a>) federation as well as Open Microblogging 0.1. Local follow/unfollow. Facebook, Twitter, Flickr integration. (partial) Twitter API support. Fully Restful design, user interface consumes Rest API. </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+       <td> <p> <a href="OpenMicroBlogging">Open Microblogging</a> 0.1, <a href="RSS Cloud">RSSCloud</a>, (partial) <a href="OStatus">OStatus</a> (<a href="PubSubHubbub">PubSubHubbub</a>) </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Project Danube </p> </td> 
+       <td> <p> 1) Sharing personal data with companies/organizations<br />2) Sharing personal data with &quot;friends&quot;<br />3) Use of personal data for &quot;personal applications&quot; </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> TBD, likely Eclipse or <a href="Apache License">Apache</a> </p> </td> 
+       <td> <p> <a href="OStatus">OStatus</a>, <a href="OAuth">OAuth</a> 2.0, <a href="Webfinger">Webfinger</a>, <a href="hCard">hCard</a>, <a href="Portable Contacts">Portable Contacts</a>, <a href="XRI">XRI</a>, <a href="XDI">XDI</a>, <a href="PubSubHubbub">PubSubHubbub</a>, <a href="Salmon">Salmon</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Project Nori </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="OStatus">OStatus</a>, <a href="OAuth">OAuth</a>, <a href="Portable Contacts">Portable Contacts</a>, <a href="Webfinger">Webfinger</a>, and other open protocols </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> psyced </p> </td> 
+       <td> <p> profiles, chat, microblogging </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a><span class="unknown-node">&lt;nowiki&gt;...&lt;/nowiki&gt;</span><br /><a href="MIT License">MIT</a> </p> </td> 
+       <td> <p> PSYC, <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="IRC">IRC</a>, <a href="TELNET">TELNET</a>, <a href="Hypertext Transfer Protocol">HTTP</a>, Applet, <a href="Simple Mail Transfer Protocol">SMTP</a>, WAP, <a href="RSS">RSS</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="Retroshare">Retroshare</a> </p> </td> 
+       <td> <p> Private messaging </p> </td> 
+       <td> <p> server<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> C++ </p> </td> 
+       <td> <p> [GNU] </p> </td> 
+       <td> <p> GPG, OpenSSL </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> stable </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> RSSN </p> </td> 
+       <td> <p> private messaging, groups </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> RSSN </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Safebook<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> demo<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> beta<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Salut &agrave; Toi<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> multi-frontends, microblogging, group microblogging, file sharing, games, XMPP client </p> </td> 
+       <td> <p> XMPP client (multi-frontends), web server, SMTP/IMAP server </p> </td> 
+       <td> <p> Python, C++ </p> </td> 
+       <td> <p> <a href="Affero General Public License">AGPL</a> </p> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> demo<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://apassant.net/tag/smob/">SMOB</a> </p> </td> 
+       <td> <p> microblogging </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="FOAF (software)">FOAF</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> stable </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Social-Igniter<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> friends, places, status, comments, modular apps (messages, blog, cart, media), themes, mobile themes, 3rd party integration (Facebook, Twiter, YouTube), editable widgets, </p> </td> 
+       <td> <p> server </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+       <td> <p> <a href="Webfinger">Webfinger</a>, <a href="PubSubHubbub">PubSubHubbub</a>, <a href="OpenID">OpenID</a>, <a href="OAuth">OAuth</a>, <a href="Activity Streams (format)">Activity Streams</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> 3 </p> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> SocialRiver<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a><br /><a href="Affero General Public License">AGPL</a> </p> </td> 
+       <td> <p> <a href="OStatus">OStatus</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="OpenID">OpenID</a>, will add support for <a href="OAuth">OAuth</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> SocialZE<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> </td> 
+       <td> <p> server, web client </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> OSMP (Open Social Message Protocol) </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Socknet Provider- FoolishMortal.org </p> </td> 
+       <td> <p> profiles, messaging, enables internet content sharing </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Socknet, <a href="OpenID">OpenID</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> beta </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Sparkleshare<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Collaboration and sharing tool inspired by Dropbox </p> </td> 
+       <td> </td> 
+       <td> <p> Python (Nautilus plugin), C# (rest) </p> </td> 
+       <td> <p> GNU GPLv3 </p> </td> 
+       <td> <p> SSH </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, encryption option </p> </td> 
+       <td> <p> planned </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="StatusNet">StatusNet</a> </p> </td> 
+       <td> <p> microblogging </p> </td> 
+       <td> <p> Server, Clients<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> PHP </p> </td> 
+       <td> <p> <a href="Affero General Public License">AGPL</a><span class="unknown-node">&lt;nowiki&gt;...&lt;/nowiki&gt;</span> </p> </td> 
+       <td> <p> <a href="OStatus">OStatus</a>, <a href="OpenID">OpenID</a>, <a href="FOAF (software)">FOAF</a>, <a href="OpenMicroBlogging">OpenMicroBlogging</a> (deprecated) </p> </td> 
+       <td> <p> <span class="unknown-node">{{Partial|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <a href="http://status.net/wiki/ListOfServers">more than 100</a>, including <a href="http://identi.ca">Identi.ca</a> and <a href="http://status.net/">Status.net</a> </p> </td> 
+       <td> <p> stable (1.1.0) </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://tent.io/">Tent</a> </p> </td> 
+       <td> <p> Profiles, Developer-extensible Post and Profile Types, Data Import, Groups, Privacy Controls, Content versioning </p> </td> 
+       <td> <p> server,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> clients<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> Ruby (reference implementations) </p> </td> 
+       <td> <p> <a href="MIT License">MIT</a> (reference implementation) </p> </td> 
+       <td> <p> <a href="Tent (protocol)">Tent</a>, <a href="HTTP_Secure">HTTPS</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> Granular permissions (Access Control Lists for all content) </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <a href="http://tent.is">Tent.is</a> </p> </td> 
+       <td> <p> alpha (0.2) </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Thimbl<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> microblogging </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="Finger">Finger</a>, <a href="Secure Shell">SSH</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> Weestit </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="Hypertext Transfer Protocol">HTTP</a>, <a href="OStatus">OStatus</a>, <a href="Simple Mail Transfer Protocol">SMTP</a>, <a href="Post Office Protocol">POP</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> alpha </p> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+      <p> <span class="unknown-node">{{Social networking}}</span> </p> 
+      <p> <a href="Category:Social networks">Category:Social networks</a> <a href="Category:Distributed computing architecture">Category:Distributed computing architecture</a> <a href="Category:Peer-to-peer">Category:Peer-to-peer</a> <a href="Category:Lists of software">Category:Lists of software</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

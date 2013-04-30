@@ -1,0 +1,631 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of continuous integration software</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of continuous integration software</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Unreferenced|...}}</span> <a href="Continuous integration">Continuous integration</a> describes a set of <a href="software engineering">software engineering</a> practices that speed up the delivery of <a href="software">software</a> by decreasing integration times. Software that accomplish this practice is called <b>continuous integration software</b>. </p> 
+    <div class="section"> 
+     <h2> Comparison </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 80%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> <a href="Platform (computing)">Platform</a> </p> </th> 
+         <th> <p> <a href="License">License</a> </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> <a href="Software build">builders</a> </p> </th> 
+         <th> <p> <a href="Java (programming language)">Java</a> <a href="Software build">builders</a> </p> </th> 
+         <th> <p> Other <a href="Software build">builders</a> </p> </th> 
+         <th> <p> <a href="Source Code Management">SCM</a> system </p> </th> 
+         <th> <p> Notification </p> </th> 
+         <th> <p> <a href="Integrated development environment">IDE</a> <a href="System integration">Integration</a> </p> </th> 
+         <th> <p> Other <a href="System integration">Integration</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AnthillPro">AnthillPro</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="MSBuild">MSBuild</a>, <a href="NAnt">NAnt</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a>, <a href="Apache Maven">Maven 1 &amp; 2</a> </p> </td> 
+         <td> <p> <a href="Shell script">Shell script</a> </p> </td> 
+         <td> <p> <a href="AccuRev SCM">AccuRev SCM</a>, <a href="Clearcase">Clearcase</a>, CA Harvest, <a href="Concurrent Versions System">CVS</a>, Dimensions, <a href="Git (software)">Git</a>, <a href="Mercurial (software)">Mercurial</a>, <a href="Perforce">Perforce</a>, <a href="PVCS">PVCS</a>, <a href="Microsoft Visual SourceSafe">SourceSafe</a>, <a href="StarTeam">StarTeam</a>, <a href="Subversion (software)">Subversion</a>, Synergy, <a href="Team Foundation Server">TFS</a>, <a href="SourceGear Vault">Vault</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="RSS">RSS</a>, <a href="Systray">Systray</a> </p> </td> 
+         <td> <p> <a href="Eclipse (software)">Eclipse</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> (many) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apache Continuum">Apache Continuum</a> </p> </td> 
+         <td> <p> <a href="Java Development Kit">JDK</a>, <a href="Java Servlet#Servlet containers">Servlet Container</a> </p> </td> 
+         <td> <p> <a href="Apache License">Apache</a> 2.0 </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Apache Maven">Maven 1 &amp; 2</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Concurrent Versions System">CVS</a>, <a href="Subversion (software)">Subversion</a>, <a href="Rational ClearCase">Rational ClearCase</a>, <a href="Perforce">Perforce</a>, <a href="StarTeam">StarTeam</a>, <a href="Visual Source Safe">Visual Source Safe</a>, CM Synergy, <a href="Bazaar (software)">Bazaar</a>, <a href="Mercurial">Mercurial</a> </p> </td> 
+         <td> <p> Mail, Jabber and Google Talk, MSN, IRC, report deployment with wagon </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apache Gump">Apache Gump</a> </p> </td> 
+         <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> <a href="Apache License">Apache</a> 2.0 </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a>, <a href="Apache Maven">Maven 1</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Concurrent Versions System">CVS</a>, <a href="Subversion (software)">Subversion</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AutoDE">AutoDE</a> </p> </td> 
+         <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="MSBuild">MSBuild</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a>, <a href="Apache Maven">Maven 1 &amp; 2</a> </p> </td> 
+         <td> <p> Yes (common command-line builders) </p> </td> 
+         <td> <p> <a href="Concurrent Versions System">CVS</a>, <a href="Git (software)">Git</a>, <a href="Mercurial (software)">Mercurial</a>, <a href="Subversion (software)">Subversion</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a> </p> </td> 
+         <td> <p> None (standalone) </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Automated Build Studio">Automated Build Studio</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="IncrediBuild">IncrediBuild</a>, <a href="MSBuild">MSBuild</a>, <a href="NAnt">NAnt</a> </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Concurrent Versions System">CVS</a>, <a href="Subversion (software)">Subversion</a>, StarTeam </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, <a href="Windows Messenger">Windows Messenger</a>, <a href="MSN Messenger">MSN Messenger</a>, <a href="Windows Live Messenger">Windows Live Messenger</a>, <a href="ICQ">ICQ</a> </p> </td> 
+         <td> <p> <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Bamboo (software)">Bamboo</a> </p> </td> 
+         <td> <p> <a href="Java Servlet#Servlet containers">Servlet Container</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="MSBuild">MSBuild</a>, <a href="NAnt">NAnt</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a>, <a href="Apache Maven">Maven 1</a>, <a href="Apache Maven">Maven 2</a> </p> </td> 
+         <td> <p> custom script, command line, Bash </p> </td> 
+         <td> <p> <a href="Concurrent Versions System">CVS</a>, <a href="Subversion (software)">Subversion</a>, <a href="Perforce">Perforce</a>, ClearCase, Mercurial, Dimension, <a href="Git (software)">Git</a> </p> </td> 
+         <td> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="Google Talk">Google Talk</a>, <a href="E-mail">E-mail</a>, <a href="RSS">RSS</a>, <a href="Remote API">Remote API</a> </p> </td> 
+         <td> <p> <a href="IntelliJ IDEA">IntelliJ IDEA</a>, <a href="Eclipse (software)">Eclipse</a> </p> </td> 
+         <td> <p> <a href="FishEye">FishEye</a>, <a href="Crowd">Crowd</a>, <a href="JIRA">JIRA</a>, <a href="Clover_(software)">Clover</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="BuildBot">BuildBot</a> </p> </td> 
+         <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> <a href="GNU_General_Public_License">GPL</a> </p> </td> 
+         <td> <p> Yes (command line) </p> </td> 
+         <td> <p> Yes (command line) </p> </td> 
+         <td> <p> Yes (command line) </p> </td> 
+         <td> <p> <a href="Concurrent Versions System">CVS</a>, <a href="GNU_Arch">Arch</a>, <a href="Bazaar (software)">Bazaar</a>, <a href="Darcs">Darcs</a>, <a href="Subversion (software)">Subversion</a>, <a href="Perforce">Perforce</a>, <a href="Mercurial (software)">Mercurial</a>, <a href="Git (software)">Git</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, Web page, GUI, <a href="IRC">IRC</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Build Forge">Build Forge</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Cross-platform command-line </p> </td> 
+         <td> <p> <a href="IBM Rational Team Concert">IBM Rational Team Concert</a>, <a href="Clearcase">Clearcase</a>, <a href="Subversion (software)">Subversion</a>, <a href="Perforce">Perforce</a>, <a href="Mercurial">Mercurial</a>, <a href="Git">Git</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a> </p> </td> 
+         <td> <p> Eclipse </p> </td> 
+         <td> <p> Java API, Perl API, command line, (many) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="BuildMaster">BuildMaster</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Cross-platform command-line </p> </td> 
+         <td> <p> <a href="AccuRev SCM">AccuRev SCM</a>, <a href="Concurrent Versions System">CVS</a>, <a href="File system">File system</a>, <a href="FTP">FTP</a>, <a href="Git">Git</a>, <a href="Mercurial">Mercurial</a>, <a href="MKS Integrity">MKS Integrity</a>, <a href="Perforce">Perforce</a>, <a href="Plastic SCM">Plastic SCM</a>, <a href="PVCS">PVCS</a>, <a href="Rational ClearCase">Rational ClearCase</a>, <a href="Robocopy">Robocopy</a>, <a href="Seapine Software">Surround SCM</a>, <a href="Sourceanywhere">Sourceanywhere</a>, <a href="SourceGear Vault">SourceGear Vault</a>, <a href="Subversion (software)">Subversion</a>, <a href="Visual Source Safe">Visual Source Safe</a>, <a href="Team Foundation Server">TFS</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, Custom </p> </td> 
+         <td> <p> None </p> </td> 
+         <td> <p> Many </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CABIE">CABIE</a> </p> </td> 
+         <td> <p> <a href="LAMP (software bundle)">LAMP</a> </p> </td> 
+         <td> <p> <a href="GNU_General_Public_License#Version_2">GPL2</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Concurrent Versions System">CVS</a>, <a href="Subversion (software)">Subversion</a>, <a href="Perforce">Perforce</a> </p> </td> 
+         <td> <p> Web </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="https://circleci.com">Circle</a> </p> </td> 
+         <td> <p> Hosted </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Ruby (programming language)">Ruby</a>, <a href="Python (programming language)">Python</a>, <a href="Node.js">Node.js</a>, <a href="PHP">PHP</a> </p> </td> 
+         <td> <p> <a href="Git (software)">Git</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, <a href="Campfire (software)">Campfire</a>, <a href="HipChat">HipChat</a>, CCtray </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Heroku">Heroku</a>, <a href="GitHub">GitHub</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="https://www.codeship.io">Codeship</a> </p> </td> 
+         <td> <p> Hosted </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> <a href="Maven">Maven</a> </p> </td> 
+         <td> <p> <a href="Go_(programming_language)">Go_(programming_language)</a>, <a href="Java_(programming_language)">Java_(programming_language)</a>, <a href="Node.js">Node.js</a>, <a href="PHP">PHP</a>, <a href="Python_(programming_language)">Python_(programming_language)</a>, <a href="Ruby_(programming_language)">Ruby_(programming_language)</a> </p> </td> 
+         <td> <p> Git </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, Flowdock, Grove, <a href="HipChat">HipChat</a>, Web </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> <a href="CloudControl">CloudControl</a>, <a href="Engine_Yard">Engine_Yard</a>, <a href="GitHub">GitHub</a>, <a href="Heroku">Heroku</a>, </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CruiseControl">CruiseControl</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> <a href="BSD license">BSD</a>-style </p> </td> 
+         <td> <p> <a href="NAnt">NAnt</a>, <a href="Rake (software)">Rake</a>, and <a href="Xcode">Xcode</a> </p> </td> 
+         <td> <p> <a href="Phing">Phing</a>, <a href="Apache Ant">Apache Ant</a>, <a href="Maven">Maven</a> </p> </td> 
+         <td> <p> catch-all 'exec' </p> </td> 
+         <td> <p> <a href="clearcase">clearcase</a> <a href="Concurrent Versions System">cvs</a> <a href="darcs">darcs</a> <a href="Git (software)">Git</a> <a href="mercurial">mercurial</a> <a href="MKS Source">MKS Source</a> <a href="starteam">starteam</a> <a href="Seapine Software">Surround SCM</a> <a href="subversion (software)">subversion</a> <a href="Team Foundation Server">Team Foundation Server</a> <a href="Visual SourceSafe">Visual SourceSafe</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, CCTray </p> </td> 
+         <td> <p> <a href="Eclipse (software)">Eclipse</a>, </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CruiseControl.NET">CruiseControl.NET</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> <a href="BSD license">BSD</a>-style </p> </td> 
+         <td> <p> <a href="MSBuild">MSBuild</a>, <a href="NAnt">NAnt</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> command line </p> </td> 
+         <td> <p> <a href="AccuRev SCM">AccuRev SCM</a>, Alienbrain, <a href="BitKeeper">BitKeeper</a>, <a href="Concurrent Versions System">CVS</a>, <a href="File system">File system</a>, <a href="FTP">FTP</a>, <a href="Git">Git</a>, <a href="Mercurial">Mercurial</a>, <a href="MKS Integrity">MKS Integrity</a>, <a href="Perforce">Perforce</a>, <a href="Plastic SCM">Plastic SCM</a>, <a href="PVCS">PVCS</a>, <a href="Rational ClearCase">Rational ClearCase</a>, <a href="Robocopy">Robocopy</a>, <a href="Seapine Software">Surround SCM</a>, <a href="Sourceanywhere">Sourceanywhere</a>, <a href="SourceGear Vault">SourceGear Vault</a>, <a href="StarTeam">StarTeam</a>, <a href="Subversion (software)">Subversion</a>, <a href="Telelogic Synergy">Telelogic Synergy</a>, <a href="Visual Source Safe">Visual Source Safe</a>, <a href="Team Foundation Server">TFS</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, CCTray, <a href="RSS">RSS</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Draco.NET">Draco.NET</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="BSD license">BSD</a>-style </p> </td> 
+         <td> <p> <a href="NAnt">NAnt</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Concurrent Versions System">CVS</a>, <a href="Visual Source Safe">Visual Source Safe</a>, PVCS, <a href="Subversion (software)">Subversion</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="https://drone.io">Drone.io</a> </p> </td> 
+         <td> <p> Hosted </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a>, <a href="Apache Maven">Maven 2</a> </p> </td> 
+         <td> <p> <a href="Dart (programming language)">Dart</a>, <a href="Go (programming language)">Go</a>, <a href="Node.js">NodeJS</a>, <a href="Python (programming language)">Python</a>, <a href="PHP">PHP</a>, <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+         <td> <p> <a href="Git (software)">Git</a>, <a href="Subversion (software)">Subversion</a>, <a href="Mercurial">Mercurial</a>, <a href="Bazaar (software)">Bazaar</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Heroku">Heroku</a>, Dotcloud, <a href="Github">Github</a>, <a href="Bitbucket">Bitbucket</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="easyCIS">easyCIS</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a>, <a href="Freeware">Freeware</a> </p> </td> 
+         <td> <p> <a href="MSBuild">MSBuild</a>, <a href="NAnt">NAnt</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Git">Git</a>, <a href="Mercurial">Mercurial</a>, <a href="Subversion (software)">Subversion</a>, <a href="Team Foundation Server">TFS</a>, <a href="File system">File system</a> </p> </td> 
+         <td> <p> <a href="Systray">Systray</a>, <a href="RSS">RSS</a>, <a href="E-mail">E-mail</a> </p> </td> 
+         <td> <p> None </p> </td> 
+         <td> <p> None </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ElectricCommander">ElectricCommander</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Command line </p> </td> 
+         <td> <p> <a href="AccuRev SCM">AccuRev SCM</a>, <a href="Clearcase">Clearcase</a>, <a href="Concurrent Versions System">CVS</a>, <a href="Git (software)">Git</a>, <a href="Perforce">Perforce</a>, <a href="PVCS">PVCS</a>, <a href="StarTeam">StarTeam</a>, <a href="Subversion (software)">Subversion</a>, <a href="Team Foundation Server">TFS</a>, Telelogic </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, GUI, instant messenger, Twitter </p> </td> 
+         <td> <p> <a href="Eclipse (software)">Eclipse</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> <a href="JIRA">JIRA</a>, <a href="Bugzilla">Bugzilla</a>, Perl API, Command Line </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Go (release_management)">Go</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Cross-platform command-line </p> </td> 
+         <td> <p> <a href="Subversion (software)">Subversion</a>, <a href="Perforce">Perforce</a>, <a href="Mercurial">Mercurial</a>, <a href="Git">Git</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, CCTray </p> </td> 
+         <td> <p> None </p> </td> 
+         <td> <p> RESTful API </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Integrity </p> </td> 
+         <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+         <td> <p> <a href="MIT license">MIT</a> </p> </td> 
+         <td> <p> Yes (command line) </p> </td> 
+         <td> <p> Yes (command line) </p> </td> 
+         <td> <p> command line </p> </td> 
+         <td> <p> <a href="Git (software)">Git</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, <a href="World Wide Web">Web</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Jenkins (software)">Jenkins</a>/<a href="Hudson (software)">Hudson</a> </p> </td> 
+         <td> <p> <a href="Java Servlet#Servlet containers">Servlet Container</a> </p> </td> 
+         <td> <p> <a href="Creative Commons">Creative Commons</a> and <a href="MIT license">MIT</a> </p> </td> 
+         <td> <p> <a href="MSBuild">MSBuild</a>, <a href="NAnt">NAnt</a> </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a>, <a href="Apache Maven">Maven 2</a>, Kundo </p> </td> 
+         <td> <p> <a href="Cmake">Cmake</a>, Gant, Gradle, <a href="Grails (framework)">Grails</a>, Phing, <a href="Rake (software)">Rake</a>, <a href="Ruby (programming language)">Ruby</a>, <a href="SCons">SCons</a>, <a href="Shell script">Shell script</a> </p> </td> 
+         <td> <p> <a href="AccuRev SCM">AccuRev SCM</a>, <a href="Bazaar (software)">Bazaar</a>, <a href="BitKeeper">BitKeeper</a>, <a href="Clearcase">Clearcase</a>, <a href="CMVC">CMVC</a>, <a href="Concurrent Versions System">CVS</a>, <a href="Git (software)">Git</a>, <a href="Mercurial (software)">Mercurial</a>, <a href="Perforce">Perforce</a>, <a href="PVCS">PVCS</a>, <a href="Microsoft Visual SourceSafe">SourceSafe</a>, <a href="StarTeam">StarTeam</a>, <a href="Subversion (software)">Subversion</a>, <a href="Team Foundation Server">TFS</a> </p> </td> 
+         <td> <p> <a href="Android (operating system)">Android</a>, <a href="E-mail">E-mail</a>, <a href="Google Calendar">Google Calendar</a>, <a href="Internet Relay Chat">IRC</a>, <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="RSS">RSS</a>, <a href="Twitter">Twitter</a> </p> </td> 
+         <td> <p> <a href="Eclipse (software)">Eclipse</a>, <a href="IntelliJ IDEA">IntelliJ IDEA</a>, <a href="NetBeans">NetBeans</a> </p> </td> 
+         <td> <p> <a href="Bugzilla">Bugzilla</a>, <a href="Google Code">Google Code</a>, <a href="JIRA">JIRA</a>, <a href="Mantis Bug Tracker">Mantis</a>, <a href="Trac">Trac</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="LuntBuild">LuntBuild</a> </p> </td> 
+         <td> <p> <a href="Java Servlet#Servlet containers">Servlet Container</a> </p> </td> 
+         <td> <p> <a href="Apache License">Apache</a> 2.0 </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a>, <a href="Apache Maven">Maven 1</a>, <a href="Apache Maven">Maven 2</a> </p> </td> 
+         <td> <p> Shell script, <a href="Rake (software)">Rake</a> </p> </td> 
+         <td> <p> <a href="AccuRev SCM">AccuRev SCM</a>, <a href="Concurrent Versions System">CVS</a>, Visual Sourcesafe, <a href="Subversion (software)">Subversion</a>, StarTeam, Perforce, Base Clearcase, Clearcase UCM, <a href="File system">File system</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="QuickBuild (Software)">QuickBuild</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="MSBuild">MSBuild</a>, <a href="NAnt">NAnt</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a>, <a href="Apache Maven">Maven 1</a>, <a href="Apache Maven">Maven 2</a> </p> </td> 
+         <td> <p> <a href="Rake (software)">Rake</a>, <a href="Shell script">Shell script</a>, Command Line </p> </td> 
+         <td> <p> <a href="AccuRev SCM">AccuRev SCM</a>, <a href="Clearcase">Clearcase</a>, <a href="Concurrent Versions System">CVS</a>, <a href="Perforce">Perforce</a>, <a href="Microsoft Visual SourceSafe">SourceSafe</a>, <a href="StarTeam">StarTeam</a>, <a href="Subversion (software)">Subversion</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="RSS">RSS</a>, <a href="Google Talk">Google Talk</a>, <a href="Remote API">Remote API</a> </p> </td> 
+         <td> <p> <a href="Eclipse (software)">Eclipse</a>, <a href="IntelliJ IDEA">IntelliJ IDEA</a>, <a href="Visual Studio">Visual Studio</a> </p> </td> 
+         <td> <p> <a href="JIRA">JIRA</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="https://semaphoreapp.com">Semaphore</a> </p> </td> 
+         <td> <p> Hosted </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Ruby (programming language)">Ruby</a>, <a href="Rake (software)">Rake</a>, Command Line </p> </td> 
+         <td> <p> <a href="Git (software)">Git</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, <a href="Campfire (software)">Campfire</a>, <a href="HipChat">HipChat</a>, Flowdock, Webhooks, Remote API </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="Github">Github</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="https://www.travis-ci.org">Travis-CI</a> </p> </td> 
+         <td> <p> Hosted </p> </td> 
+         <td> <p> <a href="MIT">MIT</a> </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> C, C++, Clojure, Erlang, Go, Groovy, Haskell, Java, Node.js, Perl, PHP, Python, Ruby, Scala </p> </td> 
+         <td> <p> <a href="Git (software)">Git</a> </p> </td> 
+         <td> <p> <a href="E-Mail">E-Mail</a> </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> <a href="Github">Github</a>, <a href="Heroku">Heroku</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="TeamCity">TeamCity</a> </p> </td> 
+         <td> <p> <a href="Java Servlet#Servlet containers">Servlet Container</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a>, Free professional edition </p> </td> 
+         <td> <p> <a href="MSBuild">MSBuild</a>, <a href="NAnt">NAnt</a>, <a href="Visual Studio">Visual Studio</a>, Duplicates finder for .NET </p> </td> 
+         <td> <p> <a href="Apache Ant">Ant</a>, <a href="Apache Maven">Maven 2/3</a>, <a href="IntelliJ IDEA">IDEA</a> .ipr based, <a href="IntelliJ IDEA">IDEA</a> Inspections, <a href="IntelliJ IDEA">IDEA</a> Duplicates finder, <a href="Gradle">Gradle</a>, </p> </td> 
+         <td> <p> <a href="Rake (software)">Rake</a>, <a href="FxCop">FxCop</a>, Command Line </p> </td> 
+         <td> <p> <a href="Subversion (software)">Subversion</a>, <a href="Concurrent Versions System">CVS</a>, <a href="Git (software)">Git</a>, <a href="Mercurial (software)">Mercurial</a>, <a href="AccuRev SCM">AccuRev SCM</a>, <a href="Clearcase">Clearcase</a>, <a href="Perforce">Perforce</a>, <a href="Microsoft Visual SourceSafe">SourceSafe</a>, <a href="StarTeam">StarTeam</a>, <a href="Team Foundation Server">TFS</a>, <a href="SourceGear Vault">Vault</a> </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a>, <a href="Extensible Messaging and Presence Protocol">XMPP</a>, <a href="RSS">RSS</a>, IDE, SysTray </p> </td> 
+         <td> <p> <a href="Eclipse (software)">Eclipse</a>, <a href="Visual studio">Visual Studio</a>, <a href="IntelliJ IDEA">IntelliJ IDEA</a>, <a href="RubyMine">RubyMine</a>, <a href="PyCharm">PyCharm</a>, <a href="PhpStorm">PhpStorm</a>, <a href="WebStorm">WebStorm</a> </p> </td> 
+         <td> <p> Jetbrains Youtrack, <a href="JIRA">JIRA</a>, <a href="Bugzilla">Bugzilla</a>, <a href="FishEye_(software)">FishEye</a>, <a href="FindBugs">FindBugs</a>, <a href="PMD (software)">PMD</a>, <a href="dotCover">dotCover</a>, <a href="NCover">NCover</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Team Foundation Server">Team Foundation Server</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="Visual Studio Team System">VSTM</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="MSBuild">MSBuild</a> </p> </td> 
+         <td> <p> Ant, Maven </p> </td> 
+         <td> <p> Custom script, Command line </p> </td> 
+         <td> <p> <a href="Team Foundation Server">Team Foundation Server</a> </p> </td> 
+         <td> <p> <a href="E-Mail">E-Mail</a>, <a href="SOAP">SOAP</a> </p> </td> 
+         <td> <p> <a href="Visual Studio">Visual Studio</a>, <a href="Eclipse (software)">Eclipse</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Tinderbox (software)">Tinderbox</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+         <td> <p> <a href="Mozilla Public License">MPL</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> <a href="E-mail">E-mail</a> </p> </td> 
+         <td> <p> Unknown </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> <a href="Platform (computing)">Platform</a> </p> </th> 
+         <th> <p> <a href="License">License</a> </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> <a href="Software build">builders</a> </p> </th> 
+         <th> <p> <a href="Java (programming language)">Java</a> <a href="Software build">builders</a> </p> </th> 
+         <th> <p> Other <a href="Software build">builders</a> </p> </th> 
+         <th> <p> <a href="Source Code Management">SCM</a> system </p> </th> 
+         <th> <p> Notification </p> </th> 
+         <th> <p> <a href="Integrated development environment">IDE</a> <a href="System integration">Integration</a> </p> </th> 
+         <th> <p> Other <a href="System integration">Integration</a> </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://confluence.public.thoughtworks.org/display/CC/CI+Feature+Matrix">CI Feature Matrix</a></li> 
+       <li> <a href="Continuous integration">Continuous integration</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Continuous Integration Software}}</span> <a href="Category:Continuous integration">Category:Continuous integration</a> <a href="Category:Software_comparisons">Category:Software_comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

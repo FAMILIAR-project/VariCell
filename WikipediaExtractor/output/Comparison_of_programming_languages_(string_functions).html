@@ -1,0 +1,3175 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of programming languages (string functions)</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of programming languages (string functions)</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{redirect|...}}</span> <span class="unknown-node">{{Further2|...}}</span> </p> 
+    <p> <span class="unknown-node">{{ProgLangCompare}}</span> String <a href="Function (computer science)">functions</a> are used in computer <a href="programming language">programming languages</a> to manipulate a <a href="String (computer science)">string</a> or query information about a string (some do both). </p> 
+    <p> Most programming languages that have a string <a href="datatype">datatype</a> will have some string functions although there may be other low-level ways within each language to handle strings directly. In object-oriented languages, string functions are often implemented as properties and methods of string objects. In functional and list-based languages a string is represented as a list (of character codes), therefore all list-manipulation procedures could be considered string functions. However such languages may implement a subset of explicit string-specific functions as well. </p> 
+    <p> The most basic example of a string function is the <i>length(string)</i> function. This function returns the length of a <a href="string literal">string literal</a>. </p> 
+    <dl> 
+     <dd>
+      e.g. 
+      <i>length(&quot;hello world&quot;)</i> would return 11.
+     </dd> 
+    </dl> 
+    <p> Other languages may have string functions with similar or exactly the same syntax or parameters or outcomes. For example in many languages the length function is usually represented as <i><a href="Len (programming)">len</a>(string)</i>. The below list of common functions aims to help limit this confusion. </p> 
+    <div class="section"> 
+     <h2>Common string functions (multi language reference)</h2> 
+     <div class="section-body"> 
+      <p> String functions common to many languages are listed below, including the different names used. The below list of common functions aims to help programmers find the equivalent function in a language. Note, string <a href="concatenation">concatenation</a> and <a href="regular expressions">regular expressions</a> are handled in separate pages. Statements in <a href="guillemets">guillemets</a> (&laquo; ? &raquo;) are optional. </p> 
+      <div class="section"> 
+       <h3>CharAt</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> charAt(string,integer) returns character. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns character at index in the string. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Equivalent </p> </td> 
+           <td> <p> See <a href="#substring">substring</a> of length 1 character. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> Languages </th> 
+           <th> <p> Base index </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[<i>i</i>] </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a>, <a href="Pascal (programming language)">Pascal</a>, <a href="Object Pascal">Object Pascal</a> (Delphi), <a href="Seed7">Seed7</a> </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[<i>i</i>] </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a>, <a href="C Sharp (programming language)">C#</a>, <a href="D (programming language)">D</a>, <a href="FreeBASIC">FreeBASIC</a>, <a href="Go (programming language)">Go</a>, <a href="Python (programming language)">Python</a><sup>1</sup>, <a href="PHP">PHP</a>, <a href="Ruby (programming language)">Ruby</a><sup>1</sup>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>{<i>i</i>} </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> (deprecated in 5.3) </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>(<i>i</i>) </p> </td> 
+           <td> <p> <a href="Ada (programming language)">Ada</a> </p> </td> 
+           <td> <p> ?1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Mid(<i>string</i>,i,1) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> MID$(<i>string</i>,i,1) </p> </td> 
+           <td> <p> <a href="BASIC">BASIC</a> </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.Chars(<i>i</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB.NET</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>(<i>i</i>:<i>i</i>) </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.charAt(<i>i</i>) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.[<i>i</i>] </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.sub (<i>string</i>, <i>i</i>) </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> !! <i>i</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-ref <i>string</i> <i>i</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (char <i>string</i> <i>i</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (elt <i>string</i> <i>i</i>) </p> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (get <i>string</i> <i>i</i>) </p> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> substr(<i>string</i>, <i>i</i>, 1) </p> </td> 
+           <td> <p> <a href="Perl">Perl</a><sup>1</sup> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> substr(<i>string</i>, <i>i</i>, 1) </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a> </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.at(<i>i</i>) </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only) (w/ bounds checking) </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> lists:nth(<i>i</i>, <i>string</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> characterAtIndex:<i>i</i>] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.sub(<i>string</i>, <i>i</i>, <i>i</i>) <br /> (<i>string</i>):sub(<i>i</i>, <i>i</i>) </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a><sup>1</sup> </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> at: <i>i</i> </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> (w/ bounds checking) </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string index <i>string i</i> </p> </td> 
+           <td> <p> <a href="Tcl">Tcl</a> </p> </td> 
+           <td> <p> 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StringTake[<i>string</i>, {<i>i</i>}] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a><sup>1</sup> </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>@<i>i</i> </p> </td> 
+           <td> <p> <a href="Eiffel (programming language)">Eiffel</a> </p> </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <ol> 
+         <li> In this language, the index can be negative, which then indicates the number of places before the end of the string.</li> 
+        </ol> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> { Example in Pascal } var </p> 
+        <pre> MyStr: string = 'Hello, World';
+ MyChar: Char;
+</pre> 
+        <p> begin </p> 
+        <pre> MyChar := MyStr[2];         // 'e'
+</pre> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;html4strict&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in ALGOL 68 #</li> 
+        </ol> 
+        <p> &quot;Hello, World&quot;[2]; // 'e' <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example in C# &quot;Hello, World&quot;[2]; // 'l' <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Examples in Python</li> 
+        </ol> 
+        <p> &quot;Hello, World&quot;[2] # 'l' &quot;Hello, World&quot;[-3] # 'r' <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Example in Visual Basic Mid(&quot;Hello, World&quot;,2,1) <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vbnet&quot;&gt;</span> ' Example in Visual Basic .NET &quot;Hello, World&quot;.Chars(2) ' &quot;l&quot;c <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;smalltalk&quot;&gt;</span> &quot; Example in Smalltalk&quot; 'Hello, World' at: 2. &quot;$e&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Compare (integer result)</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> compare(string1,string2) returns integer. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Compares two strings to each other. If they are equivalent, a zero is returned. Otherwise, most of these routines will return a positive or negative result corresponding to whether string1 is <a href="lexicographical order">lexicographically</a> greater than, or less than, respectively, than string2. The exceptions are the Scheme and REXX routines which return the index of the first mismatch. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> IF <i>string1</i>&lt;<i>string2</i> THEN -1 ELSE ABS (<i>string1</i>&gt;<i>string2</i>) FI </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> cmp(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> (before 3.0 only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (<i>string1</i> &gt; <i>string2</i>) - (<i>string1</i> &lt; <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> (since 3.0) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="strcmp">strcmp</a>(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a> (<code><a href="character (computing)">char</a> <a href="Pointer (computer programming)">*</a></code> only), <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.cmp(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StrComp(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a>, <a href="Object Pascal">Object Pascal</a> (Delphi) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> cmp <i>string2</i> </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> &lt;=&gt; <i>string2</i> </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i>.compare(<i>string2</i>) </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> compare(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="REXX">REXX</a>, <a href="Seed7">Seed7</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> CompareStr(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Pascal (programming language)">Pascal</a>, <a href="Object Pascal">Object Pascal</a> (Delphi) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i>.compareTo(<i>string2</i>) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i>.CompareTo(<i>string2</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic .Net">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (= <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string= <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-compare <i>string1</i> <i>string2</i> <i>p&lt;</i> <i>p=</i> <i>p&gt;</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 13) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string= <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> compare <i>string1</i> <i>string2</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.compare (<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> (returns LESS, EQUAL, or GREATER) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> compare <i>string1</i> <i>string2</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> (returns LT, EQ, or GT) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [string]::Compare(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Windows PowerShell">Windows PowerShell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string1</i> compare:<i>string2</i>] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> LLT(<i>string1</i>,<i>string2</i>) <br /> LLE(<i>string1</i>,<i>string2</i>) <br /> LGT(<i>string1</i>,<i>string2</i>) <br /> LGE(<i>string1</i>,<i>string2</i>) </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> (returns <code>.TRUE.</code> or <code>.FALSE.</code>). These functions are based on the ASCII collating sequence. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i>.localeCompare(<i>string2</i>) </p> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> bytes.Compare([]byte(<i>string1</i>), []byte(<i>string2</i>)) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string compare ?-nocase? ?-length int? <i>string1</i> <i>string2</i> </p> </td> 
+           <td> <p> <a href="Tcl">Tcl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> compare(<i>string1</i>,<i>string2</i>,<i>count</i>) </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a><sup>1</sup> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <sup>1</sup>IBM extension. </p> 
+        <pre>
+</pre> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Python</li> 
+        </ol> 
+        <p> cmp(&quot;hello&quot;, &quot;world&quot;) # returns -1 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> /** Example in REXX */ compare(&quot;hello&quot;, &quot;world&quot;) /* returns index of mismatch: 1 */ <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> ; Example in Scheme (use-modules (srfi srfi-13)) ; returns index of mismatch: 0 (string-compare &quot;hello&quot; &quot;world&quot; values values values) <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Compare (relational operator-based, Boolean result)</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> string1 op string2 OR (compare string1 string2) returns Boolean. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> <a href="lexicographical order">Lexicographically</a> compares two strings using a relational operator or function. Boolean result returned. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of =, &lt;&gt;, &lt;, &gt;, &lt;= and &gt;= </p> </td> 
+           <td> <p> <a href="Pascal (programming language)">Pascal</a>, <a href="Object Pascal">Object Pascal</a> (Delphi), <a href="OCaml">OCaml</a>, <a href="Seed7">Seed7</a>, <a href="Standard ML">Standard ML</a>, <a href="BASIC">BASIC</a>, <a href="Visual Basic">VB</a>, <a href="Visual Basic .NET">VB .NET</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of =, /=, ?, &lt;, &gt;, &lt;=, ? and ?; Also: EQ, NE, LT, LE, GE and GT </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (stringX? <i>string1</i> <i>string2</i>), where X can be any of =, -ci=, &lt;, -ci&lt;, &gt;, -ci&gt;, &lt;=, -ci&lt;=, &gt;= and -ci&gt;= (operators starting with '-ci' are case-insensitive) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (stringX <i>string1</i> <i>string2</i>), where X can be any of =, -ci=, &lt;&gt;, -ci&lt;&gt;, &lt;, -ci&lt;, &gt;, -ci&gt;, &lt;=, -ci&lt;=, &gt;= and -ci&gt;= (operators starting with '-ci' are case-insensitive) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 13) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (stringX <i>string1</i> <i>string2</i>), where X can be any of =, -equal, /=, -not-equal, &lt;, -lessp, &gt;, -greaterp, &lt;=, -not-greaterp, &gt;= and -not-lessp (the verbal operators are case-insensitive) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (stringX <i>string1</i> <i>string2</i>), where X can be any of =, /=, &lt;, &gt;, &lt;=, and &gt;= </p> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of =, \=, &lt;, &gt;, &lt;= and &gt;= </p> </td> 
+           <td> <p> <a href="REXX">REXX</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of =, &not;=, &lt;, &gt;, &lt;=, &gt;=, &not;&lt; and &not;&gt; </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of =, /=, &lt;, &gt;, &lt;= and &gt;= </p> </td> 
+           <td> <p> <a href="Ada (programming language)">Ada</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of ==, /=, &lt;, &gt;, =&lt; and &gt;= </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of ==, /=, &lt;, &gt;, &lt;= and &gt;= </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of <i>eq</i>, <i>ne</i>, <i>lt</i>, <i>gt</i>, <i>le</i> and <i>ge</i> </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of ==, !=, &lt;, &gt;, &lt;= and &gt;= </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only), <a href="C Sharp (programming language)">C#</a>, <a href="D (programming language)">D</a>, <a href="Go (programming language)">Go</a>, <a href="JavaScript">JavaScript</a>, <a href="Python (programming language)">Python</a>, <a href="PHP">PHP</a>, <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of -eq, -ceq, -ne, -cne, -lt, -clt, -gt, -cgt, -le, -cle, -ge, and -cge (operators starting with 'c' are case-sensitive) </p> </td> 
+           <td> <p> <a href="Windows PowerShell">Windows PowerShell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of ==, ~=, &lt;, &gt;, &lt;= and &gt;= </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of =, ~=, &lt;, &gt;, &lt;= and &gt;= </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> op <i>string2</i>, where op can be any of ==, /=, &lt;, &gt;, &lt;= and &gt;=; Also: .EQ., .NE., .LT., .LE., .GT. and .GE. </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a>. The operators use the compiler's default collating sequence. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> % Example in Erlang &quot;hello&quot; &gt; &quot;world&quot;. % returns false <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Windows PowerShell</li> 
+        </ol> 
+        <p> &quot;hello&quot; -gt &quot;world&quot; # returns false <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> ;; Example in common lisp (string&gt; &quot;art&quot; &quot;painting&quot;) ; returns nil (string&lt; &quot;art&quot; &quot;painting&quot;) ; returns non nil <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Concatenation</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{main|...}}</span> </p> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> concatenate(string1,string2) returns string. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Concatenates (joins) two strings to each other, returning the combined string. Note that some languages like C have mutable strings, so really the second string is being appended to the first string and the mutated string is returned. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> &amp; <i>string2</i> </p> </td> 
+           <td> <p> <a href="Ada (programming language)">Ada</a>, <a href="FreeBASIC">FreeBASIC</a>, <a href="Seed7">Seed7</a>, <a href="BASIC">BASIC</a>, <a href="Visual Basic">VB</a>, <a href="Visual Basic .NET">VB .NET</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strcat(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a> (<code><a href="character (computing)">char</a> <a href="Pointer (computer programming)">*</a></code> only; modifies <i>string1</i>, which must have enough space to store the result) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> . <i>string2</i> </p> </td> 
+           <td> <p> <a href="Perl">Perl</a>, <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> + <i>string2</i> </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a>, <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only), <a href="C Sharp (programming language)">C#</a>, <a href="FreeBASIC">FreeBASIC</a>, <a href="Go (programming language)">Go</a>, <a href="Pascal (programming language)">Pascal</a>, <a href="Object Pascal">Object Pascal</a> (Delphi), <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="Python (programming language)">Python</a>, <a href="Ruby (programming language)">Ruby</a>, <a href="F Sharp (programming language)">F#</a>, <a href="Turing (programming language)">Turing</a>, <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> ~ <i>string2</i> </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-append <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (concatenate 'string <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-append <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (str <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> <span class="unknown-node">&lt;nowiki&gt;...&lt;/nowiki&gt;</span> <i>string2</i> </p> </td> 
+           <td> <p> <a href="REXX">REXX</a>, <a href="SQL">SQL</a>, <a href="PL/I">PL/I</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> // <i>string2</i> </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> ++ <i>string2</i> </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a>, <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> ^ <i>string2</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a>, <a href="Standard ML">Standard ML</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string1</i> stringByAppendingString:<i>string2</i>] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> .. <i>string2</i> </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i>, <i>string2</i> </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> <i>string2</i> </p> </td> 
+           <td> <p> <a href="SNOBOL">SNOBOL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> &lt;&gt; <i>string2</i> </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> { Example in Pascal } 'abc' + 'def'; // returns &quot;abcdef&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example in C# &quot;abc&quot; + &quot;def&quot;; // returns &quot;abcdef&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Example in Visual Basic &quot;abc&quot; &amp; &quot;def&quot; ' returns &quot;abcdef&quot; &quot;abc&quot; + &quot;def&quot; ' returns &quot;abcdef&quot; &quot;abc&quot; &amp; Null ' returns &quot;abc&quot; &quot;abc&quot; + Null ' returns Null <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;d&quot;&gt;</span> // Example in D &quot;abc&quot; ~ &quot;def&quot;; // returns &quot;abcdef&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> ;; Example in common lisp (concatenate 'string &quot;abc &quot; &quot;def &quot; &quot;ghi&quot;) ; returns &quot;abc def ghi&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Contains</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> contains(<i>string</i>,<i>substring</i>) returns boolean </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns whether <i>string</i> contains <i>substring</i> as a substring. This is equivalent to using <a href="#Find">#Find</a> and then detecting that it does not result in the failure condition listed in the third column of the <a href="#Find">#Find</a> section. However, some languages have a simpler way of expressing this test. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Related </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string_in_string</i>(<i>string</i>, <b>loc int</b>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>ContainsStr</i>(<i>string</i>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="Object Pascal">Object Pascal</a> (Delphi) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.Contains(<i>substring)</i> </p> </td> 
+           <td> <p> <a href="C Sharp (programming language)">C#</a>, <a href="Visual Basic .NET">VB .NET</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.contains(<i>substring</i>) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a> (1.5+) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.indexOf(<i>substring</i>) &gt;= 0 </p> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strpos(<i>string</i>, <i>substring</i>) !== false </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>substring</i> in <i>string</i> </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> (2.3+) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.find(<i>string</i>, <i>substring</i>) ~= nil </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.include?(<i>substring</i>) </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Data.List.isInfixOf <i>substring</i> <i>string</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> (GHC 6.6+) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> includesSubString: <i>substring</i> </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> (Squeak, Pharo) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.isSubstring <i>substring</i> <i>string</i> </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (search <i>substring</i> <i>string</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (substring? <i>substring</i> <i>string</i>) </p> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> ! StringFreeQ[<i>string</i>, <i>substring</i>] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> index(<i>string</i>, <i>substring</i>, <i>startpos</i>)&gt;0 </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a><sup>1</sup> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.Contains(<i>string</i>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <sup>1</sup><i>startpos</i> is IBM extension. </p> 
+        <pre>&cent; Example in <a href="ALGOL 68">ALGOL 68</a> &cent;
+string in string(&quot;e&quot;, <b>loc int</b>, &quot;Hello mate&quot;);      &cent; returns <b>true</b> &cent;
+string in string(&quot;z&quot;, <b>loc int</b>, &quot;word&quot;);            &cent; returns <b>false</b> &cent;
+</pre> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example In C# &quot;Hello mate&quot;.Contains(&quot;e&quot;); // returns true &quot;word&quot;.Contains(&quot;z&quot;); // returns false <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <pre>
+</pre> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Python</li> 
+        </ol> 
+        <p> &quot;e&quot; in &quot;Hello mate&quot; # returns true &quot;z&quot; in &quot;word&quot; # returns false <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Equality</h3> 
+       <div class="section-body"> 
+        <p> Tests if two strings are equal. See also <a href="#Compare (relational operator-based, Boolean result)">#Compare</a> and <a href="#Compare (integer result)">#Compare</a>. Note that doing equality checks via a generic <a href="#Compare (integer result)">Compare with integer result</a> is not only confusing for the programmer but is often a significantly more expensive operation; this is especially true when using &quot;<a href="String (computer science)#Representations">C-strings</a>&quot;. </p> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> == <i>string2</i> </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a>, <a href="C++">C++</a>(<code><a href="std::string">std::string</a></code> only), <a href="C Sharp (programming language)">C#</a> <a href="Go (programming language)">Go</a>, <a href="JavaScript">JavaScript</a> (similarity), <a href="PHP">PHP</a> (similarity), <a href="Ruby (programming language)">Ruby</a>, <a href="Erlang (programming language)">Erlang</a>, <a href="Haskell (programming language)">Haskell</a>, <a href="Lua (programming language)">Lua</a>, <a href="D (programming language)">D</a>, <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> === <i>string2</i> </p> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a>, <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> == <i>string2</i> or <br /> <i>string1</i> .EQ. <i>string2</i> </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strcmp(<i>string1</i>, <i>string2</i>) == 0 </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a> (<code><a href="character (computing)">char</a> <a href="Pointer (computer programming)">*</a></code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string=? <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string= <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a>, <a href="ISLISP">ISLISP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> = <i>string2</i> </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a>, <a href="Ada (programming language)">Ada</a>, <a href="Object Pascal">Object Pascal</a> (Delphi), <a href="OCaml">OCaml</a>, <a href="Pascal (programming language)">Pascal</a>, <a href="REXX">REXX</a>, <a href="Seed7">Seed7</a>, <a href="Standard ML">Standard ML</a>, <a href="BASIC">BASIC</a>, <a href="Visual Basic">VB</a>, <a href="Visual Basic .NET">VB .NET</a>, <a href="F Sharp (programming language)">F#</a>, <a href="Smalltalk">Smalltalk</a>, <a href="PL/I">PL/I</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> test <i>string1</i> = <i>string2</i>, or <br />[ <i>string1</i> = <i>string2</i> ] </p> </td> 
+           <td> <p> <a href="Bourne Shell">Bourne Shell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> eq <i>string2</i> </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i>.equals(<i>string2</i>) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> -eq <i>string2</i>, or <br />[string]::Equals(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Windows PowerShell">Windows PowerShell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string1</i> isEqualToString:<i>string2</i>], or <br />[<i>string1</i> isEqual:<i>string2</i>] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example in C# &quot;hello&quot; == &quot;world&quot; // returns false <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Example in Visual Basic &quot;hello&quot; = &quot;world&quot; ' returns false <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Windows PowerShell</li> 
+        </ol> 
+        <p> &quot;hello&quot; -eq &quot;world&quot; # returns false <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Find</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> find(<i>string</i>,<i>substring</i>) returns integer </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns the position of the start of the first occurrence of <i>substring</i> in <i>string</i>. If the <i>substring</i> is not found most of these routines return an invalid index value ? -1 where indexes are 0-based, 0 where they are 1-based ? or some value to be interpreted as Boolean FALSE. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Related </p> </td> 
+           <td> <p> instrrev </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> Languages </th> 
+           <th> <p> If not found </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> string in string(substring, pos, <i>string[startpos:]</i>) </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a> </p> </td> 
+           <td> <p> returns BOOL: TRUE or FALSE, and position in REF INT pos. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> InStr(&laquo;<i>startpos</i>,&raquo;<i>string</i>,<i>substring</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> (positions start at 1) </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> INSTR$(<i>string</i>,<i>substring</i>) </p> </td> 
+           <td> <p> <a href="BASIC">BASIC</a> (positions start at 1) </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> index(<i>string</i>,<i>substring</i>) </p> </td> 
+           <td> <p> <a href="AWK">AWK</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> index(<i>string</i>,<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> instr(&laquo;<i>startpos</i>,&raquo;<i>string</i>,<i>substring</i>) </p> </td> 
+           <td> <p> <a href="FreeBASIC">FreeBASIC</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strpos(<i>string</i>,<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+           <td> <p> returns FALSE </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> locate(<i>string</i>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="Ingres (database)">Ingres</a> </p> </td> 
+           <td> <p> returns string length + 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strstr(<i>string</i>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a> (<code><a href="character (computing)">char</a> <a href="Pointer (computer programming)">*</a></code> only, returns pointer to first character) </p> </td> 
+           <td> <p> returns NULL </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.find(<i>string</i>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> pos(<i>string</i>, <i>substring</i>&laquo;, <i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Seed7">Seed7</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.Index(<i>string</i>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> pos(<i>substring</i>, <i>string</i>) </p> </td> 
+           <td> <p> <a href="Pascal (programming language)">Pascal</a>, <a href="Object Pascal">Object Pascal</a> (Delphi) </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> pos(<i>substring</i>, <i>string</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="REXX">REXX</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.find(<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only) </p> </td> 
+           <td> <p> returns std::string::npos </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.find(<i>substring</i>&laquo;,<i>startpos</i>&laquo;,<i>endpos</i>&raquo;&raquo;) </p> </td> 
+           <td rowspan="2"> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.index(<i>substring</i>&laquo;,<i>startpos</i>&laquo;,<i>endpos</i>&raquo;&raquo;) </p> </td> 
+           <td> <p> raises ValueError </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.index(<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+           <td> <p> returns nil </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.indexOf(<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.IndexOf(<i>substring</i>&laquo;,<i>startpos</i>&laquo;, <i>charcount</i>&raquo;&raquo;) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string:str(<i>string</i>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-contains <i>string</i> <i>substring</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 13) </p> </td> 
+           <td> <p> returns #f </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (search <i>substring</i> <i>string</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+           <td> <p> returns NIL </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-index <i>substring</i> <i>string</i>) </p> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+           <td> <p> returns <code>nil</code> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> List.findIndex (List.isPrefixOf <i>substring</i>) (List.tails <i>string</i>) </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> (returns Just <i>index</i>) </p> </td> 
+           <td> <p> returns Nothing </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Str.search_forward (Str.regexp_string <i>substring</i>) <i>string</i> 0 </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+           <td> <p> raises Not_found </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Substring.size (#1 (Substring.position <i>substring</i> (Substring.full <i>string</i>))) </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+           <td> <p> returns string length </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> rangeOfString:<i>substring</i>].location </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+           <td> <p> returns NSNotFound </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.find(<i>string</i>, <i>substring</i>) <br /> (<i>string</i>):find(<i>substring</i>) </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+           <td> <p> returns nil </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> indexOfSubCollection: <i>substring</i> startingAt: <i>startpos</i> ifAbsent: <i>aBlock</i> <br /> <i>string</i> findString: <i>substring</i> startingAt: <i>startpos</i> </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> (Squeak, Pharo) </p> </td> 
+           <td> <p> evaluate aBlock which is a block closure (or any object understanding value) <br /> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> startpos = INDEX(<i>string</i>, <i>substring</i> &laquo;,<i>back</i>&raquo; &laquo;, <i>kind</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> </p> </td> 
+           <td> <p> returns 0 if substring is not in string; returns LEN(string)+1 if substring is empty </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> POSITION(<i>substring</i> IN <i>string</i>) </p> </td> 
+           <td> <p> <a href="SQL">SQL</a> </p> </td> 
+           <td> <p> returns 0 (positions start at 1) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> index(<i>string</i>, <i>substring</i>, <i>startpos</i> ) </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a><sup>1</sup> </p> </td> 
+           <td> <p> returns 0 (positions start at 1) </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <sup>1</sup><i>startpos</i> is IBM extension. </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> ; Examples in Common Lisp (search &quot;e&quot; &quot;Hello mate&quot;) ; returns 1 (search &quot;z&quot; &quot;word&quot;) ; returns NIL <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Examples in C# &quot;Hello mate&quot;.IndexOf(&quot;e&quot;); // returns 1 &quot;Hello mate&quot;.IndexOf(&quot;e&quot;, 4); // returns 9 &quot;word&quot;.IndexOf(&quot;z&quot;); // returns -1 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> ; Examples in Scheme (use-modules (srfi srfi-13)) (string-contains &quot;Hello mate&quot; &quot;e&quot;) ; returns 1 (string-contains &quot;word&quot; &quot;z&quot;) ; returns #f <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Examples in Visual Basic InStr(&quot;Hello mate&quot;, &quot;e&quot;) ' returns 2 InStr(5, &quot;Hello mate&quot;, &quot;e&quot;) ' returns 10 InStr(&quot;word&quot;, &quot;z&quot;) ' returns 0 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;smalltalk&quot;&gt;</span> &quot; Examples in Smalltalk &quot; 'Hello mate' indexOfSubCollection:'ate' &quot;returns 8&quot; 'Hello mate' indexOfSubCollection:'late' &quot;returns 0&quot; I'Hello mate' </p> 
+        <pre>   indexOfSubCollection:'late'
+   ifAbsent:[ 99 ]                      &quot;returns 99&quot;
+</pre> 
+        <p> 'Hello mate' </p> 
+        <pre>   indexOfSubCollection:'late'
+   ifAbsent:[ self error ]              &quot;raises an exception&quot;
+</pre> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Find character</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> find character(<i>string</i>,<i>char</i>) returns integer </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns the position of the start of the first occurrence of the character <i>char</i> in <i>string</i>. If the character is not found most of these routines return an invalid index value ? -1 where indexes are 0-based, 0 where they are 1-based ? or some value to be interpreted as Boolean FALSE. This can be accomplished as a special case of <a href="#Find">#Find</a>, with a string of one character; but it may be simpler or more efficient in many languages to locate just one character. Also, in many languages, characters and strings are different types, so it is convenient to have such a function. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Related </p> </td> 
+           <td> <p> find </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> Languages </th> 
+           <th> <p> If not found </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> char in string(char, pos, <i>string[startpos:]</i>) </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a> </p> </td> 
+           <td> <p> returns BOOL: TRUE or FALSE, and position in REF INT pos. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> instr(<i>string</i>, any <i>char</i>&laquo;,<i>startpos</i>&raquo;) (char, can contain more them one char, in which case the position of the first appearance of any of them is returned.) </p> </td> 
+           <td> <p> <a href="FreeBASIC">FreeBASIC</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strchr(<i>string</i>,<i>char</i>) </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a> (<code><a href="character (computing)">char</a> <a href="Pointer (computer programming)">*</a></code> only, returns pointer to character) </p> </td> 
+           <td> <p> returns NULL </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.find(<i>string</i>, <i>dchar</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.find(<i>char</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only) </p> </td> 
+           <td> <p> returns std::string::npos </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> pos(<i>string</i>, <i>char</i>&laquo;, <i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Seed7">Seed7</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.IndexRune(<i>string</i>,<i>char</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.indexOf(<i>char</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.IndexOf(<i>char</i>&laquo;,<i>startpos</i>&laquo;, <i>charcount</i>&raquo;&raquo;) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (position <i>char</i> <i>string</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+           <td> <p> returns NIL </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (char-index <i>char</i> <i>string</i>) </p> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+           <td> <p> returns <code>nil</code> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> List.elemIndex <i>char</i> <i>string</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> (returns Just <i>index</i>) </p> </td> 
+           <td> <p> returns Nothing </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.index <i>string</i> <i>char</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+           <td> <p> raises Not_found </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> position = SCAN (<i>string</i>, <i>set</i> &laquo;, <i>back</i>&raquo; &laquo;, <i>kind</i>&raquo;) or <br /> position = VERIFY (<i>string</i>, <i>set</i> &laquo;, <i>back</i>&raquo; &laquo;, <i>kind</i>&raquo;)<span class="unknown-node">{{ref|...}}</span> </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> </p> </td> 
+           <td> <p> returns zero </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> indexOf: <i>char</i> ifAbsent: aBlock <br /> <i>string</i> indexOf: <i>char</i> <br /> <i>string</i> includes: <i>char</i> </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+           <td> <p> evaluate aBlock which is a BlockClosure (or any object understanding value) <br /> returns 0 <br /> returns true or false </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> index(<i>string</i>, <i>char</i>, <i>startpos</i> ) </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a><sup>1</sup> </p> </td> 
+           <td> <p> returns 0 (positions start at 1) </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <sup>1</sup><i>startpos</i> is IBM extension. </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Examples in C# &quot;Hello mate&quot;.IndexOf('e'); // returns 1 &quot;word&quot;.IndexOf('z') // returns -1 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> ; Examples in Common Lisp (position #\e &quot;Hello mate&quot;) ; returns 1 (position #\z &quot;word&quot;) ; returns NIL <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">{{note|...}}</span> Given a set of characters, SCAN returns the position of the first character found,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> while VERIFY returns the position of the first character that does not belong to the set.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Format</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> format(<i>formatstring</i>, <i>items</i>) returns string </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns the formatted string representation of one or more items. <span class="unknown-node">{{See also|...}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> Languages </th> 
+           <th> <p> Format string syntax </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> associate(<i>file</i>, <i>string</i>); <a href="putf">putf</a>(<i>file</i>, <i>$formatstring$</i>, <i>items</i>) </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a> </p> </td> 
+           <td> <p> ALGOL </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Format(<i>item</i>, <i>formatstring</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="sprintf">sprintf</a>(<i>formatstring</i>, <i>items</i>) </p> </td> 
+           <td> <p> <a href="Perl">Perl</a>, <a href="PHP">PHP</a>, <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> io_lib:format(<i>formatstring</i>, <i>items</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="sprintf">sprintf</a>(<i>outputstring</i>, <i>formatstring</i>, <i>items</i>) </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a> (<code><a href="character (computing)">char</a> <a href="Pointer (computer programming)">*</a></code> only) </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.format(<i>formatstring</i>, <i>items</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Format(<i>formatstring</i>, <i>items</i>) </p> </td> 
+           <td> <p> <a href="Object Pascal">Object Pascal</a> (Delphi) </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> fmt.Sprintf(<i>formatstring</i>, <i>items</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="printf">printf</a> -v <i>outputstring</i> <i>formatstring</i> <i>items</i> </p> </td> 
+           <td> <p> <a href="Bash shell">Bash shell</a> </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>formatstring</i> % (<i>items</i>) </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a>, <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>formatstring</i>.format(<i>items</i>) </p> </td> 
+           <td> <p> Python 3.x </p> </td> 
+           <td> <p> .NET </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Printf.sprintf <i>formatstring</i> <i>items</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a>, <a href="F Sharp (programming language)">F#</a> (<i>formatstring</i> must be a fixed literal at compile time for it to have the correct type) </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Text.Printf.printf <i>formatstring</i> <i>items</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> (GHC) </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.format(<i>formatstring</i>, <i>items</i>) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.Format(<i>formatstring</i>, <i>items</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+           <td> <p> .NET </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (format <i>formatstring</i> <i>items</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 28) </p> </td> 
+           <td> <p> Lisp </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (<a href="Format (Common Lisp)">format</a> nil <i>formatstring</i> <i>items</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+           <td> <p> Lisp </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (format <i>formatstring</i> <i>items</i>) </p> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+           <td> <p> Lisp </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>formatstring</i> -f <i>items</i> </p> </td> 
+           <td> <p> <a href="Windows PowerShell">Windows PowerShell</a> </p> </td> 
+           <td> <p> .NET </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [NSString stringWithFormat:<i>formatstring</i>, <i>items</i>] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.format(<i>formatstring</i>, <i>items</i>) <br /> (<i>formatstring</i>):format(<i>items</i>) </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+           <td> <p> C </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> WRITE (<i>outputstring</i>, <i>formatstring</i>) <i>items</i> </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> </p> </td> 
+           <td> <p> Fortran </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> put string(<i>string</i>) edit(<i>items</i>)(<i>format</i>) </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a> </p> </td> 
+           <td> <p> PL/I (similar to Fortran) </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example in C# String.Format(&quot;My {0} costs {1:C2}&quot;, &quot;pen&quot;, 19.99); // returns &quot;My pen costs $19.99&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;delphi&quot;&gt;</span> // Example in Object Pascal (Delphi) Format('My %s costs $%2f', ['pen', 19.99]); // returns &quot;My pen costs $19.99&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;java5&quot;&gt;</span> // Example in Java String.format(&quot;My %s costs $%2f&quot;, &quot;pen&quot;, 19.99); // returns &quot;My pen costs $19.99&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Python</li> 
+        </ol> 
+        <p> &quot;My %s costs $%.2f&quot; % (&quot;pen&quot;, 19.99); # returns &quot;My pen costs $19.99&quot; &quot;My {0} costs ${1:.2f}&quot;.format(&quot;pen&quot;, 19.99); # returns &quot;My pen costs $19.99&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;Scheme&quot;&gt;</span> ; Example in Scheme (format &quot;My ~a costs $~1,2F&quot; &quot;pen&quot; 19.99) ; returns &quot;My pen costs $19.99&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;PLI&quot;&gt;</span> /* example in PL/I */ put string(some_string) edit('My ', 'pen', ' costs', 19.99)(a,a,a,p'$$$V.99') /* returns &quot;My pen costs $19.99&quot; */ <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Inequality</h3> 
+       <div class="section-body"> 
+        <p> Tests if two strings are not equal. See also <a href="#Equality">#Equality</a>. </p> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> <b>ne</b> <i>string2</i>, or <i>string1</i> NE <i>string2</i> </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a> - note: the operator &quot;<b>ne</b>&quot; is literally in <b>bold</b> type-font. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> /= <i>string2</i> </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a>, <a href="Ada (programming language)">Ada</a>, <a href="Erlang (programming language)">Erlang</a>, <a href="Fortran">Fortran</a>, <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> &lt;&gt; <i>string2</i> </p> </td> 
+           <td> <p> <a href="BASIC">BASIC</a>, <a href="Visual Basic">VB</a>, <a href="Visual Basic .NET">VB .NET</a>, <a href="Pascal (programming language)">Pascal</a>, <a href="Object Pascal">Object Pascal</a> (Delphi), <a href="OCaml">OCaml</a>, <a href="PHP">PHP</a>, <a href="Seed7">Seed7</a>, <a href="Standard ML">Standard ML</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> # <i>string2</i> </p> </td> 
+           <td> <p> <a href="BASIC">BASIC</a> (some implementations) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> ne <i>string2</i> </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string&lt;&gt; <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 13) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string/= <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string/= <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (not= <i>string1</i> <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> != <i>string2</i> </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only), <a href="C Sharp (programming language)">C#</a>, <a href="Go (programming language)">Go</a>, <a href="JavaScript">JavaScript</a> (not similar), <a href="PHP">PHP</a> (not similar), <a href="Python (programming language)">Python</a>, <a href="Ruby (programming language)">Ruby</a>, <a href="D (programming language)">D</a>, <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> !== <i>string2</i> </p> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a>, <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> \= <i>string2</i> </p> </td> 
+           <td> <p> <a href="REXX">REXX</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> &not;= <i>string2</i> </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> test <i>string1</i> != <i>string2</i>, or <br />[ <i>string1</i> != <i>string2</i> ] </p> </td> 
+           <td> <p> <a href="Bourne Shell">Bourne Shell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> -ne <i>string2</i>, or <br />-not [string]::Equals(<i>string1</i>, <i>string2</i>) </p> </td> 
+           <td> <p> <a href="Windows PowerShell">Windows PowerShell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string1</i> ~= <i>string2</i> </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a>, <a href="Smalltalk">Smalltalk</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example in C# &quot;hello&quot; != &quot;world&quot; // returns true <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Example in Visual Basic &quot;hello&quot; &lt;&gt; &quot;world&quot; ' returns true <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;clojure&quot;&gt;</span> ;; Example in Clojure (not= &quot;hello&quot; &quot;world&quot;) ; ? true <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;powershell&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Windows PowerShell</li> 
+        </ol> 
+        <p> &quot;hello&quot; -ne &quot;world&quot; # returns true <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>index</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#Find">#Find</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>indexof</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#Find">#Find</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>instr</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#Find">#Find</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>instrrev</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#rfind">#rfind</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>join</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> join(<i>separator</i>, <i>list_of_strings</i>) joins a list of strings with a separator </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Joins the list of strings into a new string, with the separator string between each of the substrings. Opposite of <i>split</i>. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Related </p> </td> 
+           <td> <p> sprintf </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.join(<i>array_of_strings</i>, <i>separator</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string:join(<i>list_of_strings</i>, <i>separator</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> join(<i>separator</i>, <i>list_of_strings</i>) </p> </td> 
+           <td> <p> <a href="Perl">Perl</a>, <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> implode(<i>separator</i>, <i>array_of_strings</i>) </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>separator</i>.join(<i>sequence_of_strings</i>) </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>array_of_strings</i>.join(<i>separator</i>) </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-join <i>array_of_strings</i> <i>separator</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 13) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (<a href="Format (Common Lisp)">format</a> nil &quot;~{~a~^<i>separator</i>~}&quot; <i>array_of_strings</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (clojure.string/join <i>separator</i> <i>list_of_strings</i>) (apply str (interpose <i>separator</i> <i>list_of_strings</i>)) </p> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.Join(<i>array_of_strings</i>, <i>separator</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> join(<i>array_of_strings</i>, <i>separator</i>) </p> </td> 
+           <td> <p> <a href="Seed7">Seed7</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.concat <i>separator</i> <i>list_of_strings</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.concatWith <i>separator</i> <i>list_of_strings</i> </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Data.List.intercalate <i>separator</i> <i>list_of_strings</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> (GHC 6.8+) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Join(<i>array_of_strings</i>, <i>separator</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.Join(<i>separator</i>, <i>array_of_strings</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> &amp;{$OFS=<i>$separator</i>; &quot;<i>$array_of_strings</i>&quot;}, or <br /><i>array_of_strings</i> -join <i>separator</i> </p> </td> 
+           <td> <p> <a href="Windows PowerShell">Windows PowerShell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>array_of_strings</i> componentsJoinedByString:<i>separator</i>] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> table.concat(<i>table_of_strings</i>, <i>separator</i>) </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String streamContents: [ :stream | <i>collectionOfAnything</i> asStringOn: stream delimiter: <i>separator</i> ] </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> (Squeak, Pharo) </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example in C# String.Join(&quot;-&quot;, {&quot;a&quot;, &quot;b&quot;, &quot;c&quot;}) // &quot;a-b-c&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;perl&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Perl</li> 
+        </ol> 
+        <p> join( '-', ('a', 'b', 'c')); # 'a-b-c' <span class="unknown-node">&lt;/source&gt;</span> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Python</li> 
+        </ol> 
+        <p> &quot;-&quot;.join([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]) # 'a-b-c' <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;ruby&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Ruby</li> 
+        </ol> 
+        <p> [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;].join(&quot;-&quot;) # 'a-b-c' <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> ; Example in Scheme (use-modules (srfi srfi-13)) (string-join '(&quot;a&quot; &quot;b&quot; &quot;c&quot;) &quot;-&quot;) ; &quot;a-b-c&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>lastindexof</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#rfind">#rfind</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>left</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> left(<i>string</i>,<i>n</i>) returns string </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns the left <i>n</i> part of a string. If <i>n</i> is greater than the length of the string then most implementations return the whole string (exceptions exist - see code examples). </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> string (string'First .. string'First + <i>n</i> - 1) </p> </td> 
+           <td> <p> <a href="Ada (programming language)">Ada</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string:substr(<i>string</i>, <i>start</i>, <i>length</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Left(<i>string</i>,<i>n</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> LEFT$(<i>string</i>,<i>n</i>) </p> </td> 
+           <td> <p> <a href="BASIC">BASIC</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> left(<i>string</i>,<i>n</i>) </p> </td> 
+           <td> <p> <a href="FreeBASIC">FreeBASIC</a>, <a href="Ingres (database)">Ingres</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> left(<i>string</i>,<i>n</i> &laquo;,<i>padchar</i>&raquo;) </p> </td> 
+           <td> <p> <a href="REXX">REXX</a>, <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> substr(<i>string</i>, 0, <i>n</i>) </p> </td> 
+           <td> <p> <a href="AWK">AWK</a> (changes string), <a href="Perl">Perl</a>, <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[:<i>n</i>] </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a>, <a href="Python (programming language)">Python</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[0, <i>n</i>] <br /> <i>string</i>[0..<i>n</i> - 1] </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.substr(0,<i>n</i>) </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[0 .. <i>n</i>] </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> (if n is larger than the length of the string, then in Debug mode ArrayRangeException is thrown, in Release mode, the behaviour is <a href="unspecified behavior">unspecified</a>) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[ .. <i>n</i>] </p> </td> 
+           <td> <p> <a href="Seed7">Seed7</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.Substring(0,<i>n</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> leftstr(<i>string</i>, <i>n</i>) </p> </td> 
+           <td> <p> <a href="Pascal (programming language)">Pascal</a>, <a href="Object Pascal">Object Pascal</a> (Delphi) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.substring(0,<i>n</i>) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a> (if n is larger than the length of the string, Java will throw an IndexOutOfBoundsException) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-take <i>string</i> <i>n</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 13) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> take <i>n</i> <i>string</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (apply str (take <i>n</i> <i>string</i>)) </p> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> substringToIndex:<i>n</i>] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.extract (<i>string</i>, <i>n</i>, NONE) </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.sub <i>string</i> 0 <i>n</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> (if n is larger than length of string, raises Invalid_argument) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.[..<i>n</i>] </p> </td> 
+           <td> <p> <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.sub(<i>string</i>, 1, <i>n</i>) <br /> (<i>string</i>):sub(1, <i>n</i>) </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> first: <i>n</i> </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> (Squeak, Pharo) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>(:<i>n</i>) </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StringTake[<i>string</i>, <i>n</i>] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> (if n is larger than length of string, throw the message &quot;StringTake::take:&quot;) </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> /* Examples in REXX */ left(&quot;abcde&quot;, 3) /* returns &quot;abc&quot; */ left(&quot;abcde&quot;, 8) /* returns &quot;abcde &quot; */ left(&quot;abcde&quot;, 8, &quot;*&quot;) /* returns &quot;abcde***&quot; */ <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> ; Examples in Scheme (use-modules (srfi srfi-13)) (string-take &quot;abcde&quot;, 3) ; returns &quot;abc&quot; (string-take &quot;abcde&quot;, 8) ; error <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Examples in Visual Basic Left(&quot;sandroguidi&quot;, 3) ' returns &quot;san&quot; Left(&quot;sandroguidi&quot;, 100) ' returns &quot;sandroguidi&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>len</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#length">#length</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>length</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> length(<i>string</i>) returns an integer number </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns the length of a string (not counting the <a href="null character">null terminator</a> or any other of the string's internal structural information). An empty string returns a length of 0. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> Returns </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> string'Length </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Ada (programming language)">Ada</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> UPB string </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> length(<i>string</i>) </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Ingres (database)">Ingres</a>, <a href="Perl">Perl</a>, <a href="Pascal (programming language)">Pascal</a>, <a href="Object Pascal">Object Pascal</a> (Delphi), <a href="REXX">REXX</a>, <a href="Seed7">Seed7</a>, <a href="SQL">SQL</a>, <a href="PL/I">PL/I</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Len (programming)">len</a>(<i>string</i>) </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="BASIC">BASIC</a>, <a href="FreeBASIC">FreeBASIC</a>, <a href="Python (programming language)">Python</a>, <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> length(<i>string</i>), string:len(<i>string</i>) </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Len (programming)">Len</a>(<i>string</i>) </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.Length </p> </td> 
+           <td> <p> Number of 16-bit <a href="UTF-16">UTF-16</a>-encoded blocks </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.size OR <i>string</i>.length </p> </td> 
+           <td> <p> Number of bytes (Ruby lacks Unicode support) </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="strlen">strlen</a>(<i>string</i>) </p> </td> 
+           <td> <p> Number of bytes </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a> (<code><a href="character (computing)">char</a> <a href="Pointer (computer programming)">*</a></code> only), <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.length() </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.length </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.length() </p> </td> 
+           <td> <p> Number of 16-bit <a href="UTF-16">UTF-16</a>-encoded blocks </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.length </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-length <i>string</i>) </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (length <i>string</i>) </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (length <i>string</i>) </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (count <i>string</i>) </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.length <i>string</i> </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> size <i>string</i> </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> length <i>string</i> </p> </td> 
+           <td> <p> Number of Unicode codepoints </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> length] </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.len(<i>string</i>) <br /> (<i>string</i>):len() <br /> #<i>string</i> </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> size </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> LEN(<i>string</i>), or LEN_TRIM(<i>string</i>) </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StringLength[<i>string</i>] </p> </td> 
+           <td> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Examples in C# &quot;hello&quot;.Length; // returns 5 &quot;&quot;.Length; // returns 0 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Examples in Erlang</li> 
+        </ol> 
+        <p> string:len(&quot;hello&quot;). % returns 5 string:len(&quot;&quot;). % returns 0 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;perl&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Examples in Perl</li> 
+        </ol> 
+        <p> length(&quot;hello&quot;); # returns 5 length(&quot;&quot;); # returns 0 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Examples in Visual Basic Len(&quot;hello&quot;) ' returns 5 Len(&quot;&quot;) ' returns 0 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;objc&quot;&gt;</span> //Examples in Objective-C [@&quot;hello&quot; Length] //returns 5 [@&quot;&quot; Length] //returns 0 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lua&quot;&gt;</span> -- Examples in Lua (&quot;hello&quot;):len() -- returns 5 </p> 
+        <ol> 
+         <li>&quot;&quot; -- returns 0</li> 
+        </ol> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>locate</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#Find">#Find</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Lowercase</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> lowercase(<i>string</i>) returns string </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns the string in lower case. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> LCase(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> lcase(<i>string</i>) </p> </td> 
+           <td> <p> <a href="FreeBASIC">FreeBASIC</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> lc(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> tolower(<i>char</i>) </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a> (operates on one character) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.toLower(<i>string</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> transform(<i>string</i>.begin(), <i>string</i>.end(), <i>result</i>.begin(), ::tolower)<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only, result is stored in string <i>result</i> which is at least as long as <i>string</i>, and may or may not be <i>string</i> itself) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> lowercase(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Object Pascal">Object Pascal</a> (Delphi) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strtolower(<i>string</i>) </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="echo (command)">echo</a> &quot;string&quot; <span class="unknown-node">&lt;nowiki&gt;...&lt;/nowiki&gt;</span> <a href="tr (program)">tr</a> 'A-Z' 'a-z' </p> </td> 
+           <td> <p> <a href="Unix">Unix</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.lower() </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.downcase </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> (only ASCII characters as Ruby lacks Unicode support) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.ToLower(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-downcase <i>string</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (R6RS), <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (lower-case <i>string</i>) </p> </td> 
+           <td> <p> <a href="Clojure">Clojure</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.lowercase <i>string</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.map Char.toLower <i>string</i> </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> map Char.toLower <i>string</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.toLowerCase() </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> to_lower(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.ToLower() </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> lowercaseString] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.lower(<i>string</i>) <br /> (<i>string</i>):lower() </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> asLowercase </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> LOWER(<i>string</i>) </p> </td> 
+           <td> <p> <a href="SQL">SQL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> lowercase(<i>string</i>) </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a><sup>1</sup> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> ToLowerCase[<i>string</i>] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <sup>1</sup>IBM extension. </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example in C# &quot;Wiki means fast?&quot;.ToLower(); // &quot;wiki means fast?&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> ; Example in Scheme (use-modules (srfi srfi-13)) (string-downcase &quot;Wiki means fast?&quot;) ; &quot;wiki means fast?&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;c&quot;&gt;</span> /* Example in C */ </p> 
+        <ol> 
+         <li>include <span class="unknown-node">&lt;ctype.h&gt;</span></li> 
+         <li>include <span class="unknown-node">&lt;stdio.h&gt;</span></li> 
+        </ol> 
+        <p> int main(void) { </p> 
+        <pre>   char string[] = &quot;Wiki means fast?&quot;;
+   int i;
+   for (i = 0; i &lt; sizeof(string) - 1; ++i) {
+       /* transform characters in place, one by one */ 
+       string[i] = tolower(string[i]);
+   }
+   puts(string);                       /* &quot;wiki means fast?&quot; */
+   return 0;
+</pre> 
+        <p> } <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>mid</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#substring1">#substring1</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>partition</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> <span class="unknown-node">&lt;string&gt;</span>.partition(<i>separator</i>) returns the sub-string before the separator; the separator; then the sub-string after the separator. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Splits the given string by the separator and returns the three substrings that together make the original. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.partition(<i>separator</i>) </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a>, <a href="Ruby (programming language)">Ruby</a>(1.9+) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> lists:partition(<i>pred</i>, <i>string</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> split /(<i>separator</i>)/, <i>string</i>, 2 </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Examples in Python</li> 
+        </ol> 
+        <p> &quot;Spam eggs spam spam and ham&quot;.partition('spam') # ('Spam eggs ', 'spam', ' spam and ham') &quot;Spam eggs spam spam and ham&quot;.partition('X') # ('Spam eggs spam spam and ham', &quot;&quot;, &quot;&quot;) <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;perl&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Examples in Perl</li> 
+        </ol> 
+        <p> split /(spam)/'Spam eggs spam spam and ham',2; # ('Spam eggs ', 'spam', ' spam and ham'); split /(X)/'Spam eggs spam spam and ham',2; # ('Spam eggs spam spam and ham'); <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>replace</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> replace(<i>string</i>, <i>find</i>, <i>replace</i>) returns string </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns a string with <i>find</i> occurrences changed to <i>replace</i>. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> changestr(<i>find</i>, <i>string</i>, <i>replace</i>) </p> </td> 
+           <td> <p> <a href="REXX">REXX</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.replace(<i>string</i>, <i>find</i>, <i>replace</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Replace(<i>string</i>, <i>find</i>, <i>replace</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.Replace(<i>find</i>, <i>replace</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> str_replace(<i>find</i>, <i>replace</i>, <i>string</i>) </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> re:replace(<i>string</i>, <i>find</i>, <i>replace</i>, &laquo;{return, list}&raquo;) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.replace(<i>find</i>, <i>replace</i>) </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a>, <a href="Java (programming language)">Java</a> (1.5+) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.replaceAll(<i>find_regex</i>, <i>replace</i>)<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.gsub(<i>find</i>, <i>replace</i>) </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> =~ s/<i>find_regex</i>/<i>replace</i>/g<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.replace(<i>find</i>, <i>replace</i>, &quot;g&quot;) <small>(third parameter is non-standard)</small> or<br /> <i>string</i>.replace(/<i>find_regex</i>/g, <i>replace</i>)<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="echo (command)">echo</a> &quot;<i>string</i>&quot; <span class="unknown-node">&lt;nowiki&gt;...&lt;/nowiki&gt;</span> <a href="sed">sed</a> 's/<i>find_regex</i>/<i>replace</i>/g'<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <a href="Unix">Unix</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.replace(<i>find</i>, <i>replace</i>), or<br /><i>string</i> -replace <i>find_regex</i>, <i>replace</i><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <a href="Windows PowerShell">Windows PowerShell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Str.global_replace (Str.regexp_string <i>find</i>) <i>replace</i> <i>string</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> stringByReplacingOccurrencesOfString:<i>find</i> withString:<i>replace</i>] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.gsub(<i>string</i>, <i>find</i>, <i>replace</i>) <br /> (<i>string</i>):gsub(<i>find</i>, <i>replace</i>) </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> copyReplaceAll: <i>find</i> with: <i>replace</i> </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> (Squeak, Pharo) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string map {<i>find</i> <i>replace</i>} <i>string</i> </p> </td> 
+           <td> <p> <a href="Tcl (programming language)">Tcl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StringReplace[<i>string</i>, <i>find</i> -&gt; <i>replace</i>] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.Replace(<i>string</i>, <i>find</i>, <i>replace</i>, -1) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Examples in C# &quot;effffff&quot;.Replace(&quot;f&quot;, &quot;jump&quot;); // returns &quot;ejumpjumpjumpjumpjumpjump&quot; &quot;blah&quot;.Replace(&quot;z&quot;, &quot;y&quot;); // returns &quot;blah&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;java5&quot;&gt;</span> // Examples in Java &quot;effffff&quot;.replace(&quot;f&quot;, &quot;jump&quot;); // returns &quot;ejumpjumpjumpjumpjumpjump&quot; &quot;effffff&quot;.replaceAll(&quot;f*&quot;, &quot;jump&quot;); // returns &quot;ejump&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Examples in Visual Basic Replace(&quot;effffff&quot;, &quot;f&quot;, &quot;jump&quot;) ' returns &quot;ejumpjumpjumpjumpjumpjump&quot; Replace(&quot;blah&quot;, &quot;z&quot;, &quot;y&quot;) ' returns &quot;blah&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Examples in Windows PowerShell</li> 
+        </ol> 
+        <p> &quot;effffff&quot; -replace &quot;f&quot;, &quot;jump&quot; # returns &quot;ejumpjumpjumpjumpjumpjump&quot; &quot;effffff&quot; -replace &quot;f*&quot;, &quot;jump&quot; # returns &quot;ejump&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>reverse</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> reverse(<i>string</i>) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Reverses the order of the characters in the string. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> reverse <i>string</i> </p> </td> 
+           <td> <p> <a href="Perl">Perl</a>, <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> lists:reverse(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strrev(<i>string</i>) </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[::-1] </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-reverse <i>string</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 13) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (reverse <i>string</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.reverse </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> new StringBuilder(<i>string</i>).reverse().toString() </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std::reverse(<i>string</i>.begin(), <i>string</i>.end()); </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only, modifies string) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StrReverse(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.Reverse().ToString() </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> implode (rev (explode <i>string</i>)) </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.split(&quot;&quot;).reverse().join(&quot;&quot;) </p> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.reverse(<i>string</i>) <br /> (<i>string</i>):reverse() </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> reverse </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StringReverse[<i>string</i>] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> reverse(string) </p> </td> 
+           <td> <p> <a href="PL/I">PL/I</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;perl&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Perl</li> 
+        </ol> 
+        <p> reverse &quot;hello&quot; # returns &quot;olleh&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Python</li> 
+        </ol> 
+        <p> &quot;hello&quot;[::-1] # returns &quot;olleh&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> ; Example in Scheme (use-modules (srfi srfi-13)) (string-reverse &quot;hello&quot;) ; returns &quot;olleh&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>rfind</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> rfind(<i>string</i>,<i>substring</i>) returns integer </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns the position of the start of the last occurrence of <i>substring</i> in <i>string</i>. If the <i>substring</i> is not found most of these routines return an invalid index value ? -1 where indexes are 0-based, 0 where they are 1-based ? or some value to be interpreted as Boolean FALSE. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Related </p> </td> 
+           <td> <p> instr </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> Languages </th> 
+           <th> <p> If not found </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> InStrRev(&laquo;<i>startpos</i>,&raquo; <i>string</i>,<i>substring</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> instrrev(&laquo;<i>startpos</i>,&raquo; <i>string</i>,<i>substring</i>) </p> </td> 
+           <td> <p> <a href="FreeBASIC">FreeBASIC</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> rindex(<i>string</i>,<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strrpos(<i>string</i>,<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+           <td> <p> returns FALSE </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.rfind(<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only) </p> </td> 
+           <td> <p> returns std::string::npos </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.rfind(<i>string</i>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.rfind(<i>substring</i>&laquo;,<i>startpos</i>&laquo;, <i>endpos</i>&raquo;&raquo;) </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> rpos(<i>string</i>, <i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Seed7">Seed7</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.rindex(<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+           <td> <p> returns nil </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.LastIndex(<i>string</i>, <i>substring</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.lastIndexOf(<i>substring</i>&laquo;,<i>startpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.LastIndexOf(<i>substring</i>&laquo;,<i>startpos</i>&laquo;, <i>charcount</i>&raquo;&raquo;) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+           <td> <p> returns -1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (search <i>substring</i> <i>string</i> :from-end t) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+           <td> <p> returns NIL </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> rangeOfString:<i>substring</i> options:NSBackwardsSearch].location </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+           <td> <p> returns NSNotFound </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Str.search_backward (Str.regexp_string <i>substring</i>) <i>string</i> (Str.length <i>string</i> - 1) </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+           <td> <p> raises Not_found </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.match(<i>string</i>, '.*()'..<i>substring</i>) <br /> <i>string</i>:match('.*()'..<i>substring</i>) </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+           <td> <p> returns nil </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Ada.Strings.Unbounded.Index(Source =&gt; <i>string</i>, Pattern =&gt; <i>substring</i>, <br /> Going =&gt; Ada.Strings.Backward) </p> </td> 
+           <td> <p> <a href="Ada (programming language)">Ada</a> </p> </td> 
+           <td> <p> returns 0 </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> ; Examples in Common Lisp (search &quot;e&quot; &quot;Hello mate&quot; :from-end t) ; returns 9 (search &quot;z&quot; &quot;word&quot; :from-end t) ; returns NIL <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Examples in C# &quot;Hello mate&quot;.LastIndexOf(&quot;e&quot;); // returns 9 &quot;Hello mate&quot;.LastIndexOf(&quot;e&quot;, 4); // returns 1 &quot;word&quot;.LastIndexOf(&quot;z&quot;); // returns -1 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Examples in Visual Basic InStrRev(&quot;Hello mate&quot;, &quot;e&quot;) ' returns 10 InStrRev(5, &quot;Hello mate&quot;, &quot;e&quot;) ' returns 2 InStrRev(&quot;word&quot;, &quot;z&quot;) ' returns 0 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>right</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> right(<i>string</i>,<i>n</i>) returns string </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns the right <i>n</i> part of a string. If <i>n</i> is greater than the length of the string then most implementations return the whole string (exceptions exist - see code examples). </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> string (string'Last - <i>n</i> + 1 .. string'Last) </p> </td> 
+           <td> <p> <a href="Ada (programming language)">Ada</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Right(<i>string</i>,<i>n</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> RIGHT$(<i>string</i>,<i>n</i>) </p> </td> 
+           <td> <p> <a href="BASIC">BASIC</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> right(<i>string</i>,<i>n</i>) </p> </td> 
+           <td> <p> <a href="FreeBASIC">FreeBASIC</a>, <a href="Ingres (database)">Ingres</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.substring(<i>string</i>.length()-<i>n</i>) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.slice(-<i>n</i>) </p> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> right(<i>string</i>,<i>n</i> &laquo;,<i>padchar</i>&raquo;) </p> </td> 
+           <td> <p> <a href="REXX">REXX</a>, <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> substr(<i>string</i>,-<i>n</i>) </p> </td> 
+           <td> <p> <a href="Perl">Perl</a>, <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[-<i>n</i>:] </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-take-right <i>string</i> <i>n</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 13) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[-<i>n</i>..-1] </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[$-<i>n</i> .. $] </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> (if n is larger than length of string, then in Debug mode ArrayRangeException is thrown, and unspecified behaviour in Release mode) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.sub <i>string</i> (String.length <i>string</i> - <i>n</i>) <i>n</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> (if n is larger than length of string, raises Invalid_argument) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.sub(<i>string</i>, -<i>n</i>) <br /> (<i>string</i>):sub(-<i>n</i>) </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> last: <i>n</i> </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> (Squeak, Pharo) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StringTake[<i>string</i>, -<i>n</i>] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> (if n is larger than length of string, throw the message &quot;StringTake::take:&quot;) </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> /* Examples in REXX */ right(&quot;abcde&quot;, 3) /* returns &quot;cde&quot; */ right(&quot;abcde&quot;, 8) /* returns &quot; abcde&quot; */ right(&quot;abcde&quot;, 8, &quot;*&quot;) /* returns &quot;***abcde&quot; */ <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> ; Examples in Scheme (use-modules (srfi srfi-13)) (string-take-right &quot;abcde&quot;, 3) ; returns &quot;cde&quot; (string-take-right &quot;abcde&quot;, 8) ; error <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Examples in Visual Basic Right(&quot;sandroguidi&quot;, 3) ' returns &quot;idi&quot; Right(&quot;sandroguidi&quot;, 100) ' returns &quot;sandroguidi&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;java&quot;&gt;</span> // Examples in Java; extract rightmost 4 characters String str = &quot;CarDoor&quot;; str.substring(str.length()-4); // returns 'Door' <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>rpartition</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> <span class="unknown-node">&lt;string&gt;</span>.rpartition(<i>separator</i>) Searches for the separator from right-to-left within the string then returns the sub-string before the separator; the separator; then the sub-string after the separator. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Splits the given string by the right-most separator and returns the three substrings that together make the original. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.rpartition(<i>separator</i>) </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a>, <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Examples in Python</li> 
+        </ol> 
+        <p> &quot;Spam eggs spam spam and ham&quot;.rpartition('spam') ### ('Spam eggs spam ', 'spam', ' and ham') &quot;Spam eggs spam spam and ham&quot;.rpartition('X') ### (&quot;&quot;, &quot;&quot;, 'Spam eggs spam spam and ham') <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>slice</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#substring">#substring</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>split</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> <span class="unknown-node">&lt;string&gt;</span>.split(<i>separator</i>[, <i>limit</i>]) splits a string on separator, optionally only up to a limited number of substrings </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Splits the given string by occurrences of the separator (itself a string) and returns a list (or array) of the substrings. If <i>limit</i> is given, after <i>limit</i> - 1 separators have been read, the rest of the string is made into the last substring, regardless of whether it has any separators in it. The Scheme and Erlang implementations are similar but differ in several ways. JavaScript differs also in that it cuts, it does not put the rest of the string into the last element. <a href="http://www.w3schools.com/jsref/jsref_split.asp">See the example here</a>. Opposite of <i>join</i>. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> split(/<i>separator</i>/, <i>string</i>&laquo;, <i>limit</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> explode(<i>separator</i>, <i>string</i>&laquo;, <i>limit</i>&raquo;) </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.split(<i>separator</i>&laquo;, <i>limit</i>-1&raquo;) </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.split(<i>separator</i>&laquo;, <i>limit</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Javascript">Javascript</a>, <a href="Java (programming language)">Java</a>, <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string:tokens(<i>string</i>, <i>sepchars</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.Split(<i>string</i>, <i>separator</i>)<br />strings.SplitN(<i>string</i>, <i>separator</i>, <i>limit</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-tokenize <i>string</i>&laquo; <i>charset</i>&laquo; <i>start</i>&laquo; <i>end</i>&raquo;&raquo;&raquo;) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> (SRFI 13) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Split(<i>string</i>, <i>sepchars</i>&laquo;, <i>limit</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.Split(<i>sepchars</i>&laquo;, <i>limit</i>&laquo;, <i>options</i>&raquo;&raquo;) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> -split <i>separator</i>&laquo;, <i>limit</i>&laquo;, <i>options</i>&raquo;&raquo; </p> </td> 
+           <td> <p> <a href="Windows PowerShell">Windows PowerShell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Str.split (Str.regexp_string <i>separator</i>) <i>string</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.split(<i>string</i>, <i>separator</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> componentsSeparatedByString:<i>separator</i>] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> TStringList.Delimiter, TStringList.DelimitedText </p> </td> 
+           <td> <p> <a href="Object Pascal">Object Pascal</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StringSplit[<i>string</i>, <i>separator</i>&laquo;, <i>limit</i>&raquo;] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example in C# &quot;abc,defgh,ijk&quot;.Split(','); // {&quot;abc&quot;, &quot;defgh&quot;, &quot;ijk&quot;} &quot;abc,defgh;ijk&quot;.Split(',', ';'); // {&quot;abc&quot;, &quot;defgh&quot;, &quot;ijk&quot;} <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> % Example in Erlang string:tokens(&quot;abc;defgh;ijk&quot;, &quot;;&quot;). % [&quot;abc&quot;, &quot;defgh&quot;, &quot;ijk&quot;] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;java&quot;&gt;</span> // Examples in Java &quot;abc,defgh,ijk&quot;.split(&quot;,&quot;); // {&quot;abc&quot;, &quot;defgh&quot;, &quot;ijk&quot;} &quot;abc,defgh;ijk&quot;.split(&quot;,|;&quot;); // {&quot;abc&quot;, &quot;defgh&quot;, &quot;ijk&quot;} <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Example in Pascal</li> 
+        </ol> 
+        <p> var </p> 
+        <pre> lStrings: TStringList;
+ lStr: string;
+</pre> 
+        <p> begin </p> 
+        <pre> lStrings := TStringList.Create;
+ lStrings.Delimiter := ',';
+ lStrings.DelimitedText := 'abc,defgh,ijk';
+ lStr := lStrings.Strings[0]; // 'abc'
+ lStr := lStrings.Strings[1]; // 'defgh'
+ lStr := lStrings.Strings[2]; // 'ijk'
+</pre> 
+        <p> end; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;perl&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Examples in Perl</li> 
+        </ol> 
+        <p> split(/spam/, 'Spam eggs spam spam and ham'); # ('Spam eggs ', ' ', ' and ham') split(/X/, 'Spam eggs spam spam and ham'); # ('Spam eggs spam spam and ham') <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>sprintf</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#Format">#Format</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>strip</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#trim">#trim</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>strcmp</h3> 
+       <div class="section-body"> 
+        <p> <i>see</i> <a href="#Compare (integer result)">#Compare (integer result)</a> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>substring<sup>1</sup></h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> substring(<i>string</i>, <i>startpos</i>, <i>endpos</i>) returns string <br /> substr(<i>string</i>, <i>startpos</i>, <i>numChars</i>) returns string </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns a substring of <i>string</i> between starting at <i>startpos</i> and <i>endpos</i>, or starting at <i>startpos</i> of length <i>numChars</i>. The resulting string is truncated if there are fewer than <i>numChars</i> characters beyond the starting point. <i>endpos</i> represents the index after the last character in the substring. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> string[<i>startpos</i>:<i>endpos</i>] </p> </td> 
+           <td> <p> <a href="ALGOL 68">ALGOL 68</a> (changes base index) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string (<i>startpos</i> .. <i>endpos</i>) </p> </td> 
+           <td> <p> <a href="Ada (programming language)">Ada</a> (changes base index) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Mid(<i>string</i>, <i>startpos</i>, <i>numChars</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> mid(<i>string</i>, <i>startpos</i>, <i>numChars</i>) </p> </td> 
+           <td> <p> <a href="FreeBASIC">FreeBASIC</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> MID$(<i>string</i>, <i>startpos</i>, <i>numChars</i>) </p> </td> 
+           <td> <p> <a href="BASIC">BASIC</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> substr(<i>string</i>, <i>startpos</i>, <i>numChars</i>) </p> </td> 
+           <td> <p> <a href="AWK">AWK</a> (changes string), <a href="Perl">Perl</a><sup>2,4</sup>, <a href="PHP">PHP</a><sup>2,4</sup> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> substr(<i>string</i>, <i>startpos</i> &laquo;,<i>numChars</i>, <i>padChar</i>&raquo;) </p> </td> 
+           <td> <p> <a href="REXX">REXX</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[<i>startpos</i>:<i>endpos</i>] </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a><sup>2,3</sup>, <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[<i>startpos</i>, <i>numChars</i>] <br /> <i>string</i>[<i>startpos</i> .. <i>endpos</i>-1] <br /> <i>string</i>[<i>startpos</i> ... <i>endpos</i>] </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a><sup>2,3</sup> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[<i>startpos</i> .. <i>endpos</i>] <br /> <i>string</i>[<i>startpos</i> len <i>numChars</i>] </p> </td> 
+           <td> <p> <a href="Seed7">Seed7</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.slice(<i>startpos</i>&laquo;, <i>endpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a><sup>2,3</sup> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.substr(<i>startpos</i>&laquo;, <i>numChars</i>&raquo;) </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only), <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.Substring(<i>startpos</i>, <i>numChars</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.substring(<i>startpos</i>&laquo;, <i>endpos</i>&raquo;) </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> copy(<i>string</i>, <i>startpos</i>, <i>numChars</i>) </p> </td> 
+           <td> <p> <a href="Object Pascal">Object Pascal</a> (Delphi) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (substring <i>string</i> <i>startpos</i> <i>endpos</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (subseq <i>string</i> <i>startpos</i> <i>endpos</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (subseq <i>string</i> <i>startpos</i> <i>endpos</i>) </p> </td> 
+           <td> <p> <a href="ISLISP">ISLISP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.sub <i>string</i> <i>startpos</i> <i>numChars</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> substring (<i>string</i>, <i>startpos</i>, <i>numChars</i>) </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string:sub_string(<i>string</i>, <i>startpos</i>, <i>endpos</i>)<br />string:substr(<i>string</i>, <i>startpos</i>, <i>numChars</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> char <i>result</i>[<i>numChars</i>+1] = &quot;&quot;;<br />strncat(<i>result</i>, <i>string</i> + <i>startpos</i>, <i>numChars</i>); </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>[<i>startpos .. </i>endpos<i>+1)</i> </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> take <i>numChars</i> $ drop <i>startpos</i> <i>string</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> substringWithRange:NSMakeRange(<i>startpos</i>, <i>numChars</i>)] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.[<i>startpos</i>..<i>endpos</i>] </p> </td> 
+           <td> <p> <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.sub(<i>string</i>, <i>startpos</i>, <i>endpos</i>) <br /> (<i>string</i>):sub(<i>startpos</i>, <i>endpos</i>) </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a><sup>2,3</sup> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> copyFrom: <i>startpos</i> to: <i>endpos</i> </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>(<i>startpos</i>:<i>endpos</i>) </p> </td> 
+           <td> <p> <a href="Fortran">Fortran</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> SUBSTRING(<i>string</i> FROM <i>startpos</i> &laquo;FOR <i>numChars</i>&raquo;) </p> </td> 
+           <td> <p> <a href="SQL">SQL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StringTake[<i>string</i>, {<i>startpos</i>, <i>endpos</i>}] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a><sup>2,3</sup> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <ol> 
+         <li> See <a href="#substring">CharAt</a> for base of startpos/endpos.</li> 
+         <li> In this language, <i>startpos</i> can be negative, which indicates to start that number of places before the end of the string.</li> 
+         <li> In this language, <i>endpos</i> can be negative, which indicates to end that number of places before the end of the string.</li> 
+         <li> In this language, <i>numChars</i> can be negative, which indicates to end that number of places before the end of the string.</li> 
+        </ol> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Examples in C# &quot;abc&quot;.Substring(1, 1): // returns &quot;b&quot; &quot;abc&quot;.Substring(1, 2); // returns &quot;bc&quot; &quot;abc&quot;.Substring(1, 6); // error <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> ;; Examples in Common Lisp (subseq &quot;abc&quot; 1 2) ; returns &quot;b&quot; (subseq &quot;abc&quot; 2) ; returns &quot;bc&quot; </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> % Examples in Erlang string:substr(&quot;abc&quot;, 2, 1). % returns &quot;b&quot; string:substr(&quot;abc&quot;, 2). % returns &quot;bc&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> </p> 
+        <ol> 
+         <li> Examples in Python</li> 
+        </ol> 
+        <p> &quot;abc&quot;[1:2] # returns &quot;b&quot; &quot;abc&quot;[1:3] # returns &quot;bc&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> /* Examples in REXX */ substr(&quot;abc&quot;, 2, 1) /* returns &quot;b&quot; */ substr(&quot;abc&quot;, 2) /* returns &quot;bc&quot; */ substr(&quot;abc&quot;, 2, 6) /* returns &quot;bc &quot; */ substr(&quot;abc&quot;, 2, 6, &quot;*&quot;) /* returns &quot;bc****&quot; */ <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Uppercase</h3> 
+       <div class="section-body"> 
+        <table> 
+         <tbody>
+          <tr style="background:#fffeed;"> 
+           <td> <p> Definition </p> </td> 
+           <td> <p> uppercase(<i>string</i>) returns string </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> Description </p> </td> 
+           <td> <p> Returns the string in upper case. </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> UCase(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Visual Basic">VB</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> ucase(<i>string</i>) </p> </td> 
+           <td> <p> <a href="FreeBASIC">FreeBASIC</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> toupper(<i>string</i>) </p> </td> 
+           <td> <p> <a href="AWK">AWK</a> (changes string) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> uc(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> toupper(<i>char</i>) </p> </td> 
+           <td> <p> <a href="C (programming language)">C</a> (operates on one character) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> std.string.toUpper(<i>string</i>) </p> </td> 
+           <td> <p> <a href="D (programming language)">D</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> transform(<i>string</i>.begin(), <i>string</i>.end(), <i>result</i>.begin(), toupper)<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <a href="C++">C++</a> (<code><a href="std::string">std::string</a></code> only, result is stored in string <i>result</i> which is at least as long as <i>string</i>, and may or may not be <i>string</i> itself) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> uppercase(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Object Pascal">Object Pascal</a> (Delphi) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> upcase(<i>char</i>) </p> </td> 
+           <td> <p> <a href="Object Pascal">Object Pascal</a> (Delphi) (operates on one character) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strtoupper(<i>string</i>) </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="echo (command)">echo</a> &quot;string&quot; <span class="unknown-node">&lt;nowiki&gt;...&lt;/nowiki&gt;</span> <a href="tr (program)">tr</a> 'a-z' 'A-Z' </p> </td> 
+           <td> <p> <a href="Unix">Unix</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> translate(<i>string</i>), or<br /> UPPER variables, or<br /> PARSE UPPER VAR SrcVar DstVar </p> </td> 
+           <td> <p> <a href="REXX">REXX</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.upper() </p> </td> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.upcase </p> </td> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> (only ASCII characters as Ruby lacks Unicode support) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.ToUpper(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-upcase <i>string</i>) </p> </td> 
+           <td> <p> <a href="Scheme (programming language)">Scheme</a>, <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.uppercase <i>string</i> </p> </td> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> String.map Char.toUpper <i>string</i> </p> </td> 
+           <td> <p> <a href="Standard ML">Standard ML</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> map Char.toUpper <i>string</i> </p> </td> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.toUpperCase() </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> to_upper(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Erlang (programming language)">Erlang</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.ToUpper() </p> </td> 
+           <td> <p> <a href="Visual Basic .NET">VB .NET</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Windows PowerShell">Windows PowerShell</a>, <a href="F Sharp (programming language)">F#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> [<i>string</i> uppercaseString] </p> </td> 
+           <td> <p> <a href="Objective-C">Objective-C</a> (<code>NSString *</code> only) </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> string.upper(<i>string</i>) <br /> (<i>string</i>):upper() </p> </td> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i> asUppercase </p> </td> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> UPPER(<i>string</i>) </p> </td> 
+           <td> <p> <a href="SQL">SQL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> ToUpperCase[<i>string</i>] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> // Example in C# &quot;Wiki means fast?&quot;.ToUpper(); // &quot;WIKI MEANS FAST?&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;text&quot;&gt;</span> /* Example in REXX */ translate(&quot;Wiki means fast?&quot;) /* &quot;WIKI MEANS FAST?&quot; */ </p> 
+        <p> /* Example #2 */ A='This is an example.' UPPER A /* &quot;THIS IS AN EXAMPLE.&quot; */ </p> 
+        <p> /* Example #3 */ A='upper using Translate Function.' Translate UPPER VAR A Z /* Z=&quot;UPPER USING TRANSLATE FUNCTION.&quot; */ <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> ; Example in Scheme (use-modules (srfi srfi-13)) (string-upcase &quot;Wiki means fast?&quot;) ; &quot;WIKI MEANS FAST?&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;vb&quot;&gt;</span> ' Example in Visual Basic UCase(&quot;Wiki means fast?&quot;) ' &quot;WIKI MEANS FAST?&quot; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>trim</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{main|...}}</span> <b>trim</b> or <b>strip</b> is used to remove whitespace from the beginning, end, or both beginning and end, of a string. </p> 
+        <table class="wikitable sortable"> 
+         <tbody>
+          <tr style="text-align:left;"> 
+           <th> Format </th> 
+           <th> <p> Languages </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.Trim()<br /><i>string</i>.TrimStart()<br /><i>string</i>.TrimEnd() </p> </td> 
+           <td> <p> <a href="C Sharp (programming language)">C#</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> (string-trim '(#\Space #\Tab #\Newline) <i>string</i>) </p> </td> 
+           <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> strings.TrimSpace(<i>string</i>) </p> </td> 
+           <td> <p> <a href="Go (programming language)">Go</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.trim() </p> </td> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <i>string</i>.trim() <i>string</i>.replace(^\s+|\s+$/g, &quot;&quot;) </p> </td> 
+           <td> <p> <a href="JavaScript">JavaScript</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> StringTrim[<i>string</i>] </p> </td> 
+           <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> trim(<i>string</i>) </p> </td> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Notes </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> External links </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://perldoc.perl.org/index-functions-by-cat.html#Functions-for-SCALARs-or-strings">Perl String Functions</a></li> 
+       <li><a href="http://docs.python.org/lib/string-methods.html">Python String Methods</a></li> 
+       <li><a href="http://srfi.schemers.org/srfi-13/srfi-13.html">Scheme String Procedures</a></li> 
+       <li><a href="http://www.erlang.org/doc/man/string.html">Erlang String Functions</a></li> 
+       <li><a href="http://msdn2.microsoft.com/en-us/library/system.string.aspx">.NET String Methods and Properties</a></li> 
+       <li><a href="http://www.ruby-doc.org/core-1.8.7/classes/String.html">Ruby String Class</a></li> 
+       <li><a href="http://www.php.net/manual/en/ref.strings.php">PHP String functions</a></li> 
+       <li><span class="unknown-node">{{javadoc:SE|...}}</span> members</li> 
+       <li><a href="http://haskell.org/ghc/docs/latest/html/libraries/">Haskell Hierarchical Libraries</a></li> 
+       <li><a href="http://www.digitalmars.com/d/2.0/phobos/std_string.html">std.string from Phobos (D standard library)</a></li> 
+       <li><a href="http://www.lua.org/manual/5.1/manual.html#5.4">Lua String Functions</a></li> 
+       <li><a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/String.html">OCaml String module</a></li> 
+       <li><a href="http://cl-cookbook.sourceforge.net/strings.html">Common Lisp String manipulation</a></li> 
+       <li><a href="http://www.freebasic.net/wiki/wikka.php?wakka=CatPgString">FreeBASIC String Functions</a></li> 
+       <li><a href="http://reference.wolfram.com/mathematica/guide/StringManipulation.html">1</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Programming Languages (String Functions)}}</span> <a href="Category:Programming language comparisons">Category:Programming language comparisons</a> <a href="Category:String (computer science)">Category:String (computer science)</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

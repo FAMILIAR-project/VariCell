@@ -1,0 +1,2079 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of hex editors</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of hex editors</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Refimprove|...}}</span> </p> 
+    <div class="section"> 
+     <h2> General </h2> 
+     <div class="section-body"> 
+      <table border="1" cellpadding="1" cellspacing="0" style="font-size: 85%; border: gray solid 1px; border-collapse: collapse; text-align: center; width: 100%;" class="sortable wikitable"> 
+       <tbody>
+        <tr style="background: #ececec;"> 
+         <th style="width:12em"> </th> 
+         <th> <p> <a href="GUI">GUI</a> </p> </th> 
+         <th> <p> <a href="Command-line interface">Console</a> </p> </th> 
+         <th> <p> <a href="Software license">Software license</a> </p> </th> 
+         <th> <p> Cost </p> </th> 
+         <th> <p> Latest version </p> </th> 
+         <th> <p> Latest release date </p> </th> 
+         <th> <p> Windows </p> </th> 
+         <th> <p> Macintosh </p> </th> 
+         <th> <p> Linux </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="010 Editor">010 Editor</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 50?130 </p> </td> 
+         <td> <p> 4.0.2 </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 98">Win98</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="0xED">0xED</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.0.10 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Mac OS X) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="1Fh">1Fh</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.18 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AptEdit">AptEdit</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 44.95 </p> </td> 
+         <td> <p> 4.8.1 </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 2000">Win2000</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AXE (software)">AXE</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 35 </p> </td> 
+         <td> <p> 3.4 </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AviHex">AviHex</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.5.3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Be.HexEditor">Be.HexEditor</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="Massachusetts Institute of Technology">MIT License</a> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.4.8 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Win2k">Win2k</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="beav">beav</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.4.0 </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (msdos) </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="beye">beye</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 6.1.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Binary Viewer Free </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.0.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Binary Viewer Pro">Binary Viewer Pro</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 10 </p> </td> 
+         <td> <p> 1.0.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://home.gna.org/bless/index.html">Bless</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.6.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Mono (software)">Mono</a>/<a href=".NET Framework">.NET</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Mono (software)">Mono</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Mono (software)">Mono</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="bvi">bvi</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.3.2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="DOS">DOS</a>, <a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://catch22.net/software/hexedit">Catch22 Hexedit</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.0 Beta </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cheat Engine">Cheat Engine</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="Adaptive Public License">APL</a> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 6.1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CI Hex Viewer">CI Hex Viewer</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.0.2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows XP">Windows XP</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> (<a href="Mac OS X 10.6">Mac OS X 10.6</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cygnus Hex Editor">Cygnus Hex Editor</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 39 </p> </td> 
+         <td> <p> 2.50 </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows NT 4.0">WinNT4</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Cygnus Hex Editor FREE EDITION </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.00 </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.dataworkshop.de">DataWorkshop</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.1.1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>(Java) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>(Java) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>(Java) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="dhex">dhex</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.68 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="EditPad Pro">EditPad Pro</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 50 </p> </td> 
+         <td> <p> 7.1.1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 98">Win98</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Emacs">Emacs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 23.3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="febooti fileTweak Hex Editor">febooti fileTweak Hex Editor</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="FlexHex">FlexHex</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 40 </p> </td> 
+         <td> <p> 2.60 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows NT 4.0">WinNT4</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Frhed">Frhed</a> (Free Hex Editor) <a href="http://frhed.sourceforge.net/en/">1</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.6.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 98">Win98</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GHex">GHex</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.24.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (via MacPorts) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hackman Suite">Hackman Suite</a> <a href="http://www.technologismiki.com/prod.php?id=31">2</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 27 </p> </td> 
+         <td> <p> 9.2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HEdit">HEdit</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 99 </p> </td> 
+         <td> <p> 3.2 </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://heme.sourceforge.net/">heme</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.4.2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://heraia.tuxfamily.org/">Heraia</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.1.7 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (version 0.0.7 and 0.1.7 has a Windows binary package) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HexCurse">HexCurse</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.55 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://flying.guy.chez-alice.fr/HexditorEn.php">Hexditor.jar</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Java 1.4 based) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Java 1.4 based) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Java 1.4 based) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hex Edit">Hex Edit</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="Massachusetts Institute of Technology">MIT License</a> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 4.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hex Edit Pro </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 50 </p> </td> 
+         <td> <p> 4.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> HexEdit by Lane Roathe </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <a href="Mozilla Public License">MPL</a> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.20 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (680x0/PowerPC) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.physics.ohio-state.edu/~prewett/hexedit/">HexEdit by Geoffrey Prewett</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.03 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> hexedit </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.2.12 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (via MacPorts) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hex Fiend">Hex Fiend</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="BSD licences">BSD</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HexIt">HexIt</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span><br />(sourcecode included) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.57 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="DOS">DOS</a>, <a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hexplorer">Hexplorer</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.6 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hexprobe Hex Editor">Hexprobe Hex Editor</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 40 </p> </td> 
+         <td> <p> 4.31 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hex Workshop">Hex Workshop</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 90 </p> </td> 
+         <td> <p> 6.6.1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 2000">Win2K</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> HHD Software<br />Free Hex Editor Neo </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 5.14 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows XP">Windows XP</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> HHD Software<br />Hex Editor Neo </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 25?75 </p> </td> 
+         <td> <p> 5.14 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows XP">Windows XP</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hiew">Hiew</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 64?199 </p> </td> 
+         <td> <p> 8.12 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HT Editor">HT Editor</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.0.19 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HxD">HxD</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.7.7.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 95">Win95</a>, <a href="Windows NT 4.0">WinNT4</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.memecode.com/ihex.php">i.Hex</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.98 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://apps.tempel.org/iBored/">iBored</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.1.5 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://sourceforge.net/projects/javahexeditor">javahexeditor</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.4.2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="KHexEdit">KHexEdit</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.8.5 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://sourceforge.net/projects/madedit/">MadEdit</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.2.9.1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Notepad++">Notepad++</a> <a href="http://sourceforge.net/projects/npp-plugins/files/Hex%20Editor/">(with Hex Editor Plugin)</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://userbase.kde.org/Okteta">Okteta</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.9.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (KDEWin) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://sourceforge.net/projects/shed/">shed</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.15 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Synalyze It!">Synalyze It!</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 0-30 </p> </td> 
+         <td> <p> 1.4 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="tiny hexer">tiny hexer</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.8.1.6 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span>, not developed anymore </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 98">Win98</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TurboHex">TurboHex</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 29 </p> </td> 
+         <td> <p> 1.0 </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VEDIT">VEDIT</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 89 </p> </td> 
+         <td> <p> 6.21.3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="UltraEdit">UltraEdit</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="United States dollar">USD</a> 49.95 </p> </td> 
+         <td> <p> 17.30 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://webhex.net">webhex.net</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> none (<a href="web application">web application</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinHex">WinHex</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Euro">EUR</a> 43?146 </p> </td> 
+         <td> <p> 16.5 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://wxhexeditor.sourceforge.net">wxHexEditor</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.20 Beta </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.chmaas.handshake.de/delphi/freeware/xvi32/xvi32.htm">XVI32</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> (<a href="Freeware">Freeware</a>) </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.55 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dts|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Windows 95">Win95</a> and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom" style="background: #ececec;"> 
+         <th> </th> 
+         <th> <p> <a href="GUI">GUI</a> </p> </th> 
+         <th> <p> <a href="Command-line interface">Console</a> </p> </th> 
+         <th> <p> <a href="Software license">Software license</a> </p> </th> 
+         <th> <p> Cost </p> </th> 
+         <th> <p> Latest version </p> </th> 
+         <th> <p> Latest release date </p> </th> 
+         <th> <p> Windows </p> </th> 
+         <th> <p> Macintosh </p> </th> 
+         <th> <p> Linux </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Features </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" border="1" cellpadding="1" cellspacing="0" style="font-size: 85%; border: gray solid 1px; border-collapse: collapse; text-align: center; width: 100%;"> 
+       <tbody>
+        <tr style="background: #ececec;"> 
+         <th style="width:12em"> </th> 
+         <th> <p> Maximum file size </p> </th> 
+         <th> <p> Partial file loading </p> </th> 
+         <th> <p> Disk sector editing </p> </th> 
+         <th> <p> <a href="Bitwise operation">Bit editing</a> </p> </th> 
+         <th> <p> <a href="Text editor">Text editor</a> </p> </th> 
+         <th> <p> Insert / Delete bytes </p> </th> 
+         <th> <p> <a href="Character encodings">Character encodings</a><sup>(<a href="#fn ao">ao</a>)</sup> </p> </th> 
+         <th> <p> Search <a href="Unicode">Unicode</a> </p> </th> 
+         <th> <p> <a href="File format">File structure view</a> </p> </th> 
+         <th> <p> <a href="Disassembler">Disassembler</a> </p> </th> 
+         <th> <p> File Compare </p> </th> 
+         <th> <p> Find in Files </p> </th> 
+         <th> <p> Bookmarks </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="010 Editor">010 Editor</a> </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (only Windows NT and up<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Unicode">Unicode</a>, ANSI, OEM, <a href="EBCDIC">EBCDIC</a>, Macintosh </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> 0xED </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a>, <a href="UTF-8">UTF-8</a>/<a href="UTF-16">UTF-16</a> encoded <a href="Unicode">Unicode</a>, <a href="ISO-Latin-1">ISO-Latin-1</a>, Macintosh </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> 1Fh </p> </th> 
+         <td> <p> 2Gb </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> OEM, custom </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> AptEdit </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM, <a href="EBCDIC">EBCDIC</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> AXE </p> </th> 
+         <td> <p> 2 <a href="Gigabyte">GB</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (only Windows NT and up) </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <a href="Unicode">Unicode</a>, ANSI, <a href="EBCDIC">EBCDIC</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> AviHex </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (32/64-bits, MMX and SSE commands) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Be.HexEditor </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Beav </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> 
+          <ul> 
+           <li>nix only</li> 
+          </ul> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ASCII </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> replace </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="beye">beye</a> </p> </th> 
+         <td> <p> 8'192 <a href="Terabyte">TB</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, <a href="EBCDIC">EBCDIC</a>, <a href="ASCII">ASCII</a>, Macintosh </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Atmel AVR">AVR</a>, <a href="Java Virtual Machine">Java</a>, <a href="x86">x86</a>, <a href="i386">i386</a>, <a href="x86-64">x86-64</a>, <a href="ARM architecture">ARM</a>/<a href="XScale">XScale</a>, <a href="PowerPC">PowerPC</a>, <a href="PPC64">PPC64</a>) </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Binary Viewer Free </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Binary Viewer Pro </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Bless </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> bvi </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, <a href="ASCII">ASCII</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Catch22 HexEdit </p> </th> 
+         <td> <p> 4 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CI Hex Viewer </p> </th> 
+         <td> <p> Unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="ANSI">ANSI</a>, <a href="OEM">OEM</a>, <a href="EBCDIC">EBCDIC</a>, <a href="ASCII">ASCII</a>, Macintosh </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Cygnus Hex Editor </p> </th> 
+         <td> <p> 2 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Cygnus Hex Editor FREE EDITION </p> </th> 
+         <td> <p> 2 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> DataWorkshop </p> </th> 
+         <td> <p> 2 GB </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="dhex">dhex</a> </p> </th> 
+         <td> <p> 2^63 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ASCII </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> febooti fileTweak Hex Editor </p> </th> 
+         <td> <p> 2 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> ANSI </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FlexHex </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (only Windows NT and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI/<a href="Multi-byte character set">MBCS</a>, <a href="Unicode">Unicode</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Frhed </p> </th> 
+         <td> <p> limited by free RAM </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><sup>(read only)</sup> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GHex </p> </th> 
+         <td> <p> 4 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (no copy/paste) </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hackman Hex Editor Professional </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (external: notepad) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM, <a href="EBCDIC">EBCDIC</a>, <a href="ASCII">ASCII</a>, Macintosh, custom </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="Atmel AVR">AVR</a>, <a href="Java virtual machine">Java</a>, <a href="x86">x86</a>, <a href="Pentium III">Pentium III</a>, <a href="Pentium 4#Prescott">Pentium 4-Prescott</a>, <a href="Athlon">Athlon-K7</a>, <a href="Athlon 64">Athlon 64</a>, <a href="Cyrix#Products">Cyrix-M2</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> HEdit </p> </th> 
+         <td> <p> &gt; 2 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, <a href="EBCDIC">EBCDIC</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> heme </p> </th> 
+         <td> <p> 2 GB </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ANSI </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Heraia </p> </th> 
+         <td> <p> 4 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hexditor.jar </p> </th> 
+         <td> <p> 2^63 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> (but view help) </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="ISO/IEC 8859-1">ISO/IEC 8859-1</a>, <a href="ASCII">ASCII</a>, <a href="OEM">OEM</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, case insensitive </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hex Edit </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM, <a href="EBCDIC">EBCDIC</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hex Edit Pro </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM, <a href="EBCDIC">EBCDIC</a>, Code Pages (MBCS, Mac, UTF-8, etc) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="width:12em"> </th> 
+         <th> <p> Maximum file size </p> </th> 
+         <th> <p> Partial file loading </p> </th> 
+         <th> <p> Disk sector editing </p> </th> 
+         <th> <p> <a href="Bitwise operation">Bit editing</a> </p> </th> 
+         <th> <p> <a href="Text editor">Text editor</a> </p> </th> 
+         <th> <p> Insert / Delete bytes </p> </th> 
+         <th> <p> <a href="Character encodings">Character encodings</a><sup>(<a href="#fn ao">ao</a>)</sup> </p> </th> 
+         <th> <p> Search <a href="Unicode">Unicode</a> </p> </th> 
+         <th> <p> <a href="File format">File structure view</a> </p> </th> 
+         <th> <p> <a href="Disassembler">Disassembler</a> </p> </th> 
+         <th> <p> File Compare </p> </th> 
+         <th> <p> Find in Files </p> </th> 
+         <th> <p> Bookmarks </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> HexEdit by Lane Roathe </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="PowerPC">PowerPC</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hex Fiend </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ANSI </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> HexIt </p> </th> 
+         <td> <p> limited by free RAM </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (viewer) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="x86">x86</a>, <a href="Pentium II">Pentium II</a>-Deschutes, <a href="x87">x87</a>, <a href="MMX (instruction set)">MMX</a>, <a href="3DNow!">3DNow!</a>, also assembler) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hexplorer </p> </th> 
+         <td> <p> limited by free RAM </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (only Windows NT and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> ANSI, OEM </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hexprobe Hex Editor </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (only Windows NT and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hex Workshop </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (external: notepad) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM, <a href="EBCDIC">EBCDIC</a>, Macintosh </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> HHD Software Free Hex Editor Neo </p> </th> 
+         <td> <p> unlimited<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> HHD Software Hex Editor Neo </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (only Windows NT and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="ANSI">ANSI</a>, <a href="Unicode">Unicode</a>, <a href="ASCII">ASCII</a>, OEM, ISO, <a href="EBCDIC">EBCDIC</a>, MAC, <a href="UTF7">UTF7</a>(Export)/<a href="UTF8">UTF8</a>, KOI8, <a href="ISCII">ISCII</a>, <a href="Extended Unix Code">EUC</a>, Arabic </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="x86">x86</a>, <a href="x86-64">x86-64</a>, <a href="MMX (instruction set)">MMX</a>, <a href="Streaming SIMD Extensions">SSE</a>, <a href="SSE2">SSE2</a>, <a href="3DNow!">3DNow!</a>, <a href="Common Intermediate Language">MSIL</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Replace) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hiew">Hiew</a> </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a>,OEM, <a href="Unicode">Unicode</a>,Custom </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="x86">x86</a>, <a href="x86-64">x86-64</a>, <a href="MMX (instruction set)">MMX</a>, SSE 4.2, <a href="3DNow!">3DNow!</a> - all assembler, <a href="ARM architecture">ARM</a>) </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> HT Editor </p> </th> 
+         <td> <p> &gt; 200GB </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="x86">x86</a>, <a href="ARM architecture">ARM</a>, <a href="PowerPC">PowerPC</a>) </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HxD">HxD</a> </p> </th> 
+         <td> <p> unlimited<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Windows 9x/NT and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, ASCII, OEM, <a href="EBCDIC">EBCDIC</a>, Macintosh </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> i.Hex </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> iBored </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (block level only) </p> </td> 
+         <td> <p> <a href="ANSI">ANSI</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> javahexeditor </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a>, <a href="ANSI">ANSI</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KHexEdit </p> </th> 
+         <td> <p> limited by free RAM </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> ANSI, <a href="ASCII">ASCII</a>, <a href="EBCDIC">EBCDIC</a>. </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MadEdit </p> </th> 
+         <td> <p> 32 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM, <a href="ASCII">ASCII</a>, Macintosh, <a href="Shift JIS">Shift JIS</a>, <a href="GBK">GBK</a>, <a href="Extended Unix Code">EUC</a>, <a href="Big5">Big5</a>, <a href="Unicode">Unicode</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Replace) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Notepad++ </p> </th> 
+         <td> <p> Not unlimited </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> shed </p> </th> 
+         <td> <p> 2 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Okteta </p> </th> 
+         <td> <p> limited by free RAM </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, <a href="ASCII">ASCII</a>, <a href="EBCDIC">EBCDIC</a>, many others </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Synalyze It!">Synalyze It!</a> </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a>, <a href="EBCDIC">EBCDIC</a>, Unicode, all <a href="International Components for Unicode">ICU</a> encodings </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> tiny hexer </p> </th> 
+         <td> <p> 2 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (only Windows NT and up) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM, <a href="EBCDIC">EBCDIC</a>, <a href="ASCII">ASCII</a>, Macintosh, custom </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (same size) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> TurboHex </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ANSI, <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VEDIT">VEDIT</a> </p> </th> 
+         <td> <p> 2 GB (standard), unlimited (Pro 64) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (DOS version only) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM, <a href="EBCDIC">EBCDIC</a>, <a href="ASCII">ASCII</a>, custom </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="UltraEdit">UltraEdit</a> </p> </th> 
+         <td> <p> &gt;4 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI, OEM, <a href="EBCDIC">EBCDIC</a>, <a href="ASCII">ASCII</a>, Mac, Unix, UTF-8 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> webhex.net </p> </th> 
+         <td> <p> 2 MB </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinHex">WinHex</a> </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (external: notepad) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> support of these formats: ANSI, UNICODE, OEM, <a href="UTF-8">UTF-8</a>/<a href="UTF-16">UTF-16</a> <a href="EBCDIC">EBCDIC</a>, <a href="ASCII">ASCII</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (Only x86 Intel opcodes) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Replace) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> wxHexEditor </p> </th> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ASCII </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (<a href="x86">x86</a>, <a href="x86-64">x86-64</a>, <a href="3DNow!">3DNow!</a>, <a href="MMX (instruction set)">MMX</a>, <a href="Streaming SIMD Extensions">SSE</a>, <a href="SSE2">SSE2</a>, <a href="SSE3">SSE3</a>, <a href="AMD-V">AMD-V</a>, <a href="Intel VT-x">Intel VT-x</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Replace) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XVI32 </p> </th> 
+         <td> <p> 2 GB </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ANSI </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <td> </td> 
+         <th> <p> Maximum file size </p> </th> 
+         <th> <p> Partial file loading </p> </th> 
+         <th> <p> Disk sector editing </p> </th> 
+         <th> <p> <a href="Bitwise operation">Bit editing</a> </p> </th> 
+         <th> <p> <a href="Text editor">Text editor</a> </p> </th> 
+         <th> <p> Insert / Delete bytes </p> </th> 
+         <th> <p> <a href="Character encodings">Character encodings</a><sup>(<a href="#fn ao">ao</a>)</sup> </p> </th> 
+         <th> <p> Search <a href="Unicode">Unicode</a> </p> </th> 
+         <th> <p> <a href="File format">File structure view</a> </p> </th> 
+         <th> <p> <a href="Disassembler">Disassembler</a> </p> </th> 
+         <th> <p> File Compare </p> </th> 
+         <th> <p> Find in Files </p> </th> 
+         <th> <p> Bookmarks </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes and references</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>Notes</h3> 
+       <div class="section-body"> 
+        <p> <cite id="fn_ao">ao:</cite> <i><a href="ANSI">ANSI</a></i> is the Windows character set, <i><a href="Code page 437">OEM</a></i> is the DOS character set. Both are based on <a href="ASCII">ASCII</a>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>References</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Hex editor">Hex editor</a></li> 
+       <li>Comparison of 
+        <ul> 
+         <li><a href="Comparison of word processors">word processors</a></li> 
+         <li><a href="Comparison of integrated development environments">integrated development environments</a></li> 
+         <li><a href="Comparison of HTML editors">HTML editors</a></li> 
+         <li><a href="Comparison of text editors">text editors</a></li> 
+        </ul> </li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> External links </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://members.tripod.com/HarryMNielsen/">Comprehensive (but old) comparison of hex editors (Windows only)</a></li> 
+      </ul> 
+      <p> <a href="Category:Software comparisons">Hex editors</a> <a href="Category:Hex editors"> </a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

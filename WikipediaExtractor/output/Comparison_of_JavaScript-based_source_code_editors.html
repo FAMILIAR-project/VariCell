@@ -1,0 +1,876 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of JavaScript-based source code editors</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of JavaScript-based source code editors</h1> 
+   <div class="article-content"> 
+    <p> This article provides basic feature comparison between some of the <a href="JavaScript">JavaScript</a>-based <a href="source code editor">source code editors</a> available today. This article is not all-inclusive or necessarily up-to-date. </p> 
+    <div class="section"> 
+     <h2>Overview</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: center; font-size: 85%; width: 100%; table-layout: fixed;"> 
+       <caption> 
+        <p> List of source code editors </p> 
+       </caption> 
+       <tbody>
+        <tr> 
+         <th style="width: 12em"> <p> Editor </p> </th> 
+         <th> <p> Site </p> </th> 
+         <th> <p> Latest version </p> </th> 
+         <th> <p> Style, clone of </p> </th> 
+         <th> <p> Cost (<a href="United States dollar">US$</a>) </p> </th> 
+         <th> <p> <a href="Software license">Software license</a> </p> </th> 
+         <th> <p> <a href="Open source">Open source</a> </p> </th> 
+         <th> <p> Browser support </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Ace (editor)">Ace (editor)</a> </p> </th> 
+         <td> <p> <a href="http://ace.ajax.org/">Home</a>, <a href="http://ace.ajax.org/build/kitchen-sink.html">demo</a> </p> </td> 
+         <td> <p> 1.0, 2012-09-19 </p> </td> 
+         <td> <p> <a href="Emacs">Emacs</a> / regular textarea </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> <a href="BSD">New BSD License</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> Firefox 3.5+, Safari 4+, Chrome, IE 9+, Opera 11.5+ </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CodeMirror">CodeMirror</a> </p> </th> 
+         <td> <p> <a href="http://codemirror.net/">Home</a>, <a href="http://codemirror.net/mode/htmlmixed/">demo</a> </p> </td> 
+         <td> <p> 3.11, 2013-03-20 </p> </td> 
+         <td> <p> plain textarea </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a>-like </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> Firefox 3+, Chrome, Safari 3+, Internet Explorer 8+, Opera 9+<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CodePress">CodePress</a> </p> </th> 
+         <td> <p> <a href="http://codepress.sourceforge.net/">Home</a> </p> </td> 
+         <td> <p> 0.9.6, 2007-09-26 </p> </td> 
+         <td> <p> <a href="Microsoft Visual Studio">Microsoft Visual Studio</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> LGPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CodeTextArea">CodeTextArea</a> </p> </th> 
+         <td> <p> <a href="http://code.google.com/p/codetextarea/">Home</a>, <a href="http://www.nicolarizzo.com/gamesroom/experimental/CodeEditor.html">demo</a> </p> </td> 
+         <td> <p> 2009-06 </p> </td> 
+         <td> <p> Microsoft Visual Studio </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Dojo Toolkit">Dojo</a> widget </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="EditArea">EditArea</a> </p> </th> 
+         <td> <p> <a href="http://www.cdolivet.com/index.php?page=editArea">Home</a>, <a href="http://www.cdolivet.com/editarea/editarea/exemples/exemple_full.html">demo</a> </p> </td> 
+         <td> <p> 0.8.2, 2010-01-14 </p> </td> 
+         <td> <p> Microsoft Visual Studio </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> LGPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> IE 6+, Firefox 1.5+, Safari 3+, Opera 9+, Chrome<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Helene (software)">Helene</a> </p> </th> 
+         <td> <p> <a href="http://helene.muze.nl/">Home</a>, <a href="http://helene.muze.nl/ariadne/loader.php/helene/demo/">demo</a> </p> </td> 
+         <td> <p> 0.9, unknown release date </p> </td> 
+         <td> <p> Microsoft Visual Studio </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Markitup">Markitup</a> </p> </th> 
+         <td> <p> <a href="http://markitup.jaysalvat.com/home/">Home</a>, <a href="http://markitup.jaysalvat.com/examples/">demo</a> </p> </td> 
+         <td> <p> 1.1.14, 2013-02-04 </p> </td> 
+         <td> <p> <a href="markup language">Markup</a> editor, no syntax highlight </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> MIT, GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> IE 6 &amp; 7, Firefox 2 &amp; 3, Safari 3.1, Opera 9+<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Project_Orion">Orion</a> </p> </th> 
+         <td> <p> <a href="http://www.eclipse.org/orion">Home</a> </p> </td> 
+         <td> <p> <a href="http://download.eclipse.org/orion/">0.5</a>, 2012-06-22 </p> </td> 
+         <td> <p> Eclipse SWT StyledText, regular textarea </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> dual-licensed: <a href="BSD_licenses">BSD&nbsp;3-clause</a> and <a href="Eclipse_Public_License">EPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> Firefox 5+, Chrome 12+, Safari5+, Internet Explorer 9+ <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="9ne">9ne</a> </p> </th> 
+         <td> <p> <a href="http://robrohan.com/projects/9ne/">Home</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> Emacs </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="jsvi">jsvi</a> </p> </th> 
+         <td> <p> <a href="http://gpl.internetconnection.net/vi/">Home</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <a href="vi">vi</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Ymacs">Ymacs</a> </p> </th> 
+         <td> <p> <a href="http://www.ymacs.org/">Home</a>, <a href="http://www.ymacs.org/demo/">demo</a> </p> </td> 
+         <td> <p> 0.5, 2012-03-28 </p> </td> 
+         <td> <p> Emacs </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> BSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <a href="Firefox">Firefox</a>, Chrome, Safari </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MDK-Editor">MDK-Editor</a> </p> </th> 
+         <td> <p> <a href="http://www.mdk-photo.com/editor/">Home</a> </p> </td> 
+         <td> <p> 2.10, 2008 </p> </td> 
+         <td> <p> Microsoft Visual Studio </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+         <td> <p> Dual </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> tested to work on: IE 6, 7 - Firefox 2, 3 - Chrome </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LDT">LDT</a> </p> </th> 
+         <td> <p> <a href="https://github.com/kueblc/LDT/">Home</a> </p> </td> 
+         <td> <p> 2012-02-19 </p> </td> 
+         <td> <p> regular textarea </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> MIT, GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> Firefox 3.6+, IE8, Chromium 16, Midori 4.1, Opera 11, Epiphany </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>List of features</h2> 
+     <div class="section-body"> 
+      <p> Feature testing was performed with Firefox 3.0.6 against the current demo version, and results may not match those in other browsers or downloadable versions. </p> 
+      <table class="wikitable" style="text-align: center;"> 
+       <caption> 
+        <p> List of source code editor features </p> 
+       </caption> 
+       <tbody>
+        <tr> 
+         <th style="width: 12em"> <p> Feature </p> </th> 
+         <th> <p> <a href="Ace (editor)">Ace (editor)</a> </p> </th> 
+         <th> <p> <a href="CodeMirror">CodeMirror</a> </p> </th> 
+         <th> <p> <a href="CodePress">CodePress</a> </p> </th> 
+         <th> <p> <a href="CodeTextArea">CodeTextArea</a> </p> </th> 
+         <th> <p> <a href="EditArea">EditArea</a> </p> </th> 
+         <th> <p> <a href="Helene (software)">Helene</a> </p> </th> 
+         <th> <p> <a href="markItUp!">markItUp!</a> </p> </th> 
+         <th> <p> <a href="MDK-Editor">MDK-Editor</a> </p> </th> 
+         <th> <p> <a href="Project_Orion">Orion</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Syntax highlight </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> PHP </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Syntax checking </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Tab support </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Indent, new line keeps level </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Indent, syntax </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Indent, selected block </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Bracket matching </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> XML matching tag highlight </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Code folding </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Some}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Code snippets </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Code suggestion </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> through <a href="http://contraptionsforprogramming.blogspot.ca/2012/02/better-javascript-content-assist-in.html">esprima content assist plugin</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Toggle syntax highlight on/off </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Keyboard shortcuts </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Line numbers </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Search &amp; replace </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Spell checking">Spell checking</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Toolbar </p> </th> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Visual styling </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{some|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Undo/Redo </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> Multiple cursors / Block selection </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th> <p> IndentGuides </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Offspring projects</h2> 
+     <div class="section-body"> 
+      <p> Below is a list of projects based on each engine. </p> 
+      <div class="section"> 
+       <h3>Ace powered</h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <a href="http://codeavengers.com">CodeAvengers</a> - fun and effective interactive web development courses</li> 
+         <li> <a href="http://goincloud.com/">GoInCloud</a> - an powerful online IDE for developing PHP projects with online php debugger.</li> 
+         <li> <a href="http://www.playmycode.com">Play My Code</a> - browser-based game development site and portal, which includes hosting and embedding games</li> 
+         <li> <a href="http://c9.io/">Cloud9 IDE</a> - an open-source full browser-based IDE with team collaboration and online project hosting</li> 
+         <li> <a href="https://github.com/Gozala/sky-edit">Sky Edit</a> - a project to integrate Ace as a proper editor within the browser using <a href="Mozilla_Jetpack "> Mozilla Jetpack</a></li> 
+         <li> <a href="http://rstudio.org/">R Studio</a> - an online editor for the <a href="R_programming_language "> R programming language</a></li> 
+         <li> <a href="http://demo.qooxdoo.org/devel/playground/#">Qooxdoo Playground</a> - in real-time GUI creator and editor using JavaScript</li> 
+         <li> <a href="http://ext.radiantcms.org/extensions/264-ace">Radiant CMS</a> - Ace extension for viewing files using the Ace editor</li> 
+         <li> <a href="https://builder.addons.mozilla.org/">Add-on Builder</a> - site that makes it easier to build FireFox extensions</li> 
+         <li> <a href="http://developercompanion.com/">Developer Companion</a> - service providing the whole stack for programming development, uses Ace editor</li> 
+         <li> <a href="http://www.projectdirigible.com/">Dirigible</a> - a cloud-based programmable spreadsheet service</li> 
+         <li> <a href="http://shiftedit.net/">ShiftEdit</a> - Service allowing you to edit and publish projects.</li> 
+         <li> <a href="http://www.akshell.com/">Akshell</a> - Online application building service within the browser</li> 
+         <li> <a href="http://www.appfurnace.com/">AppFurnace</a> - Smartphone app development tool aimed at designers and web developers.</li> 
+         <li> <a href="http://developer.feedhenry.com/">FeedHenry</a> - Develop Mobile Applications</li> 
+         <li> <a href="https://www.sharelatex.com/">ShareLaTeX</a> - Real time collaborative LaTeX editor</li> 
+         <li> <a href="http://cloudcoder.org/">CloudCoder</a> - Exercise system for introductory programming courses</li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>CodeMirror powered</h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <a href="https://notex.ch/">NoTex.ch</a> - A browser based text editor with support for reStructuredText, Markdown and LaTex</li> 
+         <li> <a href="http://brackets.io/">Brackets</a> - open-source code editor built <em>with</em> the web <em>for</em> the web</li> 
+         <li> <a href="http://icecoder.net">ICEcoder</a> - open-source code editor, runs in the browser online or offline</li> 
+         <li> <a href="http://rubymonk.com/">RubyMonk</a> - Learn programming Ruby in your browser</li> 
+         <li> <a href="http://www.scraperwiki.com/">ScraperWiki</a> - Write data scripts and run them in the cloud</li> 
+         <li> <a href="http://shiftedit.net/">ShiftEdit</a> - Service allowing you to edit and publish projects.</li> 
+         <li> <a href="http://www.bluegriffon.org/">Blue Griffon</a> - a WYSIWYG web page editor</li> 
+         <li> <a href="http://kodingen.com">Kodingen - A Cloud Development Environment</a></li> 
+         <li> <a href="http://code.google.com/apis/ajax/playground">Google's API playground</a></li> 
+         <li> <a href="http://fiddlesalad.com/">Fiddle Salad</a> - WYSIWYG editor for HTML, CSS, JavaScript, and other languages</li> 
+         <li> <a href="https://chrome.google.com/webstore/detail/cidcmmkichfjlanjaplgimnfdmiigefg">Cloud Code Chrome App (non-free)</a> / <a href="https://chrome.google.com/webstore/detail/kfhpcagicohedjailjfkkoadbofkbolf">(free demo version)</a></li> 
+         <li> <a href="http://rthree.wiki.sourceforge.net/">r3</a>, a template management engine developed by <a href="Yahoo!">Yahoo!</a></li> 
+         <li> <a href="http://github.com/darwin/firerainbow">FireRainbow</a> - JavaScript syntax highlighting for Firebug</li> 
+         <li> <a href="http://kml-samples.googlecode.com/svn/trunk/interactive/index.html">Google Earth KML sampler</a></li> 
+         <li> <a href="http://eloquentjavascript.net/chapter1.html">Eloquent JavaScript's console</a></li> 
+         <li> <a href="http://billmill.org/static/canvastutorial/index.html">A cool tutorial about the <span class="unknown-node">&lt;canvas&gt;</span> element</a></li> 
+         <li> <a href="http://orc.csres.utexas.edu/tryorc.shtml">An online IDE for the Orc programming language</a></li> 
+         <li> <a href="http://handcraft.com">Handcraft - Web-based prototyping software</a></li> 
+         <li> <a href="http://mywebsql.net">MyWebSql - Web-based mysql administration</a></li> 
+         <li> <a href="http://www.wiode.com/">Wiode - Web-based IDE</a></li> 
+         <li> <a href="http://pythonfiddle.com/">PythonFiddle - Python Cloud IDE</a></li> 
+         <li> <a href="http://developer.feedhenry.com/">FeedHenry</a> - (CodeMirror used as fallback for browsers that don't support Ace) Develop Mobile Applications</li> 
+         <li> <a href="http://liveweave.com/">LiveWeave</a> - An online HTML5, CSS3 &amp; JavaScript editor with real-time view.</li> 
+         <li> <a href="http://webglplayground.net">WebGL Playground</a> - An online WebGL / GLSL editor with a real-time view.</li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>CodePress powered</h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <a href="http://www.mdk-photo.com/Trial/">Ultimate CMS Tool</a> by Martin Kirk - [Currently only Firefox is supported]</li> 
+         <li> <a href="http://extplorer.sourceforge.net/">Extplorer</a> by Soeren Eberhardt</li> 
+         <li> <a href="http://modxcms.com/forums/index.php/topic,8029.0.html">ModX CMS plugin</a></li> 
+         <li> <a href="http://www.naden.de/blog/wordpress-code-editor">WordPress plugin</a></li> 
+         <li> <a href="http://www.typo3-unleashed.net/nc/singleentry/date/2007/05/13/typoscript-editor-beta.html">Typo 3 plugin</a></li> 
+         <li> <a href="http://drupal.org/node/145663">CMS Drupal integration</a></li> 
+         <li> <a href="http://www.fyneworks.com/jquery/Codepress/">Codepress plugin for jQuery</a></li> 
+         <li> <a href="http://extjs.com/learn/Extension:CodePress">Ext plugin</a></li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>EditArea powered</h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <a href="https://fit.jupiterit.com/">F-&gt;IT</a>, browser-based online JavaScript FTP client</li> 
+         <li> <a href="http://www.webdevstudio.org">WebDevStudio</a> - web IDE.</li> 
+         <li> <a href="http://www.wefoundland.com/project/Django-EditArea">Django-EditArea</a> - EditArea integration into Django.</li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>MDK Editor powered</h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <a href="http://www.Siruna.com">Mobile Development IDE</a></li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Mozilla Skywriter powered</h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <a href="http://edit.shiftcreate.com">ShiftEdit Web-based IDE</a></li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Orion powered</h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <a href="http://antennasoft.net/robcee/2011/08/15/scratchpad-can-haz-orion/">Firefox (Scratchpad)</a></li> 
+         <li> <a href="https://github.com/scripted-editor/scripted/wiki">Scripted</a></li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Other</h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <a href="http://ecoder.quintalinda.com/">ecoder</a></li> 
+        </ul> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://sandeep.shetty.in/2011/05/codemirror-vs-ace.html">CodeMirror vs. Ace, successor of the Mozilla Skywriter (Bespin) Project</a></li> 
+       <li> <a href="http://www.peterbe.com/plog/EditArea-vs-CodePress">EditArea vs. CodePress</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Online Javascript IDE">Online Javascript IDE</a></li> 
+      </ul> 
+      <p> <a href="Category:JavaScript-based HTML editors"> </a> <a href="Category:Text editors">*Comparison of JavaScript-based source code editors</a> <a href="Category:Software comparisons">Text editors</a> <a href="Category:Ajax (programming)">Category:Ajax (programming)</a> <a href="Category:Object-oriented programming">Category:Object-oriented programming</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

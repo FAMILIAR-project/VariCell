@@ -1,0 +1,707 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of data modeling tools</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of data modeling tools</h1> 
+   <div class="article-content"> 
+    <p> This article is a <b>comparison of <a href="data modeling">data modeling</a> tools</b> which are notable, including standalone, conventional data modeling tools and modeling tools supporting data modeling as part of a larger modeling environment. </p> 
+    <div class="section"> 
+     <h2> General </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="width: auto; text-align: center; font-size: smaller"> 
+       <tbody>
+        <tr>
+         <th> <p> Tool </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Target Business Size </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Supported Database Platforms </p> </th> 
+         <th> <p> Supported OSs </p> </th> 
+         <th> <p> Standalone or bundled into a larger toolkit </p> </th> 
+         <th> <p> Launch Date </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> <a href="CA ERwin Data Modeler">CA ERwin Data Modeler</a> </p> </td> 
+         <td> <p> <a href="CA Technologies">CA Technologies</a> </p> </td> 
+         <td> <p> SMBs and enterprises </p> </td> 
+         <td> <p> Commercial (Free, limited, community edition available) </p> </td> 
+         <td> <p> Access, <a href="IBM DB2">IBM DB2</a>, <a href="Informix">Informix</a>, <a href="Ingres">Ingres</a>, <a href="MySQL">MySQL</a>, <a href="Oracle database">Oracle</a>, <a href="Progress Software">Progress</a>, <a href="MS SQL Server">MS SQL Server</a>, <a href="Sybase">Sybase</a>, Teradata </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 1992? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Database Visual Architect </p> </td> 
+         <td> <p> Visual Paradigm </p> </td> 
+         <td> <p> SMBs and enterprises </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="IBM DB2">IBM DB2</a>, Firebird, Progress OpenEdge, Cache, <a href="MS SQL Server">MS SQL Server</a>, <a href="MySQL">MySQL</a>, HSQLDB, <a href="SQLite">SQLite</a>, <a href="Oracle database">Oracle</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="Sybase">Sybase</a> </p> </td> 
+         <td> <p> Windows, <a href="Linux">Linux</a>, MAC OS </p> </td> 
+         <td> <p> Standalone (or as part of an UML modeling environment) </p> </td> 
+         <td> <p> Unknown </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> dbConstructor </p> </td> 
+         <td> <p> DBDeveloper Solutions </p> </td> 
+         <td> <p> SMBs </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="Oracle database">Oracle</a>, <a href="MS SQL Server">MS SQL Server</a>, <a href="MySQL">MySQL</a>, Access </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> DbSchema </p> </td> 
+         <td> <p> Wise Coders Solutions </p> </td> 
+         <td> <p> SMBs </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="MySQL">MySQL</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="MS SQL Server">MS SQL Server</a>, Derby, Firebird, <a href="Oracle database">Oracle</a>, <a href="IBM DB2">IBM DB2</a>, <a href="Informix">Informix</a>, HSql, Pointbase, Mimer, Pervasive, <a href="Sybase">Sybase</a> </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 2005 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> DbWrench Database Design </p> </td> 
+         <td> <p> Nizana Systems </p> </td> 
+         <td> <p> SMBs </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="MS SQL Server">MS SQL Server</a>, <a href="Oracle database">Oracle</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="MySQL">MySQL</a> </p> </td> 
+         <td> <p> Windows, Linux, Mac </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 2005 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DeZign for Databases">DeZign for Databases</a> </p> </td> 
+         <td> <p> <a href="Datanamic">Datanamic</a> </p> </td> 
+         <td> <p> SMBs and enterprises </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="MS SQL Server">MS SQL Server</a>, <a href="MySQL">MySQL</a>, <a href="Oracle database">Oracle</a>, <a href="IBM DB2">IBM DB2</a>, Firebird, InterBase, <a href="Informix">Informix</a>, MS Access, <a href="SQLite">SQLite</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="Sybase">Sybase</a>, Paradox </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 1999 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Enterprise Architect (Visual Modeling Platform) "> Enterprise Architect</a> </p> </td> 
+         <td> <p> Sparx Systems </p> </td> 
+         <td> <p> SMBs and enterprises </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="IBM DB2">IBM DB2</a>, Firebird, InterBase, <a href="Informix">Informix</a>, Ingres, Access, <a href="MS SQL Server">MS SQL Server</a>, <a href="MySQL">MySQL</a>, <a href="SQLite">SQLite</a>, <a href="Oracle database">Oracle</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="Sybase">Sybase</a> </p> </td> 
+         <td> <p> Windows, Linux, Mac </p> </td> 
+         <td> <p> Data modeling is supported as part of a complete modeling platform. </p> </td> 
+         <td> <p> 2000 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ER/Studio">ER/Studio</a> </p> </td> 
+         <td> <p> <a href="Embarcadero Technologies">Embarcadero</a> </p> </td> 
+         <td> <p> SMBs and enterprises </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> Access, <a href="IBM DB2">IBM DB2</a>, <a href="Informix">Informix</a>, Hitachi HiRDB, <a href="Interbase">Interbase</a>, <a href="MySQL">MySQL</a>, <a href="MS SQL Server">MS SQL Server</a>, <a href="Netezza">Netezza</a>, <a href="Oracle database">Oracle</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="Sybase">Sybase</a>, <a href="Teradata">Teradata</a>, Visual Foxpro and others via ODBC/ANSI SQL </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 1998 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="IBM InfoSphere">IBM InfoSphere</a> Data Architect </p> </td> 
+         <td> <p> <a href="IBM">IBM</a> </p> </td> 
+         <td> <p> Enterprises </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="IBM DB2">IBM DB2</a>, <a href="Informix">Informix</a>, <a href="Oracle database">Oracle</a>, <a href="Sybase">Sybase</a>, <a href="MS SQL Server">MS SQL Server</a>, <a href="MySQL">MySQL</a>, Teradata </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> MicroOLAP Databaser Designer </p> </td> 
+         <td> <p> MicroOLAP </p> </td> 
+         <td> <p> SMBs </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="MySQL">MySQL</a>, <a href="PostgreSQL">PostgreSQL</a> </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 2003 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ModelRight">ModelRight</a> </p> </td> 
+         <td> <p> <a href="ModelRight">ModelRight</a> </p> </td> 
+         <td> <p> Enterprises, SMBs, personal </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="MS SQL Server">MS SQL Server</a>, <a href="Oracle database">Oracle</a>, <a href="MySQL">MySQL</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="IBM DB2">IBM DB2</a> </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 2005 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MySQL Workbench">MySQL Workbench</a> </p> </td> 
+         <td> <p> <a href="MySQL">MySQL</a> (An <a href="Oracle Corporation">Oracle</a> Company) </p> </td> 
+         <td> <p> SMBs - personal </p> </td> 
+         <td> <p> Commercial/<a href="GPL">GPL</a> </p> </td> 
+         <td> <p> <a href="MySQL">MySQL</a> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, Windows, MAC OS </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 2006 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Navicat">Navicat</a> Data Modeler </p> </td> 
+         <td> <p> PremiumSoft </p> </td> 
+         <td> <p> SMBs - personal </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="MySQL">MySQL</a>, <a href="MS SQL Server">MS SQL Server</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="Oracle database">Oracle</a>, <a href="SQLite">SQLite</a> </p> </td> 
+         <td> <p> Windows, Mac OS </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 2012 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Online Data Modeler </p> </td> 
+         <td> <p> JenaSoft </p> </td> 
+         <td> <p> SMBs - personal </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="MS SQL Server">MS SQL Server</a>, <a href="MySQL">MySQL</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="Oracle database">Oracle</a>, <a href="SQLite">SQLite</a>, MS Access </p> </td> 
+         <td> <p> Online </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 2011 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Open ModelSphere">Open ModelSphere</a> </p> </td> 
+         <td> <p> Grandite </p> </td> 
+         <td> <p> SMBs - personal </p> </td> 
+         <td> <p> Commercial and free edition available </p> </td> 
+         <td> <p> <a href="MS SQL Server">MS SQL Server</a>, <a href="MySQL">MySQL</a> </p> </td> 
+         <td> <p> Online </p> </td> 
+         <td> <p> Part of modeling environment with <a href="Unified Modeling Language">UML</a> support </p> </td> 
+         <td> <p> 2010 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Oracle SQL Developer">Oracle SQL Developer</a> Data Modeler </p> </td> 
+         <td> <p> <a href="Oracle Corporation">Oracle</a> </p> </td> 
+         <td> <p> Enterprises </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <a href="Oracle database">Oracle</a>, <a href="MS SQL Server">MS SQL Server</a>, <a href="IBM DB2">IBM DB2</a> </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerDesigner">PowerDesigner</a> </p> </td> 
+         <td> <p> <a href="Sybase">Sybase</a> </p> </td> 
+         <td> <p> SMBs and enterprises </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="MS SQL Server">MS SQL Server</a>, <a href="Oracle database">Oracle</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="MySQL">MySQL</a>, <a href="IBM DB2">IBM DB2</a>, <a href="Informix">Informix</a> </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 1996 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> SQL Power Architect </p> </td> 
+         <td> <p> SQLPower Software </p> </td> 
+         <td> <p> SMBs </p> </td> 
+         <td> <p> Commercial and free community edition </p> </td> 
+         <td> <p> <a href="PostgreSQL">PostgreSQL</a>, <a href="Oracle database">Oracle</a>, <a href="MS SQL Server">MS SQL Server</a>, <a href="MySQL">MySQL</a>, HSQLDB, <a href="IBM DB2">IBM DB2</a>, Derby Embedded </p> </td> 
+         <td> <p> Windows, Mac OS, Unix/Generic </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 2004 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Toad Data Modeler">Toad Data Modeler</a> </p> </td> 
+         <td> <p> <a href="Quest Software">Quest Software</a> </p> </td> 
+         <td> <p> SMBs and enterprises </p> </td> 
+         <td> <p> Commercial (Free, limited, community edition available) </p> </td> 
+         <td> <p> Access, <a href="IBM DB2">IBM DB2</a>, <a href="Informix">Informix</a>, <a href="MySQL">MySQL</a>, <a href="Oracle database">Oracle</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="MS SQL Server">MS SQL Server</a>, <a href="SQLite">SQLite</a> </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 2005 (before this date known as CaseStudio) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> XCase </p> </td> 
+         <td> <p> Resolution Software Ltd </p> </td> 
+         <td> <p> SMBs and enterprises </p> </td> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> <a href="MS SQL Server">MS SQL Server</a>, <a href="Oracle database">Oracle</a>, <a href="PostgreSQL">PostgreSQL</a>, <a href="MySQL">MySQL</a>, <a href="IBM DB2">IBM DB2</a> </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> 1996 </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Visible Analyst">Visible Analyst</a> </p> </td> 
+         <td> <p> <a href="Visible Systems">Visible Systems</a> </p> </td> 
+         <td> <p> SMBs and enterprises </p> </td> 
+         <td> <p> Commercial (Free, limited edition available) </p> </td> 
+         <td> <p> Access, <a href="IBM DB2">IBM DB2</a>, <a href="Informix">Informix</a>, <a href="ANSI">ANSI</a>, <a href="Oracle database">Oracle</a>, <a href="ParadoxSQL">ParadoxSQL</a>, <a href="MS SQL Server">MS SQL Server</a>, <a href="Sybase">Sybase</a>, <a href="DBASE">DBASE</a>, <a href="Sybase">Sybase</a>, <a href="XML">XML</a>, <a href="User Defined">User Defined</a> </p> </td> 
+         <td> <p> All versions of Windows </p> </td> 
+         <td> <p> Standalone, Multi-user (concurrent development, floating licenses), Citrix </p> </td> 
+         <td> <p> Data modeling introduced in 1990. First version of Visible Analyst released in 1985. www.visible.com </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Tool </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Target Business Size </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Supported Database Platforms </p> </th> 
+         <th> <p> Supported OSs </p> </th> 
+         <th> <p> Standalone or bundled into a larger toolkit </p> </th> 
+         <th> <p> Launch Date </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Features </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="width: auto; text-align: center; font-size: smaller"> 
+       <tbody>
+        <tr>
+         <th> <p> Tool </p> </th> 
+         <th> <p> Supported data models (conceptual, logical, physical) </p> </th> 
+         <th> <p> Supported notations </p> </th> 
+         <th> <p> Forward engineering </p> </th> 
+         <th> <p> Reverse engineering </p> </th> 
+         <th> <p> Model/database comparison and synchronization </p> </th> 
+         <th> <p> Teamwork/repository </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> <a href="CA ERwin Data Modeler">CA ERwin Data Modeler</a> </p> </td> 
+         <td> <p> Conceptual, logical, physical </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet), and more </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> Workgroup edition provides collaboration </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Database Visual Architect </p> </td> 
+         <td> <p> Physical </p> </td> 
+         <td> <p> Crows feet </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> Additional product Teamwork Server for collaboration. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> dbConstructor </p> </td> 
+         <td> <p> Physical </p> </td> 
+         <td> <p> Crows feet </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> DbSchema </p> </td> 
+         <td> <p> Physical </p> </td> 
+         <td> <p> Crows feet </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Compare to database and generate alter database script (update existing model not supported). </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> DbWrench Database Design </p> </td> 
+         <td> <p> Physical </p> </td> 
+         <td> <p> Crows feet </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DeZign for Databases">DeZign for Databases</a> </p> </td> 
+         <td> <p> Logical, physical </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> Not directly. Merge functionality available. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Enterprise Architect (Visual Modeling Platform) "> Enterprise Architect</a> </p> </td> 
+         <td> <p> Conceptual, Logical &amp; Physical + MDA transform of Logical to Physical </p> </td> 
+         <td> <p> IDEF1X, UML DDL, Information Engineering &amp; ERD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> Multi-user collaboration using File or DBMS Repositoty (or transfer via XMI, CVS/TFS or Difference Merge) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ER/Studio">ER/Studio</a> </p> </td> 
+         <td> <p> Conceptual, logical, physical, ETL </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> ER/Studio Repository and Portal for collaboration </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="IBM InfoSphere">IBM InfoSphere</a> Data Architect </p> </td> 
+         <td> <p> Conceptual, logical, physical </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet), and more </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> MicroOLAP Databaser Designer </p> </td> 
+         <td> <p> Physical </p> </td> 
+         <td> <p> Crows feet </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database with alter scripts </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MySQL Workbench">MySQL Workbench</a> </p> </td> 
+         <td> <p> Physical </p> </td> 
+         <td> <p> IE (Crows feet) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Navicat">Navicat</a> Data Modeler </p> </td> 
+         <td> <p> Conceptual, physical </p> </td> 
+         <td> <p> IE (Crows feet) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Online Data Modeler </p> </td> 
+         <td> <p> Logical, physical </p> </td> 
+         <td> <p> IDEF1X (incomplete) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database (update model unknown) </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Open ModelSphere">Open ModelSphere</a> </p> </td> 
+         <td> <p> Logical, physical </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet), and more </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Oracle SQL Developer">Oracle SQL Developer</a> Data Modeler </p> </td> 
+         <td> <p> Logical, physical </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet), and more </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerDesigner">PowerDesigner</a> </p> </td> 
+         <td> <p> Conceptual, logical, physical </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet), and more </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> SQL Power Architect </p> </td> 
+         <td> <p> Physical </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet), and more </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Compare models and generate alter script </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Toad Data Modeler">Toad Data Modeler</a> </p> </td> 
+         <td> <p> Logical, physical </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet), and more </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Visible Analyst">Visible Analyst</a> </p> </td> 
+         <td> <p> Conceptual, logical, physical </p> </td> 
+         <td> <p> All standard ERD modeling supported, and much more </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> Only modeling tool designed from the ground up as a concurrent development tool. Also can do process modeling, object modeling, state modeling, BPMN modeling, custom modeling, strategic planning, all in one central repository. www.visible.com </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> XCase </p> </td> 
+         <td> <p> Physical </p> </td> 
+         <td> <p> IDEF1X, IE (Crows feet), and more </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Update database and/or update model </p> </td> 
+         <td> <p> Not directly. Merge functionality available. </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Tool </p> </th> 
+         <th> <p> Supported data models (conceptual, logical, physical) </p> </th> 
+         <th> <p> Supported notations </p> </th> 
+         <th> <p> Forward engineering </p> </th> 
+         <th> <p> Reverse engineering </p> </th> 
+         <th> <p> Model/database comparison and synchronization </p> </th> 
+         <th> <p> Teamwork/repository </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Comparison of database tools">Comparison of database tools</a></li> 
+      </ul> 
+      <p> CA ERwin has stopped supporting the MS ACCESS database from version 8.0 </p> 
+      <ul> 
+       <li> <a href="Data modeling">Data modeling</a></li> 
+       <li> <a href="IDEF1X">IDEF1X</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Data Modeling Tools}}</span> </p> 
+      <p> <a href="Category:Software comparisons">Data modeling tools</a> <a href="Category:Data modeling tools">Category:Data modeling tools</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

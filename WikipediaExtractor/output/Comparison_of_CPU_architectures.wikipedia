@@ -1,0 +1,789 @@
+{{Context|date=April 2009}}
+{{Expert-subject|Computing|date=April 2009}}
+
+== Factors ==
+
+=== Bits ===
+
+[[Computer architecture]]s are often described as ''n''-bit architectures. Today ''n'' is often 8, 16, 32, or 64, but other sizes have been used. This is actually a strong simplification. A computer architecture often has a few more or less "natural" datasizes in the [[instruction set]], but the hardware implementation of these may be very different. Many architectures have instructions operating on half and/or twice the size of respective processors major internal datapaths. Examples of this are the 8080, Z80, MC68000 as well as many others. On this type of implementations, a twice as wide operation typically also takes around twice as many clock cycles (which is not the case on high performance implementations). On the 68000, for instance, this means 8 instead of 4 clock ticks, and this particular chip may be described as a 32-bit architecture with a 16-bit implementation. The external databus width is often not useful to determine the width of the architecture; the NS32008, NS32016 and NS32032 were basically the same 32-bit chip with different external data buses. The NS32764 had a 64-bit bus, but used 32-bit registers.
+
+The width of addresses may or may not be different than the width of data.
+Early 32-bit microprocessors often had a 24-bit address, as did the [[System/360]] processors.
+
+=== Operands ===
+{{main| instruction set#Number of operands }}
+
+The number of operands is one of the factors that may give an indication about the performance of the instruction set.
+A three-operand architecture will allow
+ A := B + C
+to be computed in one instruction.
+
+A two-operand architecture will allow
+ A := A + B
+to be computed in one instruction, so two instructions will need to be executed to simulate a single three-operand instruction
+ A := B
+ A := A + C
+
+=== Endianness ===
+
+An architecture may use "big" or "little" endianness, or both, or be configurable to use either. Little endian processors order bytes in memory with the least significant byte of a multi-byte value in the lowest-numbered memory location.  Big endian architectures instead order them with the most significant byte at the lowest-numbered address. The x86 and the ARM architectures as well as several 8-bit architectures are little endian. Most RISC architectures (SPARC, Power, PowerPC, MIPS) were originally big endian, but many (including ARM) are now configurable.
+
+== Architectures ==
+The table below compares basic information about CPU architectures.
+
+{| class="wikitable sortable" border="1"
+|-
+! Architecture
+! Bits
+! Version
+! Introduced
+! Max # [[Operand]]s
+! Type
+! Design <!-- Design Strategy/Philosophy -->
+! [[Processor register|Registers]]
+! Instruction encoding
+! [[Branch (computer science)|Branch]] Evaluation
+! [[Endianness]]
+! Extensions
+! Open
+! Royalty-free
+|-
+| [[DEC Alpha|Alpha]]
+| 64
+| 
+| 1992
+| 3
+| Register-Register
+| [[Reduced instruction set computer|RISC]]
+| 32 <!-- 32 64-bit GPRs, 32 64-bit FPRs -->
+| Fixed
+| Condition register
+| Bi
+| {{H:title|Motion Video Instructions|MVI}}, {{H:title|Byte-Word Extensions|BWX}}, {{H:title|Floating-point Extensions|FIX}}, {{H:title|Count Extensions|CIX}}
+| {{No}}
+| {{Unk}}
+|-
+| [[ARM architecture|ARM]]
+| 32
+| ARMv7 and earlier
+| 1983
+| 3
+| Register-Register
+| RISC
+| 16
+| Fixed <small>(32-bit)</small>, Thumb: Fixed <small>(16-bit)</small>, Thumb-2: Variable <small>(16 and 32-bit)</small>
+| Condition code
+| Bi
+| NEON, [[Jazelle]], {{H:title|Vector Floating Point|VFP}}, [[ARM architecture#Security Extensions (TrustZone)|TrustZone]], {{Abbr|LPAE||Large Physical Address Extension}}
+| {{Unk}}
+| {{No}}
+|-
+| [[ARM_architecture#ARMv8_and_64-bit|ARM]]
+| 64
+| ARMv8<ref>[http://www.arm.com/files/downloads/ARMv8_Architecture.pdf ARMv8 Technology Preview]</ref>
+| 2011<ref>{{cite web |url=http://www.computerworld.com/s/article/9221262/ARM_goes_64_bit_with_new_ARMv8_chip_architecture/ |title=ARM goes 64-bit with new ARMv8 chip architecture |accessdate=26 May 2012}}</ref>
+| 3
+| Register-Register
+| RISC
+| 31
+| Fixed <small>(32-bit)</small>, Thumb: Fixed <small>(16-bit)</small>, Thumb-2: Variable <small>(16 and 32-bit)</small>, A64
+| Condition code
+| Bi
+| NEON, [[Jazelle]], {{H:title|Vector Floating Point|VFP}}, [[ARM architecture#Security Extensions (TrustZone)|TrustZone]]
+| {{Unk}}
+| {{No}}
+|-
+| [[AVR32]]
+| 32
+| Rev 2
+| 2006 <!-- AVR family 1996, first AVR32 chip in 2006 --> 
+| 2-3
+| 
+| RISC
+| 15 <!-- Up to 15 general-purpose 32-bit registers -->
+| Variable<ref>{{cite web | url=http://www.atmel.com/dyn/resources/prod_documents/doc32000.pdf | title=AVR32 Architecture Document | publisher=[[Atmel]] | accessdate=2008-06-15}}</ref>
+| 
+| Big <!-- have special endian-translating load and store instructions -->
+| [[Java Virtual Machine]]
+| {{Unk}}
+| {{Unk}}
+|-
+| [[Blackfin]]
+| 32
+| 
+| 2000
+| 
+| 
+| RISC<ref>{{cite web | url=http://www.analog.com/en/embedded-processing-dsp/blackfin/content/blackfin_architecture/fca.html | title= Blackfin Processor Architecture Overview | publisher=[[Analog Devices]] | accessdate=2009-05-10}}</ref>
+| 8 <!-- 8 32-bit registers -->
+| 
+| 
+| Little<ref>{{cite web | url=http://www.analog.com/FAQs/FAQDisplay.html?DSPKBContentID=752A11D1-9E11-4A7F-91AC-CA3C264C5667 | title= Blackfin memory architecture | publisher=[[Analog Devices]] | accessdate=2009-12-18}}</ref>
+| 
+| {{Unk}}
+| {{Unk}}
+|-
+| [[DLX]]
+| 32
+|
+| 1990
+| 3
+| 
+| RISC
+| 32
+| Fixed <small>(32-bit)</small>
+| 
+| Big
+| 
+| {{Unk}}
+| {{Unk}}
+|-
+| [[eSi-RISC]]
+| 16/32
+| 
+| 2009
+| 3
+| Register-Register
+| RISC
+| 8-72
+| Variable<small>(16 or 32-bit)</small>
+| Compare and branch and condition register
+| Bi
+| User-defined instructions
+| {{No}}
+| {{No}}
+|-
+| [[Itanium]] (IA-64)
+| 64
+| 
+| 2001
+|
+| Register-Register
+| [[Explicitly parallel instruction computing|EPIC]]
+| 128 <!-- 128 64-bit general purpose registers, 128 80-bit floating-point registers, 64 1-bit predicate registers -->
+|
+| Condition register
+| Bi (selectable)
+| Intel Virtualization Technology
+| {{Yes}}
+| {{Yes}}
+|-
+| [[M32R]]
+| 32
+|
+| 1997
+| 
+| 
+| RISC
+| 16 <!-- 16 32-bit registers -->
+| Fixed <small>(16- or 32-bit)</small>
+| 
+| Bi
+| 
+| {{Unk}}
+| {{Unk}}
+|-
+| [[Motorola 68000|MC68K]]
+| 32
+|
+| 1979
+| 2
+| Register-Memory
+| [[Complex instruction set computer|CISC]]
+| 16 <!-- 8 32-bit data registers and 8 32-bit address registers -->
+| Variable
+| Condition register
+| Big
+| 
+| {{Unk}}
+| {{Unk}}
+|-
+| [[LatticeMico32|Mico32]]
+| 32
+| 
+| 2006
+| 3
+| Register-Register
+| RISC
+| 32<ref>{{cite web | url=http://www.latticesemi.com/products/intellectualproperty/ipcores/mico32/mico32architecture.cfm | title=LatticeMico32 Architecture | publisher=[[Lattice Semiconductor]] | accessdate=2009-12-18}}</ref>
+| Fixed <small>(32-bit)</small>
+| Compare and branch
+| Big
+| User-defined instructions
+| {{Yes}}<ref>{{cite web | url=http://www.latticesemi.com/products/intellectualproperty/ipcores/mico32/mico32opensourcelicensing.cfm | title=Open Source Licensing | publisher=[[Lattice Semiconductor]] | accessdate=2009-12-18}}</ref>
+| {{Yes}}
+|-
+| [[MIPS architecture|MIPS]]
+| 64 <small>(32?64)</small>
+| 5 <!-- 21 October 1996 -->
+| 1981
+| 3
+| Register-Register
+| RISC
+| 32 <!-- 31 32-bit GPRs (R0=0), 32 32-bit FP regs (paired DP). MIPS64 has 32 64-bit GPRs -->
+| Fixed <small>(32-bit)<small>
+| Condition register
+| Bi
+| [[MDMX]], [[MIPS-3D]]
+| {{Unk}}
+| {{No}}
+|-
+| [[MMIX]]
+| 64
+|
+| 1999
+| 3
+| Register-Register
+| RISC
+| 256 <!-- 256 64-bit general-purpose registers and 32 64-bit special-purpose registers -->
+| Fixed <small>(32-bit)</small>
+| 
+| Big
+| 
+| {{Yes}}
+| {{Yes}}
+|-
+| [[PA-RISC]] (HP/PA)
+| 64 <small>(32?64)</small>
+| 2.0 <!-- 1996 -->
+| 1986
+| 3
+| 
+| RISC
+| 32
+| Fixed
+| Compare and branch
+| Big
+| [[Multimedia Acceleration eXtensions]] (MAX), MAX-2
+| {{No}}
+| {{Unk}}
+|-
+| [[PowerPC]]
+| 32/64 <small>(32?64)</small>
+| 2.06<ref>{{cite web | url=http://www.power.org/resources/downloads/PowerISA_V2.06_PUBLIC.pdf | title=Power ISA V2.06 | publisher=[[IBM]] | accessdate=2009-07-04}} {{Dead link|date=October 2010|bot=H3llBot}}</ref> <!-- Power ISA 2.06 released in February 2009 -->
+| 1991
+| 3
+| Register-Register
+| RISC
+| 32
+| Fixed, Variable
+| Condition code
+| Big/Bi
+| [[AltiVec]], APU, [[AltiVec#VSX|VSX]], [[Cell (microprocessor)|Cell]]
+| {{Yes}}<ref>http://www.ibm.com/developerworks/power/newto/#2 New to Cell/B.E., multicore, and Power Architecture technology</ref>
+| {{No}}
+|-
+| [[S+core]]
+| 16/32
+| 
+| 2005
+| 
+| 
+| RISC
+| 
+| 
+| 
+| Little
+| 
+| {{Unk}}
+| {{Unk}}
+|-
+| [[Series 32000]]
+| 32
+| 
+| 1982  
+| 5
+| Memory-Memory
+| CISC
+| 8 <!-- Up to 8 general-purpose 32-bit registers -->
+| Variable Huffman coded, up to 23 bytes long
+| Condition Code
+| Little
+| BitBlt instructions
+| {{Unk}}
+| {{Unk}}
+|-
+| [[SPARC]]
+| 64 <small>(32?64)</small>
+| V9
+| 1985
+| 3
+| Register-Register
+| RISC
+| 31 (of at least 55) <!-- 8 globals but %g0 always zero; at least 3 register windows of 16, not counting overlap -->
+| Fixed
+| Condition code
+| Big ? Bi <!-- Historically big-endian, V9 is bi-endian -->
+| [[Visual Instruction Set|VIS]] 1.0, 2.0, 3.0
+| {{Yes}}
+| {{Yes}}<ref>http://www.sparc.org/specificationsDocuments.html##ArchLic SPARC Architecture License</ref>
+|-
+| [[SuperH]] (SH)
+| 32
+|
+| 1990s
+| 2
+| Register-Register/ Register-Memory
+| RISC
+| 16
+| Fixed
+| Condition Code (Single Bit)
+| Bi
+| 
+| {{Unk}}
+| {{Unk}}
+|-
+| [[System/360]] / [[System/370]] / [[z/Architecture]]
+| 64 <small>(32?64)</small>
+| 3 <!-- ARCHLVL 3 in 2008 -->
+| 1964
+| 
+| Register-Memory/Memory-Memory
+| CISC
+| 16 <!-- 16 64/32-bit general purpose registers, 16 64-bit floating point registers, 16 32-bit access registers, 16 64/32-bit control registers -->
+| Fixed <!-- 2, 4 or 6 bytes long -->
+| Condition code
+| Big
+| 
+| {{Unk}}
+| {{Unk}}
+|-
+| [[VAX]]
+| 32
+| 
+| 1977
+| 6
+| Memory-Memory
+| CISC
+| 16
+| Variable <!-- 1 to 321 bytes -->
+| Compare and branch
+| Little
+| VAX Vector Architecture
+| {{Unk}}
+| {{Unk}}
+|-
+| [[x86]]
+| 32 <small>(16?32)</small>
+| 
+| 1978
+| 2
+| Register-Memory
+| CISC
+| 8 <!-- 8 32-bit "not-so-general purpose" registers -->
+| Variable <!-- 1 to 16 bytes -->
+| Condition code
+| Little
+| [[MMX (instruction set)|MMX]], [[3DNow!]], [[Streaming SIMD Extensions|SSE]], [[Physical Address Extension|PAE]], 
+| {{No}}
+| {{No}}
+|-
+| [[x86-64]]
+| 64
+| 
+| 2003
+| 2
+| Register-Memory
+| CISC
+| 16
+| Variable <!-- 1 to 16 bytes -->
+| Condition code
+| Little
+| [[MMX (instruction set)|MMX]], [[3DNow!]], [[Physical Address Extension|PAE]], [[Advanced Vector Extensions|AVX]] <!-- SSE/SSE2 is a core part of x86-64, not an extension -->
+| {{No}}
+| {{No}}
+|-
+! Architecture
+! Bits
+! Version
+! Introduced
+! Max # [[Operand]]s
+! Type
+! Design <!-- Design Strategy/Philosophy -->
+! [[Processor register|Registers]]
+! Instruction encoding
+! [[Branch (computer science)|Branch]] Evaluation
+! [[Endianness]]
+! Extensions
+! Open
+! Royalty-free
+|}
+
+== Microarchitectures ==
+
+The following table compares specific [[microarchitecture]]s.
+{| class="wikitable"
+|-
+! Microarchitecture
+! Pipeline stages
+! Misc
+|-
+| [[AMD K5]]
+|
+| Out-of-order execution, register renaming, speculative execution
+|-
+| [[AMD K6]]
+|
+| Superscalar, branch prediction
+|-
+| [[AMD K6-III]]
+|
+| Branch prediction, speculative execution, out-of-order execution<ref>http://www.amd.com/us-en/Processors/ProductInformation/0,,30_118_1260_1288%5E1295,00.html</ref>
+|-
+| [[Athlon|AMD K7]]
+|
+| Out-of-order execution, branch prediction, Harvard architecture
+|-
+| [[AMD K8]]
+|
+| 64-bit, integrated memory controller, 16 byte instruction prefetching
+|-
+| [[AMD K10]]
+|
+| Superscalar, out-of-order execution, 32-way set associative L3 victim cache, 32-byte instruction prefetching
+|-
+| [[ARM7|ARM7TDMI(-S)]]
+| 3
+|
+|-
+| [[ARM7|ARM7EJ-S]]
+| 5
+|
+|-
+| ARM810
+| 5
+|
+|-
+| [[ARM9|ARM9TDMI]]
+| 5
+|
+|-
+| ARM1020E
+| 6
+|
+|-
+| [[XScale|XScale PXA210/PXA250]]
+| 7
+|
+|-
+| [[ARM11|ARM1136J(F)-S]]
+| 8
+|
+|-
+| [[ARM11|ARM1156T2(F)-S]]
+| 9
+|
+|-
+| [[ARM Cortex-A5]]
+| 8
+| Single issue, in-order
+|-
+| [[ARM Cortex-A7 MPCore]]
+| 8
+| Partial dual-issue, in-order
+|-
+| [[ARM Cortex-A8]]
+| 13
+| Dual-issue
+|-
+| [[ARM Cortex-A9 MPCore]]
+| 8-11
+| Out-of-order, speculative issue, superscalar
+|-
+| [[ARM Cortex-A15 MPCore]]
+| 15
+| Multicore (up to 16), out-of-order, speculative issue, 3-way superscalar
+|-
+| ARM Cortex-A53
+|
+| Partial dual-issue, in-order 
+|-
+| ARM Cortex-A57
+|
+| Deeply out-of-order, wide multi-issue, 3-way superscalar
+|-
+| [[AVR32#AP7 Core|AVR32 AP7]]
+| 7
+|
+|-
+| [[AVR32#UC3 Core|AVR32 UC3]]
+| 3
+| Harvard architecture
+|-
+| [[Bobcat (processor)|Bobcat]]
+| 
+| Out-of-order execution
+|-
+| [[Bulldozer (processor)|Bulldozer]]
+|
+| Shared L3 cache, multithreading, multicore, integrated memory controller
+|-
+| [[Transmeta Crusoe|Crusoe]]
+|
+| In-order execution, 128-bit VLIW, integrated memory controller
+|-
+| [[Efficeon]]
+|
+| In-order execution, 256-bit VLIW, fully integrated memory controller
+|-
+| [[Cyrix Cx5x86]]
+| 6<ref>http://www.pcguide.com/ref/cpu/fam/g4C5x86-c.html</ref>
+| Branch prediction
+|-
+| [[Cyrix 6x86]]
+|
+| Superscalar, superpipelined, register renaming, speculative execution, out-of-order execution
+|-
+| [[DLX]]
+| 5
+|
+|-
+| [[eSi-RISC|eSi-3200]]
+| 5
+| In-order, speculative issue
+|-
+| [[eSi-RISC|eSi-3250]]
+| 5
+| In-order, speculative issue
+|-
+| [[Alpha 21064|EV4 (Alpha 21064)]]
+| 
+| Superscalar
+|-
+| [[Alpha 21364|EV7 (Alpha 21364)]]
+| 
+| Superscalar design with out-of-order execution, branch prediction, 4-way SMT, integrated memory controller
+|-
+| [[Alpha 21464|EV8 (Alpha 21464)]]
+| 
+| Superscalar design with [[out-of-order execution]]
+|-
+| [[P5 (microarchitecture)|P5]] (Pentium)
+| 5
+| Superscalar
+|-
+| [[P6 (microarchitecture)|P6]] ([[Pentium Pro]])
+| 14
+| Speculative execution, Register renaming, superscalar design with [[out-of-order execution]]
+|-
+| P6 ([[Pentium II]])
+| 
+| Branch prediction
+|-
+| P6 ([[Pentium III]])
+| 10
+|
+|-
+| [[Itanium]]
+| 8<ref>''Intel Itanium 2 Processor Hardware Developer's Manual''. p. 14. <http://www.intel.com/design/itanium2/manuals/25110901.pdf> (2002) [Retrieved November 28, 2011]</ref>
+| Speculative execution, branch prediction, register renaming, 30 execution units, multithreading
+|-
+| [[NetBurst (microarchitecture)|NetBurst]] ([[Pentium 4#Willamette|Willamette]])
+| 20
+| Simultaneous multithreading
+|-
+| NetBurst ([[Pentium 4#Northwood|Northwood]])
+| 20
+| Simultaneous multithreading
+|-
+| NetBurst ([[Pentium 4#Prescott|Prescott]])
+| 31
+| Simultaneous multithreading
+|-
+| NetBurst ([[Pentium 4#Cedar Mill|Cedar Mill]])
+| 31
+| Simultaneous multithreading
+|-
+| [[Core (microarchitecture)|Core]]
+| 14
+|
+|-
+| [[Intel Atom]]
+| 16
+| Simultaneous multithreading, in-order. No instruction reordering, speculative execution, or register renaming.
+|-
+| [[Nehalem (microarchitecture)|Nehalem]]
+|
+| Simultaneous multithreading, integrated memory controller, L1/L2/L3 cache
+|-
+| [[Sandy Bridge (microarchitecture)|Sandy Bridge]]
+|
+| Simultaneous multithreading, multicore, integrated memory controller, L1/L2/L3 cache. 2 threads per core.
+|-
+| [[Haswell (microarchitecture)|Haswell]]
+| 14
+| Multicore
+|-
+| [[LatticeMico32]]
+| 6
+| Harvard architecture
+|-
+| [[POWER1]]
+| 
+| Superscalar, out-of-order execution
+|-
+| [[POWER3]]
+| 
+| Superscalar, out-of-order execution
+|-
+| [[POWER4]]
+| 
+| Superscalar, speculative execution, out-of-order execution
+|-
+| [[POWER5]]
+|
+| Simultaneous multithreading, out-of-order execution, integrated memory controller
+|-
+| [[POWER6]]
+| 
+| 2-way simultaneous multithreading, in-order execution
+|-
+| [[POWER7]]
+|
+| 4 SMT threads per core, 12 execution units per core
+|-
+| [[PowerPC 400#PowerPC 401|PowerPC 401]]
+| 3
+|
+|-
+| [[PowerPC 400#PowerPC 405|PowerPC 405]]
+| 5
+|
+|-
+| [[PowerPC 400#PowerPC 440|PowerPC 440]]
+| 7
+|
+|-
+| [[PowerPC 400#PowerPC 470|PowerPC 470]]
+| 9
+| SMP
+|-
+| [[PowerPC A2]]
+| 15
+|
+|-
+| [[PowerPC e300]]
+| 4
+| Superscalar, Branch prediction
+|-
+| [[PowerPC e500]]
+| Dual 7 stage
+| Multicore
+|-
+| [[PowerPC e600]]
+| 3-issue 7 stage
+| Superscalar out-of-order execution, branch prediction
+|-
+| [[PowerPC e5500]]
+| 4-issue 7 stage
+| Out-of-order, multicore
+|-
+| [[PowerPC e6500]]
+| 
+| multicore
+|-
+| [[PowerPC 600#PowerPC 603|PowerPC 603]]
+| 4
+| 5 execution units, branch prediction. No SMP.
+|-
+| [[PowerPC 600#PowerPC 603q|PowerPC 603q]]
+| 5
+| In-order
+|-
+| [[PowerPC 600#PowerPC 604|PowerPC 604]]
+| 6
+| Superscalar, out-of-order execution, 6 execution units. SMP support.
+|-
+| [[PowerPC 600#PowerPC 620|PowerPC 620]]
+| 5
+| Out-of-order execution- SMP support.
+|-
+| [[PWRficient]]
+| 
+| Superscalar, out-of-order execution, 6 execution units
+|-
+| [[R4000]]
+| 8
+| Scalar
+|-
+| [[StrongARM#SA-110|StrongARM SA-110]]
+| 5
+| Scalar, in-order
+|-
+| [[SuperH#SH-2|SuperH SH2]]
+| 5
+| 
+|-
+| [[SuperH#SH-2A|SuperH SH2A]]
+| 5
+| Superscalar, Harvard architecture
+|-
+| [[SPARC]]
+|
+| Superscalar
+|-
+| [[HyperSPARC]]
+|
+| Superscalar
+|-
+| [[SuperSPARC]]
+|
+| Superscalar, in-order
+|-
+| SPARC64 VI/VII/VII+
+|
+| Superscalar, out-of-order<ref>http://www.fujitsu.com/global/services/computing/server/sparcenterprise/technology/performance/processor.html</ref>
+|-
+| [[UltraSPARC]]
+| 9
+| 
+|-
+| [[UltraSPARC T1]]
+| 6
+| Open source, multithreading, multi-core, 4 threads per core, integrated memory controller
+|-
+| [[UltraSPARC T2]]
+| 8
+| Open source, multithreading, multi-core, 8 threads per core
+|-
+| [[SPARC T3]]
+| 8
+| Multithreading, multi-core, 8 threads per core, SMP
+|-
+| [[SPARC T4]]
+| 16
+| Multithreading, multi-core, 8 threads per core, SMP, out-of-order
+|-
+| [[VIA C7]]
+|
+| In-order execution
+|-
+| [[VIA Nano]] (Isaiah)
+|
+| Superscalar out-of-order execution, branch prediction, 7 execution units
+|-
+| [[WinChip]]
+| 4
+| In-order execution
+|}
+
+== See also ==
+{{Portal|Computer science}}
+* [[Central processing unit]] (CPU)
+* [[CPU design]]
+* [[Instruction set]]
+* [[List of instruction sets]]
+* [[Microprocessor]]
+* [[Benchmark (computing)]]
+
+== References ==
+{{reflist}}
+
+{{CPU technologies}}
+
+[[Category:Instruction set architectures]]
+[[Category:Computer architecture]]
+[[Category:Computing comparisons]]
+
+
+{{compu-hardware-stub}}

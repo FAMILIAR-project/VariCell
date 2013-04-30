@@ -1,0 +1,1125 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of layout engines (HTML)</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of layout engines (HTML)</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{HTML}}</span> The following tables compare <a href="HTML">HTML</a> compatibility and support for a number of <a href="layout engine">layout engines</a>. Please see the individual products' articles for further information. This article is not all-inclusive or necessarily up-to-date. Unless otherwise specified in footnotes, comparisons are based on the stable versions without any add-ons, extensions or external programs. </p> 
+    <p> Only HTML 4 and <a href="XHTML">XHTML</a> 1.0 served as <code>text/html</code> (so called &quot;HTML compatible&quot; XHTML) are considered. XHTML 1.0 Strict is necessarily XHTML 1.1 with fewer elements and attributes deprecated. XHTML 2.0 is not considered as it is a redefinition of XHTML, which is not backward compatible. For more XHTML-related comparisons, please refer to <a href="comparison of layout engines (XHTML)">comparison of layout engines (XHTML)</a>. </p> 
+    <p> Version number, if possible, is provided for feature that is fully supported (based on HTML 4.01). Proprietary extensions are not included. </p> 
+    <p> <a href="W3C">W3C</a> deprecated tags and attributes and proprietary tags are compared in <a href="comparison of layout engines (Non-standard HTML)">comparison of layout engines (Non-standard HTML)</a>. </p> 
+    <p> <span class="unknown-node">{{Layout engine nomenclature}}</span> <span class="unknown-node">{{Explanation of the tables2}}</span> </p> 
+    <div class="section"> 
+     <h2> Global structure elements </h2> 
+     <div class="section-body"> 
+      <p> The global structure of the document. </p> 
+      <table style="text-align: center; width:80%; background: #ececec" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="8"> <p> Basic structure </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>html</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>head</tt> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>body</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Metadata </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>title</tt> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>meta</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Headings </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>h1</tt> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>h2</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>h3</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>h4</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>h5</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>h6</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Grouping elements </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>div</tt> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>span</tt> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Text elements </h2> 
+     <div class="section-body"> 
+      <p> Elements that represent text. </p> 
+      <table style="text-align: center; width: 80%; background: #ececec" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="8"> <p> Phrase </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>em</tt> </p> </td> 
+         <td> <p> rowspan=&quot;9&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;10&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;10&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;10&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;10&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;10&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;10&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>strong</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>dfn</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>code</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>samp</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>kbd</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>var</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>cite</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>acronym</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>abbr</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Quotations </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>blockquote</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>q</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Subscripts and superscripts </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>sub</tt> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>sup</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Lines and paragraphs </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>p</tt> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>pre</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>br</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Marking document changes </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>ins</tt> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>del</tt> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> List elements </h2> 
+     <div class="section-body"> 
+      <p> Elements that represent lists of information. </p> 
+      <table style="text-align: center; width: 80%; background: #ececec" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="8"> <p> Unordered and ordered lists </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>ul</tt> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>ol</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>li</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Definition lists </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>dl</tt> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>dt</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>dd</tt> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Table elements </h2> 
+     <div class="section-body"> 
+      <p> Elements that represent tabular information. </p> 
+      <table style="text-align: center; width: 80%" class="wikitable"> 
+       <tbody>
+        <tr style="background: #ececec"> 
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Basic table elements </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>table</tt> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>caption</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>tr</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>th</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>td</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Row groups </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>thead</tt> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>tbody</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>tfoot</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Column groups </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>colgroup</tt> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>col</tt> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Link elements </h2> 
+     <div class="section-body"> 
+      <p> <a href="Hyperlink">Hyperlinks</a>, one of the primary forces driving the success of the <a href="World Wide Web">World Wide Web</a>. </p> 
+      <table style="text-align: center; width: 80%; background: #ececec" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <td style="text-align: left"> <p> <tt>a</tt> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>link</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>base</tt> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Multimedia elements </h2> 
+     <div class="section-body"> 
+      <p> Multimedia features including images, applets, video clips, and other HTML documents. </p> 
+      <table style="text-align: center; width: 80%; background: #ececec" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="8"> <p> Images </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>img</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Generic inclusion </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>object</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>param</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Image maps </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>map</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>area</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Frame elements</h2> 
+     <div class="section-body"> 
+      <p> Elements to present documents in multiple views, which may be independent windows or subwindows. Frame layout is only available in the frameset profiles. All frames are not available in XHTML 1.1 (use generic object elements instead for inline frames). </p> 
+      <table style="text-align: center; width: 80%; background: #ececec" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="8"> <p> Frame layout </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>frameset</tt> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>frame</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>noframes</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Inline frames </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>iframe</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Form elements</h2> 
+     <div class="section-body"> 
+      <p> The <a href="user interface">user interface</a> controls for interacting with the <a href="web server">web server</a>. </p> 
+      <table style="text-align: center; width: 80%" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="8"> <p> Basic structure </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>form</tt> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>fieldset</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>legend</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Form controls and labels </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>button</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>textarea</tt> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>input</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>label</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> List boxes (combo boxes) </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>select</tt> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>optgroup</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>option</tt> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Presentational elements</h2> 
+     <div class="section-body"> 
+      <p> Elements that specify presentational information. Although not all elements are deprecated, their use is discouraged in favor of stylesheets. Deprecated elements are not available in the strict profiles and XHTML 1.1. </p> 
+      <table style="text-align: center; width: 80%; background: #ececec" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="8"> <p> Font styles </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>b</tt> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>i</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>big</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>small</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>tt</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Horizontal rules </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left"> <p> <tt>hr</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Stylesheet elements</h2> 
+     <div class="section-body"> 
+      <p> The ways to apply stylesheets (<a href="Cascading Style Sheets">CSS</a>) to the document. </p> 
+      <table style="text-align: center; width: 80%" class="wikitable"> 
+       <tbody>
+        <tr style="background: #ececec"> 
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <code>&lt;link rel=&quot;style&quot; ? /&gt;</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <code>style</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Script elements</h2> 
+     <div class="section-body"> 
+      <p> Elements for embedding client-side script (<a href="JavaScript">JavaScript</a>). See also <a href="DOM Events">DOM Events</a> for a list of attributes used to attach an <a href="event handler">event handler</a> to an element. </p> 
+      <table style="text-align: center; width: 80%" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>script</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>noscript</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{incorrect}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Language elements</h2> 
+     <div class="section-body"> 
+      <p> Elements related to language information. </p> 
+      <table style="text-align: center; width: 80%" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>bdo</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dunno}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Generic attributes</h2> 
+     <div class="section-body"> 
+      <p> Attributes that can be used in any elements. </p> 
+      <table style="text-align: center; width: 80%" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th style="width: 16em"> </th> 
+         <th> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th> <p> <a href="Tasman (layout engine)">Tasman</a> </p> </th> 
+         <th> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th> <p> <a href="iCab">iCab</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="8"> <p> Element identifiers </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>id</tt> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>class</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Inline styles </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>style</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Advisory information </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>title</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="8"> <p> Language information </p> </th> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>lang</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="text-align: left; background: #ececec"> <p> <tt>dir</tt> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist |...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> <span class="unknown-node">{{Refbegin}}</span> </p> 
+      <ul> 
+       <li> <span class="unknown-node">{{cite web |...}}</span></li> 
+       <li> <span class="unknown-node">{{cite web |...}}</span></li> 
+       <li> <span class="unknown-node">{{cite web |...}}</span></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Refend}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://webref.info/?ID=1">webref.info HTML Reference</a></li> 
+       <li> <a href="http://hsivonen.iki.fi/doctype/">Activating the Right Layout Mode Using the Doctype Declaration</a></li> 
+       <li> <a href="http://gutfeldt.ch/matthias/articles/doctypeswitch/table.html">Doctypes and their respective layout mode</a></li> 
+       <li> <a href="http://www.blooberry.com/indexdot/html/supportkey/a.htm">HTML Support History</a></li> 
+       <li> <a href="http://www.webdevout.net/browser_support_html.php">Web browser HTML support</a></li> 
+       <li> <a href="http://www.w3schools.com/xhtml/xhtml_reference.asp">W3Schools XHTML 1.0 Reference</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Web browser engines}}</span> </p> 
+      <p> <a href="Category:HTML">Category:HTML</a> <a href="Category:Layout engine comparisons">Category:Layout engine comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

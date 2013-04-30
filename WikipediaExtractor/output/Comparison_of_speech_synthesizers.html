@@ -1,0 +1,667 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of speech synthesizers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of speech synthesizers</h1> 
+   <div class="article-content"> 
+    <p> Here is a non-exhaustive comparison of <a href="speech synthesis">speech synthesis</a> programs : </p> 
+    <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: 100%;"> 
+     <tbody>
+      <tr> 
+       <th style="width:12em"> </th> 
+       <th> <p> Creator(s) </p> </th> 
+       <th> <p> First public release date </p> </th> 
+       <th> <p> Latest stable version </p> </th> 
+       <th> <p> <a href="Software license">Software license</a> </p> </th> 
+       <th> <p> Cost </p> </th> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="PlainTalk#Speech synthesis">Apple PlainTalk</a> </p> </th> 
+       <td> <p> <a href="Apple Inc.">Apple Inc.</a> </p> </td> 
+       <td> <p> 1984 </p> </td> 
+       <td> <p> 2007, October 26 </p> </td> 
+       <td> <p> Bundled with <a href="Mac OS X">Mac OS X</a> </p> </td> 
+       <td> <p> Bundled </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="PlainTalk#Speech synthesis">Verbio TTS</a> </p> </th> 
+       <td> <p> <a href="http://www.verbio.com/webverbio3/es/tecnologia/verbio-tts.html">Verbio Speech Tachnologies</a>] </p> </td> 
+       <td> <p> 1999 </p> </td> 
+       <td> <p> 2013, March 10 </p> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="AT&amp;T Labs">AT&amp;T Natural Voices</a> </p> </th> 
+       <td> <p> <a href="AT&amp;T Labs">AT&amp;T Natural Voices</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> 2008 </p> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> $295 ? $995 </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Cepstral LLC">Cepstral</a> </p> </th> 
+       <td> <p> Cepstral </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+       <td> <p> $29+ </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="CereProc">CereProc</a> </p> </th> 
+       <td> <p> CereProc </p> </td> 
+       <td> <p> 2006 </p> </td> 
+       <td> <p> August 2012 </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+       <td> <p> &pound;25.99+ </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="eSpeak">eSpeak</a> </p> </th> 
+       <td> <p> Jonathan Duddington </p> </td> 
+       <td> <p> 2006, February 10 </p> </td> 
+       <td> <p> 2012, January 6 </p> </td> 
+       <td> <p> <a href="GNU General Public License#Version 3">GPLv3+</a> </p> </td> 
+       <td> <p> Free </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="http://www.eguidedog.net/ekho.php">Ekho</a> </p> </th> 
+       <td> <p> Cameron Wong </p> </td> 
+       <td> <p> 2008, March 26 </p> </td> 
+       <td> <p> 2013, January 15 </p> </td> 
+       <td> <p> <a href="GNU General Public License#Version 2">GPLv2+</a> </p> </td> 
+       <td> <p> Free </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Festival Speech Synthesis System">Festival Speech Synthesis System</a> </p> </th> 
+       <td> <p> <a href="http://www.cstr.ed.ac.uk/">CSTR</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> 2010, November </p> </td> 
+       <td> <p> <a href="MIT license">MIT-like license</a> </p> </td> 
+       <td> <p> Free </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="FreeTTS">FreeTTS</a> </p> </th> 
+       <td> <p> Paul Lamere<br />Philip Kwok<br />Dirk Schnelle-Walka<br />Willie Walker<br />... </p> </td> 
+       <td> <p> 2001, December 14 </p> </td> 
+       <td> <p> 2009, March 9 </p> </td> 
+       <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+       <td> <p> Free </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="IVONA">IVONA TTS</a> </p> </th> 
+       <td> <p> IVONA Software </p> </td> 
+       <td> <p> 2005 </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Kurzweil Educational Systems">Kurzweil 1000 and Kurzweil 3000</a> </p> </th> 
+       <td> <p> Kurzweil Educational Systems, Inc. </p> </td> 
+       <td> <p> 1996 </p> </td> 
+       <td> <p> 2005 </p> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Loquendo">Loquendo</a> </p> </th> 
+       <td> <p> <a href="Loquendo">Loquendo</a> </p> </td> 
+       <td> <p> 1975 </p> </td> 
+       <td> <p> 2011 </p> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Nuance Communications#Business Products &amp; Services">Nuance Vocalizer</a> </p> </th> 
+       <td> <p> Nuance Communications, Inc. </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Praat">Praat</a> </p> </th> 
+       <td> <p> Paul Boersma<br />David Weenink </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> 2011, September 11 </p> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+       <td> <p> Free </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="SVOX">SVOX</a> </p> </th> 
+       <td> <p> <a href="SVOX">SVOX</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+      </tr> 
+      <tr class="sortbottom"> 
+       <th style="width:12em"> </th> 
+       <th> Creator(s) </th> 
+       <th> First public release date </th> 
+       <th> <p> Latest stable version </p> </th> 
+       <th> <a href="Software license">Software license</a> </th> 
+       <th> <p> Cost </p> </th> 
+      </tr> 
+      <tr> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2> Technical voice details </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: 100%;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Platform </p> </th> 
+         <td> <p> <a href="Speech Synthesis Markup Language">SSML</a> </p> </td> 
+         <td> <p> <a href="Speech Application Programming Interface">SAPI version</a> </p> </td> 
+         <td> <p> WS </p> </td> 
+         <td> <p> <a href="Pronunciation Lexicon Specification">PLS</a> </p> </td> 
+         <td> <p> <a href="Command line interface">CLI</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> Acapela </p> </th> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 5.1/5.3 </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="AT&amp;T Labs">AT&amp;T Natural Voices</a> </p> </th> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> 5.1 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="CereProc">CereProc</a> </p> </th> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> 5.x </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="IVONA">IVONA TTS</a> </p> </th> 
+         <td> <p> 1.0/1.1 </p> </td> 
+         <td> <p> 5.1 /5.3 </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> 1.0 </p> </td> 
+         <td> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="eSpeak">eSpeak</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> Ekho </p> </th> 
+         <td> <p> No </p> </td> 
+         <td> <p> 5.x </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Festival Speech Synthesis System">Festival Speech Synthesis System</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="FreeTTS">FreeTTS</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Kurzweil Educational Systems">Kurzweil 1000 and Kurzweil 3000</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Loquendo">Loquendo</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Nuance Communications#Business Products &amp; Services">Nuance Vocalizer</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Praat">Praat</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="SVOX">SVOX</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="VERBIO TTS">VERBIO TTS</a> </p> </th> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> 5.1/5.3 </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Technical details </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: 100%;"> 
+       <tbody>
+        <tr> 
+         <th style="width:12em"> </th> 
+         <th> <p> Online demo </p> </th> 
+         <th> <p> Available language(s) </p> </th> 
+         <th> <p> Available voices(s) </p> </th> 
+         <th> <p> Programming language </p> </th> 
+         <th> <p> <a href="Operating system">Operating system(s)</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="PlainTalk#Speech synthesis">Apple PlainTalk</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> English (United States), ... </p> </td> 
+         <td> <p> 15+ </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <a href="Macintosh">Macintosh</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="AT&amp;T Labs">AT&amp;T Natural Voices</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> English (British), English (Indian), English (US), French, French (Canadian), German, Italian, Spanish (Latin American) </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> <a href="Linux">Linux</a><br /><a href="Microsoft Windows">Windows</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Cepstral LLC">Cepstral</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> English (British), English (US), Italian, French (Canadian), German, Spanish (American), ... </p> </td> 
+         <td> <p> 25+ </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a><br /><a href="Microsoft Windows">Windows</a><br /><a href="Linux">i386-Linux</a><br /><a href="Linux">x86-64-Linux</a><br /><a href="Solaris (operating system)">Sparc-Solaris</a><br /><a href="Solaris (operating system)">i386-Solaris</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="CereProc">CereProc</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> English (British), English (US), English (Scottish), English (Irish), French, German, Austrian German, Italian, Spanish (Castillan), Spanish (Latin American), Dutch </p> </td> 
+         <td> <p> 21 </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>/<a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a><br /><a href="Microsoft Windows">Windows</a><br /><a href="Mac OS X">Mac OS X</a><br /><a href="Embedded Linux">Embedded Linux</a><br /><a href="Android (operating system)">Android</a><br /><a href="iOS">iOS</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="eSpeak">eSpeak</a> </p> </th> 
+         <td> <p> Samples </p> </td> 
+         <td> <p> Afrikaans, Albanian, Armenian, Cantonese, Catalan, Croatian, Czech, Danish, Dutch, English (British, US, Scottish, Westindies?), Esperanto, Estonian, Finnish, French (France, Belgium), Georgian, German, Greek, Hindi, Hungarian, Icelandic, Indonesian, Italian, Kannada, Kurdish, Latvian, Lojban, Macedonian, Malayalam, Mandarin, Norwegian, Polish, Portuguese, Romanian, Russian, Serbian, Slovak, Spanish, Swahili, Swedish, Tamil, Turkish, Vietnamese, Welsh. </p> </td> 
+         <td> <p> Several </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a><br /><a href="Microsoft Windows">Windows</a><br /><a href="Mac OS X">Mac OS X</a><br /><a href="RISC OS">RISC OS</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> Ekho </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Cantonese, Mandarin (standard Chinese), Zhaoan Hakka (a dialect in Taiwan), Tibetan, Ngangien (an ancient Chinese before Yuan Dynasty) and Korean </p> </td> 
+         <td> <p> 7 </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a><br /><a href="Microsoft Windows">Windows</a><br /><a href="Android (operating system)">Android</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Festival Speech Synthesis System">Festival Speech Synthesis System</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> English? </p> </td> 
+         <td> <p> Several </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a><br /><a href="Microsoft Windows">Windows</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="FreeTTS">FreeTTS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> English? </p> </td> 
+         <td> <p> Several </p> </td> 
+         <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> <a href="Cross-platform">Cross-platform</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="IVONA">IVONA TTS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> English (British), English (US), German, American Spanish, Castilian Spanish, French, Welsh, Welsh English, Polish, Romanian </p> </td> 
+         <td> <p> 26 </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>/<a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a><br /><a href="Linux">Linux</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Kurzweil Educational Systems">Kurzweil 1000 and Kurzweil 3000</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Loquendo">Loquendo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> English (Australian), English (British), English (US), Castilian Spanish, Catalan, Valencian, Galician, French, German, Italian, Greek, Portuguese, Swedish, Dutch, Polish, Brazilian Portuguese, Mandarin Chinese, Mexican Spanish, Chilean, Argentinean, American Spanish, Canadian French, Turkish, Finnish, Russian, Danish, Norwegian, Arabic, Romanian </p> </td> 
+         <td> <p> 74 </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a><br /><a href="Linux">Linux</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Nuance Communications#Business Products &amp; Services">Nuance Vocalizer</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> English (Australian), English (British), English (US), Portuguese (Brazilian), French (Canadian), German, Spanish (Latin American) </p> </td> 
+         <td> <p> 10+ </p> </td> 
+         <td> <p> C/C++ </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="Praat">Praat</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a><br /><a href="Linux">Linux</a><br /><a href="Macintosh">Macintosh</a><br /><a href="FreeBSD">FreeBSD</a><br /><a href="Solaris (operating system)">Solaris</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="VERBIO TTS">VERBIO TTS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> English (US), Castilian Spanish, Catalan, Valencian, Galician, French, Portuguese (Portugal),Portuguese (Brazilian), Argentinian Spanish, Mexican Spanish, Latam Spanish </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> C/C++ </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a><br /><a href="Linux">Linux</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> <a href="SVOX">SVOX</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th style="width:12em"> </th> 
+         <th> Online demo </th> 
+         <th> Available language(s) </th> 
+         <th> Available voices(s) </th> 
+         <th> <p> Programming language </p> </th> 
+         <th> <p> <a href="Operating system">Operating system(s)</a> </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <a href="Category:Speech synthesis software"> </a> <a href="Category:Software comparisons">Speech synthesizers</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

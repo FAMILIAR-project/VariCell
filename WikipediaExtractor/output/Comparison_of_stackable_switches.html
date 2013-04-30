@@ -1,0 +1,1570 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of stackable switches</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of stackable switches</h1> 
+   <div class="article-content"> 
+    <div class="section"> 
+     <h2>Comparison of stackable layer 3 switches (1Gbit/10Gbit)</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable"> 
+       <tbody>
+        <tr>
+         <th> <p> Manufacturer </p> </th> 
+         <th> <p> Part number </p> </th> 
+         <th> <p> Number of <a href="10/100/1000">10/100/1000</a> ports </p> </th> 
+         <th> <p> Number of SFP Ports </p> </th> 
+         <th> <p> Number of <a href="10 gigabit Ethernet">10 gigabit</a> ports (with modules) </p> </th> 
+         <th> <p> CPU/ASIC type / MHz </p> </th> 
+         <th> <p> builtin flash ROM size / upgradable to </p> </th> 
+         <th> <p> RAM size </p> </th> 
+         <th> <p> Stacking capacity </p> </th> 
+         <th> <p> Switching capacity (full duplex) </p> </th> 
+         <th> <p> Forwarding rate </p> </th> 
+         <th> <p> Latency </p> </th> 
+         <th> <p> Number of MAC addresses in address table </p> </th> 
+         <th> <p> Number of IEEE 802.1Q VLANs </p> </th> 
+         <th> <p> Number of routing table entries </p> </th> 
+         <th> <p> static IPv6 routing </p> </th> 
+         <th> <p> RIP v1 </p> </th> 
+         <th> <p> RIP v2 </p> </th> 
+         <th> <p> RIP ng </p> </th> 
+         <th> <p> OSPF v2 </p> </th> 
+         <th> <p> OSPF v3 </p> </th> 
+         <th> <p> PIM-DM (IPv4) </p> </th> 
+         <th> <p> PIM-SM (IPv4) RFC 4601 </p> </th> 
+         <th> <p> PIM-SM (IPv6) </p> </th> 
+         <th> <p> PIM-SSM (IPv4) RFC 3569 </p> </th> 
+         <th> <p> PIM-SSM (IPv6) </p> </th> 
+         <th> <p> BGP v4 </p> </th> 
+         <th> <p> Multiprotocol BGP (for IPv6) </p> </th> 
+         <th> <p> Multicast Listener Discovery v1 </p> </th> 
+         <th> <p> Multicast Listener Discovery v2 </p> </th> 
+         <th> <p> MLD snooping v1 </p> </th> 
+         <th> <p> MLD snooping v2 </p> </th> 
+         <th> <p> VRRP (IPv4) </p> </th> 
+         <th> <p> VRRP (IPv6) </p> </th> 
+         <th> <p> 6to4 tunneling </p> </th> 
+         <th> <p> ISATAP </p> </th> 
+         <th> <p> SNMP v1 </p> </th> 
+         <th> <p> SNMP v2c </p> </th> 
+         <th> <p> SNMP v3 </p> </th> 
+         <th> <p> LLDP </p> </th> 
+         <th> <p> LLDP-MED </p> </th> 
+         <th> <p> Unicast RPF (uRPF) RFC 3704 </p> </th> 
+         <th> <p> sFlow </p> </th> 
+         <th> <p> Number of stackable switches in a group </p> </th> 
+         <th> <p> TRILL: Fine-Grained Labeling </p> </th> 
+         <th> <p> IEEE 802.1aq (SPB) </p> </th> 
+         <th> <p> virtual routing instances (VRF) + IP unicast </p> </th> 
+         <th> <p> virtual routing instances (VRF) + IP multicast </p> </th> 
+         <th> <p> virtual routing instances (VRF) + IPv6 unicast </p> </th> 
+         <th> <p> virtual routing instances (VRF) + IPv6 multicast </p> </th> 
+         <th> <p> IPv6 access lists support / IPv6 ACL </p> </th> 
+         <th> <p> IPv6 ACL / blocking specific IPv6 routing headers </p> </th> 
+         <th> <p> IPv6 ACL / blocking specific fragmented IPv6 packets </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> 3COM </p> </td> 
+         <td> <p> Switch 4800G 24-Port SFP<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 8 (shared) </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> Broadcom BCM56514 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 10 Gbit/s </p> </td> 
+         <td> <p> 128 Gbit/s </p> </td> 
+         <td> <p> 107.2 Mpps </p> </td> 
+         <td> <p> &lt;10 ? </p> </td> 
+         <td> <p> 32000 </p> </td> 
+         <td> <p> 1000 (vlan interfaces) </p> </td> 
+         <td> <p> 12000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 9 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Alaxala </p> </td> 
+         <td> <p> Switch AX3640S 24-Port SFP<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 2 (XFP) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 512 MB </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 88 Gbit/s </p> </td> 
+         <td> <p> 65.6 Mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span>* </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Alcatel </p> </td> 
+         <td> <p> OmniSwitch OS6850-U24X<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2 (shared) </p> </td> 
+         <td> <p> 22 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> Freescale MPC8248 / 400 MHZ </p> </td> 
+         <td> <p> 64 MB </p> </td> 
+         <td> <p> 256 MB / 512 MB SDRAM </p> </td> 
+         <td> <p> 20 Gbit/s? </p> </td> 
+         <td> <p> 64 Gbit/s </p> </td> 
+         <td> <p> 65.5 Mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 16000 </p> </td> 
+         <td> <p> 1024 </p> </td> 
+         <td> <p> 48000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 7 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Allied Telesis </p> </td> 
+         <td> <p> AT-x610 series<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 48 </p> </td> 
+         <td> <p> 24 (SFP model) </p> </td> 
+         <td> <p> 2 (+2 stack ports) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 64Mb </p> </td> 
+         <td> <p> 512Mb </p> </td> 
+         <td> <p> 24 Gbit/s </p> </td> 
+         <td> <p> 184 Gbit/s </p> </td> 
+         <td> <p> 136.9 Mpps </p> </td> 
+         <td> <p> &lt;10 ?s </p> </td> 
+         <td> <p> 32,000 </p> </td> 
+         <td> <p> 4,096 </p> </td> 
+         <td> <p> 8,000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Allied Telesis </p> </td> 
+         <td> <p> AT-x900-24X<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 24 (48 with modules) </p> </td> 
+         <td> <p> 24 (48 with modules) </p> </td> 
+         <td> <p> 4 (with modules) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 64Mb </p> </td> 
+         <td> <p> 512Mb </p> </td> 
+         <td> <p> 30 Gbit/s </p> </td> 
+         <td> <p> 168 Gbit/s </p> </td> 
+         <td> <p> 110.1 Mpps </p> </td> 
+         <td> <p> &lt;10 ?s </p> </td> 
+         <td> <p> 16,000 </p> </td> 
+         <td> <p> 4,096 </p> </td> 
+         <td> <p> 256,000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Avaya </p> </td> 
+         <td> <p> <a href="Avaya ERS-5600 Systems">5632FD</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> Motorola MPC 8555 / 667 MHz </p> </td> 
+         <td> <p> 64Mb </p> </td> 
+         <td> <p> 256Mb </p> </td> 
+         <td> <p> 288 <a href="Gbit/s">Gbit/s</a>/Unit </p> </td> 
+         <td> <p> 384 Gbit/s </p> </td> 
+         <td> <p> 154.7 Mpps </p> </td> 
+         <td> <p> 9 ?s </p> </td> 
+         <td> <p> 16,000 </p> </td> 
+         <td> <p> 1024 </p> </td> 
+         <td> <p> 2000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>(5) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Avaya </p> </td> 
+         <td> <p> <a href="Avaya ERS-5600 Systems">5698TFD</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 96 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> Motorola MPC 8555 / 667 MHz </p> </td> 
+         <td> <p> 64Mb </p> </td> 
+         <td> <p> 256Mb </p> </td> 
+         <td> <p> 288 <a href="Gbit/s">Gbit/s</a>/Unit </p> </td> 
+         <td> <p> 384 Gbit/s </p> </td> 
+         <td> <p> 172.7 Mpps </p> </td> 
+         <td> <p> 9 ?s </p> </td> 
+         <td> <p> 16,000 </p> </td> 
+         <td> <p> 1024 </p> </td> 
+         <td> <p> 2000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>(5) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Avaya </p> </td> 
+         <td> <p> <a href="Avaya VSP-7000 System">VSP 7000</a> </p> </td> 
+         <td> <p> 8 (on MDA) </p> </td> 
+         <td> <p> 32 with MDA </p> </td> 
+         <td> <p> 32 with MDA </p> </td> 
+         <td> <p> PowerPC 2020 / 1Ghz </p> </td> 
+         <td> <p> 512Mb </p> </td> 
+         <td> <p> 1Gb </p> </td> 
+         <td> <p> 640 Gbit/Unit </p> </td> 
+         <td> <p> 1.28Tbit/s </p> </td> 
+         <td> <p> 960 Mpps </p> </td> 
+         <td> <p> 0.5&micro;s </p> </td> 
+         <td> <p> 128000 </p> </td> 
+         <td> <p> 1024 </p> </td> 
+         <td> <p> 4000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> D-Link </p> </td> 
+         <td> <p> DXS-3326GSR<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 4 (shared) </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 120 Gbit/s </p> </td> 
+         <td> <p> 128 Gbit/s </p> </td> 
+         <td> <p> 95 Mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> 16000 </p> </td> 
+         <td> <p> 256/4000 (static/dynamic) </p> </td> 
+         <td> <p> 3000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 7-12 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Cisco </p> </td> 
+         <td> <p> WS-C3750X-24S-E <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 0 (shared) </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 2 (with modules) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 256 </p> </td> 
+         <td> <p> 512 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 160 Gbit/s </p> </td> 
+         <td> <p> 65.5 mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 4k Access / 6K Default / 3K Routing / 12K VLAN ??? </p> </td> 
+         <td> <p> 1005 (concurrent VLANs) / 4K VLAN IDs </p> </td> 
+         <td> <p> 6K Access / 8K Default / 11K Routing ??? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> 9 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Dell </p> </td> 
+         <td> <p> PowerConnect 6224F<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Enterasys </p> </td> 
+         <td> <p> C-Series C5 C5K175-24<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 2 (+2 stacking ports) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 88 Gbit/s </p> </td> 
+         <td> <p> 65.5 Mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> 16000 </p> </td> 
+         <td> <p> 4096 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Extreme Networks </p> </td> 
+         <td> <p> Summit X450a-24x<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 4 (shared?) </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 40 Gbit/s </p> </td> 
+         <td> <p> 128 Gbit/s </p> </td> 
+         <td> <p> 95.2 Mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 16000 </p> </td> 
+         <td> <p> 4094 </p> </td> 
+         <td> <p> 12000 (IPv4) / 6000 (IPv6) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Force10 Networks </p> </td> 
+         <td> <p> S25P<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Foundry </p> </td> 
+         <td> <p> FESX624HF<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 4 (shared?) </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 2? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 10 Gbit/s? </p> </td> 
+         <td> <p> 88 Gbit/s </p> </td> 
+         <td> <p> 65 Mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 16000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 256000 (IPv4) / 32000 (IPv6) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> H3C </p> </td> 
+         <td> <p> S5800-32F<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> Broadcom BCM56639 </p> </td> 
+         <td> <p> 512 MB </p> </td> 
+         <td> <p> 512 MB SDRAM </p> </td> 
+         <td> <p> 20 Gbit/s<span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 208 Gbit/s </p> </td> 
+         <td> <p> 155 Mpps </p> </td> 
+         <td> <p> &lt;2.1 ?sec (64 Byte Frames) </p> </td> 
+         <td> <p> 32000 </p> </td> 
+         <td> <p> 4094 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> 8? </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> HP </p> </td> 
+         <td> <p> 6200yl<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> Freescale PowerPC 8540 / 667&nbsp;MHz </p> </td> 
+         <td> <p> 128 MB / 1 GB </p> </td> 
+         <td> <p> 256 MB / 1 GB DDR </p> </td> 
+         <td> <p> 10 Gpbs </p> </td> 
+         <td> <p> 105.6 Gbit/s </p> </td> 
+         <td> <p> 75.7 Mpps </p> </td> 
+         <td> <p> &lt; 3.7 ?s (64 Byte Frames) </p> </td> 
+         <td> <p> 64000 </p> </td> 
+         <td> <p> 2048 </p> </td> 
+         <td> <p> 10000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Juniper </p> </td> 
+         <td> <p> EX4200-24F<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 2/4? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 128 Gbit/s </p> </td> 
+         <td> <p> 88 Gbit/s </p> </td> 
+         <td> <p> 65 Mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 24000 </p> </td> 
+         <td> <p> 4096 </p> </td> 
+         <td> <p> 10000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> 10 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Netgear </p> </td> 
+         <td> <p> GSM7328FS<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 4 (shared) </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 24 Gbit/s </p> </td> 
+         <td> <p> 144 Gbit/s </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> &lt; 6 ?s (64 Byte Frames) </p> </td> 
+         <td> <p> 8000 </p> </td> 
+         <td> <p> 512 </p> </td> 
+         <td> <p> 512 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Ruijie Networks Ltd. </p> </td> 
+         <td> <p> RG-S5750-24SFP/8SFP-E<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 8 (shared) </p> </td> 
+         <td> <p> 24 (shared) </p> </td> 
+         <td> <p> 4 (with modules) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 208 Gbit/s </p> </td> 
+         <td> <p> 191 Mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span>} </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Zyxel </p> </td> 
+         <td> <p> XGS-4528F<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 24 (shared) </p> </td> 
+         <td> <p> 24 (shared) </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 144 Gbit/s </p> </td> 
+         <td> <p> 100 Mpps </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 8000 </p> </td> 
+         <td> <p> 1000 or 4000? </p> </td> 
+         <td> <p> 2000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> 24? </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Comparison of 10/40/100Gbe TOR switches</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable"> 
+       <tbody>
+        <tr>
+         <th> <p> Manufacturer </p> </th> 
+         <th> <p> Part number </p> </th> 
+         <th> <p> Number of (builtin) 10Gbe ports (RJ45) </p> </th> 
+         <th> <p> Number of (builtin) 10Gbe Ports (SFP+) </p> </th> 
+         <th> <p> Number of (builtin) 40Gbe Ports </p> </th> 
+         <th> <p> Number of (builtin) 100Gbe Ports </p> </th> 
+         <th> <p> Number of (builtin) 10Gbe Ports (everyhting else e.g. XFP,CX4) </p> </th> 
+         <th> <p> Number of additional 10Gbe Ports (incl. modules) </p> </th> 
+         <th> <p> Number of additional 40Gbe Ports (incl. modules) </p> </th> 
+         <th> <p> Number of additional 100Gbe Ports (incl. modules) </p> </th> 
+         <th> <p> CPU type / MHz </p> </th> 
+         <th> <p> builtin flash ROM size </p> </th> 
+         <th> <p> RAM size </p> </th> 
+         <th> <p> packet buffer </p> </th> 
+         <th> <p> Stacking capability (maximum number of stacking members) </p> </th> 
+         <th> <p> Switching capacity </p> </th> 
+         <th> <p> Forwarding rate </p> </th> 
+         <th> <p> maximum latency@10Gbit/s (packet size 1518 / 9216 bytes) </p> </th> 
+         <th> <p> Number of MAC addresses in address table </p> </th> 
+         <th> <p> Number of IEEE 802.1Q VLANs </p> </th> 
+         <th> <p> Number of IPv4 routing table entries </p> </th> 
+         <th> <p> Number of IPv6 routing table entries </p> </th> 
+         <th> <p> OSPFv2 </p> </th> 
+         <th> <p> OSPFv3 </p> </th> 
+         <th> <p> ISIS (IPv4) </p> </th> 
+         <th> <p> ISIS (IPv6) </p> </th> 
+         <th> <p> PIM-DM (IPv4) </p> </th> 
+         <th> <p> PIM-SM (IPv4) RFC 4601 </p> </th> 
+         <th> <p> PIM-SM (IPv6) </p> </th> 
+         <th> <p> PIM-SSM (IPv4) RFC 3569 </p> </th> 
+         <th> <p> PIM-SSM (IPv6) </p> </th> 
+         <th> <p> BGP </p> </th> 
+         <th> <p> BGP4+ (Multiprotocol BGP extension (for IPv6)) </p> </th> 
+         <th> <p> VRRP (IPv4) </p> </th> 
+         <th> <p> VRRP (IPv6) </p> </th> 
+         <th> <p> Netflow/cFlow/jFlow/Netstream/sFlow support </p> </th> 
+         <th> <p> Multi-chassis Link Aggregation (MLAG) </p> </th> 
+         <th> <p> TRILL: Fine-Grained Labeling </p> </th> 
+         <th> <p> IEEE 802.1aq (SPB), (SPBV, SPBM or both) </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> Netgear </p> </td> 
+         <td> <p> XSM7224S<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 4(shared) </p> </td> 
+         <td> <p> 24 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> Cavium CN5230-750 (four cores) / 750Mhz </p> </td> 
+         <td> <p> 128MB </p> </td> 
+         <td> <p> 512MB </p> </td> 
+         <td> <p> 16MB per switch </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> 480 Gbit/s </p> </td> 
+         <td> <p> 357 Mpps </p> </td> 
+         <td> <p> 2.14?s / 1.91?s<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 32000 </p> </td> 
+         <td> <p> 1024 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> sFlow </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+      <p> <a href="Category:Networking hardware">Category:Networking hardware</a> <a href="Category:Computing comparisons">Category:Computing comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

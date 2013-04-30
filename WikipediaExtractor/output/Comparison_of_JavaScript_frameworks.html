@@ -1,0 +1,1328 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of JavaScript frameworks</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of JavaScript frameworks</h1> 
+   <div class="article-content"> 
+    <p> There are many <a href="JavaScript">JavaScript</a> <a href="Framework_(computer_science)">frameworks</a> available. The intention of this comparison is to show some examples of notable JavaScript frameworks. </p> 
+    <div class="section"> 
+     <h2> Comparison of JavaScript frameworks </h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="margin-right:0; font-size:85%;"> 
+       <tbody>
+        <tr>
+         <th style="width:15em"> </th> 
+         <th> <p> <a href="AccDC">AccDC</a> </p> </th> 
+         <th> <p> <a href="Ample SDK">Ample SDK</a> </p> </th> 
+         <th> <p> <a href="CupQ">CupQ</a> </p> </th> 
+         <th> <p> <a href="Dhtmlx">DHTMLX</a> </p> </th> 
+         <th> <p> <a href="Dojo Toolkit">Dojo</a> </p> </th> 
+         <th> <p> <a href="Echo (framework)#Echo3">Echo3</a> </p> </th> 
+         <th> <p> <a href="Enyo (software)">Enyo</a> </p> </th> 
+         <th> <p> <a href="Ext (JavaScript library)">Ext JS</a> </p> </th> 
+         <th> <p> <a href="Google Web Toolkit">Google Web Toolkit</a> </p> </th> 
+         <th> <p> <a href="jQuery">jQuery</a> </p> </th> 
+         <th> <p> <a href="Midori Javascript Framework">midori</a> </p> </th> 
+         <th> <p> <a href="MochiKit">MochiKit</a> </p> </th> 
+         <th> <p> <a href="MooTools">MooTools</a> </p> </th> 
+         <th> <p> <a href="Prototype JavaScript Framework">Prototype</a> &amp; <a href="script.aculo.us">script. aculo.us</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="Pyjamas (software)">Pyjamas</a> </p> </th> 
+         <th> <p> <a href="qooxdoo">qooxdoo</a> </p> </th> 
+         <th> <p> <a href="Rialto Toolkit">Rialto Toolkit</a> </p> </th> 
+         <th> <p> <a href="Rico (Ajax)">Rico</a> </p> </th> 
+         <th> <p> <a href="SmartClient">SmartClient</a> &amp; SmartGWT </p> </th> 
+         <th> <p> <a href="Wakanda (software)">Wakanda</a> </p> </th> 
+         <th> <p> <a href="YUI Library">YUI</a> </p> </th> 
+         <th> <p> <a href="ZK Framework">ZK</a> </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> Version compared </p> </td> 
+         <td> <p> 2.0.2<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 0.9.3<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 0.2<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 3.6<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 1.8.0<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 3.0.rc1<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 2.0.1<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 4.2<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 2.4<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 1.9.1<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 2010.05<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 1.4.2<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 1.4.5<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> Prototype: 1.7.1<br /><span class="unknown-node">{{nowrap|...}}</span> <br />script.aculo.us: 1.9.0<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 0.5<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 2.1<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 1.1.5<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 2.0<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> SmartClient: 8.3 <br /><span class="unknown-node">{{nowrap|...}}</span> <br />SmartGWT: 3.1 <br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 3<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 3.4<br /><span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> 6.5.1.1 <br /><span class="unknown-node">{{nowrap|...}}</span> / September 12, 2012; </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Size </p> </td> 
+         <td> </td> 
+         <td> <p> Variable. <br />Core size: <br /><span class="unknown-node">{{nowrap|...}}</span> (minified &amp; gzipped) </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> (minified) </p> </td> 
+         <td> <p> Variable </p> </td> 
+         <td> <p> Variable. <br />Base size: <br /><span class="unknown-node">{{nowrap|...}}</span> (minified &amp; gzipped), <br /><span class="unknown-node">{{nowrap|...}}</span> (minified), <br /><span class="unknown-node">{{nowrap|...}}</span> (uncompressed)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> (core gzipped) </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> Variable </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> (minified &amp; gzipped), <br /><span class="unknown-node">{{nowrap|...}}</span> (minified), <br /><span class="unknown-node">{{nowrap|...}}</span> (uncompressed) </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> (minified &amp; gzipped), <br /><span class="unknown-node">{{nowrap|...}}</span> (uncompressed) </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> Variable; <br /><span class="unknown-node">{{nowrap|...}}</span> <span class="unknown-node">{{nowrap|...}}</span>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <br /><span class="unknown-node">{{nowrap|...}}</span> (uncompressed)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> Variable </p> </td> 
+         <td> <p> Variable, starting at <span class="unknown-node">{{nowrap|...}}</span> (gzipped) </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> (gzipped). </p> </td> 
+         <td> <p> Variable </p> </td> 
+         <td> <p> Variable; library core is <span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> Variable </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> License </p> </td> 
+         <td> <p> <a href="MIT License">MIT License</a> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a> &amp; <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> <a href="GPL">GPL</a> and <a href="http://dhtmlx.com/docs/products/licenses.shtml">Commercial</a> </p> </td> 
+         <td> <p> <a href="BSD License">BSD</a> &amp; <a href="Academic Free License">AFL</a> </p> </td> 
+         <td> <p> <a href="Mozilla Public License">MPL</a>, LGPL or GPL </p> </td> 
+         <td> <p> <a href="Apache 2 License">Apache 2</a> <a href="http://enyojs.com/about/#License">1</a> </p> </td> 
+         <td> <p> <a href="GPL v3">GPL</a> and <a href="http://www.sencha.com/products/license.php">Commercial</a> </p> </td> 
+         <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a> &amp; <a href="Academic Free License">AFL</a> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> <a href="Apache 2 License">Apache 2</a> &amp; <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> <a href="LGPL">LGPL</a> &amp; <a href="Eclipse Public License">EPL</a> </p> </td> 
+         <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+         <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+         <td> <p> <a href="LGPL">LGPL</a> &amp; <a href="http://www.smartclient.com/product/index.jsp">Commercial</a> </p> </td> 
+         <td> <p> <a href="GPL">GPL</a> &amp; <a href="http://www.wakanda.org/license/commercial">Commercial</a> </p> </td> 
+         <td> <p> <a href="BSD License">BSD</a> </p> </td> 
+         <td> <p> <a href="LGPL">LGPL</a> &amp; <a href="GPL">GPL</a> &amp; <a href="http://www.zkoss.org/license/">ZOL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Source language </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> JavaScript + HTML </p> </td> 
+         <td> <p> JavaScript and/or Java </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Server: Java <br />Client: Java (Smart GWT) or Javascript (SmartClient) or XML (both) </p> </td> 
+         <td> <p> Javascript + HTML + CSS </p> </td> 
+         <td> <p> Javascript + HTML + CSS </p> </td> 
+         <td> <p> XML + Java (Javascript Optional) </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="21"> <p> Features </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="width:15em"> </th> 
+         <th> <p> <a href="AccDC">AccDC</a> </p> </th> 
+         <th> <p> <a href="Ample SDK">Ample SDK</a> </p> </th> 
+         <th> <p> <a href="CupQ">CupQ</a> </p> </th> 
+         <th> <p> <a href="Dhtmlx">DHTMLX</a> </p> </th> 
+         <th> <p> <a href="Dojo Toolkit">Dojo</a> </p> </th> 
+         <th> <p> <a href="Echo (framework)#Echo3">Echo3</a> </p> </th> 
+         <th> <p> <a href="Enyo (software)">Enyo</a> </p> </th> 
+         <th> <p> <a href="Ext (JavaScript library)">Ext JS</a> </p> </th> 
+         <th> <p> <a href="Google Web Toolkit">Google Web Toolkit</a> </p> </th> 
+         <th> <p> <a href="jQuery">jQuery</a> </p> </th> 
+         <th> <p> <a href="Midori Javascript Framework">midori</a> </p> </th> 
+         <th> <p> <a href="MochiKit">MochiKit</a> </p> </th> 
+         <th> <p> <a href="MooTools">MooTools</a> </p> </th> 
+         <th> <p> <a href="Prototype JavaScript Framework">Prototype</a> &amp; <a href="script.aculo.us">script. aculo.us</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> <a href="Pyjamas (software)">Pyjamas</a> </p> </th> 
+         <th> <p> <a href="qooxdoo">qooxdoo</a> </p> </th> 
+         <th> <p> <a href="Rialto Toolkit">Rialto Toolkit</a> </p> </th> 
+         <th> <p> <a href="Rico (Ajax)">Rico</a> </p> </th> 
+         <th> <p> <a href="SmartClient">SmartClient</a> and SmartGWT </p> </th> 
+         <th> <p> <a href="Wakanda (software)">Wakanda</a> </p> </th> 
+         <th> <p> <a href="YUI Library">YUI</a> </p> </th> 
+         <th> <p> <a href="ZK Framework">ZK</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> Feature detection<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends |...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Partial </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> DOM wrapped<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Ajax (programming)">XMLHttpRequest</a><br />data retrieval </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JSON">JSON</a> data retrieval </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Server push">Server push</a> data retrieval </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Other data retrieval </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Drag and drop">Drag and drop</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Simple visual effects </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Animation / <br /> advanced visual effects </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Event handler">Event handling</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Back button support / <br /> history management </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Input form <a href="Web widget">widgets</a> &amp; validation </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, Validation requires plugin<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="width:15em"> </th> 
+         <th> <p> <a href="AccDC">AccDC</a> </p> </th> 
+         <th> <p> <a href="Ample SDK">Ample SDK</a> </p> </th> 
+         <th> <p> <a href="CupQ">CupQ</a> </p> </th> 
+         <th> <p> <a href="Dhtmlx">DHTMLX</a> </p> </th> 
+         <th> <p> <a href="Dojo Toolkit">Dojo</a> </p> </th> 
+         <th> <p> <a href="Echo (framework)#Echo3">Echo3</a> </p> </th> 
+         <th> <p> <a href="Enyo (software)">Enyo</a> </p> </th> 
+         <th> <p> <a href="Ext (JavaScript library)">ExtJS</a> </p> </th> 
+         <th> <p> <a href="Google Web Toolkit">Google Web Toolkit</a> </p> </th> 
+         <th> <p> <a href="jQuery">jQuery</a> </p> </th> 
+         <th> <p> <a href="Midori Javascript Framework">midori</a> </p> </th> 
+         <th> <p> <a href="MochiKit">MochiKit</a> </p> </th> 
+         <th> <p> <a href="MooTools">MooTools</a> </p> </th> 
+         <th> <p> <a href="Prototype JavaScript Framework">Prototype</a> &amp; <a href="script.aculo.us">script. aculo.us</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> <a href="Pyjamas (software)">Pyjamas</a> </p> </th> 
+         <th> <p> <a href="qooxdoo">qooxdoo</a> </p> </th> 
+         <th> <p> <a href="Rialto Toolkit">Rialto Toolkit</a> </p> </th> 
+         <th> <p> <a href="Rico (Ajax)">Rico</a> </p> </th> 
+         <th> <p> <a href="SmartClient">SmartClient</a> and SmartGWT </p> </th> 
+         <th> <p> <a href="Wakanda (software)">Wakanda</a> </p> </th> 
+         <th> <p> <a href="YUI Library">YUI</a> </p> </th> 
+         <th> <p> <a href="ZK Framework">ZK</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> Grid </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Tree structure">Hierarchical Tree</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Auto Form)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Online rich-text editor">Rich text editor</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Autocomplete">Autocompletion</a> tools </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HTML">HTML</a> generation tools </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Widgets themeable / skinnable </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GUI resizable panels and modal dialogs </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GUI page layout </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Canvas support </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Mobile/tablet support (touch events) </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Accessibility / <br /> graceful degradation<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WAI-ARIA">ARIA</a> compliant </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Developer tools, Visual design </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{beta|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Offline storage<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> planned </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Cross-browser 2d Vector Graphics<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (via Raphael) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Charting &amp; Dashboard<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> RTL Support in UI Components </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="width:15em"> </th> 
+         <th> <p> <a href="AccDC">AccDC</a> </p> </th> 
+         <th> <p> <a href="Ample SDK">Ample SDK</a> </p> </th> 
+         <th> <p> <a href="CupQ">CupQ</a> </p> </th> 
+         <th> <p> <a href="Dhtmlx">DHTMLX</a> </p> </th> 
+         <th> <p> <a href="Dojo Toolkit">Dojo</a> </p> </th> 
+         <th> <p> <a href="Echo (framework)#Echo3">Echo3</a> </p> </th> 
+         <th> <p> <a href="Enyo (software)">Enyo</a> </p> </th> 
+         <th> <p> <a href="Ext (JavaScript library)">Ext JS</a> </p> </th> 
+         <th> <p> <a href="Google Web Toolkit">Google Web Toolkit</a> </p> </th> 
+         <th> <p> <a href="jQuery">jQuery</a> </p> </th> 
+         <th> <p> <a href="Midori Javascript Framework">midori</a> </p> </th> 
+         <th> <p> <a href="MochiKit">MochiKit</a> </p> </th> 
+         <th> <p> <a href="MooTools">MooTools</a> </p> </th> 
+         <th> <p> <a href="Prototype JavaScript Framework">Prototype</a> &amp; <a href="script.aculo.us">script. aculo.us</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> <a href="Pyjamas (software)">Pyjamas</a> </p> </th> 
+         <th> <p> <a href="qooxdoo">qooxdoo</a> </p> </th> 
+         <th> <p> <a href="Rialto Toolkit">Rialto Toolkit</a> </p> </th> 
+         <th> <p> <a href="Rico (Ajax)">Rico</a> </p> </th> 
+         <th> <p> <a href="SmartClient">SmartClient</a> and SmartGWT </p> </th> 
+         <th> <p> <a href="Wakanda (software)">Wakanda</a> </p> </th> 
+         <th> <p> <a href="YUI Library">YUI</a> </p> </th> 
+         <th> <p> <a href="ZK Framework">ZK</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="21"> <p> Browser Support </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Internet Explorer">Internet Explorer</a> </p> </th> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 8+<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 5.5+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+         <td> <p> 6+ </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mozilla Firefox">Mozilla Firefox</a> </p> </th> 
+         <td> <p> 2+ </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 2+ </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 3+<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1.5+ </p> </td> 
+         <td> <p> &gt;4<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 1.5+ </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 2+<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 1.5+ </p> </td> 
+         <td> <p> 1.0.7, 1.5b2 </p> </td> 
+         <td> <p> 2+ </p> </td> 
+         <td> <p> 1.5+ </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 2+ </p> </td> 
+         <td> <p> 1.5+ </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 4+ </p> </td> 
+         <td> <p> 3+<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2.0+ </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Safari (web browser)">Safari</a> </p> </th> 
+         <td> <p> 3+ </p> </td> 
+         <td> <p> 3+ </p> </td> 
+         <td> <p> 3+ </p> </td> 
+         <td> <p> 2.0+ </p> </td> 
+         <td> <p> 4<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 3+ </p> </td> 
+         <td> <p> &gt;5<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 3+ </p> </td> 
+         <td> <p> 3+ </p> </td> 
+         <td> <p> 3+<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 2+ </p> </td> 
+         <td> <p> 2.0.2 </p> </td> 
+         <td> <p> 3+ </p> </td> 
+         <td> <p> 2.0.4+ </p> </td> 
+         <td> <p> 2+ </p> </td> 
+         <td> <p> 3+ </p> </td> 
+         <td> </td> 
+         <td> <p> 2.0.3<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3+ </p> </td> 
+         <td> <p> 5+ </p> </td> 
+         <td> <p> 4.0 </p> </td> 
+         <td> <p> 3+ </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Opera (web browser)">Opera</a> </p> </th> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 9.6+ </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 10.50+<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 9+<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 8.5 </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 9.25+ </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> </td> 
+         <td> <p> 9+ </p> </td> 
+         <td> </td> 
+         <td> <p> 10.0+ </p> </td> 
+         <td> <p> 9+ </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Chromium (software)">Chrome</a> </p> </th> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 3<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> &gt;10<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 3+<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 1+<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 1+ (starting with 1.6.1RC3) </p> </td> 
+         <td> </td> 
+         <td> <p> 2+ </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> 1+ </p> </td> 
+         <td> <p> 11+ </p> </td> 
+         <td> </td> 
+         <td> <p> 2+ </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="List of JavaScript libraries">List of JavaScript libraries</a></li> 
+       <li><a href="Ajax framework">Ajax framework</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+      <p> <span class="unknown-node">{{ECMAScript}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Javascript Frameworks}}</span> <a href="Category:JavaScript libraries">*</a> <a href="Category:Software comparisons">JavaScript frameworks</a> <a href="Category:Ajax (programming)">Category:Ajax (programming)</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

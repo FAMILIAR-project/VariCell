@@ -1,0 +1,1483 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of file synchronization software</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of file synchronization software</h1> 
+   <div class="article-content"> 
+    <p> This is a list of <b>file synchronization software</b>. <a href="File synchronization">File synchronization</a> is a process of ensuring that files in two or more locations are updated via certain rules. </p> 
+    <div class="section"> 
+     <h2> Definitions </h2> 
+     <div class="section-body"> 
+      <p> <b>Detect rename, move</b>: Some programs sync such by a rename or move on the mirror. Most programs detect rename or move as deletion and addition, the file is copied again to the mirror at the new location or with the new name. A major difference in duration of syncing large renamed or moved files. To detect a rename or move, the most efficient option seems calculation and registration of a hash total for the original and mirror file when copying. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Open source </h2> 
+     <div class="section-body"> 
+      <p> This is a comparison of <a href="free and open source software">free and open source software</a>. </p> 
+      <table class="wikitable sortable"> 
+       <tbody>
+        <tr>
+         <th> Name </th> 
+         <th> Protocol </th> 
+         <th> Programming language </th> 
+         <th> Windows </th> 
+         <th> Mac OS X </th> 
+         <th> Linux </th> 
+         <th> Other OS </th> 
+         <th> License </th> 
+         <th> Version </th> 
+         <th> Portable </th> 
+         <th> Detect conflict </th> 
+         <th> Detect rename <a href="Talk:Comparison_of_file_synchronization_software#Call_for_user_opinions_about_.22Detect_rename.2C_move.22">(talk)</a> </th> 
+         <th> Detect move <a href="Talk:Comparison_of_file_synchronization_software#Call_for_user_opinions_about_.22Detect_rename.2C_move.22">(talk)</a> </th> 
+         <th> Undo </th> 
+         <th> Scheduling or Service </th> 
+         <th> Sync to Cloud </th> 
+         <th> <p> Other information </p> </th> 
+        </tr>
+        <tr> 
+         <td> <a href="Conduit (software)">Conduit</a> </td> 
+         <td> network/web app </td> 
+         <td> <a href="Python (programming language)">Python</a> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <a href="GNU General Public License">GPL</a> </td> 
+         <td> 0.3.16 </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> </td> 
+         <td> <p> Synchronizes files, website, network apps </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Create Synchronicity">Create Synchronicity</a> </td> 
+         <td> file system </td> 
+         <td> <a href="Visual Basic .NET">Visual Basic .NET</a> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (using Mono) </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> GPL </td> 
+         <td> 2011-05-03 = 5.2.1 </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (native, via OS) </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="DirSync Pro">DirSync Pro</a> </td> 
+         <td> file system </td> 
+         <td> <a href="Java (programming language)">Java</a> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> cross-platform </td> 
+         <td> GPLv3 </td> 
+         <td> 2013-04-07 = 1.46 </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (del + add) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (del + add) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (creates backup files) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (native + via OS) </td> 
+         <td> </td> 
+         <td> <p> <a href="DirSync_Pro#See_also">sym-links, filter, metadata, contents, auto-sync</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> FreeFileSync<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> file system </td> 
+         <td> <a href="C++">C++</a> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> GPL+<a href="OpenCandy">OpenCandy</a> </td> 
+         <td> 2013-3-31 = 5.14 </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (installer option) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (in syncmode bidirectional) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (in syncmode bidirectional) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (versioning + recycler) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="iFolder">iFolder</a> </td> 
+         <td> file system </td> 
+         <td> C#, <a href="Mono (software)">Mono</a> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (client software only) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (client software only) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> GPL </td> 
+         <td> 2010-7-19 = 3.8.0.3 </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (centralized database) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (files, not folders) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (files, not folders) </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="luckyBackup">luckyBackup</a> </td> 
+         <td> file system </td> 
+         <td> C++ </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> GPLv3 </td> 
+         <td> 2012-03-14 = 0.4.7 </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> </td> 
+         <td> <p> An active project </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="OneSync">OneSync</a> </td> 
+         <td> file system </td> 
+         <td> C# </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> GPL </td> 
+         <td> 2010-10-21 = 3.0 </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="rsync">rsync</a> </td> 
+         <td> file system or network </td> 
+         <td> <a href="C (programming language)">C</a> in a Unix-Linux shell </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <a href="GPL v3">GPL v3</a> </td> 
+         <td> 2011-09-23 = 3.09 </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (del + add) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (del + add) </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> via OS </td> 
+         <td> </td> 
+         <td> <p> client &amp; server operation. Multiple comparison criteria (date, check-sum). </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="SparkleShare">SparkleShare</a> </td> 
+         <td> file system </td> 
+         <td> C# </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <a href="Android (operating system)">Android</a>, <a href="iOS">iOS</a> </td> 
+         <td> <a href="GPL v3">GPL v3</a> </td> 
+         <td> 0.8.4 </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Uses <a href="Git (software)">Git</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Syncany">Syncany</a> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> SyncToCloud<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> file system </td> 
+         <td> <a href="Java (programming language)">Java</a> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <a href="GPL v3">GPL v3</a> </td> 
+         <td> 2013-04-16 = 1.11 </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (del + add) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (del + add) </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> </td> 
+         <td> <p> Template based, Online template repository, can track in app time </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Synkron">Synkron</a> </td> 
+         <td> file system </td> 
+         <td> C++ </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <a href="GPL v2">GPL v2</a> </td> 
+         <td> 2011-01-25 = 1.6.2 </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> </td> 
+         <td> <p> Distributed </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Unison (file synchronizer)">Unison</a> </td> 
+         <td> similar to rsync over socket, rsh, encrypted ssh, or file system </td> 
+         <td> <a href="OCaml">OCaml</a> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> GPL </td> 
+         <td> 2011-05-11 = 2.40.63 </td> 
+         <td> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (centralized database) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (remote xferbycopying) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (remote xferbycopying) </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> (backups) </td> 
+         <td> via OS </td> 
+         <td> </td> 
+         <td> <p> efficient mature and stable but no longer in active development<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> Name </th> 
+         <th> Protocol </th> 
+         <th> Programming language </th> 
+         <th> Windows </th> 
+         <th> Mac OS X </th> 
+         <th> Linux </th> 
+         <th> Other OS </th> 
+         <th> License </th> 
+         <th> Version </th> 
+         <th> Portable </th> 
+         <th> Detect conflict </th> 
+         <th> Detect rename </th> 
+         <th> Detect move </th> 
+         <th> Undo </th> 
+         <th> Scheduling or Service </th> 
+         <th> Sync to Cloud </th> 
+         <th> <p> Other information </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Freeware </h2> 
+     <div class="section-body"> 
+      <p> This is a comparison of <a href="proprietary software">proprietary software</a> released as <a href="freeware">freeware</a> or <a href="gratis">gratis</a>. </p> 
+      <table class="wikitable sortable" border="1"> 
+       <tbody>
+        <tr> 
+         <th> Name </th> 
+         <th> OS </th> 
+         <th> Vendor </th> 
+         <th> Online <a href="cloud storage">cloud storage</a> </th> 
+         <th> <a href="Remote desktop">Remote desktop</a> </th> 
+         <th> Prior file versions, <a href="revision control">revision control</a> </th> 
+         <th> Comments </th> 
+         <th> Detect rename </th> 
+         <th> Detect move </th> 
+         <th> Scheduling </th> 
+         <th> <p> Full duplex transfer </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <a href="ActiveSync">Microsoft ActiveSync</a> </td> 
+         <td> Windows </td> 
+         <td> Microsoft </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> ? </td> 
+         <td> Syncs mobile devices </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="BitTorrent Sync">BitTorrent Sync</a> </td> 
+         <td> Windows / Mac OS X / Linux </td> 
+         <td> <a href="BitTorrent_(company)">BitTorrent, Inc</a> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> Distributed peer-to-peer sync </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Briefcase (Microsoft Windows)">Briefcase in Microsoft Windows</a> </td> 
+         <td> Windows </td> 
+         <td> Microsoft </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> ? </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Windows Mobile Device Center">Windows Mobile Device Center</a> </td> 
+         <td> Windows </td> 
+         <td> Microsoft </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> ? </td> 
+         <td> Syncs mobile devices; successor to Microsoft <a href="ActiveSync">ActiveSync</a> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Gbridge">Gbridge</a> </td> 
+         <td> Windows </td> 
+         <td> Gbridge LLC </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, via <a href="VNC">VNC</a> or <a href="Remote Desktop Protocol">RDP</a> </td> 
+         <td> </td> 
+         <td> Sync folders, live web browsing, etc. </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Microsoft Sync Framework">Microsoft Sync Framework</a> </td> 
+         <td> Windows </td> 
+         <td> Microsoft </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> ? </td> 
+         <td> Syncs files, data, services; a framework, not a tool </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> - </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="SyncToy">Microsoft SyncToy</a> </td> 
+         <td> Windows </td> 
+         <td> Microsoft </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span>, recycle bin only </td> 
+         <td> Sync local folders </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> via OS </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Live Mesh">Windows Live Mesh</a> (discontinued 13 February 2013) </td> 
+         <td> Windows (Vista and greater), Windows Mobile, OSX </td> 
+         <td> Microsoft </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span>, recycle bin only </td> 
+         <td> Sync folders, cloud storage </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{no}}</span>, syncs whenever it's online </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Windows Live Sync">Windows Live Sync</a> (discontinued 31 March 2011) </td> 
+         <td> Windows, OSX </td> 
+         <td> Microsoft </td> 
+         <td> <span class="unknown-node">{{no}}</span>, browsing only </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span>, recycle bin only </td> 
+         <td> Sync folders, browse devices from website, remote access; was Microsoft FolderShare, 20,000 file limit </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span>, syncs whenever it's online </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Commercial </h2> 
+     <div class="section-body"> 
+      <p> This is a comparison of <a href="proprietary software">proprietary software</a> released as <a href="commercial software">commercial</a>. </p> 
+      <table class="wikitable sortable" border="1" style="font-size: 70%; width: 100%;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> Windows </th> 
+         <th> Mac </th> 
+         <th> Linux </th> 
+         <th> <p> Other OS </p> </th> 
+         <th> Open source </th> 
+         <th> <p> <a href="Online backup service">Online backup service</a> </p> </th> 
+         <th> Freeware version </th> 
+         <th> <p> Portable </p> </th> 
+         <th> Detect conflict </th> 
+         <th> File lock </th> 
+         <th> <p> Open file support </p> </th> 
+         <th> <a href="Revision control">Revision control</a> </th> 
+         <th> Detect rename </th> 
+         <th> <p> Detect move </p> </th> 
+         <th> Full duplex transfer </th> 
+         <th> Propagate deletes </th> 
+         <th> Case sensitive </th> 
+         <th> <p> <a href="Delta copying">Delta copying (block level transfer)</a> </p> </th> 
+         <th> <p> LAN Sync </p> </th> 
+         <th> <p> Sync any directory </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <a href="Allway Sync">Allway Sync</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> via other providers </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, with limits </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="AIMstor">AIMstor</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, with limits </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> through VSS </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{No}}</span> case preserving </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Argentum Backup">Argentum Backup</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="BackupAssist">BackupAssist</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> via <a href="Rsync">Rsync</a> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Backup4all">Backup4all</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="BatchSync">BatchSync</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, with limits </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Box.net">Box Sync</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, with limits </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> ? </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> ? </td> 
+         <td> ? </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> ? </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="CloudMe">CloudMe</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, iPhone, Android, Google TV, Samsung TV </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> ? </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> ? </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Distributed Storage">Distributed Storage</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> via other providers </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Dmailer">Dmailer Sync</a> (discontinued) </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Dropbox (service)">Dropbox</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, Android, iPhone, BlackBerry </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> ? </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> ? </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Easy Computer Sync">Easy Computer Sync</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span>, limited </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Easy2Sync for Files">Easy2Sync for Files</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, for folders </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Egnyte">Egnyte</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, Android, iPad, iPhone </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span>, handled by versioning </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span>, case preserving </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="GoodSync">GoodSync</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, with limits </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Handy Backup">Handy Backup</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="RepliWeb">RepliWeb</a> Deployment </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, partial </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Robocopy">Robocopy</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="SpiderOak">SpiderOak</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> Partial </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{no}}</span>, one-way sharing only </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> <span class="unknown-node">{{Yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Sharpcast">SugarSync</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, Android, BlackBerry, iPhone, Windows Mobile </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="SuperFlexible">SuperFlexible</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, Linux only </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, manual install </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="SyncBack">SyncBack</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="http://www.syncblaze.com">SyncBlaze</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, Android, iPhone,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> iPad </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, with limits </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Syncdocs">Syncdocs</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span>, Google Docs web interface only </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, beta only </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> for MS Word only<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Synchronize It">Synchronize It</a>! </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="http://www.syncovery.com/matrix/">Syncovery</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Syncplicity">Syncplicity</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{No}}</span> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Tonido">Tonido</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, Android, BlackBerry, iPhone, Windows Phone </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Ubuntu One">Ubuntu One</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, Android, iPhone, iPad <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> Partial </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="Wuala">Wuala</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, Android </td> 
+         <td> Partial </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <a href="ZumoDrive">ZumoDrive</a> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span>, Android, iPhone, Palm webOS </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Name </p> </th> 
+         <th> Windows </th> 
+         <th> Mac </th> 
+         <th> Linux </th> 
+         <th> <p> Other OS </p> </th> 
+         <th> Open source </th> 
+         <th> <p> <a href="Online backup service">Online backup service</a> </p> </th> 
+         <th> Freeware version </th> 
+         <th> <p> Portable </p> </th> 
+         <th> Detect conflict </th> 
+         <th> File lock </th> 
+         <th> <p> Open file support </p> </th> 
+         <th> <a href="Revision control">Revision control</a> </th> 
+         <th> Detect rename </th> 
+         <th> <p> Detect move </p> </th> 
+         <th> Full duplex transfer, <a href="collaborative software">collaborative</a> </th> 
+         <th> Propagate deletes </th> 
+         <th> Case sensitive </th> 
+         <th> <p> <a href="Delta copying">Delta copying (block level transfer)</a> </p> </th> 
+         <th> <p> LAN Sync </p> </th> 
+         <th> <p> Sync any directory </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Comparison of online backup services">Comparison of online backup services</a></li> 
+       <li><a href="Comparison of file hosting services">Comparison of file hosting services</a></li> 
+       <li><a href="Comparison of revision control software">Comparison of revision control software</a></li> 
+       <li><a href="Comparison of browser synchronizers">Comparison of browser synchronizers</a></li> 
+       <li><a href="List of backup software">List of backup software</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <span class="unknown-node">{{cite web|...}}</span></li> 
+       <li> <span class="unknown-node">{{cite web|...}}</span></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:File synchronization}}</span> <a href="Category:Data synchronization">*</a> <a href="Category:Storage software">Category:Storage software</a> <a href="Category:Synchronization software comparisons">Category:Synchronization software comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,305 @@
+{{Refimprove|date=February 2009}}
+{{ProgLangCompare}}
+
+== List Comprehensions ==
+
+[[List comprehension]] is a [[Syntax (programming languages)|syntactic]] construct available in some [[programming language]]s for creating a list based on existing lists.  It follows the form of the mathematical ''[[set-builder notation]]'' (''set comprehension''.) as distinct from the use of [[Map (higher-order function)|map]] and [[Filter (higher-order function)|filter]] functions.
+
+=== Boo ===
+{{further2|[[Boo (programming language)|Boo]] for .NET/Mono}}
+
+List with all the doubles from 0 to 10 (exclusive)
+<source lang="python">
+doubles = [i*2 for i in range(10)]
+</source>
+
+List with the names of the customers based on Rio de Janeiro
+<source lang="python">
+rjCustomers = [customer.Name for customer in customers if customer.State == "RJ"]
+</source>
+
+=== C# ===
+{{further2|[[C Sharp (programming language)#C.23 3.0 new language features|C# 3.0 Language Integrated Query]]}}
+
+<source lang="csharp">
+var ns = from x in Enumerable.Range(0,100)
+         where x*x > 3
+         select x*2;
+</source>
+
+The previous code is [[syntactic sugar]] for the following code written using lambda expressions:
+
+<source lang="csharp">
+var ns = Enumerable.Range(0, 100)
+        .Where(x => x*x > 3)
+        .Select(x => x*2);
+</source>
+
+=== Clojure ===
+{{further2|[[Clojure]]}}
+
+An infinite lazy sequence:
+
+<source lang="lisp">
+ (for [x (iterate inc 0) 
+       :when (> (* x x) 3)]
+   (* 2 x))
+</source>
+
+A list comprehension using multiple generators:
+
+<source lang="lisp">
+ (for [x (range 20)
+       y (range 20)
+       z (range 20)
+       :when (== (+ (* x x) (* y y)) (* z z))]
+   [x y z])
+</source>
+
+=== Common Lisp ===
+{{further2|[[Common Lisp]]}}
+
+List comprehensions can be expressed with the <code>loop</code> macro's <code>collect</code> keyword. Conditionals are expressed with <code>if</code>, as follows:
+
+<source lang="lisp">
+(loop for x from 0 to 100 if (> (* x x) 3) collect (* 2 x))
+</source>
+
+=== Cobra ===
+{{further2|[[Cobra (programming language)|Cobra]]}}
+
+List the names of customers:
+<source lang="python">
+names = for cust in customers get cust.name
+</source>
+
+List the customers with balances:
+<source lang="python">
+names = for cust in customers where cust.balance > 0
+</source>
+
+List the names of customers with balances:
+<source lang="python">
+names = for cust in customers where cust.balance > 0 get cust.name
+</source>
+
+The general forms:
+<source lang="python">
+for VAR in ENUMERABLE [where CONDITION] get EXPR
+for VAR in ENUMERABLE where CONDITION
+</source>
+
+Note that by putting the condition and expression ''after'' the variable name and enumerable object, editors and IDEs can provide [[autocompletion]] on the members of the variable.
+
+=== Erlang ===
+{{further2|[[Erlang (programming language)|Erlang]]}}
+<source lang="erlang">
+L = lists:seq(0,100).
+S = [2*X || X <- L, X*X > 3].
+</source>
+
+=== F# ===
+{{further2|[[F Sharp (programming language)|F#]]}}
+
+Lazily-evaluated sequences:
+
+<source lang="fsharp">
+seq { for x in 0 .. 100 do if x*x > 3 then yield 2*x }
+</source>
+
+Or, for floating point values
+
+<source lang="fsharp">
+seq { for x in 0. .. 100. do if x**2. > 3. then yield 2.*x }
+</source>
+
+Lists and arrays:
+
+<source lang="fsharp">
+[ for x in 0. .. 100. do if x**2. > 3. then yield 2.*x ]
+[| for x in 0. .. 100. do if x**2. > 3. then yield 2.*x |]
+</source>
+
+List comprehensions are the part of a greater family of language constructs called computation expressions.
+
+=== Groovy ===
+{{further2|[[Groovy (programming language)|Groovy]]}}
+
+<source lang="groovy">
+(0..100).findAll{ x -> x * x > 3 }.collect { x -> 2 * x }
+</source>
+
+=== Haskell ===
+{{further2|[[Haskell (programming language)|Haskell]]}}
+<source lang="haskell">
+[x * 2 | x <- [0 .. 99], x * x > 3]
+</source>
+
+An example of a list comprehension using multiple generators:
+<source lang="haskell">
+pyth = [(x,y,z) | x <- [1..20], y <- [x..20], z <- [y..20], x^2 + y^2 == z^2]
+</source>
+
+=== ISLISP ===
+{{further2|[[ISLISP]]}}
+
+List comprehensions can be expressed with the <code>for</code> special form. Conditionals are expressed with <code>if</code>, as follows:
+
+<source lang="lisp">
+(for ((x 0 (+ x 1))
+      (collect ()))
+     ((>= x 100) (reverse collect))
+     (if (> (* x x) 3)
+         (setq collect (cons (* x 2) collect))))
+</source>
+
+=== JavaScript ===
+{{further2|[[JavaScript]]}}
+
+Borrowing from Python, JavaScript 1.7 and later have array comprehensions.<ref>[http://developer.mozilla.org/en/docs/New_in_JavaScript_1.7 New in JavaScript 1.7], Mozilla Developer Center</ref>  Although this feature has been proposed for inclusion in the fourth edition [[ECMAScript]] standard, Mozilla is the only implementation that currently supports it.
+
+<source lang="javascript">
+/* There is no "range" function in JavaScript's standard
+   library, so the application must provide it. */
+function range(n) {
+  for (var i = 0; i < n; i++)
+    yield i;
+}
+
+[2 * x for (x in range(100)) if (x * x > 3)]
+</source>
+
+JavaScript 1.8 adds Python-like generator expressions.
+
+=== Mythryl ===
+{{further2|[[Mythryl]]}}
+
+  s = [ 2*i for i in 1..100 where i*i > 3 ];
+
+Multiple generators:
+
+  pyth = [ (x,y,z) for x in 1..20 for y in x..20 for z in y..20 where x*x + y*y == z*z ];
+
+=== Nemerle ===
+{{further2|[[Nemerle]]}}
+
+<source lang="ocaml">
+$[x*2 | x in [0 .. 100], x*x > 3]
+</source>
+
+=== OCaml ===
+
+{{further2|[[OCaml]]}}
+
+''OCaml supports List comprehension through OCaml Batteries''.
+<ref>[http://batteries.forge.ocamlcore.org/   OCaml Batteries Included]</ref>
+
+=== Perl 6 ===
+{{further2|[[Perl 6]]}}
+
+ my @s = ($_ * 2 if $_ ** 2 > 3 for 0 .. 99);
+
+=== Python ===
+{{further2|[[Python syntax and semantics#Generators|Python syntax and semantics: Generators]]}}
+
+[[Python (programming language)|Python]] uses the following syntax to express list comprehensions over finite lists:
+
+<source lang="python">
+S = [2*x for x in range(100) if x**2 > 3]
+</source>
+
+A '''generator expression''' may be used in Python versions >= 2.4 which gives [[lazy evaluation]] over its input, and can be used with [[generator (computer science)|generators]] to iterate over 'infinite' input such as the count generator function which returns successive integers:
+
+<source lang="python">
+from itertools import count
+S = (2*x for x in count() if x**2 > 3)
+</source>
+
+(Subsequent use of the generator expression will determine when to stop generating values).
+
+=== R ===
+{{further2|[[R (programming language)|R]]}}
+
+ x = (0:100)
+ S = 2 * x[x ^ 2 > 3]
+
+=== Racket ===
+{{further2|[[Racket (programming language)|Racket]]}}
+
+<source lang="scheme">
+(for/list ([x (in-range 100)] #:when (> (* x x) 3)) (* x 2))
+</source>
+An example with multiple generators:
+<source lang="scheme">
+(for*/list ([x (in-range 1 21)] [y (in-range 1 21)] [z (in-range 1 21)]
+            #:when (= (+ (* x x) (* y y)) (* z z)))
+  (list x y z))
+</source>
+
+===Ruby===
+{{further2|[[Ruby (programming language)|Ruby]]}}
+
+<source lang="ruby">
+(0..100).select {|x| x**2 > 3 }.map {|x| 2*x }
+</source>
+
+=== Scala ===
+{{further2|[[Scala (programming language)|Scala]]}}
+
+Using the for-comprehension:
+
+<source lang="scala">
+val s = for (x <- Stream.from(0); if x*x > 3) yield 2*x
+</source>
+
+=== Scheme ===
+{{further2|[[Scheme (programming language)|Scheme]]}}
+
+List comprehensions are supported in Scheme through the use of the [[Scheme Requests for Implementation|SRFI]]-42 library.<ref>[http://srfi.schemers.org/srfi-42/srfi-42.html Scheme SRFI 42: Eager Comprehensions]</ref>
+
+<source lang="scheme">
+(list-ec (: x 100) (if (> (* x x) 3)) (* x 2))
+</source>
+
+An example of a list comprehension using multiple generators:
+<source lang="scheme">
+(list-ec (: x 1 21) (: y x 21) (: z y 21) (if (= (+ (* x x) (* y y)) (* z z))) (list x y z))
+</source>
+
+=== SETL ===
+{{further2|[[SETL]]}}
+<source lang="html4strict">
+s := {2*x : x in {0..100} | x**2 > 3 };
+</source>
+
+=== Smalltalk ===
+
+<source lang="smalltalk">
+((1 to: 100) select: [ x | x squared > 3 ]) collect: [ x | x * 2 ]
+</source>
+
+=== Visual Prolog ===
+{{further2|[[Visual Prolog]]}}
+
+ <span style="color:#008000;">S</span> = <span style="color:#B9005C;">[</span> <span style="color:blue;">2</span>*<span style="color:#008000;">X</span> <span style="color:#B9005C;">||</span> <span style="color:#008000;">X</span> = list::getMember_nd<span style="color:#993300;">(</span><span style="color:#008000;">L</span><span style="color:#993300;">)</span>, <span style="color:#008000;">X</span>*<span style="color:#008000;">X</span> &gt; <span style="color:blue;">3</span> <span style="color:#B9005C;">]</span>
+
+=== Windows PowerShell ===
+{{further2|[[Windows PowerShell]]}}
+
+<source lang="csharp">
+$s = ( 0..100 | ? {$_*$_ -gt 3} | % {2*$_} )
+</source>
+
+==References==
+{{Reflist}}<!--added above categories/infobox footers by script-assisted edit-->
+
+[[Category:Programming language comparisons]]
+[[Category:Articles with example C Sharp code]]
+[[Category:Articles with example Erlang code]]
+[[Category:Articles with example Haskell code]]
+[[Category:Articles with example Lisp code]]
+[[Category:Articles with example Python code]]
+[[Category:Articles with example Racket code]]
+
+[[fr:Compr?hension de liste]]
+[[pt:List comprehension]]

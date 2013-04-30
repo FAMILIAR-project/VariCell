@@ -1,0 +1,476 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of layout engines (web typography)</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of layout engines (web typography)</h1> 
+   <div class="article-content"> 
+    <p> The following tables compare support for different <a href="Web typography#File formats">font formats</a> and support for CSS3 font resources for a number of layout engines. <a href="Web typography#Web fonts">Web fonts</a> were initially defined (but later dropped) from CSS2, then added into CSS3. The specification is supported by an increasing number of web browsers.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+    <p> <span class="unknown-node">{{Layout engine nomenclature}}</span> <span class="unknown-node">{{Explanation of the tables2}}</span> </p> 
+    <div class="section"> 
+     <h2>Support for CSS font resources</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Main |...}}</span> CSS3 specified a mechanism for downloading and displaying fonts within a web page.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> This table compare support for that mechanism. Note that Embedded OpenType <a href="Embedded OpenType">(EOT)</a><span class="unknown-node">&lt;ref .../&gt;</span> font download does not bring in the entire OpenType font and therefore, the most prominent feature of Open Type, ligature support, does not come with EOT. Trident before version 5.0 supports only EOT. EOT is not sufficient for smartfonts that rely on ligatures. </p> 
+      <table style="text-align: center; width: 95%;" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th colspan="2"> </th> 
+         <th style="width: 15%;"> <p> <a href="Trident (layout engine)">Trident</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Gecko (layout engine)">Gecko</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="WebKit">WebKit</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Presto (layout engine)">Presto</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="7"> <p> Grammar and rules </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> CSS3 </p> </th> 
+         <th> <p> <code>@font-face</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">{{#tag:ref |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="7"> <p> Descriptors </p> </th> 
+        </tr> 
+        <tr> 
+         <th rowspan="8"> <p> CSS3 </p> </th> 
+         <th> <p> <code>font-family</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <code>src</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <code>font-style</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <code>font-weight</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <code>font-stretch</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <code>unicode-range</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <code>font-variant</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <code>font-feature-settings</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{table-nightly|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{table-experimental}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Support in HTML and XML documents</h2> 
+     <div class="section-body"> 
+      <p> This table compares support for font formats applied with the <code>@font-face</code> rule in <a href="HTML">HTML</a> and <a href="XML">XML</a> documents. </p> 
+      <table style="text-align: center; width: 95%;" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th> <p> Format </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th style="text-align: left;"> <p> Embedded OpenType <a href="Embedded OpenType">(EOT)</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> TrueType <a href="TrueType">(TTF)</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> OpenType <a href="OpenType">(OTF)</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> Scalable Vector Graphics <a href="Scalable Vector Graphics">(SVG)</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> Web Open Font Format <a href="Web Open Font Format">(WOFF)</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Support in SVG documents</h2> 
+     <div class="section-body"> 
+      <p> This table compares support for font formats applied with the <code>@font-face</code> rule in <a href="Scalable Vector Graphics">SVG</a> documents. </p> 
+      <table style="text-align: center; width: 95%;" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th> <p> Format </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Gecko (layout engine)">Gecko</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th style="text-align: left;"> <p> Embedded OpenType <a href="Embedded OpenType">(EOT)</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> TrueType <a href="TrueType">(TTF)</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> OpenType <a href="OpenType">(OTF)</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> Scalable Vector Graphics <a href="Scalable Vector Graphics">(SVG)</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> Web Open Font Format <a href="Web Open Font Format">(WOFF)</a><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Smart font features support</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Globalize/West |...}}</span> </p> 
+      <table style="text-align: center; width: 95%;" class="wikitable"> 
+       <tbody>
+        <tr>
+         <th> <p> Format </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 15%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th style="text-align: left;"> <p> OpenType <code>liga</code> <a href="typographic ligature">ligatures</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> OpenType <code>rlig</code> ligatures<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zero-width non-joiner">ZWNJ</a> and <a href="Zero-width joiner">ZWJ</a> (Unicode characters used for ligature control) </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Web typography">Web typography</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist |...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> ;Specifications <span class="unknown-node">{{Reflist |...}}</span> </p> 
+      <p> ;Trident references <span class="unknown-node">{{Reflist |...}}</span> </p> 
+      <p> ;Gecko references <span class="unknown-node">{{Reflist |...}}</span> </p> 
+      <p> ;WebKit references <span class="unknown-node">{{Reflist |...}}</span> </p> 
+      <p> ;Presto references <span class="unknown-node">{{Reflist |...}}</span> </p> 
+      <p> ;Other references <span class="unknown-node">{{Reflist |...}}</span> </p> 
+      <p> <span class="unknown-node">{{Web browser engines}}</span> <span class="unknown-node">{{Typography terms}}</span> </p> 
+      <p> <a href="Category:Digital typography">Category:Digital typography</a> <a href="Category:Layout engine comparisons">Category:Layout engine comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

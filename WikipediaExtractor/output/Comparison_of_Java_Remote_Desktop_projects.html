@@ -1,0 +1,659 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of Java Remote Desktop projects</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of Java Remote Desktop projects</h1> 
+   <div class="article-content"> 
+    <p> This page is a <b>comparison of Java Remote Desktop projects</b> available for various platforms. </p> 
+    <div class="section"> 
+     <h2> Comparison chart </h2> 
+     <div class="section-body"> 
+      <table text-align:="" class="wikitable sortable"> 
+       <tbody>
+        <tr>
+         <th> <p> Project </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Date </p> </th> 
+         <th> <p> Version </p> </th> 
+         <th> <p> Protocol </p> </th> 
+         <th> <p> Technology </p> </th> 
+         <th> <p> Server <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Client <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Web Client </p> </th> 
+         <th> <p> Multiple Sessions <span class="unknown-node">ImageLink</span><span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Encryption <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Authentication <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Data Compression <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Image Quality <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Color Quality <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> File Transfer <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Clipboard Transfer <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Chat <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Relay </p> </th> 
+         <th> <p> HTTP Tunnel </p> </th> 
+         <th> <p> Proxy </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="http://www.peterdamen.com/ajaxrd/">AJAX Remote Desktop Viewer (AjaxRd)</a> </p> </th> 
+         <td> <p> <a href="Proprietary software license">Proprietary</a> </p> </td> 
+         <td> <p> June 24, 2006 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://dayonhome.sourceforge.net/">Dayon!</a> </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> January 3, 2009 </p> </td> 
+         <td> <p> 1.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://vncj.com/">Goto Servers VNC Java server (GSVNCJ)</a> </p> </th> 
+         <td> <p> <a href="Proprietary software license">Proprietary</a> </p> </td> 
+         <td> <p> February 17, 2008 </p> </td> 
+         <td> <p> 1.2 </p> </td> 
+         <td> <p> <a href="Remote Desktop Protocol">RDP</a>, <a href="RFB protocol">RFB(VNC)</a> </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://java-remote-control.googlecode.com/">Java Remote Control</a> </p> </th> 
+         <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+         <td> <p> November 14, 2007 </p> </td> 
+         <td> <p> 2.1b </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://jrdesktop.sourceforge.net/">Java Remote Desktop (jrdesktop)</a> </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> September 16, 2009 </p> </td> 
+         <td> <p> 0.3.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <a href="Java remote method invocation">RMI</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://jxta-remote-desktop.dev.java.net/">Jxta Remote Desktop</a> </p> </th> 
+         <td> <p> <a href="Apache License">Apache License</a> </p> </td> 
+         <td> <p> February 15, 2005 </p> </td> 
+         <td> <p> 2.3.6 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://jrd.dev.java.net/">J Remote Desktop</a> </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> May 25, 2006 </p> </td> 
+         <td> <p> 1.0 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <a href="Java remote method invocation">RMI</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="N-able Technologies">N-central</a> </p> </th> 
+         <td> <p> Commercial </p> </td> 
+         <td> <p> May 2011 </p> </td> 
+         <td> <p> 8.0 </p> </td> 
+         <td> <p> <a href="Secure Shell">SSH</a>, <a href="User Datagram Protocol">UDP</a>, <a href="HTTP">HTTP</a> </p> </td> 
+         <td> <p> <a href="Internet socket">Socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://properjavardp.sourceforge.net/">properJavaRDP</a> </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> May 15, 2007 </p> </td> 
+         <td> <p> 1.1 </p> </td> 
+         <td> <p> <a href="Remote Desktop Protocol">RDP</a> </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.stone-ware.com/">webRDP</a> </p> </th> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> June 17, 2010 </p> </td> 
+         <td> <p> 1.0 </p> </td> 
+         <td> <p> <a href="Remote Desktop Protocol">RDP</a> </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.hobsoft.com/">HOBLink JWT</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> February 6, 2010 </p> </td> 
+         <td> <p> 3.3 </p> </td> 
+         <td> <p> <a href="Remote Desktop Protocol">RDP</a> </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://sourceforge.net/projects/robo/">Robo</a> </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> November 21, 2002 </p> </td> 
+         <td> <p> 0.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.realvnc.com/">VNC Viewer</a> </p> </th> 
+         <td> <p> <a href="Proprietary software license">Proprietary</a> </p> </td> 
+         <td> <p> 2004 </p> </td> 
+         <td> <p> 4.1 </p> </td> 
+         <td> <p> <a href="RFB protocol">RFB(VNC)</a> </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.vedivi.com/">Vedivi VPN</a> </p> </th> 
+         <td> <p> <a href="Proprietary software license">Proprietary</a> </p> </td> 
+         <td> <p> 2008 </p> </td> 
+         <td> <p> 2.0 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.wificheema.com/">WiFiCheema</a> </p> </th> 
+         <td> <p> <a href="Proprietary software license">Proprietary</a> </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td> <p> 3.5 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> <a href="Internet socket">socket</a> </p> </td> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{yes|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+         <th> <p> <span class="unknown-node">{{no|...}}</span> </p> </th> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Project </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Date </p> </th> 
+         <th> <p> Version </p> </th> 
+         <th> <p> Protocol </p> </th> 
+         <th> <p> Technology </p> </th> 
+         <th> <p> Server <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Client <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Web Client </p> </th> 
+         <th> <p> Multiple Sessions <span class="unknown-node">ImageLink</span><span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Encryption <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Authentication <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Data Compression <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Image Quality <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Color Quality <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> File Transfer <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Clipboard Transfer <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Chat <span class="unknown-node">ImageLink</span> </p> </th> 
+         <th> <p> Relay </p> </th> 
+         <th> <p> HTTP Tunnel </p> </th> 
+         <th> <p> Proxy </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Java (programming language)">Java programming language</a></li> 
+       <li> <a href="Remote desktop software">Remote desktop software</a></li> 
+       <li> <a href="Comparison of remote desktop software">Comparison of remote desktop software</a></li> 
+      </ul> 
+      <p> <a href="Category:Remote desktop">*</a> <a href="Category:Software comparisons">Java Remote Desktop projects</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

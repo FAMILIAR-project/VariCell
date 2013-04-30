@@ -1,0 +1,868 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of cluster software</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of cluster software</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{orphan|...}}</span> </p> 
+    <p> The following tables compare general and technical information for notable <a href="computer cluster">computer cluster</a> <a href="software">software</a>. This article is not all-inclusive and may become out of date quickly. Those software can be grossly separated in 4 categories: <a href="Job scheduler">Job scheduler</a>, nodes management, nodes installation, integrated stack(all the above). </p> 
+    <div class="section"> 
+     <h2> General information </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 80%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr>
+         <th> <p> Software </p> </th> 
+         <th> <p> Maintainer </p> </th> 
+         <th> <p> Category </p> </th> 
+         <th> <p> Development status </p> </th> 
+         <th> <p> ArchitectureOCS </p> </th> 
+         <th> <p> <a href="High-performance computing">High-Performance</a>/ <a href="High-Throughput Computing">High-Throughput Computing</a> </p> </th> 
+         <th> <p> <a href="Software license">License</a> </p> </th> 
+         <th> <p> Platforms supported </p> </th> 
+         <th> <p> Cost </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="http://www.alchemi.net">Alchemi</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Amoeba distributed operating system">Amoeba</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Base One Foundation Component Library">Base One Foundation Component Library</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Beowulf (computing)">Beowulf clusters</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Condor cycle scavenger">Condor</a> <a href="http://www.cs.wisc.edu/condor/">1</a> </p> </th> 
+         <td> <p> <a href="University Of Wisconsin">University Of Wisconsin</a> CS dep </p> </td> 
+         <td> <p> Job/Data Scheduler </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> Distributed master/executions/submits node </p> </td> 
+         <td> <p> HTC </p> </td> 
+         <td> <p> <a href="Apache license">Apache license</a> v2.0 </p> </td> 
+         <td> <p> Platform (<a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>) </p> </td> 
+         <td> <p> Free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DIET">DIET</a> </p> </th> 
+         <td> <p> <a href="Institut national de recherche en informatique et en automatique">INRIA</a>, <a href="http://www.sysfera.com">SysFera</a>, Open Source </p> </td> 
+         <td> <p> All in one </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> GridRPC, SPMD, Hierarchical and distributed architecture, CORBA </p> </td> 
+         <td> <p> HTC/HPC </p> </td> 
+         <td> <p> OpenSource </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="Mac OS X">Mac OS X</a>, <a href="AIX">AIX</a> </p> </td> 
+         <td> <p> Free (paid support available) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Distributed object">Distributed objects</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DragonFly BSD">DragonFly BSD</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Ganglia (software)">Ganglia</a> <a href="http://ganglia.info/">2</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> OpenSource </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> NT/XP/2000/2003/2008, FreeBSD, NetBSD, OpenBSD, DragonflyBSD, Mac OS X, Solaris, AIX, IRIX, Tru64, HPUX. </p> </td> 
+         <td> <p> free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.GreenTeaTech.com">GreenTea Software</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.gridbus.org">Gridbus Toolkit</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Globus Toolkit">Globus Toolkit</a> </p> </th> 
+         <td> <p> Globus Alliance, Argonne National Laboratory </p> </td> 
+         <td> <p> Job/Data Scheduler </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> SOA Grid </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> Free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Grid MP">Grid MP</a> <a href="http://www.univaud.com/">3</a> </p> </th> 
+         <td> <p> <a href="Univa">Univa</a> (formerly <a href="United Devices">United Devices</a>) </p> </td> 
+         <td> <p> Job Scheduler </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> Distributed master/worker </p> </td> 
+         <td> <p> HTC/HPC </p> </td> 
+         <td> <p> commercial </p> </td> 
+         <td> <p> Windows, Linux, Mac OS X, Solaris </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.jppf.org">JPPF</a> </p> </th> 
+         <td> <p> Laurent Cohen (founder) </p> </td> 
+         <td> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> distributed master/worker and P2P </p> </td> 
+         <td> <p> HPC/HTC </p> </td> 
+         <td> <p> <a href="Apache license">Apache license</a> v2.0 </p> </td> 
+         <td> <p> Windows, Linux, Mac OS X, Solaris </p> </td> 
+         <td> <p> Free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.landercluster.com/english/index.htm">LanderCluster</a> </p> </th> 
+         <td> <p> Lander Software Technology Co. Ltd </p> </td> 
+         <td> <p> Job Scheduler/Monitoring </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> commercial </p> </td> 
+         <td> <p> Windows, Linux, &amp; UNIX platforms </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://jstm.sourceforge.net">JSTM</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.clusterresources.com/pages/products/moab-cluster-suite.php">Moab Cluster Suite</a> </p> </th> 
+         <td> <p> Cluster Resources, Inc. </p> </td> 
+         <td> <p> Job Scheduler/Monitoring </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> <p> HPC </p> </td> 
+         <td> <p> commercial </p> </td> 
+         <td> <p> Linux, Mac OS X, Windows, AIX, OSF/Tru-64, Solaris, HP-UX, IRIX, FreeBSD &amp; other UNIX platforms </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Moab Cluster Suite">Moab Cluster Suite</a> <a href="http://www.clusterresources.com/pages/products/moab-cluster-suite/workload-manager.php">4</a> </p> </th> 
+         <td> <p> Cluster Resources, Inc. </p> </td> 
+         <td> <p> Job Scheduler </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> <p> HPC </p> </td> 
+         <td> <p> commercial </p> </td> 
+         <td> <p> Linux, Mac OS X, Windows, AIX, OSF/Tru-64, Solaris, HP-UX, IRIX, FreeBSD &amp; other UNIX platforms </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.clusterresources.com/pages/products/maui-cluster-scheduler.php">?Maui Cluster Scheduler</a> <a href="http://mauischeduler.sourceforge.net/">followup?</a> </p> </th> 
+         <td> </td> 
+         <td> <p> Job Scheduler </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> HTC/HPC </p> </td> 
+         <td> <p> OpenSource </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, </p> </td> 
+         <td> <p> free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NetworkComputer">NetworkComputer</a> <a href="http://www.rtda.com">?RTDA</a> </p> </th> 
+         <td> <p> Open Source </p> </td> 
+         <td> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> <p> HTC/HPC </p> </td> 
+         <td> <p> <a href="commercial software">commercial</a> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> time-based license </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.pbsworks.com/Product.aspx?id=1">PBS Professional</a> </p> </th> 
+         <td> <p> PBS Works (A division of Altair) </p> </td> 
+         <td> <p> Job Scheduler/Monitoring </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> <p> HPC </p> </td> 
+         <td> <p> commercial </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Platform LSF">Platform LSF</a> <a href="http://www.platform.com">5</a> </p> </th> 
+         <td> <p> <a href="Platform Computing">Platform Computing</a> </p> </td> 
+         <td> <p> Job Scheduler </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> <p> HPC/HTC </p> </td> 
+         <td> <p> commercial </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.platform.com/Products/platform-cluster-manager">Platform Cluster Manager</a> </p> </th> 
+         <td> <p> <a href="Platform Computing">Platform Computing</a> </p> </td> 
+         <td> <p> All in one </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> <p> HTC/HPC </p> </td> 
+         <td> <p> OpenSource </p> </td> 
+         <td> <p> <a href="Linux">Linux</a> </p> </td> 
+         <td> <p> free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Rocks Cluster Distribution">Rocks Cluster Distribution</a> </p> </th> 
+         <td> <p> Open Source/NSF grant </p> </td> 
+         <td> <p> All in one </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> <p> HTC/HPC </p> </td> 
+         <td> <p> OpenSource </p> </td> 
+         <td> <p> <a href="CentOS">CentOS</a> </p> </td> 
+         <td> <p> free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Popular Power">Popular Power</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ProActive">ProActive</a> </p> </th> 
+         <td> <p> <a href="Institut national de recherche en informatique et en automatique">INRIA</a>, <a href="ActiveEon">ActiveEon</a>, Open Source </p> </td> 
+         <td> <p> All in one </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> Master/Worker, SPMD, Distributed Component Model, Skeletons </p> </td> 
+         <td> <p> HTC/HPC </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="RPyC">RPyC</a> </p> </th> 
+         <td> <p> Tomer Filiba </p> </td> 
+         <td> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <a href="MIT License">MIT License</a> </p> </td> 
+         <td> <p> *nix/Windows </p> </td> 
+         <td> <p> Free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Simple Linux Utility for Resource Management">SLURM</a> </p> </th> 
+         <td> <p> <a href="http://www.schedmd.com/">SchedMD</a> </p> </td> 
+         <td> <p> Job Scheduler </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> <p> HPC/HTC </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> Linux/*nix </p> </td> 
+         <td> <p> Free (paid support available) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> formerly <a href="Sun Grid Engine">Sun Grid Engine</a> now <a href="Oracle Grid Engine">Oracle Grid Engine</a> </p> </th> 
+         <td> <p> formerly Sun Microsystems now Oracle </p> </td> 
+         <td> <p> Job Scheduler </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> Master node/exec clients, multiple admin/submit nodes </p> </td> 
+         <td> <p> HPC/HTC </p> </td> 
+         <td> <p> <a href="SISSL">SISSL</a> (only for forks of former FOSS <a href="Grid Engine">Grid Engine</a> project) </p> </td> 
+         <td> <p> *nix/Windows </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SynfiniWay">SynfiniWay</a> </p> </th> 
+         <td> <p> <a href="Fujitsu">Fujitsu</a> </p> </td> 
+         <td> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> <p> HPC/HTC </p> </td> 
+         <td> <p> commercial </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.clusterresources.com/pages/products/torque-resource-manager.php">Torque</a> </p> </th> 
+         <td> <p> Cluster Resources, Inc. </p> </td> 
+         <td> <p> Job Scheduler </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> OpenPBS </p> </td> 
+         <td> <p> Linux, *nix </p> </td> 
+         <td> <p> Free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.univa.com/products/unicloud.php">UniCloud</a> </p> </th> 
+         <td> <p> <a href="Univa">Univa</a> </p> </td> 
+         <td> <p> All in One (dynamic cluster creation/re-sizing, cloud bursting, etc) </p> </td> 
+         <td> <p> Actively Developed </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> commercial </p> </td> 
+         <td> <p> Oracle Unbreakable Linux, RHEL, and Cent Os </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="UniCluster">UniCluster</a> <a href="http://www.univaud.com/hpc/products/unicluster/">6</a> </p> </th> 
+         <td> <p> <a href="Univa">Univa</a> </p> </td> 
+         <td> <p> All in One </p> </td> 
+         <td> <p> Funtionality and development moved to UniCloud (see above) </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> free (paid support available) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="UNICORE">UNICORE</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Univa Grid Engine">Univa Grid Engine</a> <a href="http://www.univa.com/products/grid-engine.php">7</a> </p> </th> 
+         <td> <p> <a href="Univa">Univa</a> </p> </td> 
+         <td> <p> Job Scheduler </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> Master node/exec clients, multiple admin/submit nodes </p> </td> 
+         <td> <p> HPC/HTC </p> </td> 
+         <td> <p> commercial </p> </td> 
+         <td> <p> *nix/Windows </p> </td> 
+         <td> <p> Cost </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vaakya Architecture">Vaakya</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.xoreax.com/technology_xge.htm">XGE</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xgrid">Xgrid</a> </p> </th> 
+         <td> <p> <a href="Apple Computer">Apple Computer</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Software </p> </th> 
+         <th> <p> Maintainer </p> </th> 
+         <th> <p> Category </p> </th> 
+         <th> <p> Development status </p> </th> 
+         <th> <p> Architecture </p> </th> 
+         <th> <p> <a href="High-performance computing">High-Performance</a>/ <a href="High-Throughput Computing">High-Throughput Computing</a> </p> </th> 
+         <th> <p> <a href="Software license">License</a> </p> </th> 
+         <th> <p> Platforms supported </p> </th> 
+         <th> <p> Cost </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <b>Table Explanation</b> </p> 
+      <ul> 
+       <li> <i>Software</i>: The name of the application that is described</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Technical information </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 80%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr>
+         <th> <p> Software </p> </th> 
+         <th> <p> programation language </p> </th> 
+         <th> <p> Authentification </p> </th> 
+         <th> <p> Encryption </p> </th> 
+         <th> <p> Integrity </p> </th> 
+         <th> <p> Global File System </p> </th> 
+         <th> <p> Global File System + Kerberos </p> </th> 
+         <th> <p> Heterogeneous/ Homogeneous exec node </p> </th> 
+         <th> <p> Jobs priority </p> </th> 
+         <th> <p> Group priority </p> </th> 
+         <th> <p> Queue type </p> </th> 
+         <th> <p> SMP aware </p> </th> 
+         <th> <p> Max exec node </p> </th> 
+         <th> <p> Max job submitted </p> </th> 
+         <th> <p> <a href="Grid computing#CPU_scavenging">CPU scavenging</a> </p> </th> 
+         <th> <p> Parallel job </p> </th> 
+         <th> <p> <a href="Application checkpointing">Job checkpointing</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="Platform LSF">Platform LSF</a> <a href="http://www.platform.com">8</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> yes </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Yes to start jobs. Did it suspend job when the person come back? </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Condor cycle scavenger">Condor</a> <a href="http://www.cs.wisc.edu/condor/">9</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> GSI, SSL, Kerberos, Password, File System, Remote File System, Windows, Claim To Be, Anonymous </p> </td> 
+         <td> <p> None, Triple DES, BLOWFISH </p> </td> 
+         <td> <p> None, MD5 </p> </td> 
+         <td> <p> None, NFS, AFS </p> </td> 
+         <td> <p> Not official, hack with ACL and NFS4 </p> </td> 
+         <td> <p> Heterogeneous </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Fair-share with some programmability </p> </td> 
+         <td> <p> basic (hard separation into different node) </p> </td> 
+         <td> <p> tested ~10000? </p> </td> 
+         <td> <p> tested ~100000? </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> MPI, OpenMP, PVM </p> </td> 
+         <td> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Slurm">Slurm</a> <a href="http://slurm.schedmd.com">10</a> </p> </th> 
+         <td> <p> <a href="C">C</a> </p> </td> 
+         <td> <p> Munge, None, <a href="http://sourceforge.net/projects/auks/">Kerberos</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Heterogeneous </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Multifactor Fair-share </p> </td> 
+         <td> <p> yes </p> </td> 
+         <td> <p> tested 120k </p> </td> 
+         <td> <p> tested 100k </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes (<a href="https://ftg.lbl.gov/projects/CheckpointRestart/">blcr</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Univa Grid Engine">Univa Grid Engine</a> <a href="http://www.univa.com/products/grid-engine.php">11</a> </p> </th> 
+         <td> <p> <a href="C">C</a> </p> </td> 
+         <td> <p> Authentification </p> </td> 
+         <td> <p> Encryption </p> </td> 
+         <td> <p> Integrity </p> </td> 
+         <td> <p> Arbitrary, e.g. NFS, Lustre, HDFS, AFS </p> </td> 
+         <td> <p> AFS </p> </td> 
+         <td> <p> Fully heterogeneous </p> </td> 
+         <td> <p> Yes; automatically policy controlled (e.g. fair-share, deadline, resource dependent) or manual </p> </td> 
+         <td> <p> Yes; can be dependent on user groups as well as projects and is governed by policies </p> </td> 
+         <td> <p> Batch, interactive, checkpointing, parallel and combinations </p> </td> 
+         <td> <p> Yes, with core binding, GPU and Intel Xeon Phi support </p> </td> 
+         <td> <p> commercial deployments with many tens of thousands hosts </p> </td> 
+         <td> <p> &gt;300K tested in commercial deployments </p> </td> 
+         <td> <p> Yes; can suspend job on interactive usage </p> </td> 
+         <td> <p> Yes, with support of arbitrary parallel environments such as OpenMPI, MPICH 1/2, MVAPICH 1/2, LAM, etc </p> </td> 
+         <td> <p> Yes, with support for user, kernel or library level checkpointing environments </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Software </p> </th> 
+         <th> <p> programation language </p> </th> 
+         <th> <p> Authentification </p> </th> 
+         <th> <p> Encryption </p> </th> 
+         <th> <p> Integrity </p> </th> 
+         <th> <p> Global File System </p> </th> 
+         <th> <p> Global File System + Kerberos </p> </th> 
+         <th> <p> Heterogeneous/ Homogeneous exec node </p> </th> 
+         <th> <p> Jobs priority </p> </th> 
+         <th> <p> Group priority </p> </th> 
+         <th> <p> Queue type </p> </th> 
+         <th> <p> SMP aware </p> </th> 
+         <th> <p> Max exec node </p> </th> 
+         <th> <p> Max job submitted </p> </th> 
+         <th> <p> <a href="Grid computing#CPU_scavenging">CPU scavenging</a> </p> </th> 
+         <th> <p> Parallel job </p> </th> 
+         <th> <p> <a href="Application checkpointing">Job checkpointing</a> </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <b>Table Explanation</b> </p> 
+      <ul> 
+       <li> <i>Software</i>: The name of the application that is described</li> 
+       <li> <i>SMP aware</i>: 
+        <ul> 
+         <li> basic: hard split into multiple virtual host</li> 
+         <li> basic+: hard split into multiple virtual host with some minimal/incomplete communication between virtual host on the same computer</li> 
+         <li> dynamic: split the resource of the computer(CPU/Ram) on demand</li> 
+        </ul> </li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> History and adoption </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Empty section|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Notes </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="List of distributed computing projects">List of distributed computing projects</a></li> 
+       <li> <a href="Computer cluster">Computer cluster</a></li> 
+       <li> <a href="Grid computing">Grid computing</a></li> 
+       <li> <a href="World Community Grid">World Community Grid</a></li> 
+       <li> <a href="Distributed computing">Distributed computing</a></li> 
+       <li> <a href="Distributed Resource Management">Distributed Resource Management</a></li> 
+       <li> <a href="High-Throughput Computing">High-Throughput Computing</a></li> 
+       <li> <a href="Job Processing Cycle">Job Processing Cycle</a></li> 
+       <li> <a href="Batch processing">Batch processing</a></li> 
+       <li> <a href="Fallacies of Distributed Computing">Fallacies of Distributed Computing</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> External links </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Cluster Software}}</span> <a href="Category:Cluster computing">Category:Cluster computing</a> <a href="Category:Software comparisons">Cluster software</a> <a href="Category:Job scheduling">Category:Job scheduling</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,821 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of data serialization formats</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of data serialization formats</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Refimprove|...}}</span> </p> 
+    <p> This is a <b>comparison of <a href="data serialization">data serialization</a> <a href="file format">formats</a></b>, various ways to convert complex <a href="object (computer science)">objects</a> to sequences of <a href="bit">bits</a>. It does not include <a href="markup language">markup languages</a> used exclusively as <a href="document file format">document file formats</a>. </p> 
+    <div class="section"> 
+     <h2>Overview</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Creator/Maintainer </p> </th> 
+         <th> <p> Based on </p> </th> 
+         <th> <p> <a href="Standardized">Standardized</a>? </p> </th> 
+         <th> <p> <a href="Specification">Specification</a> </p> </th> 
+         <th> <p> <a href="Binary format">Binary</a>? </p> </th> 
+         <th> <p> <a href="Human-readable">Human-readable</a>? </p> </th> 
+         <th> <p> Supports <a href="Reference (computer science)">references</a>?<span class="unknown-node">{{ref|...}}</span> </p> </th> 
+         <th> <p> Schema/<a href="Interface description language">IDL</a>? </p> </th> 
+         <th> <p> Standard <a href="API">APIs</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ASN.1">ASN.1</a> </p> </td> 
+         <td> <p> <a href="International Organization for Standardization">ISO</a>, <a href="International Electrotechnical Commission">IEC</a>, <a href="ITU-T">ITU-T</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ISO/IEC 8824; X.680 series of ITU-T Recommendations </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="Basic Encoding Rules">BER</a>, <a href="Distinguished Encoding Rules">DER</a>, <a href="Packed Encoding Rules">PER</a>, or custom via <a href="Encoding Control Notation">ECN</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="XML Encoding Rules">XER</a>, <a href="Generic String Encoding Rules">GSER</a>, or custom via <a href="Encoding Control Notation">ECN</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (built-in) </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Bencode">Bencode</a> </p> </td> 
+         <td> <p> <a href="Bram Cohen">Bram Cohen</a> (creator)<br /><a href="BitTorrent, Inc.">BitTorrent, Inc.</a> (maintainer) </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Part of <a href="http://bittorrent.org/beps/bep_0003.html">BitTorrent protocol specification</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><br />(numbers and delimiters are ASCII) </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="BSON">BSON</a> </p> </td> 
+         <td> <p> <a href="MongoDB">MongoDB</a> </p> </td> 
+         <td> <p> <a href="JSON">JSON</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://bsonspec.org">BSON Specification</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Candle (programming language)">Candle</a> Markup </p> </td> 
+         <td> <p> Henry Luo </p> </td> 
+         <td> <p> <a href="XML">XML</a>, <a href="JSON">JSON</a>, <a href="JavaFX">JavaFX</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://www.candlescript.org/doc/candle-markup-reference.htm">Candle Markup Reference</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="XPointer">XPointer</a>, <a href="XPath">XPath</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="http://www.candlescript.org/doc/candle-pattern-reference.htm">Candle Pattern Reference</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="XQuery">XQuery</a>, <a href="XPath">XPath</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Comma-separated values">Comma-separated values</a> (CSV) </p> </td> 
+         <td> <p> RFC author:<br />Yakov Shafranovich </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><br />(myriad informal variants used) </p> </td> 
+         <td> <p> RFC 4180<br />(among others) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Bus">D-Bus</a> Message Protocol </p> </td> 
+         <td> <p> <a href="freedesktop.org">freedesktop.org</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol">D-Bus Specification</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-signatures">Type Signatures</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(see <a href="D-Bus">D-Bus</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSON">JSON</a> </p> </td> 
+         <td> <p> <a href="Douglas Crockford">Douglas Crockford</a> </p> </td> 
+         <td> <p> <a href="JavaScript syntax">JavaScript syntax</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> RFC 4627 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span>, but see <a href="BSON">BSON</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><br />(<a href="http://goessner.net/articles/JsonPath/">JSONPath</a>, <a href="http://bluelinecity.com/software/jpath/">JPath</a>, <a href="http://www.jspon.org/">JSPON</a>, <a href="http://jsonselect.org/">json:select()</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><br />(<a href="http://json-schema.org/">JSON Schema Proposal</a>, <a href="http://www.kuwata-lab.com/kwalify/">Kwalify</a>, <a href="http://rjbs.manxome.org/rx/">Rx</a>, <a href="http://itemscript.org/ItemscriptSchema.html">Itemscript Schema</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span>: <a href="https://github.com/dscape/clarinet">Clarinet</a> (like SAX), <a href="http://www.sitepen.com/blog/2008/07/16/jsonquery-data-querying-beyond-jsonpath/">JSONQuery</a> (like XQuery), <a href="http://goessner.net/articles/JsonPath/">JSONPath</a> (like XPath) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MessagePack">MessagePack</a> </p> </td> 
+         <td> <p> Sadayuki Furuhashi </p> </td> 
+         <td> <p> <a href="JSON">JSON</a> (loosely) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://wiki.msgpack.org/display/MSGPACK/Format+specification">MessagePack format specification</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Netstring">Netstrings</a> </p> </td> 
+         <td> <p> <a href="Dan Bernstein">Dan Bernstein</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://cr.yp.to/proto/netstrings.txt">netstrings.txt</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OGDL">OGDL</a> </p> </td> 
+         <td> <p> Rolf Veen </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://ogdl.sourceforge.net/spec/">1.0 Working draft</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="http://ogdl.sourceforge.net/spec/ogdl-b.htm">Binary 1.0 Working draft</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="http://ogdl.sourceforge.net/spec/ogdl-path.htm">Path 1.0 Working draft</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="http://ogdl.sourceforge.net/spec/ogdl-schema.htm">Schema WD</a>) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Property list">Property list</a> </p> </td> 
+         <td> <p> <a href="NeXT">NeXT</a> (creator)<br /><a href="Apple Inc.">Apple</a> (maintainer) </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <a href="http://www.apple.com/DTDs/PropertyList-1.0.dtd">Public DTD for XML format</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+         <td> <p> <a href="http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html">Cocoa</a>, <a href="http://developer.apple.com/mac/library/documentation/CoreFoundation/Conceptual/CFPropertyLists/CFPropertyLists.html">CoreFoundation</a>, <a href="http://docs.sun.com/app/docs/doc/802-2112/6i63mn65o?a=view">OpenStep</a>, <a href="http://www.gnustep.org/resources/documentation/Developer/Base/Reference/NSPropertyList.html">GnuStep</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Protocol Buffers">Protocol Buffers</a> </p> </td> 
+         <td> <p> <a href="Google">Google</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <a href="https://developers.google.com/protocol-buffers/docs/encoding">Developer Guide: Encoding</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (built-in) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> Internet Draft author:<br /><a href="Ron Rivest">Ron Rivest</a> </p> </td> 
+         <td> <p> <a href="Lisp (programming language)">Lisp</a>, <a href="Netstring">Netstrings</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><br />(largely <i>de facto</i>) </p> </td> 
+         <td> <p> <a href="http://people.csail.mit.edu/rivest/Sexp.txt">&quot;S-Expressions&quot;</a> <a href="Internet Draft">Internet Draft</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(&quot;Canonical representation&quot;) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(&quot;Advanced transport representation&quot;) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Sereal (protocol)">Sereal</a> </p> </td> 
+         <td> <p> Yves Orton, Steffen M&uuml;ller et al </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://github.com/Sereal/Sereal/blob/master/sereal_spec.pod">Sereal Specification</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> <a href="Max Wildgrube">Max Wildgrube</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> RFC 3072 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Thrift (protocol)">Thrift</a> </p> </td> 
+         <td> <p> <a href="Facebook">Facebook</a> (creator)<br /><a href="Apache Software Foundation">Apache</a> (maintainer) </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="http://incubator.apache.org/thrift/static/thrift-20070401.pdf">Original whitepaper</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (built-in) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="External Data Representation">eXternal Data Representation</a> </p> </td> 
+         <td> <p> <a href="Sun Microsystems">Sun Microsystems</a> (creator)<br /><a href="IETF">IETF</a> (maintainer) </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> RFC 4506 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> <a href="W3C">W3C</a> </p> </td> 
+         <td> <p> <a href="SGML">SGML</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span><br /><a href="http://www.w3.org/TR/2008/REC-xml-20081126/">1.0 (Fifth Edition)</a><br /><a href="http://www.w3.org/TR/2006/REC-xml11-20060816/">1.1 (Second Edition)</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><br /><span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="XPointer">XPointer</a>, <a href="XPath">XPath</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="XML schema">XML schema</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><br />(<a href="Document Object Model">DOM</a>, <a href="Simple API for XML">SAX</a>, <a href="XQuery">XQuery</a>, <a href="XPath">XPath</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XML-RPC">XML-RPC</a> </p> </td> 
+         <td> <p> <a href="Dave Winer">Dave Winer</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="XML">XML</a>, <a href="SOAP">SOAP</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://xmlrpc.scripting.com/spec">XML-RPC Specification</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="YAML">YAML</a> </p> </td> 
+         <td> <p> Clark Evans, Ingy d&ouml;t Net, and Oren Ben-Kiki </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="Java (programming language)">Java</a>, <a href="Perl">Perl</a>, <a href="Python (programming language)">Python</a>, <a href="Ruby (programming language)">Ruby</a>, <a href="Email">Email</a>, <a href="HTML">HTML</a>, <a href="MIME">MIME</a>, <a href="URI">URI</a>, <a href="XML">XML</a>, <a href="Simple API for XML">SAX</a>, <a href="SOAP">SOAP</a>, <a href="JSON">JSON</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://www.yaml.org/spec/1.2/spec.html">Version 1.2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><br />(<a href="http://www.kuwata-lab.com/kwalify/">Kwalify</a>, <a href="http://rjbs.manxome.org/rx/">Rx</a>, built-in language type-defs) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li>a. <span class="unknown-node">{{note|...}}</span>The current default format is binary.</li> 
+       <li>b. <span class="unknown-node">{{note|...}}</span>The &quot;classic&quot; format is plain text, and an XML format is also supported.</li> 
+       <li>c. <span class="unknown-node">{{note|...}}</span>Theoretically possible due to abstraction, but no implementation is included.</li> 
+       <li>d. <span class="unknown-node">{{note|...}}</span>The primary format is binary, but a text format is available.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></li> 
+       <li>e. <span class="unknown-node">{{note|...}}</span>Means that generic tools/libraries know how to encode, decode, and dereference a reference to another piece of data in the same document. A tool may require the <a href="Interface description language">IDL</a> file, but no more. Excludes custom, non-standardized referencing techniques.</li> 
+       <li>f. <span class="unknown-node">{{note|...}}</span>ASN.1 does offer <a href="Object identifier">OIDs</a>, a standard format for globally unique identifiers. However, there is no standard for &quot;marking&quot;/&quot;tagging&quot; an arbitrary piece of data in a document with an OID. There is also no standard format for locally unique identifiers within a document. Therefore, a generic ASN.1 tool/library can not automatically encode/decode/resolve references within a document without help from custom-written program code.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Syntax comparison of human-readable formats</h2> 
+     <div class="section-body"> 
+      <table class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> <p> Format </p> </th> 
+         <th> <p> <a href="Nullable type">Null</a> </p> </th> 
+         <th> <p> <a href="Boolean data type">Boolean</a> true </p> </th> 
+         <th> <p> <a href="Boolean data type">Boolean</a> false </p> </th> 
+         <th> <p> <a href="Integer (computer science)">Integer</a> </p> </th> 
+         <th> <p> <a href="Floating-point">Floating-point</a> </p> </th> 
+         <th> <p> <a href="String (computer science)">String</a> </p> </th> 
+         <th> <p> <a href="Array data type">Array</a> </p> </th> 
+         <th> <p> <a href="Associative array">Associative array</a>/<a href="Object (computer science)">Object</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XML Encoding Rules">ASN.1</a><br />(XML Encoding Rules) </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;foo&gt;</span>true<span class="unknown-node">&lt;/foo&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;foo&gt;</span>false<span class="unknown-node">&lt;/foo&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;foo&gt;</span>685230<span class="unknown-node">&lt;/foo&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;foo&gt;</span>6.8523015e+5<span class="unknown-node">&lt;/foo&gt;</span></code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+         <td> <p> An object (the key is a field name): </p> <pre><span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span>
+</pre> <p> A data mapping (the key is a data value): <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> <span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Candle (programming language)">Candle</a> Markup </p> </td> 
+         <td> <p> <code>(), &quot;&quot;</code> </p> </td> 
+         <td> <p> <code>true</code> </p> </td> 
+         <td> <p> <code>false</code> </p> </td> 
+         <td> <p> <code>685230</code><br /><code>-685230</code> </p> </td> 
+         <td> <p> <code>6.8523015e+5</code> </p> </td> 
+         <td> <p> <code>&quot;A to Z&quot;</code><br /><code>&quot;&quot;&quot;<br />A <br />to <br />Z<br />&quot;&quot;&quot;</code> </p> </td> 
+         <td> <p> <code>(true, (), -42.1e7, &quot;A to Z&quot;)</code> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> or <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Comma-separated values">CSV</a><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>null</code><span class="unknown-node">{{ref|...}}</span><br />(or an empty element in the row)<span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>1</code><span class="unknown-node">{{ref|...}}</span><br /><code>true</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>0</code><span class="unknown-node">{{ref|...}}</span><br /><code>false</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>685230</code><br /><code>-685230</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>6.8523015e+5</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span><br /><code><span class="unknown-node">{{nobr|...}}</span></code> </p> </td> 
+         <td> <p> <code>true,,-42.1e7,&quot;A to Z&quot;</code> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Netstring">Netstrings</a><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>0:,</code><span class="unknown-node">{{ref|...}}</span><br /><code>4:null,</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>1:1,</code><span class="unknown-node">{{ref|...}}</span><br /><code>4:true,</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>1:0,</code><span class="unknown-node">{{ref|...}}</span><br /><code>5:false,</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>6:685230,</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>9:6.8523e+5,</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> <code>29:4:true,0:,7:-42.1e7,6:A to Z,,</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSON">JSON</a> </p> </td> 
+         <td> <p> <code>null</code> </p> </td> 
+         <td> <p> <code>true</code> </p> </td> 
+         <td> <p> <code>false</code> </p> </td> 
+         <td> <p> <code>685230</code><br /><code>-685230</code> </p> </td> 
+         <td> <p> <code>6.8523015e+5</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> <code>[true, null, -42.1e7, &quot;A to Z&quot;]</code> </p> </td> 
+         <td> <p> <code>{&quot;42&quot;: true, &quot;A to Z&quot;: [1, 2, 3]}</code> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OGDL">OGDL</a><span class="unknown-node">{{Verify source|...}}</span> </p> </td> 
+         <td> <p> <code>null</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>true</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>false</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>685230</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>6.8523015e+5</code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code>&quot;A to Z&quot;</code><br /><code>'A to Z'</code><br /><code>NoSpaces</code> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> <code>(true, null, -42.1e7, &quot;A to Z&quot;)</code> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Property list">Property list</a><br />(plain text format)<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <code>&lt;*BY&gt;</code> </p> </td> 
+         <td> <p> <code>&lt;*BN&gt;</code> </p> </td> 
+         <td> <p> <code>&lt;*I685230&gt;</code> </p> </td> 
+         <td> <p> <code>&lt;*R6.8523015e+5&gt;</code> </p> </td> 
+         <td> <p> <code>&quot;A to Z&quot;</code> </p> </td> 
+         <td> <p> <code>( &lt;*BY&gt;, &lt;*R-42.1e7&gt;, &quot;A to Z&quot; )</code> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Property list">Property list</a><br />(XML format)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;true /&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;false /&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;integer&gt;</span>685230<span class="unknown-node">&lt;/integer&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;real&gt;</span>6.8523015e+5<span class="unknown-node">&lt;/real&gt;</span></code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="S-expression">S-expressions</a> </p> </td> 
+         <td> <p> <code>NIL</code><br /><code>nil</code> </p> </td> 
+         <td> <p> <code>T</code><br /><code>#t</code><span class="unknown-node">{{ref|...}}</span><br /><code>true</code> </p> </td> 
+         <td> <p> <code>NIL</code><br /><code>#f</code><span class="unknown-node">{{ref|...}}</span><br /><code>false</code> </p> </td> 
+         <td> <p> <code>685230</code> </p> </td> 
+         <td> <p> <code>6.8523015e+5</code> </p> </td> 
+         <td> <p> <code>abc</code><br /><code>&quot;abc&quot;</code><br /><code>#616263#</code><br /><code>3:abc</code><br /><code>{MzphYmM=}</code><br /><code><span class="unknown-node">&lt;nowiki&gt;...&lt;/nowiki&gt;</span></code> </p> </td> 
+         <td> <p> <code>(T NIL -42.1e7 &quot;A to Z&quot;)</code> </p> </td> 
+         <td> <p> <code>((42 T) (&quot;A to Z&quot; (1 2 3)))</code> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="YAML">YAML</a> </p> </td> 
+         <td> <p> <code>~</code><br /><code>null<code><br /><code>Null</code><br /><code>NULL</code><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </code></code> </p> </td> 
+         <td> <p> <code>y</code><br /><code>Y</code><br /><code>yes</code><br /><code>Yes</code><br /><code>YES</code><br /><code>on</code><br /><code>On</code><br /><code>ON</code><br /><code>true</code><br /><code>True</code><br /><code>TRUE</code><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <code>n</code><br /><code>N</code><br /><code>no</code><br /><code>No</code><br /><code>NO</code><br /><code>off</code><br /><code>Off</code><br /><code>OFF</code><br /><code>false</code><br /><code>False</code><br /><code>FALSE</code><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <code>685230</code><br /><code>+685_230</code><br /><code>-685230</code><br /><code>02472256</code><br /><code>0x_0A_74_AE</code><br /><code>0b1010_0111_0100_1010_1110</code><br /><code>190:20:30</code><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <code>6.8523015e+5</code><br /><code>685.230_15e+03</code><br /><code>685_230.15</code><br /><code>190:20:30.15</code><br /><code>.inf</code><br /><code>-.inf</code><br /><code>.Inf</code><br /><code>.INF</code><br /><code>.NaN</code><br /><code>.nan</code><br /><code>.NAN</code><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <code>A to Z</code><br /><code>&quot;A to Z&quot;</code><br /><code>'A to Z'</code> </p> </td> 
+         <td> <p> <code>[y, ~, -42.1e7, &quot;A to Z&quot;]</code> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+         <td> <p> <code>{&quot;John&quot;:3.14, &quot;Jane&quot;:2.718}</code> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XML">XML</a><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;boolean val=&quot;true&quot; /&gt;</span></code><span class="unknown-node">{{ref|...}}</span> <code><span class="unknown-node">&lt;true /&gt;</span></code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;boolean val=&quot;false&quot; /&gt;</span></code><span class="unknown-node">{{ref|...}}</span> <code><span class="unknown-node">&lt;false /&gt;</span></code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;integer&gt;</span>685230<span class="unknown-node">&lt;/integer&gt;</span></code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;float&gt;</span>6.8523015e+5<span class="unknown-node">&lt;/float&gt;</span></code><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{ref|...}}</span><span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{ref|...}}</span><span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XML-RPC">XML-RPC</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;value&gt;</span><span class="unknown-node">&lt;boolean&gt;</span>1<span class="unknown-node">&lt;/boolean&gt;</span><span class="unknown-node">&lt;/value&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;value&gt;</span><span class="unknown-node">&lt;boolean&gt;</span>0<span class="unknown-node">&lt;/boolean&gt;</span><span class="unknown-node">&lt;/value&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;value&gt;</span><span class="unknown-node">&lt;int&gt;</span>685230<span class="unknown-node">&lt;/int&gt;</span><span class="unknown-node">&lt;/value&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;value&gt;</span><span class="unknown-node">&lt;double&gt;</span>6.8523015e+5<span class="unknown-node">&lt;/double&gt;</span><span class="unknown-node">&lt;/value&gt;</span></code> </p> </td> 
+         <td> <p> <code><span class="unknown-node">&lt;value&gt;</span><span class="unknown-node">&lt;string&gt;</span>A to Z<span class="unknown-node">&lt;/string&gt;</span><span class="unknown-node">&lt;/value&gt;</span></code> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;pre&gt;...&lt;/pre&gt;</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li>a. <span class="unknown-node">{{note|...}}</span>One possible encoding; the specification document does not specifically give an encoding for this datatype.</li> 
+       <li>b. <span class="unknown-node">{{note|...}}</span>The RFC CSV specification only deals with delimiters, newlines, and quote characters; it does not directly deal with serializing programming <a href="data structure">data structures</a>.</li> 
+       <li>c. <span class="unknown-node">{{note|...}}</span>The <a href="netstring">netstrings</a> specification only deals with nested <a href="byte string">byte strings</a>; anything else is outside the scope of the specification.</li> 
+       <li>d. <span class="unknown-node">{{note|...}}</span><a href="XML">XML</a> in and of itself is not a data serialization language, but many data serialization formats have been derived from it; as such, there are many different ways, in addition to those shown, to serialize programming <a href="data structure">data structures</a> into XML.</li> 
+       <li>e. <span class="unknown-node">{{note|...}}</span>This syntax is not compatible with the Internet-Draft, but is used by some dialects of <a href="Lisp (programming language)">Lisp</a>.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Comparison of binary formats</h2> 
+     <div class="section-body"> 
+      <table class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> <p> Format </p> </th> 
+         <th> <p> <a href="Nullable type">Null</a> </p> </th> 
+         <th> <p> <a href="Boolean data type">Booleans</a> </p> </th> 
+         <th> <p> <a href="Integer (computer science)">Integer</a> </p> </th> 
+         <th> <p> <a href="Floating-point">Floating-point</a> </p> </th> 
+         <th> <p> <a href="String (computer science)">String</a> </p> </th> 
+         <th> <p> <a href="Array data type">Array</a> </p> </th> 
+         <th> <p> <a href="Associative array">Associative array</a>/<a href="Object (computer science)">Object</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ASN.1">ASN.1</a><br />(<a href="Basic Encoding Rules">BER</a> or <a href="Packed Encoding Rules">PER</a> encoding) </p> </td> 
+         <td> <p> NULL type </p> </td> 
+         <td> <p> BOOLEAN; BER as 1 byte in binary form </p> </td> 
+         <td> <p> INTEGER; variable length big-endian binary representation up to 2^2^1024 bits </p> </td> 
+         <td> <p> REAL; representation as IEEE double or as three integers (mantissa, base, exponent) </p> </td> 
+         <td> <p> Multiple valid types (VisibleString, PrintableString, GeneralString, UniversalString, UTF8String) </p> </td> 
+         <td> <p> data specifications SET OF (unordered) and SEQUENCE OF (guaranteed order) </p> </td> 
+         <td> <p> user definable type </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="BSON">BSON</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Null type - 0 bytes for value </p> </td> 
+         <td> <p> True: one byte <code>\x01</code><br />False: <code>\x00</code> </p> </td> 
+         <td> <p> int32: 32-bit <a href="little-endian">little-endian</a> <a href="2's complement">2's complement</a> or int64: 64-bit <a href="little-endian">little-endian</a> <a href="2's complement">2's complement</a> </p> </td> 
+         <td> <p> <a href="Double precision floating-point format">double</a>: <a href="little-endian">little-endian</a> <a href="binary64">binary64</a> </p> </td> 
+         <td> <p> <a href="UTF-8">UTF-8</a> encoded, preceded by int32 encoded string length in bytes </p> </td> 
+         <td> <p> <a href="BSON">BSON</a> embedded document with numeric keys </p> </td> 
+         <td> <p> <a href="BSON">BSON</a> embedded document </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MessagePack">MessagePack</a> </p> </td> 
+         <td> <p> <code>\xc0</code> </p> </td> 
+         <td> <p> True: <code>\xc3</code><br />False: <code>\xc2</code> </p> </td> 
+         <td> <p> Single byte &quot;fixnum&quot; (values -32..127) or typecode (one byte) + big-endian (u)int8/16/32/64 </p> </td> 
+         <td> <p> Typecode (one byte) + IEEE single/double </p> </td> 
+         <td> <p> As &quot;fixraw&quot; (single-byte prefix + up to 31 raw bytes) or typecode (one byte) + 2-4 bytes length + raw bytes </p> </td> 
+         <td> <p> As &quot;fixarray&quot; (single-byte prefix + up to 15 array items) or typecode (one byte) + 2-4 bytes length + array items </p> </td> 
+         <td> <p> As &quot;fixmap&quot; (single-byte prefix + up to 15 key-value pairs) or typecode (one byte) + 2-4 bytes length + key-value pairs </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Netstring">Netstrings</a> </p> </td> 
+         <td> <p> <code>0:,</code> </p> </td> 
+         <td> <p> True: <code>1:1,</code> <span class="unknown-node">{{nobr|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OGDL">OGDL</a> Binary </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Property list">Property list</a><br />(binary format) </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Protocol Buffers">Protocol Buffers</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Variable encoding length signed 32-bit: varint encoding of &quot;ZigZag&quot;-encoded value <code>(n &lt;&lt; 1) <a href="XOR">XOR</a> (n &gt;&gt; 31)</code> Variable encoding length signed 64-bit: varint encoding of &quot;ZigZag&quot;-encoded <code>(n &lt;&lt; 1) XOR (n &gt;&gt; 63)</code><br /> Constant encoding length 32-bit: 32 bits in <a href="little-endian">little-endian</a> <a href="2's complement">2's complement</a><br /> Constant encoding length 64-bit: 64 bits in <a href="little-endian">little-endian</a> <a href="2's complement">2's complement</a> </p> </td> 
+         <td> <p> <a href="Single precision floating-point format">floats</a>: <a href="little-endian">little-endian</a> <a href="binary32">binary32</a> <a href="Double precision floating-point format">doubles</a>: <a href="little-endian">little-endian</a> <a href="binary64">binary64</a> </p> </td> 
+         <td> <p> <a href="UTF-8">UTF-8</a> encoded, preceded by varint-encoded integer length of string in bytes </p> </td> 
+         <td> <p> Repeated value with the same tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Sereal (protocol)">Sereal</a> </p> </td> 
+         <td> <p> <code>0x25</code> </p> </td> 
+         <td> <p> True: <code>0x3b</code><br />False: <code>0x3a</code> </p> </td> 
+         <td> <p> Single byte POS/NEG (values -16..15) or typecode (one byte) + &quot;varint&quot; encoded variable length integer or typecode (one byte) + &quot;zigzag&quot; encoded variable length integer </p> </td> 
+         <td> <p> Typecode (one byte) + IEEE single/double/quad </p> </td> 
+         <td> <p> As &quot;SHORT_BINARY&quot; (single-byte prefix + up to 31 raw bytes) or typecode (one byte, including boolean UTF8-encoding flag) + &quot;varint&quot; encoded length + raw bytes </p> </td> 
+         <td> <p> As &quot;ARRAYREF&quot; (single-byte prefix + up to 15 array items) or typecode (one byte) + &quot;varint&quot; encoded length + array items </p> </td> 
+         <td> <p> As &quot;HASHREF&quot; (single-byte prefix + up to 15 key-value pairs) or typecode (one byte) + &quot;varint&quot; encoded length + key-value pairs. Distinguishes hashmaps from objects / class instances. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Thrift (protocol)">Thrift</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SDXF">Structured Data eXchange Formats</a> (SDXF) </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> big-endian signed 24bit or 32bit integer </p> </td> 
+         <td> <p> big-endian IEEE double </p> </td> 
+         <td> <p> either <a href="UTF-8">UTF-8</a> or ISO 8859-1 encoded </p> </td> 
+         <td> <p> list of elements with identical ID and size, preceded by array header with int16 length </p> </td> 
+         <td> <p> chunks can contain other chunks to arbitrary depth </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Comparison of document markup languages">Comparison of document markup languages</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://www.w3.org/TR/NOTE-xml-ql/">XML-QL Proposal discussing XML benefits</a></li> 
+       <li><a href="http://www.25hoursaday.com/weblog/PermaLink.aspx?guid=dada27bf-2af0-400d-94c9-5575546f5664">When to use XML</a></li> 
+       <li><a href="wiki:XmlSucks">XmlSucks</a> at the Portland Pattern Repository</li> 
+       <li><a href="http://www.xml.com/pub/a/2001/05/02/champion.html">Daring to Do Less with XML</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Data Serialization Formats}}</span> <a href="Category:Data serialization formats">Category:Data serialization formats</a> <a href="Category:Persistence">Category:Persistence</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

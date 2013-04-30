@@ -1,0 +1,1098 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of DNS server software</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of DNS server software</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{tocright}}</span> </p> 
+    <p> This article presents a <b>comparison</b> of the features, platform support, and packaging of independent implementations of <a href="Domain Name System">Domain Name System</a> (<b>DNS</b>) <b><a href="name server">name server</a> software</b>. </p> 
+    <div class="section"> 
+     <h2> Servers compared </h2> 
+     <div class="section-body"> 
+      <p> Each of these <a href="Domain Name System">DNS</a> servers is an independent implementation of the DNS protocols, capable of resolving DNS names for other computers, publishing the DNS names of computers, or both. Excluded from consideration are single-feature DNS tools (such as proxies, filters, and firewalls) and redistributions of servers listed here (many products repackage BIND, for instance, with proprietary user interfaces). </p> 
+      <p> DNS servers are grouped into several categories of specialization of servicing domain name system queries. The two principal roles, which may be implemented either uniquely or combined in a given product are: </p> 
+      <ul> 
+       <li> <b>Authoritative server</b>: <a href="authoritative name server">authoritative name servers</a> publish DNS mappings for domains under their <i>authoritative</i> control. Typically, a company (e.g. &quot;Acme Example Widgets&quot;) would provide its own authority services to respond to address queries, or for other DNS information, for <i>www.example.int</i>. These servers are listed as being at the top of the authority chain for their respective domains, and are capable of providing a definitive answer. Authoritative name servers can be <i>primary name servers</i>, also known as <i>master</i> servers, i.e. they contain the original set of data, or they can be <i>secondary</i> or <i>slave name servers</i>, containing data copies usually obtained from synchronization directly with the master server, either via a DNS mechanism, or by other data store synchronization mechanisms.</li> 
+       <li> <b>Recursive Servers</b>: <a href="Domain_Name_System#Recursive_and_caching_name_server">recursive servers</a> (sometimes called &quot;DNS caches&quot;, &quot;caching-only name servers&quot;) provide DNS name resolution for applications, by relaying the requests of the client application to the chain of authoritative name servers to fully resolve a network name. They also (typically) cache the result to answer potential future queries within a certain expiration (<a href="Time to live">time-to-live</a>) period. Most Internet users access a <i>recursive server</i> provided by their internet service provider to locate internet <a href="Host (network)">hosts</a> such as <i><a href="example.com">www.example.com</a></i>.</li> 
+      </ul> 
+      <div class="section"> 
+       <h3> <a href="BIND">BIND</a> </h3> 
+       <div class="section-body"> 
+        <p> BIND is the <i><a href="de facto standard">de facto standard</a></i> DNS server. It is a <a href="free software">free software</a> product and is distributed with most Unix and Linux platforms, where it is most often also referred to as <i>named</i> (name daemon). It is the most widely deployed DNS server.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> Historically, BIND underwent three major revisions, each with significantly different architectures: BIND4, BIND8, and BIND9. BIND4 and BIND8 are now technically obsolete and not considered in this article. BIND9 is a ground-up rewrite of BIND featuring complete <a href="Domain Name System Security Extensions">DNSSEC</a> support in addition to other features and enhancements. </p> 
+        <p> <a href="Internet Systems Consortium">Internet Systems Consortium</a> has also started development of a new version, BIND 10. Its first release was in April 2010, and is expected to be a five-year project to complete its feature set. It is not included in this comparison at this time. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="Microsoft DNS">Microsoft DNS</a> </h3> 
+       <div class="section-body"> 
+        <p> Microsoft DNS is the DNS server provided with <a href="Windows Server">Windows Server</a>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="Dnsmasq">Dnsmasq</a> </h3> 
+       <div class="section-body"> 
+        <p> Dnsmasq is a lightweight, easy to configure DNS forwarder, designed to provide DNS (and optionally <a href="Dynamic Host Configuration Protocol">DHCP</a> and <a href="Trivial File Transfer Protocol">TFTP</a>) services to a small-scale network. It can serve the names of local machines which are not in the global DNS. </p> 
+        <p> Dnsmasq accepts DNS queries and either answers them from a small, local cache or forwards them to a real, recursive DNS server. It loads the contents of <a href="Hosts (file)">/etc/hosts</a>, so that local host names which do not appear in the global DNS can be resolved. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="djbdns">djbdns</a> </h3> 
+       <div class="section-body"> 
+        <p> Djbdns is a collection of DNS applications, including <i>tinydns</i>, which was the second most used <a href="free software">free software</a> DNS server in 2004.<span class="unknown-node">&lt;ref .../&gt;</span> It was designed by <a href="Daniel J. Bernstein">Daniel J. Bernstein</a>, author of <a href="qmail">qmail</a>, with an emphasis on security considerations. In March 2009, Bernstein paid $1000 to the first person finding a security hole in djbdns.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> The <a href="Source code">Source code</a> is not centrally maintained and was released into the public domain in 2007. As of March 2009, there are three <a href="Fork (software development)">forks</a> and more than a dozen <a href="Patch (computing)">patches</a> to add additional features to djbdns<span class="unknown-node">{{Citation needed|...}}</span>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="Simple DNS Plus">Simple DNS Plus</a> </h3> 
+       <div class="section-body"> 
+        <p> Simple DNS Plus is a commercial DNS server product that runs under Microsoft Windows with an emphasis on a simple-to-use <a href="GUI">GUI</a>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="NSD">NSD</a> </h3> 
+       <div class="section-body"> 
+        <p> NSD is a <a href="free software">free software</a> authoritative server provided by NLNet Labs. NSD is a test-bed server for DNSSEC; new DNSSEC protocol features are often prototyped using the NSD code base. NSD hosts several <a href="top-level domain">top-level domains</a>, and operates three of the <a href="root nameserver">root nameservers</a>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="Knot DNS">Knot DNS</a> </h3> 
+       <div class="section-body"> 
+        <p> Knot DNS is a <a href="free software">free software</a> authoritative DNS server by <a href="CZ.NIC">CZ.NIC</a>. Knot DNS aims to be a fast, resilient DNS server usable for infrastructure (root and TLD) and dns hosting services. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="PowerDNS">PowerDNS</a> </h3> 
+       <div class="section-body"> 
+        <p> PowerDNS is a <a href="free software">free software</a> DNS server with a variety of data storage back-ends and load balancing features. Authoritative and recursive server functions are implemented as separate applications. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="MaraDNS">MaraDNS</a> </h3> 
+       <div class="section-body"> 
+        <p> MaraDNS is a <a href="free software">free software</a> DNS server by Sam Trenholme that claims a good security history and ease of use.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> In order to change any DNS records, MaraDNS needs to be restarted. Like djbdns dnscache, the MaraDNS 2.0 stand-alone recursive resolver (&quot;Deadwood&quot;) does not use threads.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="Nominum Authoritative Name Server">Nominum Authoritative Name Server (ANS)</a> </h3> 
+       <div class="section-body"> 
+        <p> ANS is a commercial authoritative server from <a href="Nominum">Nominum</a>, a company whose chief scientist and chairman is <a href="Paul Mockapetris">Paul Mockapetris</a>, the inventor of the DNS. ANS was designed to meet the needs of <a href="Top Level Domain">top level domain</a> servers, hosters and large enterprises. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="Nominum Vantio">Nominum Vantio</a> </h3> 
+       <div class="section-body"> 
+        <p> Vantio is a commercial high-performance recursive caching server from <a href="Nominum">Nominum</a>, intended as a fast, secure alternative to BIND for service providers, enterprises, and government agencies. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="Posadis">Posadis</a> </h3> 
+       <div class="section-body"> 
+        <p> Posadis is a <a href="free software">free software</a> DNS server, written in C++, featuring <a href="Dynamic DNS">Dynamic DNS</a> update support. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="Unbound (DNS Server)">Unbound</a> </h3> 
+       <div class="section-body"> 
+        <p> Unbound is a validating, recursive and caching DNS server designed for high-performance. It was released May 20, 2008 (version 1.0.0) in form of <a href="free software">free software</a> software licensed under the BSD license by NLnet Labs, Verisign Inc., Nominet, and Kirei. Unbound is also offered on a hardened Linux kernel with intelligent toggling with ISC BIND, integrated with Quagga routing protocols on the Dell/TCPWave appliances. Commercial support for Unbound is also provided by TCPWave. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="pdnsd">pdnsd</a> </h3> 
+       <div class="section-body"> 
+        <p> Pdnsd is a caching DNS proxy server that stores cached DNS records on disk for long term retention. Pdnsd is designed to be highly adaptable to situations where net connectivity is slow, unreliable, unavailable, or highly dynamic, with limited capability of acting as an authoritative nameserver. It is licensed under the <a href="GPL">GPL</a>.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="Cisco Network Registrar">Cisco Network Registrar</a> </h3> 
+       <div class="section-body"> 
+        <p> CNR includes a commercial DNS server from <a href="Cisco Systems">Cisco Systems</a> usually used in conjunction with the CNR DHCP (<a href="Dynamic Host Configuration Protocol">Dynamic Host Configuration Protocol</a>) server. It supports high rates of dynamic update. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Domain Name Relay Daemon (dnrd) </h3> 
+       <div class="section-body"> 
+        <p> Domain Name Relay Daemon<a href="http://dnrd.sourceforge.net/">1</a> is a <a href="Domain Name System#Recursive and caching name server">caching, forwarding</a> DNS proxy server. Most useful on <a href="Virtual private network">vpn</a> or <a href="dialup">dialup</a> firewalls but it is also a nice DNS cache for minor networks and workstations. Licensed under <a href="GNU General Public License">GPL</a>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Geographic DNS daemon (gdnsd) </h3> 
+       <div class="section-body"> 
+        <p> Geographic DNS daemon (gdnsd)<a href="http://code.google.com/p/gdnsd/">2</a> is a <a href="GPL3">GPL3</a>-licensed Authoritative DNS server written in C using libev<a href="http://software.schmorp.de/pkg/libev.html">3</a> and <a href="pthreads">pthreads</a> with a focus on high performance, low latency service. It does not offer any form of caching or recursive service, and does not support <a href="DNSSEC">DNSSEC</a>. The initial &quot;g&quot; stands for Geographic, as gdnsd offers a plugin system for geographic (or other sorts of) balancing, redirection, and service-state-conscious failover. If you don't care about that feature, you can ignore it and gdnsd still makes a great authoritative DNS server. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> <a href="YADIFA">YADIFA</a> </h3> 
+       <div class="section-body"> 
+        <p> YADIFA<a href="http://www.yadifa.eu/">4</a> is a BSD-licensed, memory-efficient DNS server written in C. The acronym YADIFA stands for <i>Yet Another DNS Implementation For All</i>. It was created by <a href="EURid">EURid</a>, which operates the .eu top-level domain.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Yaku-NS </h3> 
+       <div class="section-body"> 
+        <p> Yaku-NS<a href="https://github.com/antirez/yaku-ns">5</a> is a <a href="GPL">GPL</a>-licensed authoritative DNS server written in C, small footprint, trivial to configure. Features include forwarding to multiple external DNS servers, built-in ACL rules, root privileges squashing, chroot jail under unix systems and secure DNS IDs to prevent DNS forgery. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Features </h2> 
+     <div class="section-body"> 
+      <p> Some DNS features are relevant only to recursive servers, or to authoritative servers. As a result, a feature matrix such as the one in this article cannot by itself represent the effectiveness or maturity of a given implementation. </p> 
+      <p> Another important qualifier is the server architecture. Some DNS servers provide support for both server roles in a single, &quot;monolithic&quot; program. Others are divided into smaller programs, each implementing a subsystem of the server. As in the classic Computer Science <a href="microkernel">microkernel</a> debate, the importance and utility of this distinction is hotly debated. The feature matrix in this article does not discuss whether DNS features are provided in a single program or several, so long as those features are provided with the base server package and not with third-party add-on software. </p> 
+      <div class="section"> 
+       <h3> Explanation of features </h3> 
+       <div class="section-body"> 
+        <p> ; Authoritative </p> 
+        <dl> 
+         <dd>
+           A major category of DNS server functionality, see above.
+         </dd> 
+        </dl> 
+        <p> ; Recursive </p> 
+        <dl> 
+         <dd>
+           A major category of DNS server functionality, see above.
+         </dd> 
+        </dl> 
+        <p> ; Recursion Access Control </p> 
+        <dl> 
+         <dd>
+           Servers with this feature provide control over which hosts are permitted DNS recursive lookups. This is useful for load balancing and service protection.
+         </dd> 
+        </dl> 
+        <p> ; Slave Mode </p> 
+        <dl> 
+         <dd>
+           Authoritative servers can publish content that originates from primary data storage (such as zone files or databases connected to business administration processes)--such servers are also called 'master' servers--or can be 
+          <i>slave</i> or 
+          <i>secondary</i> servers, republishing content fetched from and synchronized with such master servers. Servers with a &quot;slave mode&quot; feature have a built-in capability to retrieve and republish content from other servers. This is typically, though not always, provided using the 
+          <a href="AXFR">AXFR</a> DNS protocol.
+         </dd> 
+        </dl> 
+        <p> ; Caching </p> 
+        <dl> 
+         <dd>
+           Servers with this feature provide recursive services for applications, and cache the results so that future requests for the same name can be answered quickly, without a full DNS lookup. This is an important performance feature, as it significantly reduces the latency of DNS requests.
+         </dd> 
+        </dl> 
+        <p> ; DNSSEC </p> 
+        <dl> 
+         <dd>
+           Servers with this feature implement some variant of the 
+          <a href="Domain Name System Security Extensions">DNSSEC</a> protocols. They may publish names with resource record signatures (providing a &quot;secure authority service&quot;), and may validate those signatures during recursive lookups (providing a &quot;secure resolver&quot;). DNSSEC is becoming more widespread as the deployment of a DNSSEC root key has been done by ICANN. Deployment to individual sites is growing as top level domains start to deploy DNSSEC too. The presence of DNSSEC features is a notable characteristic of a DNS server.
+         </dd> 
+        </dl> 
+        <p> ; TSIG </p> 
+        <dl> 
+         <dd>
+           Servers with this feature typically provide DNSSEC services. In addition, they support the 
+          <a href="TSIG">TSIG</a> protocol, which allows DNS clients to establish a secure session with the server to publish 
+          <a href="Dynamic DNS">Dynamic DNS</a> records or to request secure DNS lookups without incurring the cost and complexity of full DNSSEC support.
+         </dd> 
+        </dl> 
+        <p> ; IPv6 </p> 
+        <dl> 
+         <dd>
+           Servers with this feature are capable of publishing or handling DNS records that refer to 
+          <a href="IPv6">IPv6</a> addresses. In addition to be fully IPv6 capable they must implement IPv6 transport protocol for queries and zone transfers in slave/master relationships and forwarder functions.
+         </dd> 
+        </dl> 
+        <p> ; Wildcard </p> 
+        <dl> 
+         <dd>
+           Servers with this feature can publish information for 
+          <a href="Wildcard DNS record">wildcard records</a>, which provide data about DNS names in DNS zones that are not specifically listed in the zone.
+         </dd> 
+        </dl> 
+        <p> ; Split horizon </p> 
+        <dl> 
+         <dd>
+           Servers with the 
+          <a href="split-horizon DNS">split-horizon DNS</a> feature can give different answers depending on the source IP address of the query.
+         </dd> 
+        </dl> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Feature matrix </h3> 
+       <div class="section-body"> 
+        <table class="sortable wikitable" style="font-size: 85%; text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width:20em"> <p> Server </p> </th> 
+           <th> <p> Authoritative </p> </th> 
+           <th> <p> Recursive </p> </th> 
+           <th> <p> Recursion <a href="Access control list">ACL</a> </p> </th> 
+           <th> <p> Slave mode </p> </th> 
+           <th> <p> Caching </p> </th> 
+           <th> <p> <a href="Domain Name System Security Extensions">DNSSEC</a> </p> </th> 
+           <th> <p> <a href="TSIG">TSIG</a> </p> </th> 
+           <th> <p> <a href="IPv6">IPv6</a> </p> </th> 
+           <th> <p> Wildcard </p> </th> 
+           <th> <p> Free Software </p> </th> 
+           <th> <p> Interface </p> </th> 
+           <th> <p> <a href="Split-horizon DNS">split horizon</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="BIND">BIND</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> (since 9.x) </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> (since 4.x) </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> Web<span class="unknown-node">{{r|...}}</span>, command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="PowerDNS">PowerDNS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 3.0) <span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 3.0) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Web, command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="djbdns">djbdns</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> via generic records. <a href="http://www.fefe.de/dns/">6</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> command line and web (VegaDNS &amp; <a href="http://www.nictool.com/">NicTool</a>)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="dbndns">dbndns</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> command line and web </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="pdnsd">pdnsd</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> command line, pdnsd-ctl program </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MaraDNS">MaraDNS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Posadis">Posadis</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> command line, API </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Unbound (DNS Server)">Unbound</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> command line, API </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Dnsmasq">Dnsmasq</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NSD">NSD</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Knot DNS">Knot DNS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> dnrd </p> </th> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> gdnsd </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="YADIFA">YADIFA</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> yaku-ns </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Microsoft DNS">Microsoft DNS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> GUI, command line, API<span class="unknown-node">{{r|...}}</span>, <a href="Windows Management Instrumentation">WMI</a><span class="unknown-node">{{r|...}}</span>, <a href="MSRPC">RPC</a><span class="unknown-node">{{r|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Simple DNS Plus">Simple DNS Plus</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> GUI, Web, command line </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Nominum Authoritative Name Server">Nominum ANS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{N/A}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> command line, api, SOAP Interface, SNMP </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Nominum Vantio">Nominum Vantio</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> command line, api, SOAP Interface, SNMP </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="width:20em"> <p> Server </p> </th> 
+           <th> <p> Authoritative </p> </th> 
+           <th> <p> Recursive </p> </th> 
+           <th> <p> Recursion <a href="Access control list">ACL</a> </p> </th> 
+           <th> <p> Slave mode </p> </th> 
+           <th> <p> Caching </p> </th> 
+           <th> <p> <a href="Domain Name System Security Extensions">DNSSEC</a> </p> </th> 
+           <th> <p> <a href="TSIG">TSIG</a> </p> </th> 
+           <th> <p> <a href="IPv6">IPv6</a> </p> </th> 
+           <th> <p> Wildcard </p> </th> 
+           <th> <p> Free Software </p> </th> 
+           <th> <p> Interface </p> </th> 
+           <th> <p> <a href="Split-horizon DNS">split horizon</a> </p> </th> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Platforms </h2> 
+     <div class="section-body"> 
+      <p> In this overview of <a href="operating system">operating system</a> support for the discussed DNS server, the following terms indicate the level of support: </p> 
+      <ul> 
+       <li> <i>No</i> indicates that it does not exist or was never released.</li> 
+       <li> <i>Partial</i> indicates that while it works, the server lacks important functionality compared to versions for other OSs; it is still being developed however.</li> 
+       <li> <i>Beta</i> indicates that while a version is fully functional and has been released, it is still in development (e.g. for stability).</li> 
+       <li> <i>Yes</i> indicates that it has been officially released in a fully functional, stable version.</li> 
+       <li> <i>Included</i> indicates that the server comes pre-packaged with or has been integrated into the operating system.</li> 
+      </ul> 
+      <p> This compilation is not exhaustive, but rather reflects the most common platforms today. </p> 
+      <table class="sortable wikitable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th style="width:20em"> <p> Server </p> </th> 
+         <th> <p> <a href="Berkeley Software Distribution">BSD</a> </p> </th> 
+         <th> <p> <a href="Solaris (operating system)">Solaris</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BIND">BIND</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft DNS">Microsoft DNS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{included}}</span><span class="unknown-node">{{r|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="djbdns">djbdns</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Dnsmasq">Dnsmasq</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Simple DNS Plus">Simple DNS Plus</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NSD">NSD</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Knot DNS">Knot DNS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PowerDNS">PowerDNS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <a href="http://www.solaris4you.dk/dnsservSS.html">7</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{beta}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MaraDNS">MaraDNS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <a href="http://www.solaris4you.dk/dnsservSS.html">8</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="pdnsd">pdnsd</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Nominum Authoritative Name Server">Nominum ANS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Nominum Vantio">Nominum Vantio</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Posadis">Posadis</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <a href="http://posadis.sourceforge.net/">9</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Unbound (DNS Server)">Unbound</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cisco Network Registrar">Cisco Network Registrar</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> dnrd </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> gdnsd </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> yaku-ns </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Packaging </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th style="width:20em"> <p> Server </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Cost (<a href="United States dollar">USD</a>) </p> </th> 
+         <th> <p> Public source code </p> </th> 
+         <th> <p> <a href="Software license">Software license</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BIND">BIND</a> </p> </th> 
+         <td> <p> <a href="Internet Systems Consortium">Internet Systems Consortium</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="BSD license">BSD</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft DNS">Microsoft DNS</a> </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> Included with <a href="Windows Server">Windows Server</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="Clickwrap">Clickwrap license</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="djbdns">djbdns</a> </p> </th> 
+         <td> <p> <a href="Daniel J. Bernstein">Daniel J. Bernstein</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="Public domain">Public domain</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Dnsmasq">Dnsmasq</a> </p> </th> 
+         <td> <p> Simon Kelley </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Simple DNS Plus">Simple DNS Plus</a> </p> </th> 
+         <td> <p> JH Software </p> </td> 
+         <td> <p> $79 ? $379 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="Clickwrap">Clickwrap license</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NSD">NSD</a> </p> </th> 
+         <td> <p> NLnet Labs </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a> variant </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Knot DNS">Knot DNS</a> </p> </th> 
+         <td> <p> <a href="CZ.NIC">CZ.NIC</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PowerDNS">PowerDNS</a> </p> </th> 
+         <td> <p> PowerDNS.COM BV / <a href="Bert Hubert">Bert Hubert</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MaraDNS">MaraDNS</a> </p> </th> 
+         <td> <p> Sam Trenholme </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a> variant </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Nominum Authoritative Name Server">Nominum ANS</a> </p> </th> 
+         <td> <p> <a href="Nominum">Nominum</a> </p> </td> 
+         <td> <p> Unpublished price </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="Clickwrap">Clickwrap license</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Nominum Vantio">Nominum Vantio</a> </p> </th> 
+         <td> <p> <a href="Nominum">Nominum</a> </p> </td> 
+         <td> <p> Unpublished price </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="Clickwrap">Clickwrap license</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="pdnsd">pdnsd</a> </p> </th> 
+         <td> <p> Thomas Moestl and Paul Rombouts </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Posadis">Posadis</a> </p> </th> 
+         <td> <p> Meilof Veeningen </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Unbound (DNS Server)">Unbound</a> </p> </th> 
+         <td> <p> NLnet Labs </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="BSD license">BSD</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> yaku-ns </p> </th> 
+         <td> <p> Salvatore Sanfilippo </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="DNS management software">DNS management software</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> External links </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://mydns.bboy.net/survey/">Don Moore's May 2004 DNS Internet survey</a></li> 
+       <li> <a href="http://dns.measurement-factory.com/surveys/sum1.html">The Measurement Factory DNS Survey Summary: April &amp; June 2005</a></li> 
+       <li> <a href="http://www.cs.cornell.edu/People/egs/beehive/dnssurvey.html">Beehive/CoDoNS DNS Survey: July 2004</a></li> 
+       <li> <a href="http://www.itu.int/itudoc/itu-t/workshop/cctld/cctld046.pdf">ITU ccTLD DNS Survey</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Dns Server Software}}</span> <a href="Category:Software comparisons">DNS server software</a> <a href="Category:DNS software">Category:DNS software</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

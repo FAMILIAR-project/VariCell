@@ -1,0 +1,2516 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of layout engines (ECMAScript)</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of layout engines (ECMAScript)</h1> 
+   <div class="article-content"> 
+    <p> The following tables compare <a href="ECMAScript">ECMAScript</a> (particularly <a href="JavaScript">JavaScript</a>) support for a number of <a href="Web browser engine">layout engines</a>. Please see the individual products' articles for further information. This article is not all-inclusive or necessarily up-to-date. Unless otherwise specified in footnotes, comparisons are based on the stable versions without any add-ons, extensions or external programs. </p> 
+    <p> <span class="unknown-node">{{Layout engine nomenclature}}</span> <span class="unknown-node">{{Explanation of the tables2}}</span> </p> 
+    <div class="section"> 
+     <h2>ECMAScript version support</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="width: 95%; text-align: center;"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+         <th style="width: 15%"> <p> <a href="Google Chrome">Chrome Webkit</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left;"> <p> Name of ECMAScript Engine </p> </th> 
+         <td> <p> <a href="JScript">JScript</a>/<a href="Chakra (JScript engine)">Chakra</a> </p> </td> 
+         <td> <p> <a href="SpiderMonkey (JavaScript engine)">Spidermonkey/TraceMonkey</a> </p> </td> 
+         <td> <p> <a href="WebKit#JavaScriptCore">JavaScriptCore/SquirrelFish Extreme</a> </p> </td> 
+         <td> <p> <a href="Presto (layout engine)#JavaScript engines">Linear B/Futhark/Carakan</a> </p> </td> 
+         <td> <p> <a href="V8 (JavaScript_engine)">V8</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> ECMAScript Edition 3 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> ECMAScript Edition 5 </p> </th> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> JavaScript 1.5 extensions </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> JavaScript 1.6 extensions<br />(excluding E4X) </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> JavaScript 1.7 extensions </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> JavaScript 1.8 extensions </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> JavaScript 1.8.1 extensions </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="JScript .NET">JScript .NET</a> extensions </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="ActionScript">ActionScript</a> extensions </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="E4X">E4X</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dropped|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Standard Library</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>Global object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Google Chrome">Chrome WebKit</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Value properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left"> <p> <code>NaN</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Infinity</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>undefined</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Function properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>eval(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>parseInt(string [, radix])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>parseFloat(string)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>isNaN(number)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>isFinite(number)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> URI handling functions </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>decodeURI(encodedURI)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>decodeURIComponent(encodedURIComponent)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>encodeURI(uri)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>encodeURIComponent(uriComponent)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Constructor properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Object</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Function</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Array</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>String</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Boolean</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Number</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Date</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>RegExp</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Error</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>EvalError</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>RangeError</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>ReferenceError</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>SyntaxError</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>TypeError</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>URIError</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Other properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Math</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Additional properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>escape(string)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>unescape(string)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Object object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Google Chrome">Chrome WebKit</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Object([value])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Object([value])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toLocaleString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>valueOf()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>hasOwnProperty(V)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>isPrototypeOf(V)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>propertyIsEnumerable(V)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Function object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Google Chrome">Chrome WebKit</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Function([[p1 [, p2 [, ...]],] body])</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Function([[p1 [, p2 [, ...]],] body])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>length</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>length</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>apply(thisArg, argArray)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>call(thisArg [, arg1 [, arg2 [, ...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties of instances </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>length</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Array object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Google Chrome">Chrome WebKit</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Array([item1 [, item2 [, ...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Array([item1, item2 [, ...]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Array(len)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toLocaleString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>concat([item1 [, item2 [,...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>join(separator)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>pop()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>push([item1 [, item2 [,...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>reverse()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>shift()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>slice(start, end)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>sort(comparefn)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>splice(start, deleteCount [, item1 [, item2 [, ...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>unshift([item1 [, item2 [, ...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>indexOf(searchElement[, fromIndex])</code> </p> </th> 
+           <td> <p> rowspan=&quot;9&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>lastIndexOf(searchElement[, fromIndex])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>filter(callback[, thisObject])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>forEach(callback[, thisObject])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>every(callback[, thisObject])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>map(callback[, thisObject])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>some(callback[, thisObject])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>reduce(callback[, initialValue])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>reduceRight(callback[, initialValue])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties of instances </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>length</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>String object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Google Chrome">Chrome WebKit</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>String([value])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new String([value])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>fromCharCode([char0 [, char1 [, ...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>valueOf()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>charAt(pos)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>charCodeAt(pos)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>concat([string1 [, string2 [, ...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>indexOf(searchString, position)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>lastIndexOf(searchString, position)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>localeCompare(that)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>match(regexp)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>replace(searchValue, replaceValue)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>search(regexp)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>slice(start, end)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>split(separator, limit)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>substring(start, end)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toLowerCase()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toLocaleLowerCase(comparefn)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toUpperCase()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toLocaleUpperCase()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Additional properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>substr(start, length)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties of instances </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>length</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Boolean object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Google Chrome">Chrome WebKit</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Boolean([value])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Boolean([value])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="6" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>valueOf()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Number object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Number([value])</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Number([value])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>MAX_VALUE</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>MIN_VALUE</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>NaN</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>NEGATIVE_INFINITY</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>POSITIVE_INFINITY</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toString([radix])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toLocaleString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>valueOf()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toFixed(fractionDigits)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toExponential(fractionDigits)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toPrecision(precision)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Math object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Value properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>E</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>LN10</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>LN2</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>LOG2E</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>LOG10E</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>PI</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>SQRT1_2</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>SQRT2</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Function properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>abs(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>acos(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>asin(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>atan(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>atan2(y, x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>ceil(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>cos(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>exp(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>floor(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>log(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>max([value1 [, value2 [, ...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>min([value1 [, value2 [, ...]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>pow(x, y)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>random()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>round(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>sin(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>sqrt(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>tan(x)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Date object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Date ([year [, month [, date [, hours [, minutes [, seconds [, ms ]]]]]]])</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Date (year, month [, date [, hours [, minutes [, seconds [, ms ]]]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Date (value)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Date ()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>parse(string)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>UTC (year, month [, date [, hours [, minutes [, seconds [, ms ]]]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toDateString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toTimeString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toLocaleString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toLocaleDateString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toLocaleTimeString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>valueOf()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getTime()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getFullYear()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getMonth()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getUTCMonth()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getDate()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getUTCDate()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getDay()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getUTCDay()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getHours()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getUTCHours()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getMinutes()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getUTCMinutes()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getSeconds()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getUTCSeconds()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getMilliseconds()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getUTCMilliseconds()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getTimezoneOffset()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setTime(time)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setMilliseconds(ms)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setUTCMilliseconds(ms)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setSeconds(sec [, ms])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setUTCSeconds(sec [, ms])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setMinutes(min [, sec [, ms]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setUTCMinutes(min [, sec [, ms]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setHours(hour [, min [, sec [, ms]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setUTCHours(hour [, min [, sec [, ms]]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setDate(date)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setUTCDate(date)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setMonth(month [, date])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setUTCMonth(month [, date])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setFullYear(year [, month [, date]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setUTCFullYear(year [, month [, date]])</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toUTCString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Additional properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>getYear()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>setYear(year)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toGMTString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>RegExp object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>RegExp (pattern, flags)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new RegExp (pattern, flags)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>exec(string)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>test(string)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties of instances </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>source</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>global</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>ignoreCase</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>multiline</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>lastIndex</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Error object</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>Error (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new Error (message)</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>name</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>message</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>toString()</code> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>NativeError objects</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="width: 95%; text-align: center;"> 
+         <tbody>
+          <tr> 
+           <th> </th> 
+           <th style="width: 15%"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+           <th style="width: 15%"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as function </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>EvalError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>RangeError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>ReferenceError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>SyntaxError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>TypeError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>URIError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Called as constructor </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new EvalError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new RangeError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new ReferenceError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new SyntaxError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new TypeError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>new URIError (message)</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>prototype</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th colspan="5" style="text-align: center;"> <p> Properties of prototype </p> </th> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>constructor</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>name</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <th style="text-align: left;"> <p> <code>message</code> </p> </th> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <ul> 
+       <li><a href="http://www.opera.com/docs/specs/js/ecma/">ECMAScript object support in Opera</a></li> 
+       <li><a href="http://www.robertnyman.com/javascript/index.html">JavaScript tests &amp; Compatibility tables</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://www.webdevout.net/browser-support-ecmascript">Webdevout</a> ? mostly covers Windows browsers. Extensive bug testing.</li> 
+      </ul> 
+      <p> <span class="unknown-node">{{ECMAScript}}</span> <span class="unknown-node">{{Web browser engines}}</span> </p> 
+      <p> <a href="Category:Layout engine comparisons">Category:Layout engine comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

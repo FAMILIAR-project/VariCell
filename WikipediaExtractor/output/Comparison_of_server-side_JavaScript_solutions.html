@@ -1,0 +1,423 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of server-side JavaScript solutions</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of server-side JavaScript solutions</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{refimprove|...}}</span> This is a list of <a href="server-side JavaScript">server-side JavaScript</a> solutions. </p> 
+    <div class="section"> 
+     <h2> Server-side JavaScript use </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable"> 
+       <caption> 
+        <p> Examples of current uses of JavaScript on the server side </p> 
+       </caption> 
+       <tbody>
+        <tr> 
+         <th> <p> Project-product name </p> </th> 
+         <th> <p> JavaScript engine </p> </th> 
+         <th> <p> Server platform(s) </p> </th> 
+         <th> <p> Comments </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="10gen">10gen</a> </p> </td> 
+         <td> <p> <a href="Rhino (JavaScript engine)">Rhino</a> </p> </td> 
+         <td> <p> 10gen application server </p> </td> 
+         <td> <p> Uses Rhino parser; compiles JavaScript to Java </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Alfresco (software)">Alfresco</a> </p> </td> 
+         <td> <p> Rhino </p> </td> 
+         <td> <p> Any Java servlet container and standalone. </p> </td> 
+         <td> <p> Has JavaScript API that allows webscripts to create, access, delete, and manipulate data in the main Alfresco repository </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apache Sling">Apache Sling</a> </p> </td> 
+         <td> <p> Rhino </p> </td> 
+         <td> <p> Any Java servlet container and standalone </p> </td> 
+         <td> <p> Generic Java web application framework that allows to use any script language via the standard Java Script Engine interface; Sling is RESTful by design and sits on top of a <a href="content repository API for Java">Java Content Repository</a>, giving scripts full access to the JCR </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AJAX Push Engine">APE</a> </p> </td> 
+         <td> <p> <a href="SpiderMonkey (JavaScript engine)">SpiderMonkey</a> </p> </td> 
+         <td> <p> Standalone <a href="HTTP">HTTP</a> </p> </td> 
+         <td> <p> Used to write custom server modules (manage message queue, users, channels, sockets, HTTP, ...). <a href="http://www.ape-project.org/wiki/index.php/How_to_build_a_serverside_JS_module">1</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AppJet">AppJet</a> </p> </td> 
+         <td> <p> Rhino (modified) </p> </td> 
+         <td> </td> 
+         <td> <p> Also provides hosting in a virtual machine </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Jaxer#Aptana Jaxer">Aptana Jaxer</a> </p> </td> 
+         <td> <p> SpiderMonkey </p> </td> 
+         <td> <p> <a href="Apache HTTP Server">Apache HTTP Server</a> </p> </td> 
+         <td> <p> A community open source Ajax-server based on the Mozilla browser (DOM + JavaScript engine). HTML, JavaScript, and CSS are native to Jaxer, as are XMLHttpRequests, JSON, DOM scripting, etc. It offers access to databases, files, and networking, as well as logging, process management, scalability, security, integration APIs, and extensibility. Not developed anymore by Aptana. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Active Server Pages">ASP</a> </p> </td> 
+         <td> <p> <a href="JScript">JScript</a> </p> </td> 
+         <td> <p> <a href="Internet Information Services">IIS</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CouchDB">CouchDB</a> </p> </td> 
+         <td> <p> SpiderMonkey </p> </td> 
+         <td> <p> Standalone <a href="HTTP">HTTP</a> </p> </td> 
+         <td> <p> Used in <a href="MapReduce">MapReduce</a> and update validation functions as well as to transform <a href="JSON">JSON</a> documents and view results into <a href="HTML">HTML</a> or other <a href="content-type">content-types</a>. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Eclipse (software)">Eclipse e4</a> </p> </td> 
+         <td> <p> Rhino </p> </td> 
+         <td> <p> <a href="Equinox OSGi">Equinox OSGi</a>, bundled with <a href="Jetty (web server)">Jetty</a>, any servlet container (using the servlet bridge) </p> </td> 
+         <td> <p> Extensions can be written in JavaScript, not just Java, especially servlets using the <a href="OSGi">OSGi</a> <a href="HTTP">HTTP</a> Service. Frontends can be developed with <a href="Rich Ajax Platform">Eclipse RAP</a> using the <a href="Standard Widget Toolkit">SWT</a> and <a href="JFace">JFace</a> APIs, or any other UI framework. Focus is on modularity (<a href="plug-in (computing)">plug-ins</a>), extensibility, scalability. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="EditMe">EditMe</a> </p> </td> 
+         <td> <p> Rhino </p> </td> 
+         <td> <p> Hosted (Tomcat) </p> </td> 
+         <td> <p> Wiki with embedded JavaScript engine and API for application development within the wiki </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GLUEscript">GLUEscript</a> <span class="unknown-node">{{anchor|...}}</span> </p> </td> 
+         <td> <p> SpiderMonkey </p> </td> 
+         <td> <p> Apache HTTP Server, FastCGI and stand-alone </p> </td> 
+         <td> <p> Glueing Libraries Using <a href="Ecmascript">Ecmascript</a> (GLUE) ports <a href="sqlite">sqlite</a>, <a href="mysql">mysql</a>, <a href="memcached">memcached</a>, <a href="wxWidgets">wxWidgets</a>, <a href="POCO C++ Libraries">POCO</a>, ... to JavaScript. GLUEscript is the successor of wxJavaScript.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Google Apps Script">Google Apps Script</a> </p> </td> 
+         <td> <p> Rhino (com.google.apps.maestro.rhino) </p> </td> 
+         <td> <p> <a href="Google AppEngine">Google AppEngine</a> </p> </td> 
+         <td> <p> Implement Enterprise Workflows with Apps Script. Google Apps Script can be embedded in Google Sites giving your Google Site a backend. In addition, you can automate simple tasks across Google Products. Google Apps Script also allows interaction with non Google APIs and JDBC calls to databases. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GromJS">GromJS</a> </p> </td> 
+         <td> <p> SpiderMonkey </p> </td> 
+         <td> <p> <a href="Bauk (web server)">Bauk</a> </p> </td> 
+         <td> <p> GromJS is a Server Side JavaScript (SSJS) interpreter which provides the ability to use an enhanced version of the JavaScript language on a web server with similar functionality to PHP, CGI, ASP, mod_perl or any other server side scripting solution.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Helma">Helma</a> </p> </td> 
+         <td> <p> Rhino </p> </td> 
+         <td> <p> <a href="Jetty (web server)">Jetty HTTP Server</a> </p> </td> 
+         <td> <p> Complete package with web server and framework. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSP">JSSP</a> </p> </td> 
+         <td> <p> Rhino </p> </td> 
+         <td> <p> Any Java servlet container </p> </td> 
+         <td> <p> Contains a modified Rhino version for embedded SQL support </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MynaJS">MynaJS</a> </p> </td> 
+         <td> <p> Rhino </p> </td> 
+         <td> <p> Any Java servlet container </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Narwhal">Narwhal</a> </p> </td> 
+         <td> <p> Rhino, SpiderMonkey, V8<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Node.js">Node.js</a> <span class="unknown-node">{{anchor|...}}</span> </p> </td> 
+         <td> <p> <a href="V8 (JavaScript engine)">V8</a> </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> JavaScript asynchronous, event-based I/O. Influenced by systems like Ruby's Event Machine, <a href="Perl">Perl</a>'s <a href="Perl Object Environment">POE</a> or Python's Twisted. Plenty of modules available. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Opera (web browser)">Opera</a> </p> </td> 
+         <td> <p> <a href="Presto (layout engine)#ECMAScript engines">Futhark</a> </p> </td> 
+         <td> <p> Opera Unite </p> </td> 
+         <td> <p> JavaScript is the server-side language used to develop services for the Opera Unite feature of the Opera browser. This is a server built in to the browser. The JavaScript API includes local file access to a virtual sandboxed file-system and persistent storage via persistent global variables. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SilkJS">SilkJS</a> </p> </td> 
+         <td> <p> <a href="V8 (JavaScript engine)">V8</a> </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> JavaScript Synchronous, CommonJS, JST (JSP-like template)/Markdown templating, easily extended with C++/Javascript Linux/OSX compatible. Pre-fork Http Server, Modules: <a href="MySQL">MySQL</a>, ORM, <a href="memcached">memcached</a>, <a href="redis">redis</a>, <a href="SQLite3">SQLite3</a>, <a href="Oracle database">Oracle</a>, <a href="ncurses">ncurses</a>, <a href="GD2">GD2</a>, <a href="cURL">cURL</a>, <a href="Secure Shell">SSH</a>, <a href="FTP">FTP</a>/<a href="SSH File Transfer Protocol">SFTP</a>, <a href="GitHub">GitHub</a>, builtin - <a href="LESS">LESS</a> compiler and <a href="CoffeeScript">CoffeeScript</a> compiler. &quot;SilkJS enables JavaScript as a scripting language in the server environment. You can think of SilkJS as a command shell, along the lines of Perl or PHP, except the language you write in is JavaScript.&quot;<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="TeaJS">TeaJS</a> </p> </td> 
+         <td> <p> <a href="V8 (JavaScript engine)">V8</a> </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> Formerly known as v8cgi. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Wakanda (Software)"> WakandaDB</a> </p> </td> 
+         <td> <p> <a href="WebKit#JavaScriptCore">WebKit JavaScriptCore</a> </p> </td> 
+         <td> <p> Standalone </p> </td> 
+         <td> <p> JavaScript Synchronous multi-threaded web server and no-sql database, supporting the CommonJS module specification, written in C++. </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> Other common server-side programming languages are <a href="JavaServer Pages">JavaServer Pages</a> (JSP), <a href="Active Server Pages">Active Server Pages</a> (ASP), <a href="Perl">Perl</a>, <a href="PHP">PHP</a>, <a href="Python (programming language)">Python</a>, <a href="Ruby programming language">Ruby</a>, <a href="ColdFusion">ColdFusion</a>, and others. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="JavaScript">JavaScript</a></li> 
+       <li><a href="Server-side JavaScript">Server-side JavaScript</a></li> 
+       <li><a href="CommonJS#Implementations">CommonJS implementations</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://groups.google.com/group/commonjs">The Server-Side JavaScript Google Group</a> dedicated to creating cross-platform SSJS standard APIs.</li> 
+       <li><a href="https://developer.mozilla.org/en/JavaScript_shells">Mozilla JavaScript shells</a> especially section &quot;Standalone JavaScript shells&quot;</li> 
+      </ul> 
+      <p> <span class="unknown-node">{{ECMAScript}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Server-side JavaScript}}</span> <a href="Category:JavaScript">Category:JavaScript</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

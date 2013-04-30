@@ -1,0 +1,1097 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of SSL certificates for web servers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of SSL certificates for web servers</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{globalize|...}}</span> The following table compares various features of <a href="Secure Sockets Layer">SSL</a> <a href="digital certificates">digital certificates</a> on the market, used for securing communication with web servers. </p> 
+    <div class="section"> 
+     <h2>Comparison</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Incomplete|...}}</span> </p> 
+      <table class="wikitable sortable" style="font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th style="width: 20em; text-align: left"> <p> Certificate authority </p> </th> 
+         <th> <p> Product name </p> </th> 
+         <th> <p> Number of <a href="domain names">domains</a> included </p> </th> 
+         <th> <p> Number of <a href="subdomains">subdomains</a> included </p> </th> 
+         <th> <p> Cost for one year (<a href="United States dollar">USD</a>) </p> </th> 
+         <th> <p> Verification level<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Trusted by <a href="Internet Explorer">IE 7</a> </p> </th> 
+         <th> <p> Trusted by <a href="Mozilla Firefox">&gt;=Firefox 3</a> </p> </th> 
+         <th> <p> Trusted by <a href="Safari (web browser)">Safari 5.0.1</a> </p> </th> 
+         <th> <p> Trusted by <a href="Android (operating system)">Android</a> </p> </th> 
+         <th> <p> Indemnity provided (<a href="United States dollar">USD</a>) </p> </th> 
+         <th> <p> Maximum liability (<a href="United States dollar">USD</a>) </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="CAcert.org">CAcert</a> </p> </th> 
+         <td> <p> <a href="http://www.cacert.org">Free Digital Certificate</a> </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $0 </p> </td> 
+         <td> <p> 1,3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{some}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="Comodo Group">Comodo</a> </p> </th> 
+         <td> <p> <a href="http://www.instantssl.com">Instant SSL</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $99.95 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Comodo Group">Comodo</a> </p> </th> 
+         <td> <p> <a href="http://www.instantssl.com">Instant SSL Pro</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $139.95 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> $100,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Comodo Group">Comodo</a> </p> </th> 
+         <td> <p> <a href="https://www.positivessl.com/">Positive SSL</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $49 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Comodo Group">Comodo</a> </p> </th> 
+         <td> <p> <a href="http://www.instantssl.com">Instant SSL Premium</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $179.95 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> $250,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Comodo Group">Comodo</a> </p> </th> 
+         <td> <p> <a href="http://www.comodo.com/msexchange/">Unified Communications Certificate (UCC)</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> up to 100 </p> </td> 
+         <td> <p> $285.00 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Comodo Group">Comodo</a> </p> </th> 
+         <td> <p> <a href="http://www.instantssl.com/ssl-certificate-products/ssl/wildcard-ssl-premiumssl_wildcard.html">Premium SSL Wildcard</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $449.95 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> $250,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Comodo Group">Comodo</a> </p> </th> 
+         <td> <p> <a href="http://www.instantssl.com/ssl-certificate-products/ssl/ssl-certificate-ev.html">Extended Validation<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $449.95<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> $250,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="DigiCert">DigiCert</a> </p> </th> 
+         <td> <p> <a href="http://www.digicert.com">SSL Plus</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $195 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $1,000,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DigiCert">DigiCert</a> </p> </th> 
+         <td> <p> <a href="http://www.digicert.com/wildcard-ssl-certificates.htm">Wildcard Plus</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $595 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $1,000,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DigiCert">DigiCert</a> </p> </th> 
+         <td> <p> <a href="http://www.digicert.com/unified-communications-ssl-tls.htm">Unified Communications Certificate</a> </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> up to 25 </p> </td> 
+         <td> <p> $349, + $39 for each domain after the first 4 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $1,000,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DigiCert">DigiCert</a> </p> </th> 
+         <td> <p> <a href="http://www.digicert.com/ev-ssl-certification.htm">EV SSL Plus</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $488 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="Entrust">Entrust</a> </p> </th> 
+         <td> <p> <a href="http://www.entrust.net/ssl-certificates/standard.htm">Standard SSL</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $189 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Entrust">Entrust</a> </p> </th> 
+         <td> <p> <a href="http://www.entrust.net/ssl-certificates/advantage.htm">Advantage SSL</a> </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> $239 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Entrust">Entrust</a> </p> </th> 
+         <td> <p> <a href="http://www.entrust.net/ssl-certificates/unified-communications.htm">Unified Communications SSL</a> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> $295 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Entrust">Entrust</a> </p> </th> 
+         <td> <p> <a href="http://www.entrust.net/ssl-certificates/extended-validation.htm">EV SSL</a> </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> $399 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="GeoTrust">GeoTrust</a> </p> </th> 
+         <td> <p> <a href="http://www.geotrust.com/ssl/ssl-certificates-premium/">Quick SSL Premium</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> $149 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $100,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GeoTrust">GeoTrust</a> </p> </th> 
+         <td> <p> <a href="http://www.geotrust.com/ssl/extended-validation-ssl/">True BusinessID with Extended Validation</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> $299 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $500,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="Go Daddy">Go Daddy</a> </p> </th> 
+         <td> <p> Standard SSL </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $69.99 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Go Daddy">Go Daddy</a> </p> </th> 
+         <td> <p> Standard SSL Multiple Domain (UCC) </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> </td> 
+         <td> <p> $89.99 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Go Daddy">Go Daddy</a> </p> </th> 
+         <td> <p> Standard SSL Unlimited Subdomains (<a href="Wildcard SSL certificate">Wildcard</a>) </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $199.99 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Go Daddy">Go Daddy</a> </p> </th> 
+         <td> <p> Premium SSL </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $99.99 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $250,000 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="ipsCA">ipsCA</a> </p> </th> 
+         <td> <p> A1 SSL<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $38 ($0 for two years for educational establishments) </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ipsCA">ipsCA</a> </p> </th> 
+         <td> <p> A1 SSL WildCard<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $276 ($0 for two years for educational establishments) </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> PGP TrustCenter </p> </th> 
+         <td> <p> <a href="http://www.pgptrustcenter.com/tc-trust-ssl">TC Trust SSL</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $179 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PGP TrustCenter </p> </th> 
+         <td> <p> <a href="http://www.pgptrustcenter.com/tc-trust-ssl-wildcard">TC Trust SSL Wildcard</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $719 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PGP TrustCenter </p> </th> 
+         <td> <p> <a href="http://www.pgptrustcenter.com/tc-extended-trust-ev-ssl-info">TC Extended Trust EV SSL</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $719 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> RapdiSSL </p> </th> 
+         <td> <p> <a href="http://runssl.com/domain-validated.html">RapidSSL Certificate<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $18 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> RapidSSL </p> </th> 
+         <td> <p> <a href="http://runssl.com/wildcard.html">RapidSSL Wildcard<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></a> </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $148 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $5,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> SSL.com </p> </th> 
+         <td> <p> <a href="http://www.ssl.com/certificates/basicssl">Basic SSL<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $49.00 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SSL.com </p> </th> 
+         <td> <p> <a href="http://www.ssl.com/certificates/premiumssl">Premium SSL<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> $99.00 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SSL.com </p> </th> 
+         <td> <p> <a href="http://www.ssl.com/certificates/ev">Enterprise EV SSL<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $299.00 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $250,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SSL.com </p> </th> 
+         <td> <p> <a href="http://www.ssl.com/certificates/wildcard">Wildcard SSL<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $299.00 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SSL.com </p> </th> 
+         <td> <p> <a href="http://www.ssl.com/certificates/ucc">Multi-domain SAN/UCC SSL<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></a> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> unlimited if used with wildcard </p> </td> 
+         <td> <p> $177.00 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SSL.com </p> </th> 
+         <td> <p> <a href="http://www.ssl.com/certificates/evucc">Multi-domain SAN/UCC EV SSL<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></a> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $747.00 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $250,000 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="StartCom">StartCom</a> </p> </th> 
+         <td> <p> <a href="http://www.startssl.com/?app=1">StartSSL Free</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $0 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Android &gt; 2.1) </p> </td> 
+         <td> <p> $10,000<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="StartCom">StartCom</a> </p> </th> 
+         <td> <p> <a href="http://www.startssl.com/?app=2">StartSSL Verified</a> </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $59.90 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Android &gt; 2.1) </p> </td> 
+         <td> <p> $10,000<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="StartCom">StartCom</a> </p> </th> 
+         <td> <p> <a href="http://www.startssl.com/?app=30">StartSSL Extended Validation</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> $199.90<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="SwissSign">SwissSign</a> </p> </th> 
+         <td> <p> <a href="http://www.swisssign.com">SSL Silver</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $199 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SwissSign">SwissSign</a> </p> </th> 
+         <td> <p> <a href="http://www.swisssign.com">SSL Gold</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $299 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $100,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SwissSign">SwissSign</a> </p> </th> 
+         <td> <p> <a href="http://www.swisssign.com/ev-ssl">SSL Gold Extended Validation</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $799 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> $100,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="Thawte">Thawte</a> </p> </th> 
+         <td> <p> <a href="http://www.thawte.com/ssl/index.html">SSL123</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $149 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Thawte">Thawte</a> </p> </th> 
+         <td> <p> <a href="http://www.thawte.com/ssl/index.html">SSL Web Server Certificate</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $249 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Thawte">Thawte</a> </p> </th> 
+         <td> <p> <a href="http://www.thawte.com/ssl/index.html">SSL Web Server EV</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $599 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Thawte">Thawte</a> </p> </th> 
+         <td> <p> <a href="Server gated cryptography">SGC</a> SuperCert </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $699 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Thawte">Thawte</a> </p> </th> 
+         <td> <p> <a href="http://www.thawte.com/ssl/index.html">Wildcard SSL</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $349 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="VeriSign">VeriSign</a> </p> </th> 
+         <td> <p> Secure Site<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $399 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $100,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VeriSign">VeriSign</a> </p> </th> 
+         <td> <p> Secure Site Pro<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $995 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $250,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VeriSign">VeriSign</a> </p> </th> 
+         <td> <p> Secure Site with EV<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $995 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $100,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VeriSign">VeriSign</a> </p> </th> 
+         <td> <p> Secure Site Pro with EV<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> $1,499 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $250,000 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left"> <p> <a href="GlobalSign">GlobalSign</a> </p> </th> 
+         <td> <p> DomainSSL<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> $249 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $10,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GlobalSign">GlobalSign</a> </p> </th> 
+         <td> <p> OrganizationSSL<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> $349 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $1,250,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GlobalSign">GlobalSign</a> </p> </th> 
+         <td> <p> ExtendedSSL<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> $899 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $1,500,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GlobalSign">GlobalSign</a> </p> </th> 
+         <td> <p> MultiDomain SSL<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 40 </p> </td> 
+         <td> <p> 40 </p> </td> 
+         <td> <p> $199 </p> </td> 
+         <td> <p> 1,2,3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $1,250,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GlobalSign">GlobalSign</a> </p> </th> 
+         <td> <p> Wildcard SSL<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $849 </p> </td> 
+         <td> <p> 1,2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $1,250,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GlobalSign">GlobalSign</a> </p> </th> 
+         <td> <p> AlphaSSL<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> $49 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $1,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GlobalSign">GlobalSign</a> </p> </th> 
+         <td> <p> AlphaSSL Wildcard<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> unlimited </p> </td> 
+         <td> <p> $149 </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> $1,000 </p> </td> 
+         <td> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Portal|...}}</span> </p> 
+      <ul> 
+       <li> <a href="Certificate authority">Certificate authority</a></li> 
+       <li> <a href="Certificate revocation list">Certificate revocation list</a></li> 
+       <li> <a href="Extended Validation Certificate">Extended Validation Certificate</a></li> 
+       <li> <a href="Robot certificate authority">Robot certificate authority</a></li> 
+       <li> <a href="Web of trust">Web of trust</a></li> 
+       <li> <a href="X.509">X.509</a></li> 
+       <li> <a href="Server gated cryptography">Server gated cryptography</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <pre>
+</pre> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Ssl Certificates For Web Servers}}</span> <a href="Category:Web software">Category:Web software</a> <a href="Category:Cryptography lists and comparisons">SSL certificates for web servers</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

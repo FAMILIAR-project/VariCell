@@ -1,0 +1,506 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of OpenXPS and PDF</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of OpenXPS and PDF</h1> 
+   <div class="article-content"> 
+    <p> This is a comparison of the <a href="Open XML Paper Specification">OpenXPS</a> <a href="document file format">document file format</a> with the <a href="Portable Document Format">PDF</a> <a href="file format">file format</a>. Both file format standards are essentially <a href="Container format (digital)">containers</a> for representing <a href="Content (media and publishing)">digital content</a> in a paper-like fashion.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+    <div class="section"> 
+     <h2>Design aims</h2> 
+     <div class="section-body"> 
+      <p> The differences between Open XML Paper Specification (OpenXPS) and the Portable Document Format (PDF) can be traced to their <a href="Virtual Heritage">heritage</a> and the manner of their development, as they have different design goals and different groups providing input. </p> 
+      <p> The different goals in the development of OpenXPS and PDF resulted in different principles and design tradeoffs between the file formats. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Comparison</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p>
+      <table class="wikitable sortable" cellpadding="1" style="font-size:85%; border:gray solid 1px; text-align:center; width:100%;"> 
+       <tbody>
+        <tr style="background: #ececec"> 
+         <th style="width:15em"> <p> File format </p> </th> 
+         <th> <p> OpenXPS </p> </th> 
+         <th> <p> PDF </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Based on a format<br />developed by </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Standardized by </p> </th> 
+         <td> <p> <a href="Ecma International">Ecma International</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="International Organization for Standardization">ISO</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> First public release date </p> </th> 
+         <td> <p> 2006<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1993<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Latest stable version </p> </th> 
+         <td> <p> Ecma International Standard ECMA-388 ? Open XML Paper Specification ? 1<sup>st</sup> Edition </p> </td> 
+         <td> <p> ISO 32000-1:2008 ? Document management ? Portable document format ? Part 1: PDF 1.7 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Latest standardised version </p> </th> 
+         <td> <p> Ecma International Standard ECMA-388 ? Open XML Paper Specification ? 1<sup>st</sup> Edition </p> </td> 
+         <td> <p> ISO 32000-1:2008 ? Document management ? Portable document format ? Part 1: PDF 1.7 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Language type </p> </th> 
+         <td> <p> <a href="Markup language">Markup language</a> (<a href="XML">XML</a>)<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> PDF is a database of objects, created from <a href="PostScript">PostScript</a> and also directly generated from many applications. </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> XML schema representation </p> </th> 
+         <td> <p> <a href="XML Schema (W3C)">XML Schema (W3C)</a> (XSD) and <a href="RELAX NG">RELAX NG</a> (ISO/IEC 19757-2)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> N/A </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Compression format </p> </th> 
+         <td> <p> <a href="ZIP (file format)">ZIP</a><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="LZW">LZW</a> for both text and images; JPEG, <a href="JPEG 2000">JPEG 2000</a>, and <a href="Run-length encoding">RLE</a> for images only<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Container structure </p> </th> 
+         <td> <p> <a href="Open Packaging Conventions">Open Packaging Conventions</a> (ISO/IEC 29500-2:2008)<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="3D computer graphics">3D graphic content</a> </p> </th> 
+         <td> <p> <a href="X3D">X3D</a> (ISO/IEC 19775/19776)<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="Universal 3D">U3D</a> (Standard ECMA-363)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr>  
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Full file content compression </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Fast page by page download from web servers </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Multiple documents in one file </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Document bookmarks and outline </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Reflowable document">Reflowable</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> page-only with tagged PDF layer<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Hyperlinks </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Page thumbnails </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Annotations">Annotations</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Image transparencies </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Gradient fills </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Alpha channel">Alpha channel</a> in color definitions </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Support for multiple transparency blending modes </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Change tracking </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Password protection </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Digital signatures </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="JPEG">JPEG</a> (RGB and CMYK) (ISO/IEC 10918-1) </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="JPEG 2000">JPEG 2000</a> (ISO/IEC 15444-1) </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="JBIG2">JBIG2</a> for grayscale images </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Portable Network Graphics">PNG</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Tagged Image File Format">TIFF</a> (RGB and CMYK) </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="HD Photo">HD Photo / JPEG XR</a> (ISO/IEC 29199-2:2009) </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Grayscale">Gray</a> support </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="RGB">RGB</a> support </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="CMYK">CMYK</a> support </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Spot color">Spot color</a> support </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Filename extensions </p> </th> 
+         <td> <p> <tt>oxps</tt><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <tt>pdf</tt><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Internet media types </p> </th> 
+         <td> <p> <tt>application/oxps</tt><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <tt>application/pdf</tt> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> Standard licensing </p> </th> 
+         <td> 
+          <ul> 
+           <li> Ecma copyrighted free download</li> 
+          </ul> </td> 
+         <td> 
+          <ul> 
+           <li> ISO copyrighted free download</li> 
+          </ul> </td> 
+        </tr> 
+        <tr style="background: #ececec" class="sortbottom"> 
+         <th> <p> File format </p> </th> 
+         <th> <p> OpenXPS </p> </th> 
+         <th> <p> PDF </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Comparison of document markup languages">Comparison of document markup languages</a></li> 
+       <li><a href="List of document markup languages">List of document markup languages</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Further reading</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <span class="unknown-node">{{cite book|...}}</span></li> 
+       <li> <span class="unknown-node">{{cite book|...}}</span></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://www.ecma-international.org/publications/standards/Ecma-388.htm">ECMA-388</a> Open XML Paper Specification</li> 
+       <li><a href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=51502">ISO 32000-1:2008</a> Document management ? Portable document format ? Part 1: PDF 1.7</li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Office document file formats}}</span> </p> 
+      <p> <a href="Category:Markup language comparisons">Category:Markup language comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

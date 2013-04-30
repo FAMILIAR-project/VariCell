@@ -1,0 +1,921 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of layout engines (non-standard HTML)</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of layout engines (non-standard HTML)</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Cleanup|...}}</span> <span class="unknown-node">{{Html series}}</span> The following tables compare deprecated and proprietary <a href="HTML">HTML</a> <a href="HTML elements">elements</a> and <a href="HTML#Attributes">attributes</a> compatibility and support for a number of <a href="layout engine">layout engines</a>. Please see the individual products' articles for further information. This article is not all-inclusive or necessarily up-to-date. Unless otherwise specified in footnotes, comparisons are based on the stable versions without any add-ons, extensions or external programs. </p> 
+    <p> In the early years of the <a href="World Wide Web">World Wide Web</a>, the standards which today are used in most <a href="web browser">web browsers</a> and <a href="web page">web pages</a> were mostly non-existent. Different browsers and HTML editors were being offered by competing vendors such as <a href="Netscape">Netscape</a>, <a href="Microsoft">Microsoft</a> and <a href="WebTV">WebTV</a>, all of whom had their own ideas for how web sites should be constructed. These varying features resulted in web developers coding for specific web browsers, using elements which could often be recognized by only one browser. </p> 
+    <p> The WebTV and IBM WebExplorer inventions have never seen adoption by mainstream browsers. </p> 
+    <p> <span class="unknown-node">{{Layout engine nomenclature}}</span> <span class="unknown-node">{{Explanation of the tables2}}</span> </p> 
+    <div class="section"> 
+     <h2>Deprecated HTML elements</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="width: 95%; text-align: center;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Element </p> </th> 
+         <th> <p> Function </p> </th> 
+         <th> <p> Supported first by </p> </th> 
+         <th> <p> Deprecated in HTML version </p> </th> 
+         <th> <p> Alternative solution </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <code>applet</code> </td> 
+         <td> Insert an applet </td> 
+         <td> <a href="HotJava">HotJava</a> </td> 
+         <td> 4<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> <p> <code>embed</code>, <code>object</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>basefont</code> </td> 
+         <td> Sets font styles </td> 
+         <td> Internet Explorer </td> 
+         <td> 4 </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>center</code> </td> 
+         <td> Centers contents </td> 
+         <td> Netscape<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> 4 </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>dir</code> </td> 
+         <td> Directory list </td> 
+         <td> ? </td> 
+         <td> 4 </td> 
+         <td> <p> <code>ul</code>, <code>ol</code> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>font</code> </td> 
+         <td> Applies font styles </td> 
+         <td> Netscape </td> 
+         <td> 4 </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>isindex</code><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> Adds a search field </td> 
+         <td> ? </td> 
+         <td> 4 </td> 
+         <td> <p> <code>input type=&quot;search&quot;</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>listing</code> </td> 
+         <td> Displays preformatted text </td> 
+         <td> <a href="IETF">IETF</a> </td> 
+         <td> 2 </td> 
+         <td> <p> <code>pre</code>, <code>samp</code>, <code>code</code>, CSS </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>menu</code> </td> 
+         <td> Menu list </td> 
+         <td> ? </td> 
+         <td> 4 </td> 
+         <td> <p> <code>ul</code>, <code>ol</code> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>plaintext</code> </td> 
+         <td> Designates that all HTML be ignored, and to display the page as is </td> 
+         <td> ? </td> 
+         <td> 3.2 </td> 
+         <td> <p> The <code>text/plain</code> <a href="MIME type">MIME type</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>s</code> </td> 
+         <td> Strike-through </td> 
+         <td> ? </td> 
+         <td> 4 </td> 
+         <td> <p> <code>del</code>, CSS </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>strike</code> </td> 
+         <td> Strike-through </td> 
+         <td> ? </td> 
+         <td> 4 </td> 
+         <td> <p> <code>del</code>, CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>u</code> </td> 
+         <td> Underline </td> 
+         <td> ? </td> 
+         <td> 4 </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>xmp</code> </td> 
+         <td> Similar to <code>pre</code> and <code>plaintext</code>, but ignores all HTML within and displays as is </td> 
+         <td> ? </td> 
+         <td> 2 </td> 
+         <td> <p> <code>pre</code>, <code>samp</code>, <code>code</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Deprecated HTML attributes</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="width: 95%; text-align: center;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Attribute </p> </th> 
+         <th> <p> Element </p> </th> 
+         <th> <p> Alternative solution </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <code>align</code> </td> 
+         <td> <code>caption</code>, <code>div</code>, <code>fieldset</code>, <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>h4</code>, <code>h5</code>, <code>h6</code>, <code>hr</code>, <code>img</code>, <code>input</code>, <code>legend</code>, <code>p</code>, <code>object</code>, <code>table</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;18&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;18&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>alink</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>background</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>bgcolor</code> </td> 
+         <td> <code>body</code>, <code>table</code>, <code>tr</code>, <code>td</code>, <code>th</code> </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>border</code> </td> 
+         <td> <code>img</code>, <code>object</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>clear</code> </td> 
+         <td> <code>br</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>compact</code> </td> 
+         <td> <code>dl</code>, <code>ul</code>, <code>ol</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>color</code> </td> 
+         <td> <code>basefont</code>, <code>font</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> rowspan=&quot;11&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>height</code> </td> 
+         <td> <code>td</code>, <code>th</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;10&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>hspace</code> </td> 
+         <td> <code>img</code>, <code>object</code> </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>language</code> </td> 
+         <td> <code>script</code> </td> 
+         <td> <p> The <code>type</code> attribute </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>link</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> rowspan=&quot;7&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>noshade</code> </td> 
+         <td> <code>hr</code> </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>nowrap</code> </td> 
+         <td> <code>td</code>, <code>th</code> </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>size</code> </td> 
+         <td> <code>basefont</code>, <code>font</code>, <code>hr</code> </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>start</code> </td> 
+         <td> <code>ol</code> </td> 
+         <td> <p> None </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <code>text</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>type</code> </td> 
+         <td> <code>li</code>, <code>ul</code>, <code>ol</code> </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>version</code> </td> 
+         <td> <code>html</code> </td> 
+         <td> <p> <a href="Document Type Declaration">DTD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>vlink</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>width</code> </td> 
+         <td> <code>hr</code>, <code>pre</code>, <code>td</code>, <code>th</code> </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>vspace</code> </td> 
+         <td> <code>img</code>, <code>object</code> </td> 
+         <td> <p> CSS </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Proprietary HTML elements</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="width: 95%; text-align: center;"> 
+       <tbody>
+        <tr>
+         <th> <p> Tag </p> </th> 
+         <th> <p> Function </p> </th> 
+         <th> <p> Supported first by </p> </th> 
+         <th> <p> Alternative solution </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr>
+        <tr> 
+         <td> <code>bgsound</code> </td> 
+         <td> Used to add sound to the background of a website </td> 
+         <td> Internet Explorer </td> 
+         <td> <p> <code>audio</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{IE|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dropped}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code><a href="Blink element">blink</a></code> </td> 
+         <td> Used to display a blinking text </td> 
+         <td> <a href="Netscape">Netscape</a> </td> 
+         <td> <p> Javascript, CSS </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>bq</code> </td> 
+         <td> Used to display a <a href="blockquote">blockquote</a> </td> 
+         <td> WebTV, HTML 3.0 </td> 
+         <td> <p> <code>blockquote</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dropped}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>comment</code> </td> 
+         <td> Used to allow the addition of comments to HTML documents </td> 
+         <td> Internet Explorer, WebTV </td> 
+         <td> <p> <code>&lt;!-- ... --&gt;</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code><a href="Layer element">ilayer</a></code> </td> 
+         <td> Inline layers </td> 
+         <td> Netscape (4 only) </td> 
+         <td> <p> <code>iframe</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>image</code> </td> 
+         <td> Synonym of img </td> 
+         <td> ? </td> 
+         <td> <p> <code>img</code> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code><a href="Layer element">layer</a></code> </td> 
+         <td> Used to create multiple layers of text and images which lay on top of each other in a given order </td> 
+         <td> Netscape (4 only) </td> 
+         <td> <p> CSS, <a href="Ajax (programming)">AJAX</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code><a href="Marquee element">marquee</a></code> </td> 
+         <td> Used to display a scrolling, marquee-like text. </td> 
+         <td> Internet Explorer, WebTV </td> 
+         <td> <p> JavaScript, CSS3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>nobr</code> </td> 
+         <td> Prevents any line breaks from occurring within the flow of a text </td> 
+         <td> Netscape<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>noembed</code> </td> 
+         <td> Displays an alternative text for browsers which do not recognize the embed tag </td> 
+         <td> Netscape </td> 
+         <td> <p> Child elements of object used as fallback </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>spacer</code> </td> 
+         <td> Adds whitespace in a layout </td> 
+         <td> Netscape </td> 
+         <td> <p> CSS </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Dropped}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>wbr</code> </td> 
+         <td> Placed inside a nobr element to add a line break </td> 
+         <td> Netscape<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> <p> Unicode character <a href="zero-width space">zero-width space</a> (<span class="unknown-node">{{U+|...}}</span>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{dropped}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>xml</code><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </td> 
+         <td> Delimits an XML data island inside an HTML page </td> 
+         <td> Internet Explorer </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Proprietary HTML attributes</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="width: 95%; text-align: center;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Attribute </p> </th> 
+         <th> <p> Deprecated for </p> </th> 
+         <th> <p> Function </p> </th> 
+         <th> <p> Supported first by </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="KHTML">KHTML</a> </p> </th> 
+         <th style="width: 10%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <code>bgproperties</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> Determines whether background image scrolls with the background </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> rowspan=&quot;10&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>bordercolor</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> Sets colors for 3-D table borders in the <code>table</code>, <code>td</code>, <code>th</code>, and <code>tr</code> elements </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>bordercolordark</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> Sets colors for 3-D table borders in the <code>table</code>, <code>td</code>, <code>th</code>, and <code>tr</code> elements </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>bordercolorlight</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> Sets colors for 3-D table borders in the <code>table</code>, <code>td</code>, <code>th</code>, and <code>tr</code> elements </td> 
+         <td> <p> Internet Explorer </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>controls</code> </td> 
+         <td> <code>img</code> </td> 
+         <td> Uses the <code>img</code> element to place video or audio clips </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>dynsrc</code> </td> 
+         <td> <code>img</code> </td> 
+         <td> Uses the <code>img</code> element to place video or audio clips </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>event</code> </td> 
+         <td> <code>script</code> </td> 
+         <td> Defines function to call for an object. </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>for</code> </td> 
+         <td> <code>script</code> </td> 
+         <td> Defines the object to bind a scripting event. </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>frame</code> </td> 
+         <td> <code>table</code> </td> 
+         <td> Controls the display of the outer borders of a table in the table tag </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>framespacing</code> </td> 
+         <td> <code>frameset</code> </td> 
+         <td> Sets the amount of space between frames </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>leftmargin</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> Sets the margin between the browser window and the contents of the page </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>loop</code> </td> 
+         <td> <code>img</code> </td> 
+         <td> Uses the <code>img</code> element to place video or audio clips </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>rightmargin</code> </td> 
+         <td> <code>body</code> </td> 
+         <td> Sets the margin between the browser window and the contents of the page </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>start</code> </td> 
+         <td> <code>img</code> </td> 
+         <td> Uses the <code>img</code> element to place video or audio clips </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>target</code> </td> 
+         <td> <code>form</code> </td> 
+         <td> Specifies a target window or frame for the output of a form </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <code>valign</code> </td> 
+         <td> <code>caption</code> </td> 
+         <td> Sets vertical alignment of table caption </td> 
+         <td> <p> Internet Explorer </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Web standards">Web standards</a></li> 
+       <li> <a href="Wireless Markup Language">Wireless Markup Language</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> <span class="unknown-node">{{Refbegin}}</span> </p> 
+      <ul> 
+       <li> <a href="http://www.devguru.com/technologies/html/quickref/html_other_tags.html">DevGuru HTML - Non-standard elements</a></li> 
+       <li> <a href="http://www.seds.org/~spider/os2/webextag.html">OS/2 Web Explorer's proprietary HTML elements</a></li> 
+       <li> <a href="http://msdn.microsoft.com/en-us/library/aa242436(VS.60).aspx">MSDN Handling Events with HTML elements</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Refend}}</span> </p> 
+      <p> <span class="unknown-node">{{Web browser engines}}</span> </p> 
+      <p> <span class="unknown-node">{{Use dmy dates|...}}</span> </p> 
+      <p> <a href="Category:HTML">Category:HTML</a> <a href="Category:Layout engine comparisons">Category:Layout engine comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

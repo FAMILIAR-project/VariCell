@@ -1,0 +1,1990 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of XMPP server software</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of XMPP server software</h1> 
+   <div class="article-content"> 
+    <div class="section"> 
+     <h2> Comparison by RFC implementation status </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="text-align: center; width: auto;"> 
+       <tbody>
+        <tr>
+         <th> <p> RFC </p> </th> 
+         <th> <p> Description </p> </th> 
+         <th> <p> <a href="ejabberd">ejabberd</a> </p> </th> 
+         <th> <p> <a href="iChat Server">iChat Server</a> </p> </th> 
+         <th> <p> <a href="jabberd14">jabberd14</a> </p> </th> 
+         <th> <p> <a href="jabberd2">jabberd2</a> </p> </th> 
+         <th> <p> <a href="Openfire">Openfire</a> </p> </th> 
+         <th> <p> <a href="Prosody (software)">Prosody</a> </p> </th> 
+         <th> <p> <a href="Sun Java Communications Suite">Sun Java Communications Suite</a> </p> </th> 
+         <th> <p> <a href="Tigase">Tigase</a> </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> RFC 3920 </p> </td> 
+         <td> <p> XMPP Core </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> RFC 3921 </p> </td> 
+         <td> <p> XMPP IM </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> RFC 3922 </p> </td> 
+         <td> <p> XMPP CPIM </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> RFC 3923 </p> </td> 
+         <td> <p> XMPP E2E </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> RFC 4854 </p> </td> 
+         <td> <p> XMPP URN </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> RFC 4979 </p> </td> 
+         <td> <p> XMPP ENUM </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> RFC 5122 </p> </td> 
+         <td> <p> XMPP URI </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> RFC 6120 </p> </td> 
+         <td> <p> XMPP Core </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> RFC 6121 </p> </td> 
+         <td> <p> XMPP IM </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> RFC 6122 </p> </td> 
+         <td> <p> XMPP AF </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Comparison by XEP implementation status </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> XEP </p> </th> 
+         <th> <p> Description </p> </th> 
+         <th> <p> Status </p> </th> 
+         <th> <p> <a href="ejabberd">ejabberd</a> </p> </th> 
+         <th> <p> <a href="iChat Server">iChat Server</a> </p> </th> 
+         <th> <p> <a href="jabberd14">jabberd14</a> </p> </th> 
+         <th> <p> <a href="jabberd2">jabberd2</a> </p> </th> 
+         <th> <p> <a href="Openfire">Openfire</a> </p> </th> 
+         <th> <p> <a href="Prosody (software)">Prosody</a> </p> </th> 
+         <th> <p> <a href="Tigase">Tigase</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0004.html">0004</a> </p> </td> 
+         <td> <p> Data forms </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0009.html">0009</a> </p> </td> 
+         <td> <p> Jabber RPC </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0012.html">0012</a> </p> </td> 
+         <td> <p> Last Activity </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0013.html">0013</a> </p> </td> 
+         <td> <p> Flexible offline message retrieval </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0016.html">0016</a> </p> </td> 
+         <td> <p> Privacy Lists </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0018.html">0018</a> </p> </td> 
+         <td> <p> Invisible Presence </p> </td> 
+         <td> <p> Rejected </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0020.html">0020</a> </p> </td> 
+         <td> <p> Feature negotiation </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0022.html">0022</a> </p> </td> 
+         <td> <p> Message Events </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0023.html">0023</a> </p> </td> 
+         <td> <p> Message Expiration </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0025.html">0025</a> </p> </td> 
+         <td> <p> HTTP Polling </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0030.html">0030</a> </p> </td> 
+         <td> <p> Service Discovery </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0033.html">0033</a> </p> </td> 
+         <td> <p> Extended Stanza Addressing </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0039.html">0039</a> </p> </td> 
+         <td> <p> Statistics Gathering (deferred) </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0045.html">0045</a> </p> </td> 
+         <td> <p> Multi User Chat </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0047.html">0047</a> </p> </td> 
+         <td> <p> In-Band Bytestreams </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0048.html">0048</a> </p> </td> 
+         <td> <p> Bookmarks </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0049.html">0049</a> </p> </td> 
+         <td> <p> Private XML Storage </p> </td> 
+         <td> <p> Historical Use </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0050.html">0050</a> </p> </td> 
+         <td> <p> Ad-Hoc Commands </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0054.html">0054</a> </p> </td> 
+         <td> <p> vcard-temp </p> </td> 
+         <td> <p> Historical Use </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XEP </p> </th> 
+         <th> <p> Description </p> </th> 
+         <th> <p> Status </p> </th> 
+         <th> <p> <a href="ejabberd">ejabberd</a> </p> </th> 
+         <th> <p> <a href="iChat Server">iChat Server</a> </p> </th> 
+         <th> <p> <a href="jabberd14">jabberd14</a> </p> </th> 
+         <th> <p> <a href="jabberd2">jabberd2</a> </p> </th> 
+         <th> <p> <a href="Openfire">Openfire</a> </p> </th> 
+         <th> <p> <a href="Prosody (software)">Prosody</a> </p> </th> 
+         <th> <p> <a href="Tigase">Tigase</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0055.html">0055</a> </p> </td> 
+         <td> <p> Jabber Search </p> </td> 
+         <td> <p> Historical Use </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0059.html">0059</a> </p> </td> 
+         <td> <p> Result set management </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0060.html">0060</a> </p> </td> 
+         <td> <p> Publish-Subscribe </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0065.html">0065</a> </p> </td> 
+         <td> <p> SOCKS5 Bytestreams </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0066.html">0066</a> </p> </td> 
+         <td> <p> Out of Band Data </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0068.html">0068</a> </p> </td> 
+         <td> <p> Field Standardization for Data Forms </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0070.html">0070</a> </p> </td> 
+         <td> <p> Verifying HTTP Requests via XMPP </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0071.html">0071</a> </p> </td> 
+         <td> <p> XHTML-IM (client-side) </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0072.html">0072</a> </p> </td> 
+         <td> <p> SOAP over XMPP </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0073.html">0073</a> </p> </td> 
+         <td> <p> Basic IM Protocol Suite </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0077.html">0077</a> </p> </td> 
+         <td> <p> In-Band Registration </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0078.html">0078</a> </p> </td> 
+         <td> <p> Non-SASL Authentication </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0079.html">0079</a> </p> </td> 
+         <td> <p> Advanced Message Processing </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> contrib<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0080.html">0080</a> </p> </td> 
+         <td> <p> User Location </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0082.html">0082</a> </p> </td> 
+         <td> <p> XMPP Date and Time Profiles </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0083.html">0083</a> </p> </td> 
+         <td> <p> Nested Roster Groups </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0084.html">0084</a> </p> </td> 
+         <td> <p> User Avatar </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0085.html">0085</a> </p> </td> 
+         <td> <p> Chat State Notifications </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0086.html">0086</a> </p> </td> 
+         <td> <p> Error Condition Mappings </p> </td> 
+         <td> <p> Deprecated </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0090.html">0090</a> </p> </td> 
+         <td> <p> Legacy Entity Time </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XEP </p> </th> 
+         <th> <p> Description </p> </th> 
+         <th> <p> Status </p> </th> 
+         <th> <p> <a href="ejabberd">ejabberd</a> </p> </th> 
+         <th> <p> <a href="iChat Server">iChat Server</a> </p> </th> 
+         <th> <p> <a href="jabberd14">jabberd14</a> </p> </th> 
+         <th> <p> <a href="jabberd2">jabberd2</a> </p> </th> 
+         <th> <p> <a href="Openfire">Openfire</a> </p> </th> 
+         <th> <p> <a href="Prosody (software)">Prosody</a> </p> </th> 
+         <th> <p> <a href="Tigase">Tigase</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0091.html">0091</a> </p> </td> 
+         <td> <p> Legacy Delayed Delivery </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0092.html">0092</a> </p> </td> 
+         <td> <p> Software Version </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0093.html">0093</a> </p> </td> 
+         <td> <p> Roster Item Exchange </p> </td> 
+         <td> <p> Deprecated </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0095.html">0095</a> </p> </td> 
+         <td> <p> Stream Initiation </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0096.html">0096</a> </p> </td> 
+         <td> <p> SI File Transfer </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0106.html">0106</a> </p> </td> 
+         <td> <p> JID escaping </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0107.html">0107</a> </p> </td> 
+         <td> <p> User Mood </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0108.html">0108</a> </p> </td> 
+         <td> <p> User Activity </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0114.html">0114</a> </p> </td> 
+         <td> <p> Jabber Component Protocol </p> </td> 
+         <td> <p> Historical Use </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0115.html">0115</a> </p> </td> 
+         <td> <p> Entity Capabilities </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0118.html">0118</a> </p> </td> 
+         <td> <p> User Tune </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0122.html">0122</a> </p> </td> 
+         <td> <p> Data Forms Validation </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0124.html">0124</a> </p> </td> 
+         <td> <p> HTTP-Bosh </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0126.html">0126</a> </p> </td> 
+         <td> <p> Invisibility </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0128.html">0128</a> </p> </td> 
+         <td> <p> Service Discovery Extensions </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0130.html">0130</a> </p> </td> 
+         <td> <p> Waiting Lists </p> </td> 
+         <td> <p> Historical Use </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0131.html">0131</a> </p> </td> 
+         <td> <p> Stanza Headers and Internet Metadata </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0133.html">0133</a> </p> </td> 
+         <td> <p> Service Administration </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0136.html">0136</a> </p> </td> 
+         <td> <p> Message archiving </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0137.html">0137</a> </p> </td> 
+         <td> <p> Publishing SI Requests </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XEP </p> </th> 
+         <th> <p> Description </p> </th> 
+         <th> <p> Status </p> </th> 
+         <th> <p> <a href="ejabberd">ejabberd</a> </p> </th> 
+         <th> <p> <a href="iChat Server">iChat Server</a> </p> </th> 
+         <th> <p> <a href="jabberd14">jabberd14</a> </p> </th> 
+         <th> <p> <a href="jabberd2">jabberd2</a> </p> </th> 
+         <th> <p> <a href="Openfire">Openfire</a> </p> </th> 
+         <th> <p> <a href="Prosody (software)">Prosody</a> </p> </th> 
+         <th> <p> <a href="Tigase">Tigase</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0138.html">0138</a> </p> </td> 
+         <td> <p> Stream Compression </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0145.html">0145</a> </p> </td> 
+         <td> <p> Annotations </p> </td> 
+         <td> <p> Historical Use </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0146.html">0146</a> </p> </td> 
+         <td> <p> Remote controlling clients (client-side) </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0148.html">0148</a> </p> </td> 
+         <td> <p> Instant Messaging Intelligence Quotient </p> </td> 
+         <td> <p> Humorous </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> experimental<br /><span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0153.html">0153</a> </p> </td> 
+         <td> <p> vCard-Based Avatars </p> </td> 
+         <td> <p> Historical Use </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0154.html">0154</a> </p> </td> 
+         <td> <p> User profile </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0157.html">0157</a> </p> </td> 
+         <td> <p> Contact Addresses for XMPP Services </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0158.html">0158</a> </p> </td> 
+         <td> <p> CAPTCHA Forms </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0159.html">0159</a> </p> </td> 
+         <td> <p> Spim-Blocking Control </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0160.html">0160</a> </p> </td> 
+         <td> <p> Best Practices for Handling Offline Messages </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0161.html">0161</a> </p> </td> 
+         <td> <p> Abuse Reporting </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0163.html">0163</a> </p> </td> 
+         <td> <p> Personal Eventing Protocol </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0168.html">0168</a> </p> </td> 
+         <td> <p> Resource Application Priority </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0170.html">0170</a> </p> </td> 
+         <td> <p> Recommended Order of Stream Feature Negotiation </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0171.html">0171</a> </p> </td> 
+         <td> <p> Language Translation </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0172.html">0172</a> </p> </td> 
+         <td> <p> User Nickname </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0175.html">0175</a> </p> </td> 
+         <td> <p> Best Practices for Use of SASL ANONYMOUS </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0176.html">0176</a> </p> </td> 
+         <td> <p> Jingle ICE-UDP Transport Method </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0178.html">0178</a> </p> </td> 
+         <td> <p> Best Practices for Use of SASL EXTERNAL with Certificates </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0182.html">0182</a> </p> </td> 
+         <td> <p> Application-Specific Error Conditions </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XEP </p> </th> 
+         <th> <p> Description </p> </th> 
+         <th> <p> Status </p> </th> 
+         <th> <p> <a href="ejabberd">ejabberd</a> </p> </th> 
+         <th> <p> <a href="iChat Server">iChat Server</a> </p> </th> 
+         <th> <p> <a href="jabberd14">jabberd14</a> </p> </th> 
+         <th> <p> <a href="jabberd2">jabberd2</a> </p> </th> 
+         <th> <p> <a href="Openfire">Openfire</a> </p> </th> 
+         <th> <p> <a href="Prosody (software)">Prosody</a> </p> </th> 
+         <th> <p> <a href="Tigase">Tigase</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0184.html">0184</a> </p> </td> 
+         <td> <p> Message Delivery Receipts </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0185.html">0185</a> </p> </td> 
+         <td> <p> Dialback Key Generation and Validation </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0189.html">0189</a> </p> </td> 
+         <td> <p> Public Key Publishing </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0190.html">0190</a> </p> </td> 
+         <td> <p> Best Practice for Closing Idle Streams </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0191.html">0191</a> </p> </td> 
+         <td> <p> Simple Communications Blocking </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0192.html">0192</a> </p> </td> 
+         <td> <p> Proposed Stream Feature Improvements </p> </td> 
+         <td> <p> Deprecated </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0193.html">0193</a> </p> </td> 
+         <td> <p> Proposed Resource Binding Improvements </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> Contrib.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> contrib<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0194.html">0194</a> </p> </td> 
+         <td> <p> User Chatting </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0195.html">0195</a> </p> </td> 
+         <td> <p> User Browsing </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0198.html">0198</a> </p> </td> 
+         <td> <p> Stream Management </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0199.html">0199</a> </p> </td> 
+         <td> <p> XMPP Ping </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0202.html">0202</a> </p> </td> 
+         <td> <p> Entity Time </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0203.html">0203</a> </p> </td> 
+         <td> <p> Delayed Delivery </p> </td> 
+         <td> <p> Final </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0205.html">0205</a> </p> </td> 
+         <td> <p> Best Practices to Discourage Denial of Service Attacks </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> Partially<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0206.html">0206</a> </p> </td> 
+         <td> <p> XMPP over Bosh </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0209.html">0209</a> </p> </td> 
+         <td> <p> Metacontacts </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0212.html">0212</a> </p> </td> 
+         <td> <p> XMPP Basic Server 2008 </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0214.html">0214</a> </p> </td> 
+         <td> <p> File Repository and Sharing </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0215.html">0215</a> </p> </td> 
+         <td> <p> External Service Discovery </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0216.html">0216</a> </p> </td> 
+         <td> <p> XMPP Intermediate IM Server 2008 </p> </td> 
+         <td> <p> Obsolete </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0220.html">0220</a> </p> </td> 
+         <td> <p> Server Dialback </p> </td> 
+         <td> <p> Experimental </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XEP </p> </th> 
+         <th> <p> Description </p> </th> 
+         <th> <p> Status </p> </th> 
+         <th> <p> <a href="ejabberd">ejabberd</a> </p> </th> 
+         <th> <p> <a href="iChat Server">iChat Server</a> </p> </th> 
+         <th> <p> <a href="jabberd14">jabberd14</a> </p> </th> 
+         <th> <p> <a href="jabberd2">jabberd2</a> </p> </th> 
+         <th> <p> <a href="Openfire">Openfire</a> </p> </th> 
+         <th> <p> <a href="Prosody (software)">Prosody</a> </p> </th> 
+         <th> <p> <a href="Tigase">Tigase</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0221.html">0221</a> </p> </td> 
+         <td> <p> Data Forms Media Element </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0223.html">0223</a> </p> </td> 
+         <td> <p> Persistent Storage of Private Data via PubSub </p> </td> 
+         <td> <p> Approved </p> </td> 
+         <td> <p> Partially<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0225.html">0225</a> </p> </td> 
+         <td> <p> Component Connections </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0227.html">0227</a> </p> </td> 
+         <td> <p> Portable Import/Export Format for XMPP-IM Servers (proposed) </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0230.html">0230</a> </p> </td> 
+         <td> <p> Service Discovery Notifications </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0232.html">0232</a> </p> </td> 
+         <td> <p> Software Information </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0233.html">0233</a> </p> </td> 
+         <td> <p> Use of Domain-Based Service Names in XMPP SASL Negotiation </p> </td> 
+         <td> <p> Experimental </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0235.html">0235</a> </p> </td> 
+         <td> <p> OAuth Over XMPP </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0236.html">0236</a> </p> </td> 
+         <td> <p> Abuse Reporting </p> </td> 
+         <td> <p> Retracted </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0237.html">0237</a> </p> </td> 
+         <td> <p> Roster Versioning </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0238.html">0238</a> </p> </td> 
+         <td> <p> XMPP Protocol Flows for Inter-Domain Federation </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0241.html">0241</a> </p> </td> 
+         <td> <p> Encryption of Archived Messages </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0243.html">0243</a> </p> </td> 
+         <td> <p> XMPP Server Compliance 2009 </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0248.html">0248</a> </p> </td> 
+         <td> <p> PubSub Collection Nodes </p> </td> 
+         <td> <p> Experimental </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> Partially<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0252.html">0252</a> </p> </td> 
+         <td> <p> BOSH Script Syntax </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0253.html">0253</a> </p> </td> 
+         <td> <p> PubSub Chaining </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> Partially<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0254.html">0254</a> </p> </td> 
+         <td> <p> PubSub Queueing </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0255.html">0255</a> </p> </td> 
+         <td> <p> Location Query </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0256.html">0256</a> </p> </td> 
+         <td> <p> Last Activity in Presence </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0257.html">0257</a> </p> </td> 
+         <td> <p> Client Certificate Management for SASL EXTERNAL </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0259.html">0259</a> </p> </td> 
+         <td> <p> Message Mine-ing </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0270.html">0270</a> </p> </td> 
+         <td> <p> XMPP Compliance Suites 2010 </p> </td> 
+         <td> <p> Draft </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0278.html">0278</a> </p> </td> 
+         <td> <p> Jingle Relay Nodes (experimental) </p> </td> 
+         <td> <p> Experimental </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0279.html">0279</a> </p> </td> 
+         <td> <p> Server IP Check (experimental) </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> contrib<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://xmpp.org/extensions/xep-0302.html">0302</a> </p> </td> 
+         <td> <p> XMPP Compliance Suites 2012 </p> </td> 
+         <td> <p> Deferred </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XEP </p> </th> 
+         <th> <p> Description </p> </th> 
+         <th> <p> Status </p> </th> 
+         <th> <p> <a href="ejabberd">ejabberd</a> </p> </th> 
+         <th> <p> <a href="iChat Server">iChat Server</a> </p> </th> 
+         <th> <p> <a href="jabberd14">jabberd14</a> </p> </th> 
+         <th> <p> <a href="jabberd2">jabberd2</a> </p> </th> 
+         <th> <p> <a href="Openfire">Openfire</a> </p> </th> 
+         <th> <p> <a href="Prosody (software)">Prosody</a> </p> </th> 
+         <th> <p> <a href="Tigase">Tigase</a> </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Xmpp Server Software}}</span> <a href="Category:Instant messaging server software">XMPP</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,319 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of synchronous and asynchronous signalling</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of synchronous and asynchronous signalling</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Unreferenced|...}}</span> <b>Synchronous</b> and <b>asynchronous transmissions</b> are two different methods of <a href="data transmission">transmission</a> <a href="Synchronization#Communication">synchronization</a>. Synchronous transmissions are synchronized by an external clock, while asynchronous transmissions are synchronized by special signals along the transmission medium. </p> 
+    <div class="section"> 
+     <h2>The need for synchronization</h2> 
+     <div class="section-body"> 
+      <p> Whenever an <a href="electronic device">electronic device</a> transmits digital (and sometimes analogue) data to another electronic device, there must be a certain rhythm established between the two devices, i.e., the receiving device must have some way of knowing, within the context of the fluctuating signal that it's receiving, where each unit of data begins and where it ends. </p> 
+      <p> For example, a <a href="television transmitter">television transmitter</a> produces a continuous stream of data in which each horizontal line of image must be distinguishable from the preceding and succeeding lines, so that a TV will be able to distinguish between them upon reception. </p> 
+      <p> Or, a <a href="serial cable">serial</a> data signal between two PCs must have individual bits and bytes that the receiving PC can distinguish. If it doesn't, then the receiving PC can't tell where one byte or bit ends and the next one begins. </p> 
+      <p> So the signal must be synchronized in a way that the receiver can distinguish the bits and bytes as the transmitter intends them to be distinguished. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Methods of synchronization</h2> 
+     <div class="section-body"> 
+      <p> There are two ways to synchronize the two ends of the communication. </p> 
+      <p> The synchronous signalling methods use 2 different signals. A pulse on one signal indicates when another bit of information is ready on the other signal. </p> 
+      <p> The asynchronous signalling methods use only 1 signal. The receiver uses transitions on that signal to figure out the transmitter bit rate (&quot;<a href="autobaud">autobaud</a>&quot;) and timing, and set a local clock to the proper timing, typically using a <a href="phase-locked loop">phase-locked loop</a> (PLL) to synchronize with the transmission rate. A pulse from the local clock indicates when another bit is ready. </p> 
+      <div class="section"> 
+       <h3>Data/strobe synchronous transmission</h3> 
+       <div class="section-body"> 
+        <p> In synchronous transmission, the stream of data to be transferred is encoded as fluctuating voltages in one wire, and a periodic pulse of voltage is put on another wire (often called the &quot;clock&quot; or &quot;strobe&quot;) that tells the receiver &quot;here's where one bit/byte ends and the next one begins&quot;. </p> 
+        <p> Practically all <a href="parallel communications">parallel communications</a> protocols use such synchronous transmission. For example, in a computer, address information is transmitted synchronously?the address bits over the <a href="address bus">address bus</a>, and the read strobe in the <a href="control bus">control bus</a>. </p> 
+        <p> <span class="unknown-node">ImageLink</span> Synchronization can also be embedded into a signal on a single wire. In <a href="differential Manchester encoding">differential Manchester encoding</a>, used on broadcast quality video tape systems<span class="unknown-node">{{Citation needed|...}}</span>, each transition from a low to high or high to low represents a logical zero. A logical one is indicated when there are two transitions in the same time frame as a zero. Another example is the <a href="Manchester code">Manchester code</a> where a transition from low to high indicates a one and a transition from high to low indicates a zero. When there are successive ones or zeros, an opposite transition is required on the edge of the time frame to prepare for the next transition. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Asynchronous transmission</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{Main|...}}</span> In one form of asynchronous transmission, there is only one wire/signal carrying the transmission. The transmitter sends a stream of data and periodically inserts a certain signal element into the stream which can be &quot;seen&quot; and distinguished by the receiver as a sync signal. That sync signal might be a single pulse (a &quot;start bit&quot; in <a href="asynchronous serial communication#Asynchronous start/stop operation">asynchronous start/stop communication</a>), or it may be a more complicated <a href="syncword">syncword</a> or <a href="self-synchronizing code">self-synchronizing code</a> such as <a href="HDLC">HDLC</a> or <a href="8B/10B encoding">8B/10B encoding</a>. </p> 
+        <p> Other forms of asynchronous communication use two wires for each data bit (dual-rail encoding) or one wire for each data bit and a separate timing wire (bundled data). Both of these require a separate acknowledge wire. </p> 
+        <p> Obviously, the term &quot;asynchronous&quot; is misleading in its literal interpretation considering that the resynchronization problem can be easily rectified... </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Advantages and disadvantages</h2> 
+     <div class="section-body"> 
+      <table class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th> <p> <i>Advantages</i> </p> </th> 
+         <th> <p> Disadvantages </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> Asynchronous transmission </p> </td> 
+         <td> 
+          <ul> 
+           <li> Simple, doesn't require synchronization of both communication sides</li> 
+           <li> Cheap, timing is not as critical as for synchronous transmission, therefore hardware can be made cheaper</li> 
+           <li> Set-up is faster than other transmissions, so well suited for applications where messages are generated at irregular intervals, for example data entry from the keyboard and the speed depends on different applications.</li> 
+          </ul> </td> 
+         <td> 
+          <ul> 
+           <li> Large relative overhead, a high proportion of the transmitted bits are uniquely for control purposes and thus carry no useful information</li> 
+          </ul> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Synchronous transmission </p> </td> 
+         <td> 
+          <ul> 
+           <li> Lower overhead and thus, greater throughput</li> 
+          </ul> </td> 
+         <td> 
+          <ul> 
+           <li> Slightly more complex</li> 
+           <li> Hardware is more expensive</li> 
+          </ul> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Synchronous And Asynchronous Signalling}}</span> <a href="Category:Computing comparisons">Synchronous and asynchronous signalling</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

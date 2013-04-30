@@ -1,0 +1,816 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of open source configuration management software</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of open source configuration management software</h1> 
+   <div class="article-content"> 
+    <p> This is a comparison of notable <a href="Free software">free</a> and <a href="Open-source software">open source</a> <a href="configuration management">configuration management</a> software, suitable for tasks typically performed by a <a href="system administrator">system administrator</a>. </p> 
+    <div class="section"> 
+     <h2> Basic properties </h2> 
+     <div class="section-body"> 
+      <p> &quot;Verify mode&quot; refers to having an ability to determine whether a node is conformant with a guarantee of not modifying it, and typically involves the exclusive use of an internal language supporting read-only mode for all potentially system-modifying operations. </p> 
+      <table class="wikitable sortable" style="text-align: center; width: 95%"> 
+       <tbody>
+        <tr style="background: #ececec;"> 
+         <th style="width:12em"> </th> 
+         <th> <p> Language </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> <a href="mutual authentication">Mutual auth</a> </p> </th> 
+         <th> <p> <a href="encryption">Encrypts</a> </p> </th> 
+         <th> <p> Verify mode </p> </th> 
+         <th> <p> First release </p> </th> 
+         <th> <p> Latest stable release </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Ansible (software)">Ansible</a> </p> </th> 
+         <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td align="left"> <p> 2012-03-08 </p> </td> 
+         <td align="left"> <p> 2013-04-02 1.1<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Arusha Project">Arusha Project</a> (ARK) </p> </th> 
+         <td> <p> Python </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a> <a href="http://ark.sourceforge.net/license.html">1</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 2001-07-21<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2005-04-19 20050419 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bcfg2">Bcfg2</a> </p> </th> 
+         <td> <p> Python </p> </td> 
+         <td> <p> BSD <a href="https://github.com/Bcfg2/bcfg2/blob/master/LICENSE">2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2004-08-11<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2013-03-21 1.3.1<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="cdist">cdist</a> </p> </th> 
+         <td> <p> Python </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 2010 </p> </td> 
+         <td align="left"> <p> 2012-06-05 2.0.13 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Chef (software)">Chef</a> </p> </th> 
+         <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+         <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <a href="http://tickets.opscode.com/browse/CHEF-13">3</a> </p> </td> 
+         <td align="left"> <p> 2009-01-15 0.5.0 </p> </td> 
+         <td align="left"> <p> 2013-02-13 11.4.0,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> 2013-02-15 11.0.6 (server)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CFEngine">CFEngine</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> GPL, COSL <a href="http://cfengine.com/pages/faq">4</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><a href="https://cfengine.com/manuals/cf-quickref3">5</a> </p> </td> 
+         <td align="left"> <p> 1993 </p> </td> 
+         <td align="left"> <p> 2013-03-15 3.4.4<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ISconf">ISconf</a> </p> </th> 
+         <td> <p> Python </p> </td> 
+         <td> <p> GPL <a href="http://trac.t7a.org/isconf/browser/trunk/LICENSE">6</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 1998 </p> </td> 
+         <td align="left"> <p> 2006-08-13 4.2.8.233 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Juju (software)">Juju</a> </p> </th> 
+         <td> <p> Python </p> </td> 
+         <td> <p> <a href="Affero General Public License">Affero General Public License</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td align="left"> <p> 2010-09-17<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Local ConFiGuration system (<a href="LCFG">LCFG</a>) </p> </th> 
+         <td> <p> Perl </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 1994 </p> </td> 
+         <td align="left"> <p> Weekly Releases </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OCS Inventory">OCS Inventory</a> NG with GLPI </p> </th> 
+         <td> <p> Perl, PHP, <a href="C++">C++</a> </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 2003 </p> </td> 
+         <td align="left"> <p> 2011/09/13<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Open pc server integration (<a href="Opsi">Opsi</a>) </p> </th> 
+         <td> <p> Python, Java </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 2004 </p> </td> 
+         <td align="left"> <p> 2010-10-01 4.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PIKT">PIKT</a> </p> </th> 
+         <td> <p> C </p> </td> 
+         <td> <p> GPL <a href="http://pikt.org/pikt/licensing.html">7</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 1998<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2007-09-10 1.19.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Puppet (software)">Puppet</a> </p> </th> 
+         <td> <p> Ruby </p> </td> 
+         <td> <p> Apache from 2.7.0, GPL before then </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <a href="http://docs.puppetlabs.com/man/agent.html">8</a> </p> </td> 
+         <td align="left"> <p> 2005-08-30<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2013-03-12 3.1.1<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Quattor">Quattor</a> </p> </th> 
+         <td> <p> Perl, Python </p> </td> 
+         <td> <p> <a href="http://www.opensource.org/licenses/eudatagrid.php">EDG</a><a href="http://eu-datagrid.web.cern.ch/eu-datagrid/license.html">9</a>, Apache 2.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 2005-04-01<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2013-02-17<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Radmind">Radmind</a> </p> </th> 
+         <td> <p> C </p> </td> 
+         <td> <p> BSD <a href="http://rsug.itd.umich.edu/software/copyright.html">10</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 2002-03-26<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2008-10-8 1.13.0<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SmartFrog">SmartFrog</a> </p> </th> 
+         <td> <p> Java </p> </td> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 2004-02-11 </p> </td> 
+         <td align="left"> <p> 2009-01-26 3.16.004<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Salt (software)">Salt</a> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> Python<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Apache <a href="http://saltstack.org/topics/index.html#open">11</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td align="left"> <p> 2011-03-17 0.6.0<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2013-03-23 0.14.0<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Spacewalk (software)">Spacewalk</a> </p> </th> 
+         <td> <p> Java (C, Perl, Python, <a href="PL/SQL">PL/SQL</a>) </p> </td> 
+         <td> <p> GPLv2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 2008-06<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2012-03-07 1.7<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="STAF">STAF</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="Common Public License">CPL</a> <a href="http://staf.sourceforge.net/license.php">12</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td align="left"> <p> 1998-02-16<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td align="left"> <p> 2012-06-29 3.4.10 </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Platform support </h2> 
+     <div class="section-body"> 
+      <p> Note: This means platforms on which a recent version of the tool has actually been used successfully, not platforms where it should theoretically work since it's written in good portable C/C++ or an interpreted language. It should also be listed as a supported platform on the project's web site. </p> 
+      <table class="wikitable sortable" style="text-align: center; width: 95%"> 
+       <tbody>
+        <tr>
+         <th style="width:12em"> </th> 
+         <th> <p> <a href="IBM AIX (operating system)">AIX</a> </p> </th> 
+         <th> <p> <a href="Berkeley Software Distribution">*BSD</a> </p> </th> 
+         <th> <p> <a href="HP-UX">HP-UX</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+         <th> <p> <a href="Solaris (operating system)">Solaris</a> </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+         <th> <p> Others </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="Ansible (software)">Ansible</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Arusha Project">Arusha Project</a> (ARK) </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bcfg2">Bcfg2</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CFEngine">CFEngine</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="cdist">cdist</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Chef (software)">Chef</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ISconf">ISconf</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Local ConFiGuration system (<a href="LCFG">LCFG</a>) </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OCS Inventory NG">OCS Inventory NG</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Open pc server integration (<a href="Opsi">Opsi</a>) </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PIKT">PIKT</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Puppet (software)">Puppet</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Quattor">Quattor</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Radmind">Radmind</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SmartFrog">SmartFrog</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> <span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> <span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Salt (Software)">Salt</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> <span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> <span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Spacewalk (software)">Spacewalk</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="STAF">STAF</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Short descriptions </h2> 
+     <div class="section-body"> 
+      <p> Not all tools have the same goal and the same feature set. To help distinguish between all of these software packages, here is a short description of each one. </p> 
+      <p> ;<a href="Ansible (software)">Ansible</a> </p> 
+      <dl> 
+       <dd>
+        Combines multi-node deployment, ad-hoc task execution, and configuration management in one package. Manages nodes over SSH and does not require any additional remote software to be installed on them. Modules work over JSON and standard output and can be written in any language. Uses YAML to express reusable descriptions of systems.
+       </dd> 
+      </dl> 
+      <p> ;<a href="Arusha Project">Arusha Project</a> (ARK) </p> 
+      <dl> 
+       <dd>
+        Manage package and configuration specification of hosts via a custom XML description language. Can be used as a front end for 
+        <a href="CFEngine">CFEngine</a> or 
+        <a href="http://pikt.org/">PIKT</a>. Provides some collaboration features between administration 'teams'. The last commit dates from 
+        <a href="http://sourceforge.net/mailarchive/forum.php?forum_name=ark-commits">April 2007</a>.
+       </dd> 
+      </dl> 
+      <p> ;<a href="Bcfg2">Bcfg2</a> </p> 
+      <dl> 
+       <dd>
+        Software to manage the configuration of a large number of computers using a central configuration model and the 
+        <a href="client?server model">client?server paradigm</a>. The system enables reconciliation between clients' state and the central configuration specification. Detailed reports provide a way to identify unmanaged configuration on hosts. Generators enable code or template based generation of configuration files from a central data repository.
+       </dd> 
+      </dl> 
+      <p> ;<a href="CFEngine">CFEngine</a> </p> 
+      <dl> 
+       <dd>
+        Lightweight agent system. Manages configuration of a large number of computers using the client?server paradigm or stand-alone. Any client state which is different from the policy description is reverted to the desired state. Configuration state is specified via a declarative language. CFEngine's paradigm is convergent 
+        <a href="http://www.usenix.org/event/lisa98/full_papers/burgess/burgess.pdf">&quot;computer immunology&quot;</a>
+       </dd> 
+      </dl> 
+      <p> ;<a href="cdist">cdist</a> </p> 
+      <dl> 
+       <dd>
+        cdist is a zero dependency configuration management system: It requires only ssh on the target host, which is usually enabled on all Unix-like machines. Only the administration host needs to have Python 3.2 installed.
+       </dd> 
+      </dl> 
+      <p> ;<a href="Chef (software)">Chef</a> </p> 
+      <dl> 
+       <dd>
+        Chef is a configuration management tool written in Ruby, and uses a pure Ruby DSL for writing configuration &quot;recipes&quot;. These recipes contain resources that should be put into the declared state. Chef can be used as a client?server tool, or used in &quot;solo&quot; mode.
+        <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span>
+       </dd> 
+      </dl> 
+      <p> ;<a href="ISconf">ISconf</a> </p> 
+      <dl> 
+       <dd>
+        Tool to execute commands and replicate files on all nodes. The nodes do not need to be up; the commands will be executed when they boot. The system has no central server so commands can be launched from any node and they will replicate to all nodes. It implements many of the ideas in &quot;
+        <a href="http://www.infrastructures.org/papers/turing/turing.html">Why Order Matters: Turing Equivalence in Automated Systems Administration</a>&quot;.
+       </dd> 
+      </dl> 
+      <p> ;Local ConFiGuration system (<a href="LCFG">LCFG</a>) </p> 
+      <dl> 
+       <dd>
+        LCFG manages the configuration with a central description language in XML, specifying resources, aspects and profiles. Configuration is deployed using the client?server paradigm. Appropriate scripts on clients (called 
+        <i>components</i>) transcribe the resources into configuration files and restart services as needed.
+       </dd> 
+      </dl> 
+      <p> ;Open pc server integration (<a href="Opsi">Opsi</a>) </p> 
+      <dl> 
+       <dd>
+        Open pc server integration (Opsi) is 
+        <a href="desktop management">desktop management</a> software for 
+        <a href="Microsoft Windows">Windows</a> clients based on 
+        <a href="Linux">Linux</a> servers. It provides automatic 
+        <a href="software deployment">software deployment</a> (distribution), 
+        <a href="installation (computer programs)#Types">unattended installation</a> of OS, 
+        <a href="patch (computing)">patch</a> management, hard- and software inventory, license management and 
+        <a href="software asset management">software asset management</a>, and administrative tasks for the 
+        <a href="configuration management">configuration management</a>.
+        <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span>
+       </dd> 
+      </dl> 
+      <p> ;<a href="PIKT">PIKT</a> </p> 
+      <dl> 
+       <dd>
+        PIKT is foremost a monitoring system that also does configuration management. &quot;
+        <i>PIKT consists of a sophisticated, <a href="feature-rich">feature-rich</a> file preprocessor; an innovative scripting language with unique labor-saving features; a flexible, centrally directed process scheduler; a customizing file installer; a collection of powerful command-line extensions; and other useful tools.</i>&quot; 
+        <a href="http://pikt.org/">13</a>
+       </dd> 
+      </dl> 
+      <p> ;<a href="Puppet (software)">Puppet</a> </p> 
+      <dl> 
+       <dd>
+        Puppet consists of a custom declarative language to describe system configuration, distributed using the client?server paradigm (using 
+        <a href="XML-RPC">XML-RPC</a> protocol in older versions, with a recent switch to 
+        <a href="Representational State Transfer">REST</a>), and a library to realize the configuration. The resource abstraction layer enables administrators to describe the configuration in high-level terms, such as users, services and packages. Puppet will then ensure the server's state matches the description. There is support in Puppet for using a pure Ruby DSL as an alternative configuration language in version 2.6.0 and later.
+        <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span>
+       </dd> 
+      </dl> 
+      <p> ;<a href="Quattor">Quattor</a> </p> 
+      <dl> 
+       <dd>
+        The quattor information model is based on the distinction between the desired state and the actual state. The desired state is registered in a fabric-wide configuration database, using a specially designed configuration language called 
+        <a href="Pan (programming language)">Pan</a> for expressing and validating configurations, composed out of reusable hierarchical building blocks called templates. Configurations are propagated to and cached on the managed nodes. 
+        <a href="http://quattor.web.cern.ch/quattor/">14</a>
+        <a href="https://trac.lal.in2p3.fr/Quattor/wiki/Web?redirectedfrom=Web/Overview">15</a>
+       </dd> 
+      </dl> 
+      <p> ;<a href="Radmind">Radmind</a> </p> 
+      <dl> 
+       <dd>
+        Radmind manages hosts configuration at the file system level. In a similar way to 
+        <a href="Tripwire (software)">Tripwire</a> (and other configuration management tools), it can detect external changes to managed configuration, and can optionally reverse the changes. Radmind does not have higher-level configuration element (services, packages) abstraction. A graphical interface is available (only) for Mac OS X.
+       </dd> 
+      </dl> 
+      <p> ;<a href="Salt (software)">Salt</a> </p> 
+      <dl> 
+       <dd>
+        Salt started out as a tool for remote server management. As its usage has grown, it has gained a number of extended features, including a more comprehensive mechanism for host configuration. This is a relatively new feature facilitated through the Salt States component. With the traction that Salt has gotten in the last bit, the support for more features and platforms will continue to grow.
+       </dd> 
+      </dl> 
+      <pre> 
+</pre> 
+      <p> ;<a href="SmartFrog">SmartFrog</a> </p> 
+      <dl> 
+       <dd>
+        Java-based tool to deploy and configure applications distributed across multiple machines. There is no central server; you can deploy a .SF configuration file to any node and have it distributed to peer nodes according to the distribution information contained inside the deployment descriptor itself.
+       </dd> 
+      </dl> 
+      <p> ;<a href="Spacewalk (software)">Spacewalk</a> </p> 
+      <dl> 
+       <dd>
+        Spacewalk is an open source Linux and Solaris systems management solution and is the upstream project for the source of Red Hat Network Satellite. Spacewalk works with RHEL, Fedora, and other RHEL derivative distributions like CentOS, Scientific Linux, etc. We are working on getting it packaged for inclusion in Fedora. It allows you to inventory your systems (hardware and software information, install and update software on your systems, collect and distribute your custom software packages into manageable groups, provision your systems (from bare metal via KOAN and cobbler), manage and deploy configuration files to your systems, monitor your systems, provision virtual guests, start/stop/configure virtual guests and delegate all of these actions to organisations with fine grain local or LDAP user controls and system entitlements.
+       </dd> 
+      </dl> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Open Source Configuration Management Software}}</span> <a href="Category:Configuration management"> </a> <a href="Category:Software comparisons">Open source configuration management software</a> <a href="Category:Free software lists and comparisons">Configuration management software</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

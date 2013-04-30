@@ -1,0 +1,521 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of ad servers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of ad servers</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Orphan|...}}</span> </p> 
+    <p> The following is a <b>comparison of ad servers</b>. It compares general and technical features of a number of ad serving platforms. </p> 
+    <div class="section"> 
+     <h2>General information</h2> 
+     <div class="section-body"> 
+      <p> Basic general information about the ad serving solutions: </p> 
+      <table style="width:90%; font-size:85%; text-align: center;" class="wikitable sortable"> 
+       <tbody>
+        <tr> 
+         <th> <p> Ad Servering Platform </p> </th> 
+         <th> <p> Company-owner </p> </th> 
+         <th> <p> First release date </p> </th> 
+         <th> <p> Pricing </p> </th> 
+         <th> <p> Mobile solution </p> </th> 
+         <th> <p> Ad exchange </p> </th> 
+         <th> <p> Demo </p> </th> 
+         <th> <p> Service and Support </p> </th> 
+         <th> <p> Real-time </p> </th> 
+         <th> <p> Trial period </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> OpenX Ramp </p> </td> 
+         <td> <p> OpenX Technologies, Inc. </p> </td> 
+         <td> <p> 1998 (as phpAdsNew) </p> </td> 
+         <td> <p> free up to 100 million impps per month </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> Yes, OpenX Market </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> not supported </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> OpenX Enterprise </p> </td> 
+         <td> <p> OpenX Technologies, Inc. </p> </td> 
+         <td> <p> 1998 (as phpAdsNew) </p> </td> 
+         <td> <p> available upon request </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes, OpenX Market </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> 24/7 email and telephone </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> No </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> DoubleClick Small Business </p> </td> 
+         <td> <p> Google Inc., since 2008 </p> </td> 
+         <td> <p> n/a </p> </td> 
+         <td> <p> free up to 90 million impps per month </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes, Doubleclick Ad Exchange </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> e-mail, phone, ticket system </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> DoubleClick Premium Solution </p> </td> 
+         <td> <p> Google Inc., since 2008 </p> </td> 
+         <td> <p> n/a </p> </td> 
+         <td> <p> available upon request </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes, Doubleclick Ad Exchange </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> Dedicated manager, 24/7/365 support </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> No </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Zedo">Zedo</a> </p> </td> 
+         <td> <p> Zedo Inc. </p> </td> 
+         <td> <p> 2000 </p> </td> 
+         <td> <p> one time set-up fee + monthly fee based on volume (available upon request) </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> 24/7 support through phone, email or chat </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> No </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Right Media (Yield Manager) </p> </td> 
+         <td> <p> Yahoo </p> </td> 
+         <td> <p> 2005 </p> </td> 
+         <td> <p> available upon request </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes, Right Media Exchange </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> email and phone support </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> No </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> ADTECH </p> </td> 
+         <td> <p> ADTECH AG, subsidiary of AOL Networks. </p> </td> 
+         <td> <p> 1998. 2007 - AOL acquires ADTECH </p> </td> 
+         <td> <p> available upon request, special pricing, also there are ADTECH lite (version for small publishers) free. </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes, Upon Request </p> </td> 
+         <td> <p> 24/7 email and phone support </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> No </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Emediate">Emediate</a> </p> </td> 
+         <td> <p> <a href="ad pepper media">ad pepper media</a>. </p> </td> 
+         <td> <p> 2001. 2007 - ad pepper media acquires Emediate </p> </td> 
+         <td> <p> Available upon request </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes, <a href="Emediate#Emediate_Exchange">Emediate Exchange</a> </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Email and phone support </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Epom Ad Server">Epom Ad Server</a> </p> </td> 
+         <td> <p> <a href="Epom">Epom</a> Ltd. </p> </td> 
+         <td> <p> 08.2010 </p> </td> 
+         <td> <p> free up to 250K impressions, pricing publicly displayed at the official site </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes, <a href="Epom Market">Epom Market</a> </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> 24/7 support: e-mail, phone, Skype, live chat </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>General features</h2> 
+     <div class="section-body"> 
+      <p> Main features offering by ad servers. </p> 
+      <table style="width:90%; font-size:85%; text-align: center;" class="wikitable sortable"> 
+       <tbody>
+        <tr> 
+         <th> <p> Ad Servering Platform </p> </th> 
+         <th> <p> Mobile ad serving </p> </th> 
+         <th> <p> Video ad serving </p> </th> 
+         <th> <p> Targeting databases </p> </th> 
+         <th> <p> Creative types supported </p> </th> 
+         <th> <p> Campaigns optimization </p> </th> 
+         <th> <p> Reporting </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> OpenX Ramp </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> available for extra cost </p> </td> 
+         <td> <p> Image, Flash, HTML, XML, 3rd-party, Rich Media, Video (linear &amp; non-linear), etc. </p> </td> 
+         <td> <p> limited </p> </td> 
+         <td> <p> No </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> OpenX Enterprise </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Image, Flash, HTML, HTML5, XML, 3rd-party, Rich Media, Video (linear &amp; non-linear), etc., third party tags </p> </td> 
+         <td> <p> CPM, CPC, CPA, CPD, Fixed Cost, conversion tracking </p> </td> 
+         <td> <p> Real-time + dashboard, API available </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> DoubleClick </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Image, Flash, rich media, and third-party tags. Automatic rich media macro detection. Small Business version could have some limitations. </p> </td> 
+         <td> <p> CPM, CPC, CPA </p> </td> 
+         <td> <p> Real-time </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Zedo </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Standard Banner, HTML, Text, and javascript ads, Rich Media Ads, Flash </p> </td> 
+         <td> <p> Automatic Optimization based on eCPM, CTR, Clicks or Impressions </p> </td> 
+         <td> <p> Canned and custom reports </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Right Media </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> n/a </p> </td> 
+         <td> <p> Image, Flash, Rich Media, Video, HTML, Display Ads </p> </td> 
+         <td> <p> Optimization based on eCPM, CPC, CPA. </p> </td> 
+         <td> <p> Real-time </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> ADTECH </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Image, Flash, HTML, XML, 3rd-party, Video (linear &amp; non-linear), Rich Media, HTML 5, display ads </p> </td> 
+         <td> <p> Automatic Optimization based on CPM, CPC, CPA, eCPM, also Fixed Cost, conversion tracking </p> </td> 
+         <td> <p> Real time repoting + dashboard, Custom reports, report subscription , report export (xls, csv, pdf, html) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Emediate">Emediate</a> </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Image, Flash, Rich Media, Video, 3rd-party, HTML, HTML 5, Display Ads </p> </td> 
+         <td> <p> CPM, CPC, CPA </p> </td> 
+         <td> <p> Updated every hour </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Atlas Solutions </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Image, Flash, Rich Media, Video, HTML, Display Ads </p> </td> 
+         <td> <p> CPM, CPC, CPA </p> </td> 
+         <td> <p> Real time </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> AppNexus </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Image, Flash, Rich Media, Video, HTML, Display Ads </p> </td> 
+         <td> <p> CPM, CPC, CPA </p> </td> 
+         <td> <p> Updated every hour </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Epom">Epom</a> </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Image, Flash, Video (linear &amp; non-linear), HTML, Text ads, 3rd-party, Rich Media (free templates), HTML5, display ads </p> </td> 
+         <td> <p> CTR, CPA optimization; eCPM Optimization; Auto-Weighing, based on eCPM, Manual Weighing </p> </td> 
+         <td> <p> Real-time, dashboard, report auto-sending options, report export (xls, csv, pdf, html) </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Targeting</h2> 
+     <div class="section-body"> 
+      <p> Targeting options available: </p> 
+      <table style="width:90%; font-size:85%; text-align: center;" class="wikitable sortable"> 
+       <tbody>
+        <tr> 
+         <th> <p> OpenX Ramp </p> </th> 
+         <th> <p> OpenX Enterprise </p> </th> 
+         <th> <p> DoubleClick </p> </th> 
+         <th> <p> Zedo </p> </th> 
+         <th> <p> Right Media </p> </th> 
+         <th> <p> Emediate </p> </th> 
+         <th> <p> ADTECH </p> </th> 
+         <th> <p> Atlas Solutions </p> </th> 
+         <th> <p> AppNexus </p> </th> 
+         <th> <p> <a href="Epom">Epom</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> Content, geographic, technographic (e.g. browser), time based (e.g. time of day), and custom targeting </p> </td> 
+         <td> <p> Content, geographic, technographic (e.g. browser), time based (e.g. time of day), and custom targeting Advanced targeting by mobile device, carrier, and O/S Custom and 3rd party audience classification and retargeting </p> </td> 
+         <td> <p> Geography, bandwidth, browser, browser language, operating system, and domain. Date and time targeting. Small Business version could have some limitations. </p> </td> 
+         <td> <p> Keyword targeting, geography targeting to city, state, country, DMA and custom groups, bandwidth targeting, day/time targeting </p> </td> 
+         <td> <p> Right media allows you to manage inventory by age, channel, gender, geography, </p> </td> 
+         <td> <p> Content, frequency, time based, semantic, IP-addresses keywords, custom, retargeting, browser, browser language, platform, mobile, bandwidth. </p> </td> 
+         <td> <p> Content, Geography, Technographic (E.G. ISP Provider, Bandwidth, Connection Type, IP-Addresses, Browser, Browser Language, Operating System, Operating System Language And Domain). Time Based (E.G. Time Of Day), Keyword Targeting, Frequency, Re-Targeting. Mobile (Mobile Carrier, Device Vendor, Device Type And Format Targeting) Also there are Custom Targeting. ADTECH Lite version could have some limitations. </p> </td> 
+         <td> <p> Geography Targeting, Bandwidth targeting, Browser targeting, OS targeting </p> </td> 
+         <td> <p> Geography Targeting, Bandwidth targeting, Browser targeting, OS targeting </p> </td> 
+         <td> <p> Geotargeting (up to city level); ISP provider, IP adress, bandwidth, browser (incl. browser language), OS (incl. OS language and domain) targeting; time-based, custom targeting; keyword, frequency targeting; re-targeting (cookie targeting); Wi-Fi, mobile carrier, device vendour, device type and format targeting. </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <a href="Category:Internet advertising">Category:Internet advertising</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

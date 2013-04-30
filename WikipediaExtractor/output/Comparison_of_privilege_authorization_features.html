@@ -1,0 +1,463 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of privilege authorization features</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of privilege authorization features</h1> 
+   <div class="article-content"> 
+    <p> A number of computer <a href="operating systems">operating systems</a> employ security features to help prevent <a href="malicious software">malicious software</a> from gaining sufficient privileges to compromise the computer system. Operating systems lacking such features, such as <a href="DOS">DOS</a>, <a href="Microsoft Windows">Windows</a> implementations prior to <a href="Windows NT">Windows NT</a> (and its descendants), CP/M-80, and all Mac operating systems prior to Mac OS X, had only one category of user who was allowed to do anything. With separate execution contexts it is possible for multiple users to store private files, for multiple users to use a computer at the same time, to protect the system against malicious users, and to protect the system against malicious programs. The first multi-user secure system was <a href="Multics">Multics</a>, which began development in the 1960s; it wasn't until <a href="UNIX">UNIX</a>, <a href="BSD">BSD</a>, <a href="Linux kernel">Linux</a>, and <a href="Windows NT">NT</a> in the late 80s and early 90s that multi-tasking security contexts were brought to x86, consumer machines. </p> 
+    <div class="section"> 
+     <h2> Introduction to implementations </h2> 
+     <div class="section-body"> 
+      <p> ;Microsoft Windows </p> 
+      <table> 
+       <tbody>
+        <tr> 
+         <td style="width:130px;height:90px;text-align:center" rowspan="2"> <p> <span class="unknown-node">ImageLink</span><small>User Account Control prompt dialog box</small> </p> </td> 
+         <td> <p> <b><a href="User Account Control">User Account Control</a></b> (<b>UAC</b>):<br />Included with <a href="Windows Vista">Windows Vista</a> and later <a href="Microsoft Windows">Microsoft Windows</a> operating systems, <i>UAC</i> prompts the user for authorization when an application tries to perform an administrator task.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <b><a href="Runas">Runas</a></b>:<br />A command-line tool introduced with <a href="Windows 2000">Windows 2000</a> that allows running a program, <a href="Control Panel (Windows)">control panel applet</a>, or a <a href="Microsoft Management Console">MMC snap-in</a> as a different user.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Runas makes use of the &quot;Secondary Login&quot; <a href="Windows service">Windows service</a>, also introduced with Windows 2000.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> This service provides the capability to allow applications running as a separate user to interact with the logged-in user's desktop. This is necessary to support drag-and-drop, clipboard sharing, and other interactive login features. </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> ;Mac OS </p> 
+      <table> 
+       <tbody>
+        <tr> 
+         <td style="width:130px;height:90px;text-align:center"> <p> <span class="unknown-node">ImageLink</span> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a> includes the <b>Authenticate</b> dialog, which prompts the user to input their password in order to perform administrator tasks. This is essentially a graphical front-end of <code><a href="sudo">sudo</a></code> command. </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> ;Unix and Unix-like </p> 
+      <table> 
+       <tbody>
+        <tr> 
+         <td style="width:130px;height:90px;text-align:center"> <p> <span class="unknown-node">ImageLink</span> </p> </td> 
+         <td> <p> <b><a href="PolicyKit">PolicyKit/pkexec</a></b>:<br />A privilege authorization feature, designed to be independent of the desktop environment in use and already adopted by <a href="GNOME">GNOME</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> In contrast to earlier systems, applications using PolicyKit never run with privileges above those of the current user. Instead, they indirectly make requests of the PolicyKit <a href="Daemon (computer software)">daemon</a>, which is the only program that runs as root. </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="width:130px;height:90px;text-align:center" rowspan="2"> <p> <span class="unknown-node">ImageLink</span><small>Sudo, running in Terminal window in Ubuntu</small> </p> </td> 
+         <td> <p> <b><a href="su (Unix)">su</a></b>:<br />A command line tool for <a href="Unix">Unix</a>. su (substitute user) allows users to switch the terminal to a different account by entering the username and password of that account. If no user name is given, the operating system's <a href="superuser">superuser</a> account (known as &quot;root&quot;) is used, thus providing a fast method to obtain a login <a href="shell (computing)">shell</a> with full privileges to the system. Issuing an <a href="Exit (operating system)">exit</a> command returns the user to their own account. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <b><a href="sudo">sudo</a></b>:<br />Created around 1980,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <i>sudo</i> is a highly configurable Unix command line tool similar to <i>su</i>, but it allows certain users to run programs with root privileges without spawning a root shell or requiring root's password.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="width:130px;height:90px;text-align:center"> <p> <span class="unknown-node">ImageLink</span> </p> </td> 
+         <td> <p> <b>GKSu</b> and <b>GKsudo</b>:<br /><a href="Gtk">GTK+</a> <a href="GUI">Graphical</a> <a href="frontend">frontend</a> to <i>su</i> and <i>sudo</i>.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <i>GKsu</i> comes up automatically when a supported application needs to perform an action requiring root privileges. A replacement, &quot;<i>gksu PolicyKit</i>&quot;, which uses <a href="PolicyKit">PolicyKit</a> rather than <i>su</i>/<i>sudo</i>, is being developed as part of <a href="GNOME">GNOME</a>.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="width:130px;height:90px;text-align:center"> <p> <span class="unknown-node">ImageLink</span> </p> </td> 
+         <td> <p> <b>kdesu</b>:<br />A <a href="Qt (framework)">Qt</a> graphical front-end to the <i>su</i> command for <a href="KDE">KDE</a>.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="width:130px;height:90px;text-align:center"> <p> <span class="unknown-node">ImageLink</span> </p> </td> 
+         <td> <p> <b>kdesudo</b>:<br />A Qt graphical front-end to <i>sudo</i> that has replaced <i>kdesu</i> in <a href="Kubuntu">Kubuntu</a>, starting with Kubuntu 7.10.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="width:130px;height:90px;text-align:center"> <p> <span class="unknown-node">ImageLink</span> </p> </td> 
+         <td> <p> <b>ktsuss</b>:<br /><i>ktsuss</i> stands for &quot;<b>k</b>eep <b>t</b>he <b>su</b> <b>s</b>imple, <b>s</b>tupid&quot;, and is a graphical version of <i>su</i>. The idea of the project is to remain simple and bug free. </p> </td> 
+        </tr> 
+        <tr> 
+         <td style="width:130px;;text-align:center"> <p> <span class="unknown-node">ImageLink</span> </p> </td> 
+         <td> <p> <b>beesu</b>:<br />A graphical front-end to the <i>su</i> command that has replaced <i>gksu</i> in <a href="Red Hat">Red Hat</a> based operating systems. It has been developed mainly for <a href="Red Hat Enterprise Linux">RHEL</a> and <a href="Fedora (operating system)">Fedora</a>.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Security considerations </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Expand section|...}}</span> </p> 
+      <div class="section"> 
+       <h3> Spoofed input </h3> 
+       <div class="section-body"> 
+        <p> A major security consideration is the ability of malicious applications to simulate keystrokes or mouse clicks, thus tricking or <a href="Spoofing attack">spoofing</a> the security feature into granting malicious applications higher privileges. </p> 
+        <ul> 
+         <li> <b>su</b> and <b>sudo</b> run in the terminal, where they are vulnerable to spoofed input. Of course, if the user was not running a multitasking environment (i.e. a single user in the shell only), this would not be a problem.</li> 
+         <li> By default, <b>gksudo</b> &quot;locks&quot; the keyboard, mouse, and window focus,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> preventing anything but the actual user from inputting the password or otherwise interfering with the <a href="Confirmation dialog box">confirmation dialog</a>.</li> 
+         <li> By default, <b>UAC</b> runs in the <i>Secure Desktop</i>, preventing malicious applications from simulating clicking the &quot;Allow&quot; button or otherwise interfering with the confirmation dialog.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> In this mode, the user's desktop appears dimmed and cannot be interacted with.</li> 
+        </ul> 
+        <p> If either gksudo's &quot;lock&quot; feature or UAC's Secure Desktop were compromised or disabled, malicious applications could gain administrator privileges by using <a href="keystroke logging">keystroke logging</a> to record the administrator's password; or, in the case of UAC if running as an administrator, spoofing a mouse click on the &quot;Allow&quot; button. For this reason, voice recognition is also prohibited from interacting with the dialog.<span class="unknown-node">{{Citation needed|...}}</span> Note that since gksu password prompt runs without special privileges, malicious applications can still do keystroke logging using e.g. the <a href="strace">strace</a> tool.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+        <ul> 
+         <li> In GNOME, <b>PolicyKit</b> directs the <a href="X Window System">X</a> server to capture all keyboard and mouse input. Other desktop environments using PolicyKit may use their own mechanisms.</li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Spoofed dialogs </h3> 
+       <div class="section-body"> 
+        <p> Another security consideration is the ability of malicious software to <a href="Spoofing attack">spoof</a> dialogs that look like legitimate security confirmation requests. If the user were to input credentials into a fake dialog, thinking the dialog was legitimate, the malicious software would then know the user's password. If the Secure Desktop or similar feature were disabled, the malicious software could use that password to gain higher privileges. </p> 
+        <ul> 
+         <li> Though it is not the default behavior for usability reasons, <b>UAC</b> may be configured to require the user to press <a href="Control-Alt-Delete">Ctrl+Alt+Del</a> (known as the <a href="secure attention sequence">secure attention sequence</a>) as part of the authentication process. Because only Windows can detect this key combination, requiring this additional security measure would prevent spoofed dialogs from behaving the same way as a legitimate dialog.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> For example, a spoofed dialog might not ask the user to press Ctrl+Alt+Del, and the user could realize that the dialog was fake. Or, when the user did press Ctrl+Alt+Del, the user would be brought to the screen Ctrl+Alt+Del normally brings them to instead of a UAC confirmation dialog. Thus the user could tell whether the dialog was an attempt to trick them into providing their password to a piece of malicious software.</li> 
+         <li> In GNOME, <b>PolicyKit</b> uses different dialogs, depending on the configuration of the system. For example, the authentication dialog for a system equipped with a <a href="fingerprint reader">fingerprint reader</a> might look different from an authentication dialog for a system without one. Applications do not have access to the configuration of PolicyKit, so they have no way of knowing which dialog will appear and thus how to spoof it.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></li> 
+        </ul> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Usability considerations </h2> 
+     <div class="section-body"> 
+      <p> Another consideration that has gone into these implementations is <a href="usability">usability</a>. </p> 
+      <div class="section"> 
+       <h3> Separate administrator account </h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <b>su</b> require the user to know the password to at least two accounts: the regular-use account, and an account with higher privileges such as <a href="Superuser">root</a>.</li> 
+         <li> <b>sudo</b>, <b>kdesu</b> and <b>gksudo</b> use a simpler approach. With these programs, the user is pre-configured to be granted access to specific administrative tasks, but must explicitly authorize applications to run with those privileges. The user enters their own password instead of that of the superuser or some another account.</li> 
+         <li> <b>UAC</b> and <b>Authenticate</b> combine these two ideas into one. With these programs, administrators explicitly authorize programs to run with higher privileges. Non-administrators are prompted for an administrator username and password.</li> 
+         <li> <b>PolicyKit</b> can be configured to adopt any of these approaches. In practice, the distribution will choose one.</li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Simplicity of dialog </h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> In order to grant an application administrative privileges, <b>sudo</b>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <b>gksudo</b>, and <b>Authenticate</b> prompt administrators to re-enter their password.</li> 
+         <li> With <b>UAC</b>, when logged in as a standard user, the user must enter an administrator's name and password each time they need to grant an application elevated privileges; but when logged in as a member of the Administrators group, they (by default) simply confirm or deny, instead of re-entering their password each time (though that is an option). While the default approach is simpler, it is also less secure,<span class="unknown-node">&lt;ref .../&gt;</span> since if the user physically walks away from the computer without locking it, another person could walk up and have administrator privileges over the system. </li> 
+         <li> <b>PolicyKit</b> requires the user to re-enter his or her password or provide some other means of authentication (e.g. fingerprint).</li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Saving credentials </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{Expand section|...}}</span> </p> 
+        <ul> 
+         <li> <b>UAC</b> prompts for authorization each time it is called to elevate a program.</li> 
+        </ul> 
+        <ul> 
+         <li> <b>sudo</b>,<span class="unknown-node">&lt;ref .../&gt;</span> <b>gksudo</b>, and <b>kdesu</b> do not ask the user to re-enter their password every time it is called to elevate a program. Rather, the user is asked for their password once at the start. If the user has not used their administrative privileges for a certain period of time (sudo's default is 5 minutes<span class="unknown-node">&lt;ref .../&gt;</span>), the user is once again restricted to standard user privileges until they enter their password again.</li> 
+        </ul> 
+        <dl> 
+         <dd>
+          sudo's approach is a trade-off between security and usability. On one hand, a user only has to enter their password once to perform a series of administrator tasks, rather than having to enter their password for each task. But at the same time, the surface area for attack is larger because all programs that run in that tty (for sudo) or all programs not running in a terminal (for gksudo and kdesu) prefixed by either of those commands before the timeout receive administrator privileges. Security-conscious users may remove the temporary administrator privileges upon completing the tasks requiring them by using the 
+          <code>sudo -k</code> command when from each tty or pts in which sudo was used (in the case of pts's, closing the terminal emulator is 
+          <i>not</i> sufficient). The equivalent command for kdesu is 
+          <code>kdesu -s</code>. There is no gksudo option to do the same; however, running 
+          <code>sudo -k</code> not within a terminal instance (e.g. through the Alt + F2 &quot;Run Application&quot; dialogue box, unticking &quot;Run in terminal&quot;) will have the desired effect.
+         </dd> 
+        </dl> 
+        <ul> 
+         <li> <b>Authenticate</b> does not save passwords. If the user is a standard user, they must enter a username and a password. If the user is an administrator, the current user's name is already filled in, and only needs to enter their password. The name can still be modified to run as another user.</li> 
+        </ul> 
+        <dl> 
+         <dd>
+          The application only requires authentication once, and is requested at the time the application needs the privilege. Once &quot;elevated&quot;, the application does not need to authenticate again until the application has been Quit and relaunched.
+         </dd> 
+        </dl> 
+        <dl> 
+         <dd>
+          However, there are varying levels of authentication, known as Rights. The right that is requested can be shown by expanding the triangle next to &quot;details&quot;, underneath the password. Normally, applications use system.privilege.admin, but another may be used, such as a lower right for security, or a higher right if higher access is needed. If the right the application has is not suitable for a task, the application may need to authenticate again to increase the privilege level.
+         </dd> 
+        </dl> 
+        <ul> 
+         <li> <b>PolicyKit</b> can be configured to adopt either of these approaches.</li> 
+        </ul> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Identifying when administrative rights are needed </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Expand section|...}}</span> In order for an operating system to know when to prompt the user for authorization, an application or action needs to identify itself as requiring elevated privileges. While it is technically possible for the user to be prompted at the exact moment that an operation requiring such privileges is executed, it is often not ideal to ask for privileges partway through completing a task. If the user were unable to provide proper credentials, the work done before requiring administrator privileges would have to be undone because the task could not be seen though to the end. </p> 
+      <p> In the case of user interfaces such as the Control Panel in Microsoft Windows, and the Preferences panels in Mac OS X, the exact privilege requirements are hard-coded into the system so that the user is presented with an authorization dialog at an appropriate time (for example, before displaying information that only administrators should see). Different operating systems offer distinct methods for applications to identify their security requirements: </p> 
+      <ul> 
+       <li> <b>sudo</b> centralises all privilege authorization information in a single configuration file, <code>/etc/sudoers</code>, which contains a list of users and the privileged applications and actions that those users are permitted to use. The grammar of the sudoers file is intended to be flexible enough to cover many different scenarios, such as placing restrictions on command-line parameters. For example, a user can be granted access to change anybody's password except for the root account, as follows:</li> 
+      </ul> 
+      <pre> pete    ALL = /usr/bin/passwd [A-z]*, !/usr/bin/passwd root
+</pre> 
+      <ul> 
+       <li> <b>User Account Control</b> uses a combination of heuristic scanning and &quot;application manifests&quot; to determine if an application requires administrator privileges.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Manifest (<a href=".manifest">.manifest</a>) files, first introduced with Windows XP, are <a href="XML">XML</a> files with the same name as the application and a suffix of &quot;.manifest&quot;, e.g. <code>Notepad.exe.manifest</code>. When an application is started, the manifest is looked at for information about what security requirements the application has. For example, this XML fragment will indicate that the application will require administrator access, but will not require unfettered access to other parts of the user desktop outside the application:</li> 
+      </ul> 
+      <p> <span class="unknown-node">&lt;source lang=&quot;xml&quot;&gt;</span> <span class="unknown-node">&lt;security&gt;</span> </p> 
+      <pre>   <span class="unknown-node">&lt;requestedPrivileges&gt;</span>
+       <span class="unknown-node">&lt;requestedExecutionLevel level=&quot;requireAdministrator&quot; uiAccess=&quot;false&quot; /&gt;</span>
+   <span class="unknown-node">&lt;/requestedPrivileges&gt;</span>
+</pre> 
+      <p> <span class="unknown-node">&lt;/security&gt;</span> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+      <dl> 
+       <dd>
+        Manifest files can also be compiled into the application executable itself as an 
+        <a href="Resource (Windows)">embedded resource</a>. Heuristic scanning is also used, primarily for backwards compatibility. One example of this is looking at the executable's file name; if it contains the word &quot;Setup&quot;, it is assumed that the executable is an installer, and a UAC prompt is displayed before the application starts.
+        <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span>
+       </dd> 
+      </dl> 
+      <dl> 
+       <dd>
+        UAC also makes a distinction between elevation requests from a signed executable and an unsigned executable; and if the former, whether or not the publisher is 'Windows Vista'. The color, icon, and wording of the prompts are different in each case: for example, attempting to convey a greater sense of warning if the executable is unsigned than if not.
+        <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span>
+       </dd> 
+      </dl> 
+      <ul> 
+       <li> Applications using <b>PolicyKit</b> ask for specific privileges when prompting for authentication, and PolicyKit performs those actions on behalf of the application. Before authenticating, users are able to see which application requested the action and which action was requested.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Privilege escalation">Privilege escalation</a>, a type of security exploit</li> 
+       <li> <a href="Principle of least privilege">Principle of least privilege</a>, a security design pattern</li> 
+       <li> <a href="Privileged Identity Management">Privileged Identity Management</a>, the methodology of managing privileged accounts</li> 
+       <li> <a href="Privileged password management">Privileged password management</a>, similar concept to privileged identity management: 
+        <ul> 
+         <li> i.e., periodically scramble privileged passwords; and</li> 
+         <li> store password values in a secure, highly available vault; and</li> 
+         <li> apply policy regarding when, how and to whom these passwords may be disclosed.</li> 
+        </ul> </li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+      <p> <a href="Category:Operating system security">Category:Operating system security</a> <a href="Category:Software comparisons">Privilege authorization features</a> <a href="Category:Computer access control">Category:Computer access control</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

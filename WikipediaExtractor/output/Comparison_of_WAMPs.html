@@ -1,0 +1,571 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of WAMPs</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of WAMPs</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Original research|...}}</span> </p> 
+    <p> A variety of packages enable <a href="WAMP">WAMP</a> (<a href="Microsoft Windows">Windows</a>, <a href="Apache HTTP Server">Apache</a>, <a href="MySQL">MySQL</a>, <a href="PHP">PHP</a>/<a href="Perl">Perl</a>/<a href="Python (programming language)">Python</a>) to be downloaded (and, if not <a href="Portable application">portable</a>, installed) on a Windows-based computer. Some of them are compared in the table below. <span class="magic-word">__NOTOC__</span> </p> 
+    <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+     <tbody>
+      <tr> 
+       <th> <p> Package </p> </th> 
+       <th> <p> <a href="Software release life cycle">Release</a> date </p> </th> 
+       <th> <p> <a href="Revision control">Version</a> </p> </th> 
+       <th> <p> Size (<a href="Megabyte">MB</a>) </p> </th> 
+       <th> <p> <a href="Software license">License</a> </p> </th> 
+       <th> <p> <a href="Apache HTTP Server">Apache HTTP Server</a> </p> </th> 
+       <th> <p> <a href="PHP">PHP</a> </p> </th> 
+       <th> <p> <a href="MySQL">MySQL</a> </p> </th> 
+       <th> <p> <a href="phpMyAdmin">phpMyAdmin</a>/<br /><a href="Adminer">Adminer</a> </p> </th> 
+       <th> <p> <a href="SQLite">SQLite</a> </p> </th> 
+       <th> <p> <a href="OpenSSL">OpenSSL</a> </p> </th> 
+       <th> <p> <a href="mod_ssl">mod_ssl</a> </p> </th> 
+       <th> <p> <a href="Perl">Perl</a>/<br /><a href="mod_perl">mod_perl</a> </p> </th> 
+       <th> <p> Framework modules </p> </th> 
+       <th> <p> Degug modules </p> </th> 
+       <th> <p> Additional modules </p> </th> 
+       <th> <p> <a href="Portable application">Portable application</a> </p> </th> 
+       <th> <p> Auto-check for <a href="software update">updates</a> </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> <i>Latest official release of individual components</i> </p> </th> 
+       <th style="background-color: #88dd88;"> </th> 
+       <th style="background-color: #88dd88;"> </th> 
+       <th style="background-color: #88dd88;"> </th> 
+       <th style="background-color: #88dd88;"> </th> 
+       <th style="background-color: #88dd88;"> <p> 2.4.4 / 2.2.23 </p> </th> 
+       <th style="background-color: #88dd88;"> <p> 5.4.14 / 5.3.24 </p> </th> 
+       <th style="background-color: #88dd88;"> <p> 5.6.10 </p> </th> 
+       <th style="background-color: #88dd88;"> <p> 3.5.8 </p> </th> 
+       <th style="background-color: #88dd88;"> <p> 3.7.16.1 </p> </th> 
+       <th style="background-color: #88dd88;"> <p> 1.0.1 / 0.9.8x </p> </th> 
+       <th style="background-color: #88dd88;"> <p> Integrated since Apache v2.x </p> </th> 
+       <th style="background-color: #88dd88;"> <p> 5.16.3 </p> </th> 
+       <th style="background-color: #88dd88;"> </th> 
+       <th style="background-color: #88dd88;"> <p> Customizable </p> </th> 
+       <th style="background-color: #88dd88;"> <p> Customizable </p> </th> 
+       <th style="background-color: #88dd88;"> </th> 
+       <th style="background-color: #88dd88;"> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="AMPPS">AMPPS</a> </p> </th> 
+       <td> <p> 2013-02-25 </p> </td> 
+       <td> <p> 2.0 </p> </td> 
+       <td> <p> 128 </p> </td> 
+       <td> <p> <a href="Softlicious">GPL</a> </p> </td> 
+       <td> <p> 2.4.4 / 2.2.23 </p> </td> 
+       <td> <p> 5.4.12 / 5.3.18 </p> </td> 
+       <td> <p> 5.5.29 </p> </td> 
+       <td> <p> 3.5.7 </p> </td> 
+       <td> <p> 3.7.10 </p> </td> 
+       <td> <p> 0.9.8 </p> </td> 
+       <td> <p> (integrated) </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> <a href="WordPress">WordPress</a>, <a href="Prestashop">Prestashop</a>, <a href="Zen_Cart">Zen Cart</a>, Custom Apps, <a href="Xdebug">Xdebug</a>, <a href="XCache#XCache">Xcache</a>, Softlicious, and multiple others </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="BitNami">BitNami</a> WAMP Stack </p> </th> 
+       <td> <p> 2013-03-22 </p> </td> 
+       <td> <p> 5.4.13-1 </p> </td> 
+       <td> <p> 136 </p> </td> 
+       <td> <p> <a href="Apache Software License">ASL</a> </p> </td> 
+       <td> <p> 2.4.4 / 2.2.23 </p> </td> 
+       <td> <p> 5.4.12 / 5.3.18 </p> </td> 
+       <td> <p> 5.5.29 </p> </td> 
+       <td> <p> 3.5.7 </p> </td> 
+       <td> <p> 3.7.10 </p> </td> 
+       <td> <p> 0.9.8 </p> </td> 
+       <td> <p> (integrated) </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> ModSecurity, <a href="Xdebug">Xdebug</a>, <a href="XCache#XCache">Xcache</a>, <a href="Zend_Framework">ZendFramework</a>, <a href="Smarty">Smarty</a>, <a href="Symfony">Symfony</a>, <a href="CakePHP">CakePHP</a>, <a href="CodeIgniter">CodeIgniter</a>, Laravel and others </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="EasyPHP">EasyPHP</a> </p> </th> 
+       <td> <p> 2012-08-22 </p> </td> 
+       <td> <p> 12.1 </p> </td> 
+       <td> <p> 25 </p> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+       <td> <p> 2.4.2 VC9 </p> </td> 
+       <td> <p> 5.4.6 VC9 / 5.3.16 VC9 / 5.2.17 </p> </td> 
+       <td> <p> 5.5.27 </p> </td> 
+       <td> <p> 3.5.2.2 </p> </td> 
+       <td> </td> 
+       <td> <p> 0.9.8 </p> </td> 
+       <td> <p> (integrated) </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> <a href="Xdebug">Xdebug 2.2.1</a> </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Glossword WAMP">Glossword WAMP</a> </p> </th> 
+       <td> <p> 2008-07-16 </p> </td> 
+       <td> <p> 2.2.9/5.1.26/5.3.0 </p> </td> 
+       <td> <p> 6.1 </p> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+       <td> <p> 2.2.9 </p> </td> 
+       <td> <p> 5.3.0-dev </p> </td> 
+       <td> <p> 5.1.26-rc </p> </td> 
+       <td> <p> 2.11.7.1 </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="MoWeS">MoWeS Portable</a> </p> </th> 
+       <td> <p> 2009-06-26 </p> </td> 
+       <td> <p> 2.2.3 </p> </td> 
+       <td> <p> 61 </p> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+       <td> <p> 2.2.11 </p> </td> 
+       <td> <p> 5.3, 5.2.3, 4.4.9 </p> </td> 
+       <td> <p> 5.1.35 </p> </td> 
+       <td> <p> 3.1.2 </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> 2.2.4 </p> </td> 
+       <td> <p> <a href="ActivePerl">ActivePerl 5.8.8</a> </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Server2Go">Server2Go</a> </p> </th> 
+       <td> <p> 2011-01-03 </p> </td> 
+       <td> <p> 1.8.2 </p> </td> 
+       <td> <p> 90 </p> </td> 
+       <td> <p> <a href="Donationware">Donationware (without restrictions)</a> </p> </td> 
+       <td> <p> 2.2.15, 1.3.35 </p> </td> 
+       <td> <p> 5.3.2 </p> </td> 
+       <td> <p> 5.1.46 </p> </td> 
+       <td> <p> 3.3.3 </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> CGI Perl 5.8 </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="The Uniform Server">The Uniform Server</a> </p> </th> 
+       <td> <p> 2013-4-11 </p> </td> 
+       <td> <p> Coral 8.8.2 </p> </td> 
+       <td> <p> 15.5 </p> </td> 
+       <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+       <td> <p> 2.4.4 </p> </td> 
+       <td> <p> 5.4.14 </p> </td> 
+       <td> <p> 5.5.30 </p> </td> 
+       <td> <p> 3.5.8 </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> 1.0.1c </p> </td> 
+       <td> <p> (integrated) </p> </td> 
+       <td> <p> <a href="ActivePerl">ActivePerl</a> Installer </p> </td> 
+       <td> <p> <a href="Alternative_PHP_Cache#Alternative_PHP_Cache_.28APC.29">APC 3.1.14</a> <br /><a href="EAccelerator">eAccelerator 1.0</a> <br /> Zend OpCache 7.0.1 </p> </td> 
+       <td> <p> Yes + Multi-Server </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="WampServer (WAMP5)">WampServer (WAMP5)</a> </p> </th> 
+       <td> <p> 2012-11-30 </p> </td> 
+       <td> <p> 2.2E </p> </td> 
+       <td> <p> 27.1 </p> </td> 
+       <td> <p> <a href="GPL">GPLv</a>2 </p> </td> 
+       <td> <p> 2.4.2 </p> </td> 
+       <td> <p> 5.4.3 </p> </td> 
+       <td> <p> 5.5.24 </p> </td> 
+       <td> <p> 3.5.1 </p> </td> 
+       <td> <p> ? </p> </td> 
+       <td> <p> ? </p> </td> 
+       <td> <p> ? </p> </td> 
+       <td> <p> ? </p> </td> 
+       <td> <p> ? </p> </td> 
+       <td> <p> ? </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="XAMPP">XAMPP</a> </p> </th> 
+       <td> <p> 2012-10-01 </p> </td> 
+       <td> <p> 1.8.1 </p> </td> 
+       <td> <p> 99.0 (Win installer) </p> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+       <td> <p> 2.4.3 </p> </td> 
+       <td> <p> 5.4.7 </p> </td> 
+       <td> <p> 5.5.27 </p> </td> 
+       <td> <p> 3.5.2.2 </p> </td> 
+       <td> <p> 2.8.17 + 3.7.7.1 </p> </td> 
+       <td> <p> 1.0.1c </p> </td> 
+       <td> <p> 2.2.21 </p> </td> 
+       <td> <p> 2.0.4<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <br /> Perl 5.16.1.1<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> <a href="EAccelerator">eAccelerator 0.9.6-rcl</a> </p> </td> 
+       <td> <p> Yes<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Zend Server">Zend Server</a> </p> </th> 
+       <td> <p> 2012-01-04 </p> </td> 
+       <td> <p> 6.0.0 </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> 2.2.21 </p> </td> 
+       <td> <p> 5.2.17, 5.3 </p> </td> 
+       <td> <p> 5.1.50 </p> </td> 
+       <td> <p> 3.3.3 </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> 0.9.8o </p> </td> 
+       <td> <p> (integrated) </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> 4.1 / ? </p> </td> 
+       <td> <p> No </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Z-WAMP">Z-WAMP</a> Server Pack </p> </th> 
+       <td> <p> 2013-02-23 </p> </td> 
+       <td> <p> 2.2.1 </p> </td> 
+       <td> <p> 72 </p> </td> 
+       <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+       <td> <p> 2.4.3 </p> </td> 
+       <td> <p> 5.4.12 </p> </td> 
+       <td> <p> 5.6.10 </p> </td> 
+       <td> <p> 3.5.1 </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> MiniPerl 5.14.2 </p> </td> 
+       <td> <p> <a href="MongoDB">MongoDB 2.2.3</a>, <a href="Alternative_PHP_Cache#Alternative_PHP_Cache_.28APC.29">APC 3.1.14</a>, <a href="XCache#XCache">XCache 3.0.0</a>, <a href="Xdebug">XDebug 2.2.1</a> </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> - </p> </td> 
+       <td> <p> Yes </p> </td> 
+       <td> <p> - </p> </td> 
+      </tr> 
+      <tr> 
+      </tr> 
+      <tr style="background-color: #88dd88;" class="sortbottom"> 
+       <th> <p> <i>Latest official release of individual components</i> </p> </th> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> 2.4.4 / 2.2.23 </p> </td> 
+       <td> <p> 5.4.14 / 5.3.24 </p> </td> 
+       <td> <p> 5.6.10 </p> </td> 
+       <td> <p> 3.5.8 </p> </td> 
+       <td> <p> 3.7.16.1 </p> </td> 
+       <td> <p> 1.0.1 / 0.9.8x </p> </td> 
+       <td> <p> Integrated since Apache v2.x </p> </td> 
+       <td> <p> 5.16.3 </p> </td> 
+       <td> </td> 
+       <td> <p> Customizable </p> </td> 
+       <td> <p> Customizable </p> </td> 
+       <td> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Package </p> </th> 
+       <th> <p> <a href="Software release life cycle">Release</a> date </p> </th> 
+       <th> <p> <a href="Revision control">Version</a> </p> </th> 
+       <th> <p> Size (<a href="Megabyte">MB</a>) </p> </th> 
+       <th> <p> <a href="Software license">License</a> </p> </th> 
+       <th> <p> <a href="Apache HTTP Server">Apache HTTP Server</a> </p> </th> 
+       <th> <p> <a href="PHP">PHP</a> </p> </th> 
+       <th> <p> <a href="MySQL">MySQL</a> </p> </th> 
+       <th> <p> <a href="phpMyAdmin">phpMyAdmin</a>/<br /><a href="Adminer">Adminer</a> </p> </th> 
+       <th> <p> <a href="SQLite">SQLite</a> </p> </th> 
+       <th> <p> <a href="OpenSSL">OpenSSL</a> </p> </th> 
+       <th> <p> <a href="mod_ssl">mod_ssl</a> </p> </th> 
+       <th> <p> <a href="Perl">Perl</a>/<br /><a href="mod_perl">mod_perl</a> </p> </th> 
+       <th> <p> Framework modules </p> </th> 
+       <th> <p> Degug modules </p> </th> 
+       <th> <p> Additional modules </p> </th> 
+       <th> <p> <a href="Portable application">Portable application</a> </p> </th> 
+       <th> <p> Auto-check for <a href="software update">updates</a> </p> </th> 
+      </tr> 
+      <tr> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="mod_python">mod_python</a></li> 
+       <li> <a href="mod_ssl">mod_ssl</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Wamp Packages}}</span> <a href="Category:Software comparisons">Category:Software comparisons</a> <a href="Category:Web development software">Category:Web development software</a> <a href="Category:WAMP">Category:WAMP</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

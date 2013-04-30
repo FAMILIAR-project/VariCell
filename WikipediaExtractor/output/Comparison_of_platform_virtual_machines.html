@@ -1,0 +1,2477 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of platform virtual machines</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of platform virtual machines</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Use dmy dates|...}}</span> <span class="unknown-node">{{linkrot|...}}</span> <b>Platform virtual machines</b> are <a href="application software">software packages</a> that emulate the whole physical computer machine, often providing multiple virtual machines on one physical platform. The table below compares basic information about <a href="platform virtualization">platform</a> <a href="virtual machine">virtual machine</a> (VM) packages. </p> 
+    <div class="section"> 
+     <h2> General </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: smaller; text-align: center; width: auto; table-layout: fixed;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Host CPU </p> </th> 
+         <th> <p> Guest CPU </p> </th> 
+         <th> <p> <a href="Host OS">Host OS</a>(s) </p> </th> 
+         <th> <p> <a href="Guest OS">Guest OS</a>(s) </p> </th> 
+         <th> <p> License </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bochs">Bochs</a> </p> </th> 
+         <td> <p> <a href="Kevin Lawton">Kevin Lawton</a> </p> </td> 
+         <td> <p> Any </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> <a href="Windows">Windows</a>, <a href="Linux">Linux</a>, <a href="Unix">Unix</a>/<a href="X Window System">X11</a>, <span class="unknown-node">{{nowrap|...}}</span>, <span class="unknown-node">{{nowrap|...}}</span>, <a href="BeOS">BeOS</a>, <a href="MorphOS">MorphOS</a>, <a href="OS/2">OS/2</a><span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <a href="Windows">Windows</a>, <a href="Linux">Linux</a>, <a href="DOS">DOS</a>, <a href="Berkeley Software Distribution">BSD</a>, <a href="OS/2">OS/2</a>, <a href="Haiku (operating system)">Haiku</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Solaris Containers">Containers, or Zones</a> </p> </th> 
+         <td> <p> <a href="Sun Microsystems">Sun Microsystems</a> </p> </td> 
+         <td> <p> x86, <a href="x86-64">x86-64</a>, SPARC (portable: not tied to hardware) </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> <a href="Solaris (operating system)">Solaris 10, Solaris 11 Express</a>, <a href="OpenSolaris">OpenSolaris</a> 2009.06, <a href="SmartOS">SmartOS</a> </p> </td> 
+         <td> <p> Solaris (8, 9, 10, 11), SmartOS, Linux (<a href="branded zones">BrandZ</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cooperative Linux">Cooperative Linux</a> (coLinux) </p> </th> 
+         <td> <p> <a href="Dan Aloni">Dan Aloni</a>, other developers </p> </td> 
+         <td> <p> x86<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> Windows 2000, XP, 2003, Vista<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Charon (software)">CHARON</a> </p> </th> 
+         <td> <p> <a href="Stromasys">Stromasys</a> </p> </td> 
+         <td> <p> x86, x86_64, IA64 </p> </td> 
+         <td> <p> PDP-11, VAX, Alpha </p> </td> 
+         <td> <p> Windows, Linux, OpenVMS </p> </td> 
+         <td> <p> VMS, OpenVMS, Tru64 UNIX </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Denali (operating system)">Denali</a> </p> </th> 
+         <td> <p> <a href="University of Washington">University of Washington</a> </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> Denali </p> </td> 
+         <td> <p> <a href="Ilwaco (operating system)">Ilwaco</a>, NetBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DOSBox">DOSBox</a> </p> </th> 
+         <td> <p> Peter Veenstra, Sjoerd, community help </p> </td> 
+         <td> <p> Any </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> Linux, Windows, Mac OS classic, <span class="unknown-node">{{nowrap|...}}</span>, BeOS, FreeBSD, OpenBSD, Solaris, <a href="QNX">QNX</a>, IRIX, MorphOS, AmigaOS, <a href="Maemo">Maemo</a>, Symbian </p> </td> 
+         <td> <p> Internally emulated DOS shell; classic <a href="PC booter">PC booter</a> games, unofficially Windows 1.0 to 3.11 </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Dosemu">DOSEMU</a> </p> </th> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> DOS </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="FreeBSD Jail">FreeBSD Jail</a> </p> </th> 
+         <td> <p> <a href="FreeBSD">FreeBSD</a> </p> </td> 
+         <td> <p> Any running <a href="FreeBSD">FreeBSD</a> </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> <a href="FreeBSD">FreeBSD</a> </p> </td> 
+         <td> <p> <a href="FreeBSD">FreeBSD</a>, <a href="Linux">Linux</a> ABI </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GXemul">GXemul</a> </p> </th> 
+         <td> <p> Anders Gavare </p> </td> 
+         <td> <p> Any </p> </td> 
+         <td> <p> <a href="ARM architecture">ARM</a>, <a href="MIPS architecture">MIPS</a>, <a href="Motorola 88000">M88K</a>, <a href="PowerPC">PowerPC</a>, <a href="SuperH">SuperH</a> </p> </td> 
+         <td> <p> Unix-like </p> </td> 
+         <td> <p> <a href="NetBSD">NetBSD</a>, <a href="OpenBSD">OpenBSD</a>, <a href="Linux">Linux</a>, <a href="Ultrix">Ultrix</a>, <a href="Sprite (operating system)">Sprite</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hercules emulator">Hercules</a> </p> </th> 
+         <td> <p> Roger Bowler </p> </td> 
+         <td> <p> Any </p> </td> 
+         <td> <p> <a href="z/Architecture">z/Architecture</a> </p> </td> 
+         <td> <p> <a href="Windows">Windows</a>, <a href="Linux">Linux</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <a href="Linux on zSeries">Linux on zSeries</a>, <a href="z/OS">z/OS</a>, <a href="z/VM">z/VM</a>, <a href="z/VSE">z/VSE</a>, <a href="OS/360">OS/360</a>, <a href="DOS/360">DOS/360</a>, <a href="DOS/VS">DOS/VS</a>, <a href="MVS">MVS</a>, <a href="VM/370">VM/370</a>, <a href="TSS/370">TSS/370</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hyper-V">Hyper-V</a> Server 2008 R2 </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> <a href="x86-64">x86-64</a> + hardware-assisted virtualization (<a href="Intel VT-x">Intel VT-x</a> or <a href="AMD-V">AMD-V</a>) </p> </td> 
+         <td> <p> <a href="x86-64">x86-64</a>, <a href="x86">x86</a> (up to 8 physical CPUs) </p> </td> 
+         <td> <p> <a href="Windows 2008">Windows 2008</a> w/<a href="Hyper-V">Hyper-V</a> Role, Windows Hyper-V Server </p> </td> 
+         <td> <p> supported drivers for <a href="Windows 2000">Windows 2000</a>, <a href="Windows 2003">Windows 2003</a>, <a href="Windows 2008">Windows 2008</a>, <a href="Windows XP">Windows XP</a>, <a href="Windows Vista">Windows Vista</a>, <a href="Linux">Linux</a> (<a href="SUSE Linux distributions">SUSE</a> 10 released, more announced) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hyper-V">Hyper-V</a> Server 2012 </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> <a href="x86-64">x86-64</a> + hardware-assisted virtualization (<a href="Intel VT-x">Intel VT-x</a> or <a href="AMD-V">AMD-V</a> only for RemoteFX) </p> </td> 
+         <td> <p> <a href="x86-64">x86-64</a>, (up to 64 physical CPUs) </p> </td> 
+         <td> <p> <a href="Windows 2012">Windows 2012</a> w/<a href="Hyper-V">Hyper-V</a> Role, </p> </td> 
+         <td> <p> supported drivers for <a href="Windows NT">Windows NT</a>, <a href="Linux">Linux</a> (<a href="SUSE Linux distributions">SUSE</a> 10, <a href="Red Hat Enterprise Linux">RHEL</a> 6, <a href="CentOS">CentOS</a> 6) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="iCore Virtual Accounts">iCore Virtual Accounts</a> </p> </th> 
+         <td> <p> <a href="iCore Software">iCore Software</a> </p> </td> 
+         <td> <p> <a href="x86">x86</a> </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> <a href="Windows XP">Windows XP</a> </p> </td> 
+         <td> <p> <a href="Windows XP">Windows XP</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HP Integrity Virtual Machines">Integrity Virtual Machines</a> </p> </th> 
+         <td> <p> <a href="Hewlett-Packard">Hewlett-Packard</a> </p> </td> 
+         <td> <p> <a href="Itanium">IA-64</a> </p> </td> 
+         <td> <p> IA-64 </p> </td> 
+         <td> <p> <a href="HP-UX">HP-UX</a> </p> </td> 
+         <td> <p> <a href="HP-UX">HP-UX</a>, Windows, Linux (<a href="OpenVMS">OpenVMS</a> announced) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Java PC">JPC (Virtual Machine)</a> </p> </th> 
+         <td> <p> <a href="Oxford University">Oxford University</a> </p> </td> 
+         <td> <p> Any running the <a href="Java Virtual Machine">Java Virtual Machine</a> </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> <a href="Java Virtual Machine">Java Virtual Machine</a> </p> </td> 
+         <td> <p> DOS, Linux, Windows up to 3.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Kernel-based Virtual Machine">KVM</a> </p> </th> 
+         <td> <p> <a href="Qumranet">Qumranet</a> </p> </td> 
+         <td> <p> x86, x86-64, IA-64, with <a href="x86 virtualization">x86 virtualization</a>, s390, PowerPC<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> FreeBSD, Linux, illumos </p> </td> 
+         <td> <p> FreeBSD, Linux, Solaris, Windows, <a href="Plan 9 from Bell Labs">Plan 9</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Linux-VServer">Linux-VServer</a> </p> </th> 
+         <td> <p> Community Project </p> </td> 
+         <td> <p> x86, x86-64, IA-64, Alpha, PowerPC 64, <a href="PA-RISC">PA-RISC</a> 64, SPARC64, ARM, <a href="S/390">S/390</a>, SH/66, MIPS </p> </td> 
+         <td> <p> Compatible </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> Linux variants </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LynxSecure">LynxSecure</a> </p> </th> 
+         <td> <p> <a href="LynuxWorks">LynuxWorks</a> </p> </td> 
+         <td> <p> x86, <a href="Intel VT-x">Intel VT-x</a>, <a href="Intel VT-d">Intel VT-d</a> </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> <a href="LynxOS">LynxOS</a>, Linux, Windows </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LXC">LXC</a> </p> </th> 
+         <td> <p> Community project <a href="http://lxc.sourceforge.net/">lxc.sourceforge.net</a> </p> </td> 
+         <td> <p> x86, x86-64, IA-64, PowerPC 64, SPARC64 </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> Linux variants </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mac-on-Linux">Mac-on-Linux</a> </p> </th> 
+         <td> <p> <a href="Mac-on-Linux">Mac-on-Linux</a> </p> </td> 
+         <td> <p> PowerPC </p> </td> 
+         <td> <p> PowerPC </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span>, Mac OS 7.5.2 to 9.2.2, Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mac-on-Mac">Mac-on-Mac</a> </p> </th> 
+         <td> <p> Sebastian Gregorzyk </p> </td> 
+         <td> <p> PowerPC </p> </td> 
+         <td> <p> PowerPC </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span>, up to Tiger excluded </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span>, Mac OS 7.5.2 to 9.2.2, Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OpenVZ">OpenVZ</a> </p> </th> 
+         <td> <p> Community project, supported by <a href="SWsoft">SWsoft</a>, now <a href="Parallels, Inc.">Parallels, Inc.</a> </p> </td> 
+         <td> <p> x86, x86-64, IA-64, PowerPC 64, SPARC64 </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> Linux variants </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle VM">Oracle VM for x86</a> </p> </th> 
+         <td> <p> <a href="Oracle Corporation">Oracle Corporation</a> </p> </td> 
+         <td> <p> x86, x86-64, <a href="Intel VT-x">Intel VT-x</a>, <a href="AMD-V">AMD-V</a> </p> </td> 
+         <td> <p> x86, x86-64, <a href="Intel VT-x">Intel VT-x</a>, <a href="AMD-V">AMD-V</a> </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Microsoft Windows</a>, <a href="Oracle Enterprise Linux">Oracle Enterprise Linux</a>, <a href="Red Hat Enterprise Linux">Red Hat Enterprise Linux</a>, <a href="Solaris (operating system)">Solaris</a> </p> </td> 
+         <td> <p> Oracle VM Server GPL; Manager proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Logical Domains">Oracle VM Server for SPARC</a> (LDoms) </p> </th> 
+         <td> <p> <a href="Oracle Corporation">Oracle Corporation</a> </p> </td> 
+         <td> <p> <a href="UltraSPARC T1">UltraSPARC T1</a>, <a href="UltraSPARC T2">UltraSPARC T2</a>, UltraSPARC T2+, <a href="SPARC T3">SPARC T3</a>, <a href="SPARC T4">SPARC T4</a> </p> </td> 
+         <td> <p> Compatible </p> </td> 
+         <td> <p> <a href="Solaris (operating system)">Solaris 10, Solaris 11</a> </p> </td> 
+         <td> <p> Supported: Solaris. Without Oracle support: Linux, FreeBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OVPsim">OVPsim</a> </p> </th> 
+         <td> <p> OVP <a href="http://www.ovpworld.org">1</a> </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> OR1K, MIPS32, ARC600/700, ARM; and public API which enables users to write custom processor models, RISC, CISC, DSP, VLIW all possible </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Microsoft Windows</a>, Linux </p> </td> 
+         <td> <p> Depends on target machine, for example includes MIPS Malta that runs Linux or SMP-Linux; and includes public API which enables users to write custom peripheral and system models </p> </td> 
+         <td> <p> Proprietary, <a href="Apache License">Apache 2.0</a> for models </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Parallels Desktop for Mac">Parallels Desktop for Mac</a> </p> </th> 
+         <td> <p> <a href="Parallels, Inc.">Parallels, Inc.</a> </p> </td> 
+         <td> <p> x86, <a href="Intel VT-x">Intel VT-x</a> </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> x86 </p> </td> 
+         <td> <p> DOS, Windows, Linux, <span class="unknown-node">{{nowrap|...}}</span> Server, FreeBSD, OS/2, eComStation, Solaris, <a href="Haiku (operating system)">Haiku</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Parallels Workstation">Parallels Workstation</a> </p> </th> 
+         <td> <p> Parallels, Inc. </p> </td> 
+         <td> <p> x86, <a href="Intel VT-x">Intel VT-x</a> </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> Windows, Linux </p> </td> 
+         <td> <p> Windows, Linux, FreeBSD, <a href="OS/2">OS/2</a>, <a href="eComStation">eComStation</a>, DOS, Solaris, <a href="Haiku (operating system)">Haiku</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PearPC">PearPC</a> </p> </th> 
+         <td> <p> <a href="Sebastian Biallas">Sebastian Biallas</a> </p> </td> 
+         <td> <p> x86, x86-64, PowerPC </p> </td> 
+         <td> <p> PowerPC </p> </td> 
+         <td> <p> Windows, Linux, <span class="unknown-node">{{nowrap|...}}</span>, FreeBSD, NetBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span>, <a href="Darwin (operating system)">Darwin</a>, Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PikeOS">PikeOS</a> </p> </th> 
+         <td> <p> <a href="SYSGO">SYSGO</a> AG </p> </td> 
+         <td> <p> PowerPC, x86, ARM, MIPS, SPARC, SuperH </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> No host OS, Linux or Windows as dev.hosts </p> </td> 
+         <td> <p> <a href="PikeOS">PikeOS</a> native, Linux, POSIX, AUTOSAR, ANDROID, <a href="RTEMS">RTEMS</a>, <a href="OSEK">OSEK</a>, <a href="ARINC 653">ARINC 653</a> APEX, <a href="ITRON">ITRON</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PowerVM">PowerVM</a> </p> </th> 
+         <td> <p> <a href="IBM">IBM</a> </p> </td> 
+         <td> <p> <a href="POWER4">POWER4</a>, <a href="POWER5">POWER5</a>, <a href="POWER6">POWER6</a>, <a href="POWER7">POWER7</a>, <a href="PowerPC 970">PowerPC 970</a> </p> </td> 
+         <td> <p> POWER4/5/6/7, PowerPC 970, X86 (<a href="Lx86">PowerVM-Lx86</a>) </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> <a href="Linux">Linux</a> PowerPC, x86; <a href="AIX">AIX</a>, <a href="i5/OS">i5/OS</a>, <a href="IBM i">IBM i</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="QEMU">QEMU</a> </p> </th> 
+         <td> <p> <a href="Fabrice Bellard">Fabrice Bellard</a>, other developers </p> </td> 
+         <td> <p> x86, x86-64, IA-64, PowerPC, SPARC 32/64, ARM, S/390, MIPS </p> </td> 
+         <td> <p> x86, x86-64, Alpha, ARM, CRIS, LM32, <a href="M68k">M68k</a>, MicroBlaze, MIPS, OpenRisc32, PowerPC, S/390, SH4, SPARC 32/64, Unicore32, Xtensa </p> </td> 
+         <td> <p> Windows, Linux, <span class="unknown-node">{{nowrap|...}}</span>, Solaris, FreeBSD, OpenBSD, BeOS </p> </td> 
+         <td> <p> Changes regularly<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="QEMU">QEMU</a> w/ <a href="kqemu">kqemu</a> module </p> </th> 
+         <td> <p> <a href="Fabrice Bellard">Fabrice Bellard</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> Linux, FreeBSD, OpenBSD, Solaris, Windows </p> </td> 
+         <td> <p> Changes regularly<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="QEMU">QEMU</a> w/ <a href="qvm86">qvm86</a> module </p> </th> 
+         <td> <p> Paul Brook </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> Linux, <a href="http://pkgsrc.se/wip/qemu-qvm86">NetBSD</a>, Windows </p> </td> 
+         <td> <p> Changes regularly </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="QuickTransit">QuickTransit</a> </p> </th> 
+         <td> <p> <a href="Transitive Corp.">Transitive Corp.</a> </p> </td> 
+         <td> <p> x86, x86-64, IA-64, POWER </p> </td> 
+         <td> <p> MIPS, PowerPC, SPARC, x86 </p> </td> 
+         <td> <p> Linux, <span class="unknown-node">{{nowrap|...}}</span>, Solaris </p> </td> 
+         <td> <p> Linux, <span class="unknown-node">{{nowrap|...}}</span>, Irix, Solaris </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> RTS Hypervisor </p> </th> 
+         <td> <p> Real-Time Systems <a href="http://www.real-time-systems.com">2</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> <a href="Windows 8">Windows 8</a>, <a href="Windows 7">Windows 7</a>, <a href="Windows XP">Windows XP</a>, <a href="Windows Embedded">Windows Embedded</a>, <a href="Windows CE">Windows CE</a>, Linux, <a href="Android (operating system)">Android</a>, <a href="VxWorks">VxWorks</a>, <a href="OS-9">OS-9</a>, RTOS-32, <a href="QNX">QNX</a>, <a href="RTEMS">RTEMS</a>, <a href="T-Kernel">T-Kernel</a>, proprietary </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ScaleMP">ScaleMP</a> vSMP Foundation </p> </th> 
+         <td> <p> <a href="ScaleMP">ScaleMP</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> Same as host, up to 8,192 CPUs and 64 TB per VM </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SIMH">SIMH</a> </p> </th> 
+         <td> <p> <a href="http://simh.trailing-edge.com/">Bob Supnik, The Computer History Simulation Project</a> </p> </td> 
+         <td> <p> Alpha, ARM, HPPA, x86, IA-64, x86-64, M68K, MIPS, MIPSel, POWER, s390, SPARC </p> </td> 
+         <td> <p> Data General Nova, Eclipse; Digital Equipment Corporation PDP-1, PDP-4, PDP-7, PDP-8, PDP-9, PDP-10, PDP-11, PDP-15, VAX; GRI Corporation GRI-909, IBM 1401, 1620, 1130, 7090/7094, System 3; Interdata (Perkin-Elmer) 16b/32b systems; Hewlett-Packard 2114, 2115, 2116, 2100, 21MX; Honeywell H316/H516; MITS Altair 8800 with 8080 and Z80; Royal-Mcbee LGP-30, LGP-21; Scientific Data Systems SDS 940 </p> </td> 
+         <td> <p> BSD, Linux, Solaris, VMS, Windows </p> </td> 
+         <td> <p> Depends on target machine, includes NetBSD/VAX, OpenBSD/VAX, <a href="OpenVMS">VAX/VMS</a>, <a href="Version 6 Unix">Unix v6</a>, <a href="Version 7 Unix">Unix v7</a>, <a href="TOPS-10">TOPS-10</a>, <a href="TOPS-20">TOPS-20</a>, <a href="Incompatible Timesharing System">ITS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Simics">Simics</a> </p> </th> 
+         <td> <p> <a href="Wind River Systems">Wind River</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> 8051, 68000, ARM (v4, v5, v6, v7), MIPS32, MIPS64, Cavium cnMIPS, Broadcom XLR MIPS, Frescale Power Architecture 32-bit and 64-bit (e300, e500, e600, e5500, e6500), IBM Power Architecture (POWER, PPC44x, PPC46x, 47x), SPARC v8 (LEON), SPARC v9 (UltraSparc), x86 (from 80286 to Sandy Bridge), x86-64 (from Pentium4 to Sandy Bridge), TI <a href="Texas Instruments TMS320">TMS320C64xx</a>, Renesas H8, Renesas SH </p> </td> 
+         <td> <p> Windows 32-bit and 64-bit, Linux 32-bit and 64-bit </p> </td> 
+         <td> <p> Depends on target machine, typically runs unmodified software stacks from the corresponding real target, including <a href="VxWorks">VxWorks</a>, VxWorks 653, <a href="Operating System Embedded">OSE</a>, QNX, Linux, Solaris, Windows, FreeBSD, <a href="RTEMS">RTEMS</a>, <a href="TinyOS">TinyOS</a>, Wind River Hypervisor, VMware ESX, and others </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Sun xVM">Sun xVM</a> Server </p> </th> 
+         <td> <p> <a href="Sun Microsystems">Sun Microsystems</a> </p> </td> 
+         <td> <p> x86-64, <a href="SPARC">SPARC</a> </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> Windows XP, 2003 Server (x86-64 only), Linux, Solaris </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVISTA">SVISTA</a> 2004 </p> </th> 
+         <td> <p> <a href="Serenity Systems International">Serenity Systems International</a> </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> Windows, OS/2, Linux </p> </td> 
+         <td> <p> Windows, Linux, OS/2, BSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Trango Virtual Processors">TRANGO</a> </p> </th> 
+         <td> <p> <a href="http://www.trango-vp.com">TRANGO Virtual Processors, Grenoble, France</a> </p> </td> 
+         <td> <p> ARM, <a href="XScale">XScale</a>, MIPS, PowerPC </p> </td> 
+         <td> <p> <a href="Paravirtualized">Paravirtualized</a> ARM, MIPS, PowerPC </p> </td> 
+         <td> <p> No host OS, Linux or Windows as dev. hosts </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="eCos">eCos</a>, <a href="MicroC/OS-II">&micro;C/OS-II</a>, <a href="WindowsCE">WindowsCE</a>, <a href="Nucleus RTOS">Nucleus</a>, VxWorks </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="User Mode Linux">User Mode Linux</a> </p> </th> 
+         <td> <p> <a href="Jeff Dike">Jeff Dike</a>, other developers </p> </td> 
+         <td> <p> x86, x86-64, PowerPC </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VirtualBox">VirtualBox</a> </p> </th> 
+         <td> <p> Innotek, acquired by <a href="Oracle Corporation">Oracle Corporation</a> </p> </td> 
+         <td> <p> x86, x86-64, <a href="Intel VT-x">Intel VT-x</a>, <a href="AMD-V">AMD-V</a> </p> </td> 
+         <td> <p> x86, (x86-64 only on VirtualBox 2 and later with hardware virtualization) </p> </td> 
+         <td> <p> Windows, Linux, <span class="unknown-node">{{nowrap|...}}</span> x86, Solaris, FreeBSD, eComStation </p> </td> 
+         <td> <p> DOS, Linux, Mac OS X Server,<span class="unknown-node">&lt;ref .../&gt;</span> FreeBSD, <a href="Haiku (operating system)">Haiku</a>, OS/2, Solaris, Syllable, Windows </p> </td> 
+         <td> <p> GPL version 2; full version with extra enterprise features is proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Virtual Iron">Virtual Iron</a> 3.1 </p> </th> 
+         <td> <p> Virtual Iron Software, Inc., acquired by Oracle </p> </td> 
+         <td> <p> x86 VT-x, x86-64 AMD-V </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> Windows, Linux </p> </td> 
+         <td> <p> Full product is proprietary, a few components are GPL version 2<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual PC">Virtual PC</a> 2007 </p> </th> 
+         <td> <p> <a href="Connectix">Connectix</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> <a href="Windows Vista">Windows Vista</a> (Business, Enterprise, Ultimate), XP Pro, XP Tablet PC Edition </p> </td> 
+         <td> <p> DOS, Windows, OS/2, Linux (SUSE, Xubuntu), OpenSolaris (Belenix) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Virtual PC">Windows Virtual PC</a> </p> </th> 
+         <td> <p> <a href="Connectix">Connectix</a> </p> </td> 
+         <td> <p> x86, x86-64 with Intel VT-x or AMD-V </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> Windows 7 </p> </td> 
+         <td> <p> Windows XP, Windows Vista, Windows 7, Windows Server 2003, Windows Server 2008 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual PC">Virtual PC</a> 7 for Mac </p> </th> 
+         <td> <p> <a href="Connectix">Connectix</a> </p> </td> 
+         <td> <p> PowerPC </p> </td> 
+         <td> <p> x86 </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> </p> </td> 
+         <td> <p> Windows, OS/2, Linux </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VirtualLogix">VirtualLogix</a> VLX </p> </th> 
+         <td> <p> <a href="VirtualLogix">VirtualLogix</a> </p> </td> 
+         <td> <p> ARM, TI DSP C6000, x86, <a href="Intel VT-x">Intel VT-x</a>, <a href="Intel VT-d">Intel VT-d</a>, PowerPC </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Windows XP">Windows XP</a>, C5, <a href="VxWorks">VxWorks</a>, Nucleus, <a href="DSP/BIOS">DSP/BIOS</a>, proprietary </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual Server">Virtual Server</a> 2005 R2 </p> </th> 
+         <td> <p> <a href="Connectix">Connectix</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> Windows Server 2003, 2008, XP (Requires IIS) </p> </td> 
+         <td> <p> Windows NT, 2000, 2003, 2008, Linux (Red Hat, SUSE, Ubuntu) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CoWare">Synopsys (CoWare)</a> <a href="Virtual Platform">Virtual Platform</a> </p> </th> 
+         <td> <p> <a href="CoWare">CoWare</a> </p> </td> 
+         <td> <p> x86, x86-64, SPARC v9 </p> </td> 
+         <td> <p> Devices including (multi) cores from <a href="ARM Architecture">ARM</a>, <a href="MIPS architecture">MIPS</a>, <a href="PowerPC">PowerPC</a>, <a href="Toshiba">Toshiba</a> <a href="MeP">MeP</a>, <a href="Renesas">Renesas</a> SH, <a href="Texas Instruments">Texas Instruments</a>, <a href="Tensilica">Tensilica</a>, <a href="ZSP">ZSP</a> </p> </td> 
+         <td> <p> Windows, Linux, Solaris </p> </td> 
+         <td> <p> Depends on guest CPU; includes: <a href="Linux">Linux</a> (various flavors), <a href="&micro;ITRON">&micro;ITRON</a> (various flavors), <a href="Windows CE">Windows CE</a>, <a href="Symbian">Symbian</a>, more </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Virtuozzo">Virtuozzo</a> </p> </th> 
+         <td> <p> <a href="SWsoft">SWsoft</a>, now <a href="Parallels, Inc.">Parallels, Inc.</a> </p> </td> 
+         <td> <p> x86, <a href="Itanium">IA-64</a>, x86-64 </p> </td> 
+         <td> <p> x86, IA-64, x86-64 </p> </td> 
+         <td> <p> Linux, Windows </p> </td> 
+         <td> <p> Linux, Windows </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware ESX Server">VMware ESX Server</a> </p> </th> 
+         <td> <p> <a href="VMware">VMware</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> Windows, Linux, Solaris, FreeBSD, <a href="OSx86">OSx86</a> (as FreeBSD), <a href="virtual appliance">virtual appliances</a>, Netware, OS/2, SCO, BeOS, <a href="Haiku (operating system)">Haiku</a>, <a href="Darwin (operating system)">Darwin</a>, others: runs arbitrary OS<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware ESXi">VMware ESXi</a> </p> </th> 
+         <td> <p> <a href="VMware">VMware</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> Same as VMware ESX Server </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Fusion">VMware Fusion</a> </p> </th> 
+         <td> <p> <a href="VMware">VMware</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> <span class="unknown-node">{{nowrap|...}}</span> x86 </p> </td> 
+         <td> <p> Same as VMware ESX Server </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Server">VMware Server</a> </p> </th> 
+         <td> <p> <a href="VMware">VMware</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> Windows, Linux </p> </td> 
+         <td> <p> Same as VMware ESX Server </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Workstation">VMware Workstation</a> 7.1 </p> </th> 
+         <td> <p> <a href="VMware">VMware</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> Windows, Linux </p> </td> 
+         <td> <p> Same as VMware ESX Server </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Player">VMware Player</a> 3.1 </p> </th> 
+         <td> <p> <a href="VMware">VMware</a> </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> x86, x86-64 </p> </td> 
+         <td> <p> Windows, Linux </p> </td> 
+         <td> <p> Same as VMware ESX Server </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Wind River Systems">Wind River</a> Hypervisor </p> </th> 
+         <td> <p> <a href="Wind River Systems">Wind River</a> </p> </td> 
+         <td> <p> x86, x86-64, PowerPC, ARM </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> Linux, VxWorks, unmodified guests (including MS Windows and RTOSes such ach OSE, QNX and others), bare metal virtual board </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Wind River Systems">Wind River</a> VxWorks MILS Platform </p> </th> 
+         <td> <p> <a href="Wind River Systems">Wind River</a> </p> </td> 
+         <td> <p> PowerPC </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> VxWorks, bare metal virtual board </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xen">Xen</a> </p> </th> 
+         <td> <p> <a href="Xensource">Xensource</a> </p> </td> 
+         <td> <p> x86, x86-64, IA-64 </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> NetBSD, Linux, Solaris </p> </td> 
+         <td> <p> FreeBSD, NetBSD, Linux, Solaris, Windows XP &amp; 2003 Server (needs vers. 3.0 and an <a href="Intel VT-x">Intel VT-x</a> (Vanderpool) or <a href="AMD-V">AMD-V</a> (Pacifica)-capable CPU), <a href="Plan 9 from Bell Labs">Plan 9</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XtratuM">XtratuM</a> </p> </th> 
+         <td> <p> <a href="Universidad Politecnica de Valencia">Universidad Politecnica de Valencia</a> </p> </td> 
+         <td> <p> x86, x86; SPARC v8 LEON2/3 </p> </td> 
+         <td> <p> Same as host </p> </td> 
+         <td> <p> No host OS </p> </td> 
+         <td> <p> GPOS: Linux, RTOS: PartiKle, RTEMS </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="z/VM">z/VM</a> </p> </th> 
+         <td> <p> <a href="IBM">IBM</a> </p> </td> 
+         <td> <p> <a href="z/Architecture">z/Architecture</a> </p> </td> 
+         <td> <p> z/Architecture, z/VM does not run on predecessor mainframes </p> </td> 
+         <td> <p> No host OS, itself (single or multiple levels/versions deep, e.g. VM/ESA running in z/VM 4.4 in z/VM 5.2 in z/VM 5.1.) </p> </td> 
+         <td> <p> <a href="Linux on zSeries">Linux on zSeries</a>, <a href="z/OS">z/OS</a>, <a href="z/VSE">z/VSE</a>, <a href="z/TPF">z/TPF</a>, z/VM, <a href="VM/CMS">VM/CMS</a>, <a href="MUSIC/SP">MUSIC/SP</a>, <a href="OpenSolaris for System z">OpenSolaris for System z</a>, predecessors </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> z <a href="LPAR">LPARs</a> </p> </th> 
+         <td> <p> <a href="IBM">IBM</a> </p> </td> 
+         <td> <p> <a href="z/Architecture">z/Architecture</a> </p> </td> 
+         <td> <p> z/Architecture </p> </td> 
+         <td> <p> Integrated in firmware of <a href="System z">System z</a> mainframes </p> </td> 
+         <td> <p> <a href="Linux on zSeries">Linux on zSeries</a>, <a href="z/OS">z/OS</a>, <a href="z/VSE">z/VSE</a>, <a href="z/TPF">z/TPF</a>, <a href="z/VM">z/VM</a>, <a href="MUSIC/SP">MUSIC/SP</a>, and predecessors </p> </td> 
+         <td> <p> Integrated in firmware of <a href="System z">System z</a> mainframes </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Host CPU </p> </th> 
+         <th> <p> Guest CPU </p> </th> 
+         <th> <p> Host OS(s) </p> </th> 
+         <th> <p> Guest OS(s) </p> </th> 
+         <th> <p> License </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Features </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: smaller; text-align: center; width: auto; table-layout: fixed;"> 
+       <tbody>
+        <tr class="sortbottom"> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Guest OS <a href="symmetric multiprocessing">SMP</a> available </p> </th> 
+         <th> <p> Runs arbitrary OS </p> </th> 
+         <th> <p> Supported guest OS <a href="device driver">drivers</a> </p> </th> 
+         <th> <p> Method of operation </p> </th> 
+         <th> <p> Typical use </p> </th> 
+         <th> <p> Speed relative to host OS </p> </th> 
+         <th> <p> Commercial support available </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Solaris Zones">Containers</a>, or Zones </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span>, over 500-way on current systems </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> Uses native device drivers </p> </td> 
+         <td> <p> <a href="Operating system-level virtualization">Operating system-level virtualization</a> </p> </td> 
+         <td> <p> Server consolidation with workload isolation, single workload containment, hosting, dev/test/prod </p> </td> 
+         <td> <p> Near native </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hyper-V">Hyper-V</a> Server 2008 R2 </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span>, up to 4 VCPUs per VM </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Virtualization </p> </td> 
+         <td> <p> Server consolidation, service continuity, dev/test, desktop virtualization, cloud computing </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OpenVZ">OpenVZ</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Compatible </p> </td> 
+         <td> <p> <a href="Operating system-level virtualization">Operating system-level virtualization</a> </p> </td> 
+         <td> <p> Virtualized server isolation </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Kernel-based Virtual Machine">KVM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">AMD-V and Intel-VT-x</a> </p> </td> 
+         <td> <p> Virtualized server isolation, server/desktop consolidation, software development, cloud computing, other purposes </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Linux-VServer">Linux-VServer</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Compatible </p> </td> 
+         <td> <p> <a href="Operating system-level virtualization">Operating system-level virtualization</a> </p> </td> 
+         <td> <p> Virtualized server isolation and security, server consolidation, cloud computing </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle VM">Oracle VM Server for x86</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a> and hardware virtualization </p> </td> 
+         <td> <p> Server consolidation and security, enterprise and business deployment </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Logical Domains">Oracle VM Server for SPARC</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span>, but needs porting<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a> and hardware virtualization </p> </td> 
+         <td> <p> Server consolidation and security, enterprise and business deployment </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OVPsim">OVPsim</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> Full system simulation with optional component virtualization </p> </td> 
+         <td> <p> Software development (early, embedded), advanced debug for single and multicore software, compiler and other tool development, computer architecture research, hobbyist </p> </td> 
+         <td> <p> Depends on target architecture (full and slow hardware emulation for guests incompatible with host)<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span>, with commercial license from Imperas<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PikeOS">PikeOS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span>, but modifications required as <a href="paravirtualization">paravirtualization</a> is used </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a> </p> </td> 
+         <td> <p> Safety and security critical <a href="embedded system">embedded systems</a>. </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> RTS Hypervisor </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span>, standard device drivers can be used without porting.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a> in two modes: <a href="full virtualization">full virtualization</a> and <a href="paravirtualization">paravirtualization</a>; guest OS can run in different modes concurrently <span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> x86 based devices; focus is on <a href="real-time computing">real-time</a> uses </p> </td> 
+         <td> <p> Depends on guest <span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ScaleMP">ScaleMP</a> vSMP Foundation </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span>, up to 8,192 CPUs and 64 TB per VM<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a> </p> </td> 
+         <td> <p> Server consolidation, Cloud computing </p> </td> 
+         <td> <p> ?<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Simics">Simics</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Full system simulation of processors, MMUs, devices, disks, memories, networks, etc. </p> </td> 
+         <td> <p> Software development, advanced debug for single and multicore software, compiler and other tool development, computer architecture research, bug transportation, automated testing, system architecture, long-term support of safety-critical systems, early hardware availability, virtual prototyping </p> </td> 
+         <td> <p> Depends on host machine and target architecture. Runs at near-native speeds for x86-on-x86 using VT-x, cross-simulation of other architectures can be faster or slower than real-time depending on how fast the target is and how big the target is (number of processors, number of target machines, and how much the simulation can be parallelized) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Sun xVM">Sun xVM</a> Server </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a> and porting or hardware virtualization </p> </td> 
+         <td> <p> Servers, Development </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVISTA">SVISTA</a> 2004 </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> Hobbyist, Developer, Business workstation </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Trango Virtual Processors">TRANGO</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a> and <a href="porting">porting</a> or hardware virtualization </p> </td> 
+         <td> <p> Mob. phone, STB, routers, etc. </p> </td> 
+         <td> <p> Near native<span class="unknown-node">{{ref|...}}</span><span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="User Mode Linux">User Mode Linux</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> special guest kernel+modules required </p> </td> 
+         <td> <p> <a href="Porting">Porting</a> </p> </td> 
+         <td> <p> Developer (as a separate machine for a server or with X11 networking) </p> </td> 
+         <td> <p> Non-significantly slower than native <span class="unknown-node">{{ref|...}}</span> (all calls to kernel are proxied)<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Oracle <a href="VirtualBox">VirtualBox</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a> </p> </td> 
+         <td> <p> Business workstation, server consolidation, service continuity, developer, hobbyist </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> (with commercial license) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Virtual Iron">Virtual Iron</a> 3.1 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, up to 8 way </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Native virtualization</a> </p> </td> 
+         <td> <p> Server consolidation, service continuity, dev/test </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual PC">Virtual PC</a> 2007 </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a>, guest calls trapping where supported </p> </td> 
+         <td> <p> Hobbyist, Developer, Business workstation </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> with virtual machine additions </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Virtual PC">Windows Virtual PC</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Hardware virtualization</a> </p> </td> 
+         <td> <p> Developer, Business workstation, support for Compatibility with Windows XP applications </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> with virtual machine additions </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual PC">Virtual PC</a> 7 for Mac </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="dynamic recompilation">dynamic recompilation</a> (guest calls trapping where supported) </p> </td> 
+         <td> <p> Hobbyist, Developer, Business workstation </p> </td> 
+         <td> <p> Slow <span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual Server">Virtual Server</a> 2005 R2 </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a> (guest calls trapping where supported) </p> </td> 
+         <td> <p> Server, server farm </p> </td> 
+         <td> <p> Up to near native with virtual machine additions but slower than with hypervisor due to proxied calls<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CoWare">CoWare</a> <a href="Virtual Platform">Virtual Platform</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> ( Same compiled Software image as for the real device) </p> </td> 
+         <td> <p> Full-system virtualization (Processor Core ISA + Hardware + External connections) </p> </td> 
+         <td> <p> Early embedded software development and integration (from driver to application), <a href="Multi-core">Multi-core</a> software debugging and optimization </p> </td> 
+         <td> <p> Depending on the system characteristics and the software itself, ranges from faster than real time to slow<span class="unknown-node">{{Citation needed|...}}</span>. </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Virtuozzo">Virtuozzo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Compatible </p> </td> 
+         <td> <p> <a href="Operating system-level virtualization">Operating system-level virtualization</a> </p> </td> 
+         <td> <p> Server consolidation, service continuity, disaster recovery, service providers </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware ESX Server">VMware ESX Server</a> 4.0 (vSphere) </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, add-on, up to 8 way </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a> </p> </td> 
+         <td> <p> Server consolidation, service continuity, dev/test, cloud computing </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware ESX Server">VMware ESX Server</a> 3.0 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, add-on, up to 4 way </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a> </p> </td> 
+         <td> <p> Server consolidation, service continuity, dev/test </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> VMware ESX Server 2.5.3 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, add-on, 2 way </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a> </p> </td> 
+         <td> <p> Server consolidation, service continuity, dev/test </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Fusion">VMware Fusion</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Virtualization </p> </td> 
+         <td> <p> Hobbyist, Developer, Tester, Business workstation </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Server">VMware Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (2-way) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a> </p> </td> 
+         <td> <p> Server/desktop consolidation, dev/test </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Workstation">VMware Workstation</a> 6.0 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (2-way) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a> (<a href="Virtual Machine Interface">VMI</a>) and <a href="x86 virtualization">virtualization</a> </p> </td> 
+         <td> <p> Technical professional, advanced dev/test, trainer </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Player">VMware Player</a> 2.0 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="x86 virtualization">Virtualization</a> </p> </td> 
+         <td> <p> Technical professional, advanced dev/test, trainer, end user on prebuilt machines </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Wind River Systems">Wind River</a> hypervisor </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a>, hardware assisted virtualization </p> </td> 
+         <td> <p> Embedded, safety critical, secure </p> </td> 
+         <td> <p> Up to near native<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Wind River Systems">Wind River</a> VxWorks MILS Platform </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a>, hardware assisted virtualization </p> </td> 
+         <td> <p> Embedded, <a href="Safety critical systems">safety critical</a>, secure </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xen">Xen</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, v4.0.0: up to 128 VCPUs per VM </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span>, bare hypervisor </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a> and porting or hardware virtualization. Runs on x86, ARM. </p> </td> 
+         <td> <p> Virtualized server isolation, server/desktop consolidation, software development, cloud computing, other purposes. Xen powers most public cloud services and many hosting services, such as Amazon Web Services, Rackspace Hosting and Linode. </p> </td> 
+         <td> <p> Up to native<span class="unknown-node">{{ref|...}}</span> <span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XtratuM">XtratuM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Paravirtualization">Paravirtualization</a> </p> </td> 
+         <td> <p> Embedded, safety critical, secure </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="z/VM">z/VM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, both real and virtual (guest perceives more CPUs than installed), incl. dynamic CPU provisioning and reassignment </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, but not required </p> </td> 
+         <td> <p> Virtualization (among first systems to provide hardware assists) </p> </td> 
+         <td> <p> Servers </p> </td> 
+         <td> <p> Near Native<span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> z <a href="LPAR">LPARs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, both real and virtual (guest perceives more CPUs than installed), incl. dynamic CPU provisioning and reassignment; up to 64 real cores </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, but not required </p> </td> 
+         <td> <p> <a href="Microcode">Microcode</a> and hardware hypervisor </p> </td> 
+         <td> <p> Servers </p> </td> 
+         <td> <p> Native: System z machines always run with at least one LPAR </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Guest OS <a href="symmetric multiprocessing">SMP</a> available </p> </th> 
+         <th> <p> Runs arbitrary OS </p> </th> 
+         <th> <p> Supported guest OS <a href="device driver">drivers</a> </p> </th> 
+         <th> <p> Method of operation </p> </th> 
+         <th> <p> Typical use </p> </th> 
+         <th> <p> Speed relative to host OS </p> </th> 
+         <th> <p> Commercial support available </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li> <span class="unknown-node">{{note|...}}</span> Providing any virtual environment usually requires some overhead of some type or another. Native usually means that the virtualization technique does not do any CPU level virtualization (like Bochs), which executes code more slowly than when it is directly executed by a CPU. Some other products such as VMWare and Virtual PC use similar approaches to Bochs and QEMU, however they use a number of advanced techniques to shortcut most of the calls directly to the CPU (similar to the process that JIT compiler uses) to bring the speed to near native in most cases. However, some products such as coLinux, Xen, z/VM (in real mode) do not suffer the cost of CPU-level slowdowns as the CPU-level instructions are not proxied or executing against an emulated architecture since the guest OS or hardware is providing the environment for the applications to run under. However access to many of the other resources on the system, such as devices and memory may be proxied or emulated in order to broker those shared services out to all the guests, which may cause some slow downs as compared to running outside of virtualization.</li> 
+       <li> <span class="unknown-node">{{note|...}}</span> OS-level virtualization is described as &quot;native&quot; speed, however some groups have found overhead as high as 3% for some operations, but generally figures come under 1%, so long as secondary effects do not appear.</li> 
+       <li> <span class="unknown-node">{{note|...}}</span> See<span class="unknown-node">&lt;ref .../&gt;</span> for a paper comparing performance of paravirtualization approaches (e.g. Xen) with OS-level virtualization</li> 
+       <li> <span class="unknown-node">{{note|...}}</span> Requires patches/recompiling.</li> 
+       <li> <span class="unknown-node">{{note|...}}</span>Exceptional for lightweight, <a href="paravirtualized">paravirtualized</a>, single-user VM/CMS interactive shell: largest customers run several thousand users on even single prior models. For multiprogramming OSes like <a href="Linux on zSeries">Linux on zSeries</a> and <a href="z/OS">z/OS</a> that make heavy use of native supervisor state instructions, performance will vary depending on nature of workload but is near native. Hundreds into the low thousands of Linux guests are possible on a single machine for certain workloads.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> image type compatibility </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: smaller; text-align: center; width: auto; table-layout: fixed;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> physical disk </p> </th> 
+         <th> <p> vmdk </p> </th> 
+         <th> <p> vdi </p> </th> 
+         <th> <p> vhd </p> </th> 
+         <th> <p> raw / flat / .img </p> </th> 
+         <th> <p> Qcow </p> </th> 
+         <th> <p> Qcow2 </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bochs">Bochs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Solaris Containers">Containers, or Zones</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cooperative Linux">Cooperative Linux</a> (coLinux) </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Charon (software)">CHARON</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Denali (operating system)">Denali</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DOSBox">DOSBox</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Dosemu">DOSEMU</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="FreeBSD Jail">FreeBSD Jail</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GXemul">GXemul</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hercules emulator">Hercules</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hyper-V">Hyper-V</a> Server 2008 R2 </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hyper-V">Hyper-V</a> Server 2012 </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="iCore Virtual Accounts">iCore Virtual Accounts</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HP Integrity Virtual Machines">Integrity Virtual Machines</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Java PC">JPC (Virtual Machine)</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Kernel-based Virtual Machine">KVM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Linux-VServer">Linux-VServer</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LynxSecure">LynxSecure</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LXC">LXC</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mac-on-Linux">Mac-on-Linux</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mac-on-Mac">Mac-on-Mac</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OpenVZ">OpenVZ</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle VM">Oracle VM for x86</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Logical Domains">Oracle VM Server for SPARC</a> (LDoms) </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OVPsim">OVPsim</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Parallels Desktop for Mac">Parallels Desktop for Mac</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Parallels Workstation">Parallels Workstation</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PearPC">PearPC</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PikeOS">PikeOS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PowerVM">PowerVM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="QEMU">QEMU</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="QEMU">QEMU</a> w/ <a href="kqemu">kqemu</a> module </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="QEMU">QEMU</a> w/ <a href="qvm86">qvm86</a> module </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="QuickTransit">QuickTransit</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ScaleMP">ScaleMP</a> vSMP Foundation </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SIMH">SIMH</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Simics">Simics</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Sun xVM">Sun xVM</a> Server </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVISTA">SVISTA</a> 2004 </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Trango Virtual Processors">TRANGO</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="User Mode Linux">User Mode Linux</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VirtualBox">VirtualBox</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Virtual Iron">Virtual Iron</a> 3.1 </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual PC">Virtual PC</a> 2007 </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Virtual PC">Windows Virtual PC</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual PC">Virtual PC</a> 7 for Mac </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VirtualLogix">VirtualLogix</a> VLX </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual Server">Virtual Server</a> 2005 R2 </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CoWare">Synopsys (CoWare)</a> <a href="Virtual Platform">Virtual Platform</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Virtuozzo">Virtuozzo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware ESX Server">VMware ESX Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware ESXi">VMware ESXi</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Fusion">VMware Fusion</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Server">VMware Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Workstation">VMware Workstation</a> 7.1 </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Player">VMware Player</a> 3.1 </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Wind River Systems">Wind River</a> Hypervisor </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Wind River Systems">Wind River</a> VxWorks MILS Platform </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xen">Xen</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XtratuM">XtratuM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="z/VM">z/VM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> z <a href="LPAR">LPARs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> name </p> </th> 
+         <th> <p> physical disk </p> </th> 
+         <th> <p> vmdk </p> </th> 
+         <th> <p> vdi </p> </th> 
+         <th> <p> vhd </p> </th> 
+         <th> <p> raw / flat / .img </p> </th> 
+         <th> <p> Qcow </p> </th> 
+         <th> <p> Qcow2 </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Other features </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: smaller; text-align: center; width: auto; table-layout: fixed;"> 
+       <tbody>
+        <tr class="sortbottom"> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Can boot an OS on another disk partition as guest </p> </th> 
+         <th> <p> USB support </p> </th> 
+         <th> <p> GUI </p> </th> 
+         <th> <p> Live memory allocation </p> </th> 
+         <th> <p> 3D acceleration </p> </th> 
+         <th> <p> <a href="Snapshot (computer storage)#In virtualization">Snapshots</a> per VM </p> </th> 
+         <th> <p> Snapshot of running system </p> </th> 
+         <th> <p> Live migration </p> </th> 
+         <th> <p> Shared folders </p> </th> 
+         <th> <p> Shared clipboard </p> </th> 
+         <th> <p> PCI passthrough </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Kernel-based Virtual Machine">KVM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (via <a href="AIGLX">AIGLX</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="User Mode Linux">User Mode Linux</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DosBox">DosBox</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Oracle <a href="VirtualBox">VirtualBox-OSE (GPLv2)</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> branched<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Oracle <a href="VirtualBox">VirtualBox-PUEL (pre-compiled, not free)</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> branched<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Logical Domains">Oracle VM Server for SPARC</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Virtual Iron">Virtual Iron</a> 4.2 </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Virtual PC">Virtual PC</a> 2007 </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Virtual PC">Windows Virtual PC</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VirtualPC">VirtualPC</a> 7 for Mac </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Virtual Server">Microsoft Virtual Server</a> 2005 R2 </p> </th> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Hyper-V">Microsoft Hyper-V Server</a> 2008 R2 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> <span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> <span class="unknown-node">{{ref|...}}</span> (via <a href="RemoteFX">RemoteFX</a>) </p> </td> 
+         <td> <p> branched </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Virtuozzo">Virtuozzo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware ESX Server">VMware ESX Server</a> 3.0 atp </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware ESX Server">VMware ESX Server</a> 2.5.3 </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware ESX Server">VMware ESX Server</a> 4.0 (vSphere) </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Fusion">VMware Fusion</a> 2.0 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Server">VMware Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="VMware Server">1</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Workstation">VMware Workstation</a> 5.5 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span>; also supported with VMGL<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> branched </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Workstation">VMware Workstation</a> 6.0 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span>; Also supported with VMGL<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> branched </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Workstation">VMware Workstation</a> 7.0 and 8.0 </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span>.<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> branched </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Player">VMware Player</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> supported with VMGL<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Wind River Systems">Wind River</a> hypervisor </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Wind River Systems">Wind River</a> VxWorks MILS Platform </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xen">Xen</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Supported with VMGL<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="z/VM">z/VM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Not applicable </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (zURM/HMC) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Not applicable </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (2011) </p> </td> 
+         <td> </td> 
+         <td> <p> Not applicable </p> </td> 
+         <td> <p> Not applicable </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> z <a href="LPAR">LPARs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Not applicable </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (HMC) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Not applicable </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (2007) </p> </td> 
+         <td> </td> 
+         <td> <p> Not applicable </p> </td> 
+         <td> <p> Not applicable </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Solaris Zones">Zones</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Can boot an OS on another disk partition as guest </p> </th> 
+         <th> <p> USB </p> </th> 
+         <th> <p> GUI </p> </th> 
+         <th> <p> Live memory allocation </p> </th> 
+         <th> <p> 3D acceleration </p> </th> 
+         <th> <p> Snapshots per VM </p> </th> 
+         <th> <p> Snapshot of running system </p> </th> 
+         <th> <p> Live migration </p> </th> 
+         <th> <p> Shared folders </p> </th> 
+         <th> <p> Shared clipboard </p> </th> 
+         <th> <p> PCI passthrough </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li> <span class="unknown-node">{{note|...}}</span> Windows Server 2008 R2 SP1 and Windows 7 SP1 have limited support for redirecting the USB protocol over <a href="Remote Desktop Protocol">RDP</a> using <a href="RemoteFX">RemoteFX</a>.<span class="unknown-node">&lt;ref .../&gt;</span></li> 
+       <li> <span class="unknown-node">{{note|...}}</span> Windows Server 2008 R2 SP1 adds accelerated graphics support for certain editions of Windows Server 2008 R2 SP1 and Windows 7 SP1 using RemoteFX.<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Restrictions </h2> 
+     <div class="section-body"> 
+      <p> This table is meant to outline restrictions in the software dictated by licensing or capabilities. </p> 
+      <table class="wikitable sortable" style="font-size: smaller; text-align: center; width: auto; table-layout: fixed;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Maximum host cores / CPUs </p> </th> 
+         <th> <p> Maximum host memory </p> </th> 
+         <th> <p> Maximum host disk volume size </p> </th> 
+         <th> <p> Maximum number of guest VM running </p> </th> 
+         <th> <p> Maximum number of logical CPU per VM guest </p> </th> 
+         <th> <p> Maximum amount of memory per VM guest </p> </th> 
+         <th> <p> Maximum number of SCSI + IDE disks per VM guest </p> </th> 
+         <th> <p> Maximum disk size per VM guest </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Solaris Containers">Containers, or Zones</a> </p> </th> 
+         <td> <p> 144 cores / 72 CPUs<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 4 TB </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> 8191 </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> No limit </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Player">VMware Player</a> 4.0<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> 4 cores<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> 8 GB (32-bit); 64 GB (64-bit) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 2 TB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware Server">VMware Server</a> 2.0<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> 16 CPUs </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> 8 GB </p> </td> 
+         <td> <p> 4 IDE; 60 SCSI </p> </td> 
+         <td> <p> 950 GB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VMware vSphere">VMware vSphere</a> Hypervisor (ESXi) 4.1<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> 160 logical cores </p> </td> 
+         <td> <p> 1 TB </p> </td> 
+         <td> <p> 2 TB minus 512 bytes </p> </td> 
+         <td> <p> 320 </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> 255 GB </p> </td> 
+         <td> <p> 4 IDE; 60 SCSI </p> </td> 
+         <td> <p> 2 TB minus 512 bytes </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> VMware vSphere ESXi 5.0<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> 160 logical cores </p> </td> 
+         <td> <p> 2 TB </p> </td> 
+         <td> <p> 64 TB </p> </td> 
+         <td> <p> 512 </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> 1 TB </p> </td> 
+         <td> <p> 4 IDE; 60 SCSI </p> </td> 
+         <td> <p> 2 TB minus 512 bytes </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VirtualBox">VirtualBox</a> 4.1.x </p> </th> 
+         <td> <p> 256 logical cores (Windows version limited to 64)<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> No limit<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> 1 TB<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 4 IDE; no limit for SATA, SCSI, SAS </p> </td> 
+         <td> <p> 2 TB<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hyper-V Server 2008 R2<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> 64 cores / 8 CPUs<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 1 TB </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> 384 </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> 64 GB </p> </td> 
+         <td> <p> 4 IDE; 256 SCSI </p> </td> 
+         <td> <p> 2 TB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hyper-V Server 2012<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <td> <p> 320 cores / 64 CPUs </p> </td> 
+         <td> <p> 4 TB </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> 1024 </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> <p> 1 TB </p> </td> 
+         <td> <p> 4 IDE; 256 SCSI </p> </td> 
+         <td> <p> 64 TB </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> Note: No limit means no enforced limit. For example, a VM with 1 TB of memory cannot fit in a host with only 8 GB memory and no memory swap disk, so it will have a limit of 8 GB physically. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="List of computer system emulators">List of computer system emulators</a></li> 
+       <li> <a href="Comparison of application virtual machines">Comparison of application virtual machines</a></li> 
+       <li> <a href="Hypervisor">Hypervisor</a></li> 
+       <li> <a href="Platform virtualization">Platform virtualization</a></li> 
+       <li> <a href="Popek and Goldberg virtualization requirements">Popek and Goldberg virtualization requirements</a></li> 
+       <li> <a href="Virtual machine">Virtual machine</a> 
+        <ul> 
+         <li> <a href="Virtual DOS machine">Virtual DOS machine</a></li> 
+        </ul> </li> 
+       <li> <a href="x86 virtualization">x86 virtualization</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Notes </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> External links </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://virt.kernelnewbies.org/TechComparison">Technical comparison of Linux virtualization technologies</a>.</li> 
+       <li> <a href="http://www.unix.com/answers-frequently-asked-questions/16634-unix-environments-ms-windows.html">Unix for Windows FAQ</a> at Unix.com</li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Platform Virtual Machines}}</span> <a href="Category:Software comparisons">Virtual machines</a> <a href="Category:Virtualization software">*</a> <a href="Category:Virtual machines">*</a> </p> 
+      <p> <a href="zh:????#??????">zh:????#??????</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

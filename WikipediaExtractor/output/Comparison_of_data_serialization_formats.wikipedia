@@ -1,0 +1,638 @@
+{{Refimprove|date=August 2009}}
+
+This is a '''comparison of [[data serialization]] [[file format|format]]s''', various ways to convert complex [[object (computer science)|object]]s to sequences of [[bit]]s. It does not include [[markup language]]s used exclusively as [[document file format]]s.
+
+==Overview==
+{| class="wikitable sortable"
+|-
+! Name
+! Creator/Maintainer
+! Based on
+! [[Standardized]]?
+! [[Specification]]
+! [[Binary format|Binary]]?
+! [[Human-readable]]?
+! Supports [[Reference (computer science)|reference]]s?{{ref|stdrefs|e}}
+! Schema/[[Interface description language|IDL]]?
+! Standard [[API]]s
+|-
+| [[ASN.1]]
+| [[International Organization for Standardization|ISO]], [[International Electrotechnical Commission|IEC]], [[ITU-T]]
+| {{n/a}}
+| {{yes}}
+| ISO/IEC 8824; X.680 series of ITU-T Recommendations
+| {{yes}}<br />([[Basic Encoding Rules|BER]], [[Distinguished Encoding Rules|DER]], [[Packed Encoding Rules|PER]], or custom via [[Encoding Control Notation|ECN]])
+| {{yes}}<br />([[XML Encoding Rules|XER]], [[Generic String Encoding Rules|GSER]], or custom via [[Encoding Control Notation|ECN]])
+| {{partial}}{{ref|asn1refs|f}}
+| {{yes}} (built-in)
+| {{n/a}}
+|-
+| [[Bencode]]
+| [[Bram Cohen]] (creator)<br>[[BitTorrent, Inc.]] (maintainer)
+| {{n/a}}
+| {{yes}}
+| Part of [http://bittorrent.org/beps/bep_0003.html BitTorrent protocol specification]
+| {{partial|Partially}}<br />(numbers and delimiters are ASCII)
+| {{partial|Partially}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+| [[BSON]]
+| [[MongoDB]]
+| [[JSON]]
+| {{yes}}
+| [http://bsonspec.org BSON Specification]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+| [[Candle (programming language)|Candle]] Markup
+| Henry Luo
+| [[XML]], [[JSON]], [[JavaFX]]
+| {{yes}}
+| [http://www.candlescript.org/doc/candle-markup-reference.htm Candle Markup Reference]
+| {{no}}
+| {{yes}}
+| {{yes}}<br>([[XPointer]], [[XPath]])
+| {{yes}}<br>([http://www.candlescript.org/doc/candle-pattern-reference.htm Candle Pattern Reference])
+| {{yes}}<br>([[XQuery]], [[XPath]])
+|-
+| [[Comma-separated values]] (CSV)
+| RFC author:<br>Yakov Shafranovich
+| {{n/a}}
+| {{partial}}<br>(myriad informal variants used)
+| RFC 4180<br>(among others)
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+| [[D-Bus]] Message Protocol
+| [[freedesktop.org]]
+| {{n/a}}
+| {{yes}}
+| [http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol D-Bus Specification]
+| {{yes}}
+| {{yes}}<br>([http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-signatures Type Signatures])
+| {{no}}
+| {{no}}
+| {{yes}}<br>(see [[D-Bus]])
+|-
+| [[JSON]]
+| [[Douglas Crockford]]
+| [[JavaScript syntax]]
+| {{yes}}
+| RFC 4627
+| {{no}}, but see [[BSON]]
+| {{yes}}
+| {{partial}}<br>([http://goessner.net/articles/JsonPath/ JSONPath], [http://bluelinecity.com/software/jpath/ JPath], [http://www.jspon.org/ JSPON], [http://jsonselect.org/ json:select()])
+| {{partial}}<br>([http://json-schema.org/ JSON Schema Proposal], [http://www.kuwata-lab.com/kwalify/ Kwalify], [http://rjbs.manxome.org/rx/ Rx], [http://itemscript.org/ItemscriptSchema.html Itemscript Schema])
+| {{partial}}: [https://github.com/dscape/clarinet Clarinet] (like SAX), [http://www.sitepen.com/blog/2008/07/16/jsonquery-data-querying-beyond-jsonpath/ JSONQuery] (like XQuery), [http://goessner.net/articles/JsonPath/ JSONPath] (like XPath)
+|-
+| [[MessagePack]]
+| Sadayuki Furuhashi
+| [[JSON]] (loosely)
+| {{yes}}
+| [http://wiki.msgpack.org/display/MSGPACK/Format+specification MessagePack format specification]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+| [[Netstring]]s
+| [[Dan Bernstein]]
+| {{n/a}}
+| {{yes}}
+| [http://cr.yp.to/proto/netstrings.txt netstrings.txt]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+| [[OGDL]]
+| Rolf Veen
+| {{dunno}}
+| {{yes}}
+| [http://ogdl.sourceforge.net/spec/ 1.0 Working draft]
+| {{yes}}<br>([http://ogdl.sourceforge.net/spec/ogdl-b.htm Binary 1.0 Working draft])
+| {{yes}}
+| {{yes}}<br>([http://ogdl.sourceforge.net/spec/ogdl-path.htm Path 1.0 Working draft])
+| {{yes}}<br>([http://ogdl.sourceforge.net/spec/ogdl-schema.htm Schema WD])
+| 
+|-
+| [[Property list]]
+| [[NeXT]] (creator)<br/>[[Apple Inc.|Apple]] (maintainer)
+| {{dunno}}
+| {{partial}}
+| [http://www.apple.com/DTDs/PropertyList-1.0.dtd Public DTD for XML format]
+| {{yes}}{{ref|plbin|a}}
+| {{yes}}{{ref|pltxt|b}}
+| {{no}}
+| {{dunno}}
+| [http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html Cocoa], [http://developer.apple.com/mac/library/documentation/CoreFoundation/Conceptual/CFPropertyLists/CFPropertyLists.html CoreFoundation], [http://docs.sun.com/app/docs/doc/802-2112/6i63mn65o?a=view OpenStep], [http://www.gnustep.org/resources/documentation/Developer/Base/Reference/NSPropertyList.html GnuStep]
+|-
+| [[Protocol Buffers]]
+| [[Google]]
+| {{n/a}}
+| {{partial}}
+| [https://developers.google.com/protocol-buffers/docs/encoding Developer Guide: Encoding]
+| {{yes}}
+| {{partial}}{{ref|pbtextformat|d}}
+| {{no}}
+| {{yes}} (built-in)
+| 
+|-
+| {{nobr|[[S-expression]]s}}
+| Internet Draft author:<br/>[[Ron Rivest]]
+| [[Lisp (programming language)|Lisp]], [[Netstring]]s
+| {{partial}}<br>(largely ''de facto'')
+| [http://people.csail.mit.edu/rivest/Sexp.txt "S-Expressions"] [[Internet Draft]]
+| {{yes}}<br>("Canonical representation")
+| {{yes}}<br>("Advanced transport representation")
+| {{no}}
+| {{no}}
+| 
+|-
+| [[Sereal (protocol)|Sereal]]
+| Yves Orton, Steffen M&uuml;ller et al
+| {{n/a}}
+| {{yes}}
+| [http://github.com/Sereal/Sereal/blob/master/sereal_spec.pod Sereal Specification]
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+| {{nobr|[[SDXF|Structured Data eXchange Format]]s}}
+| [[Max Wildgrube]]
+| {{n/a}}
+| {{yes}}
+| RFC 3072
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| 
+|-
+| [[Thrift (protocol)|Thrift]]
+| [[Facebook]] (creator)<br/>[[Apache Software Foundation|Apache]] (maintainer)
+| {{n/a}}
+| {{no}}
+| [http://incubator.apache.org/thrift/static/thrift-20070401.pdf Original whitepaper]
+| {{yes}}
+| {{partial}}{{ref|thrifttxt|c}}
+| {{no}}
+| {{yes}} (built-in) 
+|
+|-
+| [[External Data Representation|eXternal Data Representation]]
+| [[Sun Microsystems]] (creator)<br/>[[IETF]] (maintainer)
+| {{n/a}}
+| {{yes}}
+| RFC 4506
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+| [[XML]]
+| [[W3C]]
+| [[SGML]]
+| {{yes}}
+| {{nobr|[[W3C Recommendation]]s:}}<br/>[http://www.w3.org/TR/2008/REC-xml-20081126/ 1.0 (Fifth Edition)]<br/>[http://www.w3.org/TR/2006/REC-xml11-20060816/ 1.1 (Second Edition)]
+| {{partial}}<br>{{nobr|([[Binary XML]])}}
+| {{yes}}
+| {{yes}}<br>([[XPointer]], [[XPath]])
+| {{yes}}<br>([[XML schema]])
+| {{yes}}<br>([[Document Object Model|DOM]], [[Simple API for XML|SAX]], [[XQuery]], [[XPath]])
+|-
+| [[XML-RPC]]
+| [[Dave Winer]]<ref name="xmlrpc-hist">http://www.xml.com/pub/a/ws/2001/04/04/soap.html</ref>
+| [[XML]], [[SOAP]]<ref name="xmlrpc-hist"/>
+| {{yes}}
+| [http://xmlrpc.scripting.com/spec XML-RPC Specification]
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+| [[YAML]]
+| Clark Evans, Ingy d?t Net, and Oren Ben-Kiki
+| [[C (programming language)|C]], [[Java (programming language)|Java]], [[Perl]], [[Python (programming language)|Python]], [[Ruby (programming language)|Ruby]], [[Email]], [[HTML]], [[MIME]], [[URI]], [[XML]], [[Simple API for XML|SAX]], [[SOAP]], [[JSON]]<ref>{{cite web|url=http://yaml.org/spec/1.2/spec.html#id2708710|title=YAML?Ain?t?Markup?Language?(YAML) Version?1.2|first1=Oren |last1=Ben-Kiki |first2=Clark |last2=Evans |first3=Ingy d?t |last3=Net|date=2009-10-01|work=The Official YAML Web Site|accessdate=2012-02-10}}</ref>
+| {{yes}}
+| [http://www.yaml.org/spec/1.2/spec.html Version 1.2]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{partial}}<br>([http://www.kuwata-lab.com/kwalify/ Kwalify], [http://rjbs.manxome.org/rx/ Rx], built-in language type-defs)
+| {{no}}
+|}
+*a. {{note|plbin}}The current default format is binary.
+*b. {{note|pltxt}}The "classic" format is plain text, and an XML format is also supported.
+*c. {{note|thrifttxt}}Theoretically possible due to abstraction, but no implementation is included.
+*d. {{note|pbtextformat}}The primary format is binary, but a text format is available.<ref>https://developers.google.com/protocol-buffers/docs/reference/cpp/google.protobuf.text_format</ref>
+*e. {{note|stdrefs}}Means that generic tools/libraries know how to encode, decode, and dereference a reference to another piece of data in the same document. A tool may require the [[Interface description language|IDL]] file, but no more. Excludes custom, non-standardized referencing techniques.
+*f. {{note|asn1refs}}ASN.1 does offer [[Object identifier|OIDs]], a standard format for globally unique identifiers. However, there is no standard for "marking"/"tagging" an arbitrary piece of data in a document with an OID. There is also no standard format for locally unique identifiers within a document. Therefore, a generic ASN.1 tool/library can not automatically encode/decode/resolve references within a document without help from custom-written program code.
+
+==Syntax comparison of human-readable formats==
+{| class="wikitable"
+|-
+! Format
+! [[Nullable type|Null]]
+! [[Boolean data type|Boolean]] true
+! [[Boolean data type|Boolean]] false
+! [[Integer (computer science)|Integer]]
+! [[Floating-point]]
+! [[String (computer science)|String]]
+! [[Array data type|Array]]
+! [[Associative array]]/[[Object (computer science)|Object]]
+|-
+| [[XML Encoding Rules|ASN.1]]<br />(XML Encoding Rules)
+| {{nobr|<code><foo /></code>}}
+| <code><foo>true</foo></code>
+| <code><foo>false</foo></code>
+| <code><foo>685230</foo></code>
+| <code><foo>6.8523015e+5</foo></code>
+| {{nobr|<code><foo>A to Z</foo></code>}}
+| <pre><SeqOfUnrelatedDatatypes>
+    <isMarried>true</isMarried>
+    <hobby />
+    <velocity>-42.1e7</velocity>
+    <bookname>A to Z</bookname>
+    <bookname>We said, "no".</bookname>
+</SeqOfUnrelatedDatatypes></pre>
+| An object (the key is a field name):
+ <pre><person>
+    <isMarried>true</isMarried>
+    <hobby />
+    <height>1.85</height>
+    <name>Bob Peterson</name>
+</person></pre>
+
+A data mapping (the key is a data value):
+<pre><competition>
+    <measurement>
+        <name>John</name>
+        <height>3.14</height>
+    </measurement>
+    <measurement>
+        <name>Jane</name>
+        <height>2.718</height>
+    </measurement>
+</competition></pre>
+{{ref|guess|a}}
+|-
+| [[Candle (programming language)|Candle]] Markup
+| <code>(), ""</code>
+| <code>true</code>
+| <code>false</code>
+| <code>685230</code><br /><code>-685230</code>
+| <code>6.8523015e+5</code>
+| <code>"A to Z"</code><br /><code>"""<br />A <br />to <br />Z<br />"""</code>
+| <code>(true, (), -42.1e7, "A to Z")</code>
+| <pre>_{%342=true A%20to%20Z=(1, 2, 3)}</pre> or 
+<pre>_{
+  _{key=42 value=true}
+  _{key="A to Z" value=(1, 2, 3)}
+}</pre>
+|-
+| [[Comma-separated values|CSV]]{{ref|csvguess|b}}
+| <code>null</code>{{ref|guess|a}}<br />(or an empty element in the row){{ref|guess|a}}
+| <code>1</code>{{ref|guess|a}}<br /><code>true</code>{{ref|guess|a}}
+| <code>0</code>{{ref|guess|a}}<br /><code>false</code>{{ref|guess|a}}
+| <code>685230</code><br /><code>-685230</code>{{ref|guess|a}}
+| <code>6.8523015e+5</code>{{ref|guess|a}}
+| {{nobr|<code>A to Z</code>}}<br /><code>{{nobr|"We said, ""no""."}}</code>
+| <code>true,,-42.1e7,"A to Z"</code>
+| <pre>42,1
+A to Z,1,2,3</pre>
+|-
+| [[Netstring]]s{{ref|netguess|c}}
+| <code>0:,</code>{{ref|guess|a}}<br /><code>4:null,</code>{{ref|guess|a}}
+| <code>1:1,</code>{{ref|guess|a}}<br /><code>4:true,</code>{{ref|guess|a}}
+| <code>1:0,</code>{{ref|guess|a}}<br /><code>5:false,</code>{{ref|guess|a}}
+| <code>6:685230,</code>{{ref|guess|a}}
+| <code>9:6.8523e+5,</code>{{ref|guess|a}}
+| {{nobr|<code>6:A to Z,</code>}}
+| <code>29:4:true,0:,7:-42.1e7,6:A to Z,,</code>
+| {{nobr|<code>41:9:2:42,1:1,,25:6:A to Z,12:1:1,1:2,1:3,,,,</code>}}{{ref|guess|a}}
+|-
+| [[JSON]]
+| <code>null</code>
+| <code>true</code>
+| <code>false</code>
+| <code>685230</code><br /><code>-685230</code>
+| <code>6.8523015e+5</code>
+| {{nobr|<code>"A to Z"</code>}}
+| <code>[true, null, -42.1e7, "A to Z"]</code>
+| <code>{"42": true, "A to Z": [1, 2, 3]}</code>
+|-
+| [[OGDL]]{{Verify source|date=September 2009}}
+| <code>null</code>{{ref|guess|a}}
+| <code>true</code>{{ref|guess|a}}
+| <code>false</code>{{ref|guess|a}}
+| <code>685230</code>{{ref|guess|a}}
+| <code>6.8523015e+5</code>{{ref|guess|a}}
+| <code>"A to Z"</code><br /><code>'A to Z'</code><br /><code>NoSpaces</code>
+| <pre>true
+null
+-42.1e7
+"A to Z"</pre>
+<code>(true, null, -42.1e7, "A to Z")</code>
+|<pre>42
+  true
+"A to Z"
+  1
+  2
+  3</pre>
+<pre>42
+  true
+"A to Z", (1, 2, 3)</pre>
+|-
+| [[Property list]]<br />(plain text format)<ref name="gnustep">http://www.gnustep.org/resources/documentation/Developer/Base/Reference/NSPropertyList.html</ref>
+| {{n/a}}
+| <code><*BY></code>
+| <code><*BN></code>
+| <code><*I685230></code>
+| <code><*R6.8523015e+5></code>
+| <code>"A to Z"</code>
+| <code>( <*BY>, <*R-42.1e7>, "A to Z" )</code>
+| <pre>{
+    "42" = <*BY>;
+    "A to Z" = ( <*I1>, <*I2>, <*I3> );
+}</pre>
+|-
+| [[Property list]]<br />(XML format)<ref>http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man5/plist.5.html</ref><ref>http://developer.apple.com/mac/library/documentation/CoreFoundation/Conceptual/CFPropertyLists/Articles/XMLTags.html#//apple_ref/doc/uid/20001172-CJBEJBHH</ref>
+| {{n/a}}
+| <code><true /></code>
+| <code><false /></code>
+| <code><integer>685230</integer></code>
+| <code><real>6.8523015e+5</real></code>
+| {{nobr|<code><string>A to Z</string></code>}}
+| <pre><array>
+    <true />
+    <real>-42.1e7</real>
+    <string>A to Z</string>
+</array></pre>
+| <pre><dict>
+    <key>42</key>
+    <true />
+    <key>A to Z</key>
+    <array>
+        <integer>1</integer>
+        <integer>2</integer>
+        <integer>3</integer>
+    </array>
+</dict></pre>
+|-
+| [[S-expression]]s
+| <code>NIL</code><br /><code>nil</code>
+| <code>T</code><br /><code>#t</code>{{ref|lispstd|e}}<br /><code>true</code>
+| <code>NIL</code><br /><code>#f</code>{{ref|lispstd|e}}<br /><code>false</code>
+| <code>685230</code>
+| <code>6.8523015e+5</code>
+| <code>abc</code><br /><code>"abc"</code><br /><code>#616263#</code><br /><code>3:abc</code><br /><code>{MzphYmM=}</code><br /><code><nowiki>|YWJj|</nowiki></code>
+| <code>(T NIL -42.1e7 "A to Z")</code>
+| <code>((42 T) ("A to Z" (1 2 3)))</code>
+|-
+| [[YAML]]
+| <code>~</code><br /><code>null<code><br /><code>Null</code><br /><code>NULL</code><ref>{{cite web|url=http://yaml.org/type/null.html |title=Null Language-Independent Type for YAML Version 1.1 |publisher= |work=YAML.org
+ |date=2005-01-18 |coauthors=Oren Ben-Kiki, Clark Evans, Brian Ingerson |accessdate=2009-09-12}}</ref>
+| <code>y</code><br /><code>Y</code><br /><code>yes</code><br /><code>Yes</code><br /><code>YES</code><br /><code>on</code><br /><code>On</code><br /><code>ON</code><br /><code>true</code><br /><code>True</code><br /><code>TRUE</code><ref name="yamlbool">{{cite web|url=http://yaml.org/type/bool.html |title=Boolean Language-Independent Type for YAML Version 1.1 |publisher=Clark C. Evans |coauthors=Oren Ben-Kiki, Clark Evans, Brian Ingerson |work=YAML.org |date=2005-01-18 |accessdate=2009-09-12}}</ref>
+| <code>n</code><br /><code>N</code><br /><code>no</code><br /><code>No</code><br /><code>NO</code><br /><code>off</code><br /><code>Off</code><br /><code>OFF</code><br /><code>false</code><br /><code>False</code><br /><code>FALSE</code><ref name="yamlbool"/>
+| <code>685230</code><br /><code>+685_230</code><br /><code>-685230</code><br /><code>02472256</code><br /><code>0x_0A_74_AE</code><br /><code>0b1010_0111_0100_1010_1110</code><br /><code>190:20:30</code><ref>{{cite web|url=http://yaml.org/type/int.html |title=Integer Language-Independent Type for YAML Version 1.1 |publisher=Clark C. Evans |coauthors=Oren Ben-Kiki, Clark Evans, Brian Ingerson |work=YAML.org |date=2005-02-11 |accessdate=2009-09-12}}</ref>
+|<code>6.8523015e+5</code><br /><code>685.230_15e+03</code><br /><code>685_230.15</code><br /><code>190:20:30.15</code><br /><code>.inf</code><br /><code>-.inf</code><br /><code>.Inf</code><br /><code>.INF</code><br /><code>.NaN</code><br /><code>.nan</code><br /><code>.NAN</code><ref>{{cite web|url=http://yaml.org/type/float.html |title=Floating-Point Language-Independent Type for YAML Version 1.1 |publisher=Clark C. Evans |coauthors=Oren Ben-Kiki, Clark Evans, Brian Ingerson |work=YAML.org |date=2005-01-18 |accessdate=2009-09-12}}</ref>
+| <code>A to Z</code><br /><code>"A to Z"</code><br /><code>'A to Z'</code>
+| <code>[y, ~, -42.1e7, "A to Z"]</code>
+<pre>- y
+-
+- -42.1e7
+- A to Z</pre>
+| <code>{"John":3.14, "Jane":2.718}</code>
+<pre>42: y
+A to Z: [1, 2, 3]</pre>
+|-
+| [[XML]]{{ref|xmlguess|d}}
+| {{nobr|<code><null /></code>{{ref|guess|a}}}}
+| <code><boolean val="true"/></code>{{ref|guess|a}}
+<code><true /></code>{{ref|guess|a}}
+| <code><boolean val="false"/></code>{{ref|guess|a}}
+<code><false /></code>{{ref|guess|a}}
+| <code><integer>685230</integer></code>{{ref|guess|a}}
+| <code><float>6.8523015e+5</float></code>{{ref|guess|a}}
+| {{nobr|<code>A to Z</code>}}
+|{{ref|guess|a}}<pre><array>
+  <element type="boolean">true</element>
+  <element type="null"/>
+  <element type="float">-42.1e7</element>
+  <element type="string">A to Z</element>
+</array></pre>
+|{{ref|guess|a}}<pre><associative-array>
+  <entry>
+    <key type="integer">42</key>
+    <value type="boolean">true</value>
+  </entry>
+  <entry>
+    <key type="string">A to Z</key>
+    <value>
+      <array>
+        <element type="integer" val="1"/>
+        <element type="integer" val="2"/>
+        <element type="integer" val="3"/>
+      </array>
+    </value>
+  </entry>
+</associative-array></pre>
+|-
+| [[XML-RPC]]
+| 
+| <code><value><boolean>1</boolean></value></code>
+| <code><value><boolean>0</boolean></value></code>
+| <code><value><int>685230</int></value></code>
+| <code><value><double>6.8523015e+5</double></value></code>
+| <code><value><string>A to Z</string></value></code>
+|<pre><value><array>
+  <data>
+  <value><boolean>1</boolean></value>
+  <value><double>-42.1e7</double></value>
+  <value><string>A to Z</string></value>
+  </data>
+  </array></value></pre>
+|<pre><value><struct>
+  <member>
+    <name>42</name>
+    <value><boolean>1</boolean></value>
+    </member>
+  <member>
+    <name>A to Z</name>
+    <value>
+      <array>
+        <data>
+          <value><int>1</int></value>
+          <value><int>2</int></value>
+          <value><int>3</int></value>
+          </data>
+        </array>
+      </value>
+    </member>
+</struct></pre>
+|}
+
+*a. {{note|guess}}One possible encoding; the specification document does not specifically give an encoding for this datatype.
+*b. {{note|csvguess}}The RFC CSV specification only deals with delimiters, newlines, and quote characters; it does not directly deal with serializing programming [[data structure]]s.
+*c. {{note|netguess}}The [[netstring]]s specification only deals with nested [[byte string]]s; anything else is outside the scope of the specification.
+*d. {{note|xmlguess}}[[XML]] in and of itself is not a data serialization language, but many data serialization formats have been derived from it; as such, there are many different ways, in addition to those shown, to serialize programming [[data structure]]s into XML.
+*e. {{note|lispstd}}This syntax is not compatible with the Internet-Draft, but is used by some dialects of [[Lisp (programming language)|Lisp]].
+
+==Comparison of binary formats==
+<!--This table is meant to describe how the various datatypes are encoded in binary in the various formats-->
+{| class="wikitable"
+|-
+! Format
+! [[Nullable type|Null]]
+! [[Boolean data type|Boolean]]s
+! [[Integer (computer science)|Integer]]
+! [[Floating-point]]
+! [[String (computer science)|String]]
+! [[Array data type|Array]]
+! [[Associative array]]/[[Object (computer science)|Object]]
+|-
+| [[ASN.1]]<br />([[Basic Encoding Rules|BER]] or [[Packed Encoding Rules|PER]] encoding)
+| NULL type
+| BOOLEAN; BER as 1 byte in binary form
+| INTEGER; variable length big-endian binary representation up to 2^2^1024 bits
+| REAL; representation as IEEE double or as three integers (mantissa, base, exponent)
+| Multiple valid types (VisibleString, PrintableString, GeneralString, UniversalString, UTF8String)
+| data specifications SET OF (unordered) and SEQUENCE OF (guaranteed order)
+| user definable type
+|-
+| [[BSON]]<ref>http://bsonspec.org</ref>
+| Null type - 0 bytes for value
+| True: one byte <code>\x01</code><br>False: <code>\x00</code>
+| int32: 32-bit [[little-endian]] [[2's complement]] or int64: 64-bit [[little-endian]] [[2's complement]]
+| [[Double precision floating-point format|double]]: [[little-endian]] [[binary64]]
+| [[UTF-8]] encoded, preceded by int32 encoded string length in bytes 
+| [[BSON]] embedded document with numeric keys
+| [[BSON]] embedded document 
+|-
+| [[MessagePack]]
+| <code>\xc0</code>
+| True: <code>\xc3</code><br>False: <code>\xc2</code>
+| Single byte "fixnum" (values -32..127) 
+or
+typecode (one byte) + big-endian (u)int8/16/32/64
+| Typecode (one byte) + IEEE single/double
+| As "fixraw" (single-byte prefix + up to 31 raw bytes) 
+or
+typecode (one byte) + 2-4 bytes length + raw bytes
+| As "fixarray" (single-byte prefix + up to 15 array items) 
+or
+typecode (one byte) + 2-4 bytes length + array items
+| As "fixmap" (single-byte prefix + up to 15 key-value pairs) 
+or
+typecode (one byte) + 2-4 bytes length + key-value pairs
+|-
+| [[Netstring]]s
+| <code>0:,</code>
+| True: <code>1:1,</code>
+{{nobr|False: <code>1:0,</code>}}
+|
+|
+|
+|
+|
+|-
+| [[OGDL]] Binary
+|
+|
+|
+|
+|
+|
+|
+|-
+| [[Property list]]<br />(binary format)
+|
+|
+|
+|
+|
+|
+|
+|-
+| [[Protocol Buffers]]<ref>https://developers.google.com/protocol-buffers/docs/encoding</ref>
+|
+|
+| Variable encoding length signed 32-bit: varint encoding of "ZigZag"-encoded value <code>(n << 1) [[XOR]] (n >> 31)</code>
+Variable encoding length signed 64-bit: varint encoding of "ZigZag"-encoded <code>(n << 1) XOR (n >> 63)</code><br>
+Constant encoding length 32-bit: 32 bits in [[little-endian]] [[2's complement]]<br>
+Constant encoding length 64-bit: 64 bits in [[little-endian]] [[2's complement]]
+|[[Single precision floating-point format|floats]]: [[little-endian]] [[binary32]]
+[[Double precision floating-point format|doubles]]: [[little-endian]] [[binary64]]
+| [[UTF-8]] encoded, preceded by varint-encoded integer length of string in bytes
+| Repeated value with the same tag
+| {{n/a}}
+|-
+| [[Sereal (protocol)|Sereal]]
+| <code>0x25</code>
+| True: <code>0x3b</code><br>False: <code>0x3a</code>
+| Single byte POS/NEG (values -16..15) 
+or
+typecode (one byte) + "varint" encoded variable length integer
+or
+typecode (one byte) + "zigzag" encoded variable length integer
+| Typecode (one byte) + IEEE single/double/quad
+| As "SHORT_BINARY" (single-byte prefix + up to 31 raw bytes) 
+or
+typecode (one byte, including boolean UTF8-encoding flag) + "varint" encoded length + raw bytes
+| As "ARRAYREF" (single-byte prefix + up to 15 array items) 
+or
+typecode (one byte) + "varint" encoded length + array items
+| As "HASHREF" (single-byte prefix + up to 15 key-value pairs) 
+or
+typecode (one byte) + "varint" encoded length + key-value pairs.
+Distinguishes hashmaps from objects / class instances.
+|-
+| [[Thrift (protocol)|Thrift]]
+|
+|
+|
+|
+|
+|
+|
+|-
+| [[SDXF|Structured Data eXchange Formats]] (SDXF)
+|
+|
+| big-endian signed 24bit or 32bit integer
+| big-endian IEEE double
+| either [[UTF-8]] or ISO 8859-1 encoded
+| list of elements with identical ID and size, preceded by array header with int16 length 
+| chunks can contain other chunks to arbitrary depth
+|}
+
+==See also==
+*[[Comparison of document markup languages]]
+
+== References ==
+{{reflist}}
+
+==External links==
+*[http://www.w3.org/TR/NOTE-xml-ql/ XML-QL Proposal discussing XML benefits]
+*[http://www.25hoursaday.com/weblog/PermaLink.aspx?guid=dada27bf-2af0-400d-94c9-5575546f5664 When to use XML]
+*[[wiki:XmlSucks|XmlSucks]] at the Portland Pattern Repository
+*[http://www.xml.com/pub/a/2001/05/02/champion.html Daring to Do Less with XML]
+
+{{DEFAULTSORT:Comparison Of Data Serialization Formats}}
+[[Category:Data serialization formats]]
+[[Category:Persistence]]

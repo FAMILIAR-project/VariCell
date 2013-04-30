@@ -1,0 +1,903 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of firewalls</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of firewalls</h1> 
+   <div class="article-content"> 
+    <p> The following is a comparison of notable <a href="Firewall (networking)">firewalls</a>, starting from simple home firewalls up to the most sophisticated Enterprise firewalls. </p> 
+    <div class="section"> 
+     <h2>Firewall software</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{See also|...}}</span> </p> 
+      <p> Ultimately all firewalls are <a href="software">software</a>-based; a hardware firewall runs <a href="firmware">firmware</a> (built-in software) on dedicated hardware. Embedded firewalls are simply very limited-capability programs running on a low-power CPU, and this software can be upgraded or replaced if someone has sufficient skill and resources to do so. (See <a href="OpenWrt">OpenWrt</a>) </p> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Firewall </p> </th> 
+         <th> <p> <a href="License">License</a> </p> </th> 
+         <th> <p> Cost / Usage Limits </p> </th> 
+         <th> <p> <a href="Operating system">OS</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cisco IOS">Cisco IOS</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> Included on all Cisco<br />switches and routers </p> </td> 
+         <td> <p> Proprietary, runs only <br />on Cisco hardware </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Comodo Internet Security">Comodo Internet <br />Security</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Intego">Intego VirusBarrier</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a> <a href="Mac OS X 10.5">10.5</a> or later; on an <a href="Xserve">Xserve</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IPFilter">IPFilter</a> </p> </th> 
+         <td> <p> <a href="GPLv2">GPLv2</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> Package for multiple UNIX-like operating systems </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IPCop">IPCop</a> </p> </th> 
+         <td> <p> <a href="Open Source">Open Source</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>-based appliance </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IPFire">IPFire</a> </p> </th> 
+         <td> <p> <a href="Open Source">Open Source</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>-based appliance </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ipfirewall">ipfirewall</a> </p> </th> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <a href="Berkeley Software Distribution">*BSD</a> package </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Kaspersky Internet Security">Kaspersky <br />Internet Security</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32/x64 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Lavasoft Personal Firewall">Lavasoft <br />Personal Firewall</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32/x64 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Forefront Threat Management Gateway">Microsoft <br />Forefront Threat <br />Management <br />Gateway</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x64 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Monowall">Monowall</a> </p> </th> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> FreeBSD-based appliance </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Netfilter/iptables">Netfilter/iptables</a> </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <a href="Linux">Linux</a> kernel module </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Norton 360">Norton 360</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32/x64 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Online Armor Personal Firewall">Online Armor <br />Personal Firewall</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32/x64 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Outpost Firewall Pro">Outpost <br />Firewall Pro</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32/x64 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PC Tools Firewall Plus">PC Tools <br />Firewall Plus</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32/x64 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PF (firewall)">PF</a> </p> </th> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> <a href="Berkeley Software Distribution">*BSD</a> kernel module </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="pfsense">pfsense</a> </p> </th> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> FreeBSD/NanoBSD-based appliance </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Smoothwall">Smoothwall</a> </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> Linux-based appliance </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Sunbelt Personal Firewall">Sunbelt <br />Personal Firewall</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Sygate Personal Firewall">Sygate <br />Personal Firewall</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Untangle">Untangle</a> </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>-based appliance </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vyatta">Vyatta</a> </p> </th> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>-based appliance </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Firewall">Windows Firewall</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> Included with Windows <br />XP SP2 and later </p> </td> 
+         <td> <p> <a href="Microsoft Windows">ALL Windows Versions</a> x32/x64 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinGate">WinGate</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32/x64 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zeroshell">Zeroshell</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> Free </p> </td> 
+         <td> <p> Linux based appliance </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ZoneAlarm">ZoneAlarm</a> </p> </th> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows unknown versions</a> x32/x64 (except XP-64) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Firewall rule-set basic filtering features comparison</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center;"> 
+       <tbody>
+        <tr> 
+         <th> Can Target: </th> 
+         <th> Changing default policy to accept/reject (by issuing a single rule) </th> 
+         <th> IP destination address(es) </th> 
+         <th> IP source address(es) </th> 
+         <th> TCP/UDP destination port(s) </th> 
+         <th> TCP/UDP source port(s) </th> 
+         <th> Ethernet MAC destination address </th> 
+         <th> Ethernet MAC source address </th> 
+         <th> Inbound firewall (ingress) </th> 
+         <th> <p> Outbound firewall (egress) </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IPFire">IPFire</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Trend Micro Internet Security">Trend Micro Internet Security</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Untangle">Untangle</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vyatta">Vyatta</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Firewall#Windows XP">Windows XP Firewall</a> </p> </th> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{partial}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Firewall#Windows Vista">Windows Vista Firewall</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Firewall#Windows 7">Windows 7 /<br />Windows&nbsp;2008&nbsp;R2<br />Firewall</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinGate">WinGate</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zentyal">Zentyal</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zeroshell">Zeroshell</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{no}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zorp firewall">Zorp</a> </p> </th> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <span class="unknown-node">{{yes}}</span> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li> Windows XP Firewall can target only single destination TCP/UDP port per rule, not port ranges, therefore support is partial.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Firewall rule-set advanced features comparison</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th style="width: 12em"> <p> Can: </p> </th> 
+         <th> <p> work at OSI Layer 4 (stateful firewall) </p> </th> 
+         <th> <p> work at OSI Layer 7 (application inspection) </p> </th> 
+         <th> <p> Change TTL? (Transparent to traceroute) </p> </th> 
+         <th> <p> Configure REJECT-with answer </p> </th> 
+         <th> <p> DMZ (de-militarized zone) - allows for single/several hosts not to be firewalled. </p> </th> 
+         <th> <p> Filter according to time of day </p> </th> 
+         <th> <p> Redirect TCP/UDP ports (port forwarding) </p> </th> 
+         <th> <p> Redirect IP addresses (forwarding) </p> </th> 
+         <th> <p> Filter according to User Authorization </p> </th> 
+         <th> <p> Traffic rate-limit / QoS </p> </th> 
+         <th> <p> Tarpit </p> </th> 
+         <th> <p> Log </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IPFire">IPFire</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Secure Computing">Sidewinder</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Untangle">Untangle</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Some modules) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (With Policy manager) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinGate">WinGate</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zeroshell">Zeroshell</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zentyal">Zentyal</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li>NOTE: Because Linux Iptables is text-based firewall, you can &quot;Filter according to time of day&quot; by using additional 3rd party tools, like expect automation tool and cron jobs.</li> 
+       <li> Windows firewall may be scripted with scheduled tasks.</li> 
+       <li> Configured by system policy</li> 
+      </ul> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th style="width: 12em"> <p> Features: </p> </th> 
+         <th> <p> Configuration: GUI, text or both modes? </p> </th> 
+         <th> <p> Remote Access: Web (HTTP), Telnet, SSH, RDP, Serial COM RS232, ... </p> </th> 
+         <th> <p> Change rules without requiring restart? </p> </th> 
+         <th> <p> Ability to centrally manage all firewalls together </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IPFire">IPFire</a> </p> </th> 
+         <td> <p> both </p> </td> 
+         <td> <p> Web (HTTPS), SSH, RS232 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Untangle">Untangle</a> </p> </th> 
+         <td> <p> both </p> </td> 
+         <td> <p> SSH (Not enabeld by default), Web GUI, </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinGate">WinGate</a> </p> </th> 
+         <td> <p> GUI </p> </td> 
+         <td> <p> Proprietary user interface </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{N/A}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ClearOS">ClearOS</a> </p> </th> 
+         <td> <p> both </p> </td> 
+         <td> <p> RS232, SSH, <a href="WebConfig">WebConfig</a>, </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> with ClearSDN </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zeroshell">Zeroshell</a> </p> </th> 
+         <td> <p> GUI </p> </td> 
+         <td> <p> SSH, Web (HTTPS), RS232 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zentyal">Zentyal</a> </p> </th> 
+         <td> <p> GUI </p> </td> 
+         <td> <p> SSH, Web (HTTPS) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> with Zentyal Cloud </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li>NOTE: Because Linux Iptables and Cisco ACL are text-based firewalls, you can centrally manage them all-at-once by using additional tools, like KDE Konsole or expect automation tool.</li> 
+      </ul> 
+      <ul> 
+       <li>NOTE: Due to the distributed nature of the Checkpoint architecture, no single interface is used exclusively. Security, NAT and VPN configuration is always done using the proprietary GUI, however basic IP networking and routing configuration of individual firewalls could be done using SSH or the Web interface.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Firewall's other features comparison</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th style="width: 12em"> <p> Features: </p> </th> 
+         <th> <p> Modularity: supports third-party modules to extend functionality? </p> </th> 
+         <th> <p> IPS : <a href="Intrusion prevention system">Intrusion prevention system</a> </p> </th> 
+         <th> <p> Open-Source License? </p> </th> 
+         <th> <p> supports IPv6 ? </p> </th> 
+         <th> <p> Class: Home / Professional </p> </th> 
+         <th> <p> Operating Systems on which it runs? </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IPFire">IPFire</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, with Snort </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (since IPFire 3) </p> </td> 
+         <td> <p> Both </p> </td> 
+         <td> <p> Linux-based appliance distribution. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Untangle">Untangle</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Both </p> </td> 
+         <td> <p> Linux (built on Debian) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vyatta">Vyatta</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Professional </p> </td> 
+         <td> <p> Vyatta OS (built on Debian) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinGate">WinGate</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Professional </p> </td> 
+         <td> <p> Windows 2000, Windows XP, Windows 2003, Windows Vista, Windows 2008. 32bit and 64bit. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zentyal">Zentyal</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Both </p> </td> 
+         <td> <p> Ubuntu Server </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ul> 
+       <li> NOTE: Checkpoint support a limited range of third-party modules from certified partners. Modules are integrated with Checkpoint firewalls through a platform named <a href="http://www.opsec.com">OPSEC</a></li> 
+      </ul> 
+      <ul> 
+       <li> NOTE: WinGate 6.x supports 3rd party modules for data scanning only (e.g. antivirus and content filtering).</li> 
+      </ul> 
+      <ul> 
+       <li> NOTE: Collax Security Gateway kernel and components are Open Source. The only proprietary part is the GUI.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Non-Firewall extra features comparison</h2> 
+     <div class="section-body"> 
+      <p> Those features are not strictly firewall features, but are sometimes bundled with firewall software, or exist on the platform. </p> 
+      <p> NOTE: Features are marked &quot;yes&quot; even if implemented as a separate module that comes with the platform on which firewall sits. </p> 
+      <p> IDS: real-time firewall that logs/sniffs/blocks suspicious connections that are not part of rule-set. </p> 
+      <p> VPN (Virtual Private Network) Types are: PPTP, L2TP, MPLS, IPsec, SSL/SSH. </p> 
+      <p> Profile selection: The user can switch between sets of firewall settings, e.g. for use at work, at home, and on public connections. </p> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th style="width: 12em"> <p> Can: </p> </th> 
+         <th> <p> NAT (static, dynamic w/o ports, PAT) </p> </th> 
+         <th> <p> IDS (Intrusion Detection System) </p> </th> 
+         <th> <p> VPN (Virtual Private Network) </p> </th> 
+         <th> <p> AV (Anti-Virus) </p> </th> 
+         <th> <p> Sniffer </p> </th> 
+         <th> <p> Profile selection </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IPFire">IPFire</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (with integrated Snort) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (IPsec and OpenVPN) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (with clamav) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (with tcpdump) </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Untangle">Untangle</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (IPsec and OpenVPN) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (clamav,commtouch (optional) ) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (tcpdump) </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vyatta">Vyatta</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (supports three NAT types) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (integrated Snort) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (IPsec and OpenVPN) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (with clamav,Sophos Antivirus (optional) ) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (with wireshark or tcpdump) </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinGate">WinGate</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (with NetPatrol) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (proprietary) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Kaspersky Labs) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (filtered capturing to pcap format) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zentyal">Zentyal</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> (static, PAT) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (with wireshark or tcpdump) </p> </td> 
+         <td> <p> <span class="unknown-node">{{N/A}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{Firewall software}}</span> </p> 
+      <p> <a href="Category:Software comparisons">Firewalls</a> <a href="Category:Firewall software">*</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

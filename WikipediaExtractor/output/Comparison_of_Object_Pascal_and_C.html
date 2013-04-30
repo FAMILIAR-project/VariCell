@@ -1,0 +1,520 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of Object Pascal and C</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of Object Pascal and C</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Multiple issues |...}}</span> </p> 
+    <p> <span class="unknown-node">{{ProgLangCompare}}</span> The computer <a href="programming language">programming languages</a> <a href="C (programming language)">C</a> and <a href="Object Pascal">Object Pascal</a> have similar times of origin, influences, and purposes. Both were used to design (and compile) their own compilers early in their lifetimes. </p> 
+    <p> Both C and Pascal are old programming languages: The original Pascal definition appeared in 1969 and a first compiler in 1970. The first version of C appeared in 1972. While C didn't change much in time, Pascal has evolved a lot and nowadays the vast majority of Pascal programming is done in modern <a href="Object Pascal">Object Pascal</a>, not in the old procedural Pascal. The old procedural Pascal today is essentially limited to microcontroller programming with tools such as <a href="mikroPascal">mikroPascal</a>, while Object Pascal is the main dialect and is used with tools such as <a href="Delphi">Delphi</a>, <a href="Lazarus (IDE)">Lazarus (IDE)</a> and <a href="Free Pascal">Free Pascal</a>. </p> 
+    <p> What is documented here is the modern Object Pascal used in Free Pascal and Delphi. The C documented is C99, as standardized in 1999. The reason is that these versions are the currently used versions of these languages. There is no reason to compare C with an old version of Pascal which is not in current use, the correct is comparing it with Pascal as used today in the Object Pascal dialect. </p> 
+    <div class="section"> 
+     <h2> Syntax </h2> 
+     <div class="section-body"> 
+      <p> Syntactically, Object Pascal is much more Algol-like than C. English keywords are retained where C uses punctuation symbols ? Pascal has <code>and</code>, <code>or</code>, and <code>mod</code> where C uses <code>&amp;&amp;</code>, <code>||</code>, and <code>%</code> for example. However, C is actually more Algol-like than Pascal regarding (simple) declarations, retaining the <i>type-name</i> <i>variable-name</i> syntax. For example, C can accept declarations at the start of any block, not just the outer block of a function. </p> 
+      <div class="section"> 
+       <h3>Semicolon use</h3> 
+       <div class="section-body"> 
+        <p> Another, more subtle, difference is the role of the <a href="semicolon">semicolon</a>. In Pascal semicolons <i>separate</i> individual statements within a compound statement whereas they <i>terminate</i> the statement in C. They are also syntactically part of the statement itself in C (transforming an expression into a statement). This difference manifests itself primarily in two situations: </p> 
+        <ul> 
+         <li> there can never be a semicolon directly before <code>else</code> in Pascal whereas it is mandatory in C (unless a block statement is used)</li> 
+         <li> the last statement before an <code>end</code> is not required to be followed by a semicolon</li> 
+        </ul> 
+        <p> A superfluous semicolon can be put on the last line before <b>end</b>, thereby formally inserting an <i>empty statement</i>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Comments</h3> 
+       <div class="section-body"> 
+        <p> In traditional C, there are only <code>/* block comments */</code>. Since C99, there are also <code> //Line comments </code>. In Object Pascal, there are <code>{ <i>block comments</i> }</code>, <code>(* <i>block comments</i> *)</code>, and <code>// Line comments</code>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Identifiers and keywords</h3> 
+       <div class="section-body"> 
+        <p> C and Pascal differ in their interpretation of upper and lower case. C is case sensitive while Pascal is not, thus <code>MyLabel</code> and <code>mylabel</code> are distinct names in C but identical in Pascal. In both languages, identifiers consist of letters and digits, with the rule that the first character may not be a digit. In C, the underscore counts as a letter, so even _abc is a valid name. Names with a leading underscore are often used to differentiate special system identifiers in C. Pascal also accepts _ character as a part of identifiers, no difference with C. </p> 
+        <p> Both C and Pascal use <a href="keyword (computer programming)">keywords</a> (words reserved for use by the language itself). Examples are <b>if</b>, <b>while</b>, <b>const</b>, <b>for</b> and <b>goto</b>, which are keywords that happen to be common to both languages. In C, the basic built-in type names are also keywords (e.g. <b>int</b>, <b>char</b>) or combinations of keywords (e.g. <b>unsigned char</b>), while in Pascal the built-in type names are predefined normal identifiers. </p> 
+        <p> Recent Object Pascal compilers however allow to escape keywords with &amp;, this feature is mainly need when directly communication to foreign OOP systems like COM and COCOA that might use fields and methods based on Pascal keywords. C has no way to escape keywords. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Definitions, declarations, and blocks</h3> 
+       <div class="section-body"> 
+        <p> In Pascal, <a href="procedure (programming)">procedure</a> definitions start with keywords <b>procedure</b> or <b>function</b> and <a href="type (computer science)">type definitions</a> with <b>type</b>. In C, function definitions are determined by syntactical context while type definitions use the keyword <code>typedef</code>. Both languages use a mix of keywords and punctuation for definitions of complex types; for instance, arrays are defined by the keyword <b>array</b> in Pascal and by punctuation in C, while <a href="enumeration">enumerations</a> are defined by the keyword <code>enum</code> in C but by punctuation in Pascal. </p> 
+        <p> In Pascal functions, <b>begin</b> and <b>end</b> delimit a block of statements (proper), while C functions use &quot;{&quot; and &quot;}&quot; to delimit a block of statements optionally preceded by declarations. C (prior to C99) strictly defines that any declarations must occur <i>before</i> the statements within a particular block but allows blocks to appear within blocks, which is a way to go around this. Pascal is strict that declarations must occur before statements, but allows <i>definitions</i> of types and functions - not only variable declarations - to be encapsulated by function definitions to any level of depth. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Implementation </h3> 
+       <div class="section-body"> 
+        <p> The grammars of both languages are of a similar size. From an implementation perspective the main difference between the two languages is that to <a href="Parsing">parse</a> C it is necessary to have access to a symbol table for types, while in Pascal there is only one such construct, assignment. For instance, the C fragment <code>X * Y;</code> could be a declaration of <code>Y</code> to be an object whose type is pointer to <code>X</code>, or a statement-expression that multiplies <code>X</code> and <code>Y</code>. The corresponding Pascal fragment <code><b>var</b> Y:^X;</code> is unambiguous without a symbol table. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Simple types </h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>Integers</h3> 
+       <div class="section-body"> 
+        <p> Pascal requires all variable and function declarations to specify their type explicitly. In traditional C, a type name may be omitted in most contexts and the default type <code>int</code> (which corresponds to <code><a href="integer">integer</a></code> in Pascal) is then implicitly assumed (however, such defaults are considered bad practice in C and are often flagged by warnings). </p> 
+        <p> C accommodates different sizes and <a href="Signedness">signed and unsigned</a> modes for integers by using modifiers such as <code>long</code>, <code>short</code>, <code>signed</code>, <code>unsigned</code>, etc. The exact meaning of the resulting integer type is machine-dependent, however, what <i>can</i> be guaranteed is that <code>long int</code> is no shorter than <code>int</code> and <code>int</code> is no shorter than <code>short int</code>. However, in C standard, there are at least minimal sizes of types are specified which guarantees <code>char</code> to be a single <a href="byte">byte</a> and <code>int</code> to be at least two bytes. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Subranges</h3> 
+       <div class="section-body"> 
+        <p> In Pascal, a similar end is performed by declaring a <i>subrange</i> of integer (a compiler may then choose to allocate a smaller amount of storage for the declared variable): </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> type a = 1..100; </p> 
+        <pre>    b = -20..20;
+    c = 0..100000;
+</pre> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> This subrange feature is not supported by C. </p> 
+        <p> A major, if subtle, difference between C and Pascal is how they promote integer operations. In Pascal, all operations on integers or integer subranges have the same effect, as if all of the operands were promoted to a full integer. In C, there are defined rules as to how to promote different types of integers, typically with the resultant type of an operation between two integers having a precision that is greater than or equal to the precisions of the operands. This can make machine code generated from C efficient on many processors. A highly optimizing Pascal compiler can reduce, but not eliminate, this effect under standard Pascal rules. </p> 
+        <p> The (only) pre-Standard implementation of C as well as Small-C et al. allowed integer and <a href="pointer (computer programming)">pointer</a> types to be relatively freely intermixed. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Character types </h3> 
+       <div class="section-body"> 
+        <p> In C the character type is <code>char</code> which is a kind of integer that is no longer than <code>short int</code>, . Expressions such as <code>'x'+1</code> are therefore perfectly legal, as are declarations such as <code>int i='i';</code> and <code>char c=74;</code>. </p> 
+        <p> This integer nature of <code>char</code> (an eight-bit byte on most machines) is clearly illustrated by declarations such as <span class="unknown-node">&lt;source lang=&quot;c&quot;&gt;</span> unsigned char uc = 255; /* common limit */ signed char sc = -128; /* common negative limit */ <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> Whether the <code>char</code> type should be regarded as <code>signed</code> or <code>unsigned</code> by default is up to the implementation. </p> 
+        <p> In Pascal, characters and integers are distinct types. The inbuilt compiler functions <code>ord()</code> and <code>chr()</code> can be used to typecast single characters to the corresponding integer value of the character set in use, and vice versa. e.g. on systems using the ASCII character set <code>ord('1') = 49</code> and <code>chr(9)</code> is a TAB character. </p> 
+        <p> In addition to <code>Char</code> type, Object Pascal also has <code>WideChar</code> to represent Unicode characters. In C, this is usually implemented as a macro or <code>typedef</code> with name <code>wchar_t</code>, which is simply an alias for <code>int</code>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Boolean types </h3> 
+       <div class="section-body"> 
+        <p> In Pascal, <b><a href="Boolean datatype">boolean</a></b> is an enumerated type. The possible values of <b>boolean</b> are <b>false</b> and <b>true</b>, with false=0 and true=1, other values are undefined. For conversion to <b>integer</b>, <b>ord</b> is used: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> i := ord(b); <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> There is no standard function for <b>integer</b> to <b>boolean</b>, however, the conversion is simple in practice: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> b := boolean(i); // Will raise proper rangecheck errors for undefined values with range checks on. <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> C has binary valued relational operators (&lt;, &gt;, ==, !=, &lt;=, &gt;=) which may be regarded as <i>boolean</i> in the sense that they always give results which are either zero or one. As all tests (&amp;&amp;, ||, ?:, <b>if</b>, <b>while</b>, etc.) are performed by zero-checks, <b>false</b> is represented by zero, while <b>true</b> is represented by any other value. </p> 
+        <p> To interface with COM, Object Pascal has added <code>ByteBool</code>, <code>WordBool</code> and <code>LongBool</code> type whose size respects their prefix and that follow the C truth table. </p> 
+        <p> Free Pascal has added proper Pascal boolean types with size suffix (<code>boolean8, 16, 32, 64</code>) to interface with GLIB, that uses <code>gboolean</code>, a 32-bit boolean type with Pascal truth table. </p> 
+        <div class="section"> 
+         <h4>Bitwise operations</h4> 
+         <div class="section-body"> 
+          <p> The C programmer may sometimes use <a href="Bitwise operation">bitwise</a> <a href="Operator (programming)">operators</a> to perform boolean operations. Care needs to be taken because the semantics are different when operands make use of more than one bit to represent a value. </p> 
+          <p> Pascal has another more abstract, high level method of dealing with bitwise data, <b>sets</b>. Sets allow the programmer to set, clear, intersect, and unite bitwise data values, rather than using direct bitwise operators. Example; </p> 
+          <p> Pascal: <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> Status := Status + [StickyFlag]; // or Include(Status,StickyFlag); Status := Status - [StickyFlag]; // or Exclude(Status,StickyFlag); if (StickyFlag in Status) then ... <span class="unknown-node">&lt;/source&gt;</span> </p> 
+          <pre>     
+</pre> 
+          <p> C: <span class="unknown-node">&lt;source lang=&quot;c&quot;&gt;</span> Status |= StickyFlag; Status &amp;= ~StickyFlag; if (Status &amp; StickyFlag) { ... <span class="unknown-node">&lt;/source&gt;</span> </p> 
+          <p> Although bit operations on integers and operations on sets can be considered similar if the sets are implemented using bits, there is no direct parallel between their uses unless a non-standard conversion between integers and sets is possible. </p> 
+          <p> Pascal could also do bitwise operations exactly the same way as C through the use of <code>and</code>, <code>or</code>, <code>not</code> and <code>xor</code> operators. These operators normally work on booleans, but when the operands are integers, they behave as bitwise operators. This is made possible by boolean and integer being distinct incompatible types. Therefore, the C code above could be written in Pascal as: </p> 
+          <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> Status := Status or StickyFlag; Status := Status and not StickyFlag; if Status and StickyFlag &lt;&gt; 0 then ... <span class="unknown-node">&lt;/source&gt;</span> </p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Advanced Types </h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3> String type </h3> 
+       <div class="section-body"> 
+        <p> In C, string remains as pointer to the first element of a <b>null</b> terminated array of char, as it was in 1972. One still has to use library support from <code>&lt;string.h&gt;</code> to manipulate strings. </p> 
+        <p> Object Pascal has many string types because when a new type is introduced, the old one is kept for backwards compatibility. This happened twice, once with Delphi 2 (introduction of ansistring) and Delphi 2009 (Unicodestring). Besides the main stringtypes (short-,ansi-,wide-,unicodestring) and the corresponding character types (ansichar,widechar=unicodechar), all types derived from the character type have some string properties too (pointer to char, array of char, dynamic array of char, pointer to array of char etc.). </p> 
+        <p> In Object Pascal, <code>string</code> is a compiler managed type and is reference-counted (if it has to be). i.e., its storage management is handled by the compiler (or more accurately, by the code injected by the compiler in the executable). String concatenation is done with <code>+</code> operator, and string comparison could be done with standard relational operators (case sensitive): <code>&lt; &lt;= = &lt;&gt; &gt;= &gt;</code>. </p> 
+        <p> Object Pascal also provides C-compatible strings under the type <code>PAnsiChar</code>, with manipulation routines defined in <code>Strings</code> unit. Moreover, Object Pascal provides a wide variety of string types: </p> 
+        <ul> 
+         <li> <code>ShortString</code>, which internally is an <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span>array [0 .. N] of Char;<span class="unknown-node">&lt;/source&gt;</span> with N as the maximum number of characters that can be stored and the 0th index contains the string length. Maximally 255 characters could be stored in a <code>ShortString</code>, this is because the upper limit of an unsigned byte is 255 and the container array is defined to have maximally 255 characters data (remember that 0th index contains the string length). N is given at either type definition or variable declaration (see example below)</li> 
+         <li> <code>AnsiString</code>, dynamic unlimited length and reference counted version of <code>ShortString</code>. Since Delphi 2009 it has a field that signals the encoding of the contents.</li> 
+         <li> <code>WideString</code>, on Windows(win32/64/ce) compatible to COM BSTR, UCS2/UTF16 refcounted by COM. On non Windows equal to Unicodestring.</li> 
+         <li> <code>UnicodeString</code>, like <code>WideString</code>, but encoded in UTF-16 </li> 
+        </ul> 
+        <p> For convenience, plain <code>String</code> type is provided, which depending on compiler switch could mean <code>ShortString</code>, <code>AnsiString</code> or even <code>UnicodeString</code>. An additional convention used, if a number of characters limit is given, it's a <code>ShortString</code>, otherwise it's the other. </p> 
+        <p> It's free to intermix <code>Short-</code> and <code>Ansi-</code> Strings when manipulating strings, the compiler will do silent conversion when required. </p> 
+        <p> Example: <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> type </p> 
+        <pre> TString80 = String[80];
+</pre> 
+        <p> var </p> 
+        <pre> ss  : ShortString;
+ s80 : String[80]; // declare a (short-)string of maximum length 80
+ s80t: TString80; // same as above
+ as  : AnsiString;
+ s   : String; // could mean String[255], AnsiString or UnicodeString
+</pre> 
+        <p> begin </p> 
+        <pre> ss := as + s80; // YES, this is possible and conversion is done transparently by the compiler
+</pre> 
+        <p> end; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Array type </h3> 
+       <div class="section-body"> 
+        <div class="section"> 
+         <h4> Static array </h4> 
+         <div class="section-body"> 
+          <p> In C, there's no real concept of array. There's only a pseudo construct to declare storage for multiple variables of the same type. Arrays in C don't know their own length, and they're referred through the pointer to the first element, which is why they're always 0 based. Example: </p> 
+          <p> <span class="unknown-node">&lt;source lang=&quot;c&quot;&gt;</span> // declare int &quot;array&quot; named a of length 10 int a[10]; // print the first element, or more precisely element at address hold by a + 0 printf(&quot;%d&quot;,a[0]); // print the second element, or more precisely element at address hold by a + 1 printf(&quot;%d&quot;,a[1]); // pass array to a function, or more precisely pass the pointer to the first element somefunction(a); // same as above somefunction(&amp;a[0]); <span class="unknown-node">&lt;/source&gt;</span> </p> 
+          <p> To get array length, one has to calculate <code>sizeof(&lt;array_variable&gt;) / sizeof(&lt;base_type&gt;)</code>. Therefore, to count the length of an integer array, use: <code>sizeof(intarr) / sizeof(int)</code>. It's a common mistake to calculate this in a function expecting array as argument. Despite of its look, functions can only accept pointer as argument, not the real array. Therefore, inside the function, the array is treated as plain pointer. Example: </p> 
+          <p> <span class="unknown-node">&lt;source lang=&quot;c&quot;&gt;</span> // This function does NOT accept array, but a pointer to int // Semantically, it's the same as: int *a void func(int a[]) { </p> 
+          <pre> // WRONG! Would return sizeof(pointer) / sizeof(int)
+ int len = sizeof(a) / sizeof(int);
+</pre> 
+          <p> } </p> 
+          <p> int main() { </p> 
+          <pre> int a[5];
+ // correct, would return 5
+ int len = sizeof(a) / sizeof(int);
+ func(a);
+ return 0;
+</pre> 
+          <p> } <span class="unknown-node">&lt;/source&gt;</span> </p> 
+          <p> A common solution to the problem above is to always pass array length as function argument, and functions that expect array argument should also provide placeholder its length. </p> 
+          <p> Despite of its treatment as pointer, not all pointer style constructs could be used to array. For example, this code would compile fine but would cause access violation when executed: </p> 
+          <p> <span class="unknown-node">&lt;source lang=&quot;c&quot;&gt;</span> void func(int *a) { </p> 
+          <pre> // RUNTIME ERROR! a is allocated statically
+ a = (int*) malloc(sizeof(int) * 10);
+</pre> 
+          <p> } </p> 
+          <p> int main() { </p> 
+          <pre> int a[5];
+ func(a);
+</pre> 
+          <p> } <span class="unknown-node">&lt;/source&gt;</span> </p> 
+          <p> Care should be taken when designing such code, and documentation should explicitly state this to help users from doing such mistake. </p> 
+          <p> Assignment between static arrays isn't allowed and one must use <code>memcpy</code> function and its variants to copy data between arrays. </p> 
+          <p> In Pascal, arrays are declared using the <code>array</code> keyword, specifying its lower and upper bound, and its base type. For example: </p> 
+          <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> type </p> 
+          <pre> T10IntegerArray = array [1 .. 10] of Integer;
+ TNegativeLowerBoundArray = array [-5 .. 5] of Integer;
+</pre> 
+          <p> var </p> 
+          <pre> IntegerArray: T10IntegerArray;
+ NegArray: TNegativeLowerBoundArray;
+</pre> 
+          <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+          <p> Arrays know their upper and lower bound (and implicitly length), and it's passed along when a function expects array as argument. The functions <code>Low()</code>, <code>High()</code> and <code>Length()</code> retrieve lower bound, upper bound and array length, respectively, in any context. </p> 
+          <p> Without an explicit cast, arrays can't and won't be converted to pointer and is a compile time error. This is a property of type safe programming. </p> 
+          <p> Assignment between static arrays is allowed. The assignment would copy all items from the source array to destination. It's mandatory that the upper and lower bound is compatible between source and destination. If somehow they're different, then one can use <code>Move</code> to copy data partially. However, since <code>Move</code> is a low level function, one must use it with care. It's the programmer's responsibility to ensure that data movement exceeds neither destination nor source boundary. Example: </p> 
+          <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> type </p> 
+          <pre> TArray1 = array [1 .. 10] of Integer;
+ TArray2 = array [1 .. 5] of Integer;
+</pre> 
+          <p> var </p> 
+          <pre> a,b: TArray1;
+ c: TArray2;
+</pre> 
+          <p> begin </p> 
+          <pre> a := b; // OK
+ // Copy all elements from c to a, overwriting elements from the 1st index of a up to 1st index + Length(c)
+ Move(c,a,Length(c) * SizeOf(Integer));
+ // Copy all elements from c to a, starting at index 5 of a
+ Move(c,a[5],Length(c) * SizeOf(Integer));
+ // Copy first 5 elements from b to c
+ Move(b,c,5 * SizeOf(Integer));
+</pre> 
+          <p> end. <span class="unknown-node">&lt;/source&gt;</span> </p> 
+         </div> 
+        </div> 
+        <div class="section"> 
+         <h4> Dynamic array </h4> 
+         <div class="section-body"> 
+          <p> C has no language support for declaring and using dynamic array. However, due to its pointer dereference syntax a dynamic array could be implemented with memory management functions, usually those from <code>&lt;stdlib.h&gt;</code>. Example: </p> 
+          <p> <span class="unknown-node">&lt;source lang=&quot;c&quot;&gt;</span> int size = 10; int *a = (int*) malloc(sizeof(int) * size); // allocate dynamic array of integer with size 10 int i; </p> 
+          <p> for (i = 0; i &lt; size; i++) </p> 
+          <pre> ... // do something with a[i]
+</pre> 
+          <p> size *= 2; int *temp = realloc(a,sizeof(int) * size); // double the space, retaining the existing elements if (temp == NULL) </p> 
+          <pre> error(&quot;Not enough memory!&quot;);
+</pre> 
+          <p> a = temp; ... // do something with a free(a); // free the storage <span class="unknown-node">&lt;/source&gt;</span> As can be seen, again the length isn't maintained automatically, and reallocation should use additional variable to protect against not enough memory error. Assignment between dynamic arrays follows pointer assignment rule. </p> 
+          <p> Object Pascal provides language level support for dynamic arrays. It's declared with lower and upper bound omitted. One then must call <code>SetLength()</code> function to allocate the storage. Dynamic arrays in Object Pascal are reference counted, so one doesn't have to worry about freeing the storage. Dynamic arrays are always zero-based. The three functions <code>Low()</code>, <code>High()</code> and <code>Length()</code> would still retrieve lower bound, upper bound and array length correctly. Example: <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> type </p> 
+          <pre> TIntArray = array of Integer;
+ T2DimIntArray = array of array of Integer;
+</pre> 
+          <p> var </p> 
+          <pre> a  : TIntArray;
+ a2 : T2DimIntArray;
+ i,j: Integer;
+</pre> 
+          <p> begin </p> 
+          <pre> SetLength(a,10); // allocate 10 storage
+ for i := Low(a) to High(a) do
+   ... // do something with a[i]
+ SetLength(a2,10,10); // allocate 10 x 10 storage
+ for i := Low(a2) to High(a2) do
+   for j := Low(a2[i]) to High(a2[i]) do
+     ... // do something with a[i,j]
+</pre> 
+          <p> end; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+          <p> Assignment between dynamic arrays copies the reference of the source array to the destination. If a real copy is required, one can use <code>Copy</code> function. Example: </p> 
+          <p> <span class="unknown-node">&lt;source lang=&quot;pascal&quot;&gt;</span> type </p> 
+          <pre> TIntegerArray = array of Integer;
+</pre> 
+          <p> var </p> 
+          <pre> a,b: TIntegerArray;
+</pre> 
+          <p> begin </p> 
+          <pre> ... // initialize a and b
+ a := b; // a now points to the same array pointed by b
+ a[1] := 0; // b[1] should be 0 as well after this
+ a := Copy(b,3,5); // Copy 5 elements from b starting from index 3
+                   // a would access it from 0 to 4 however
+</pre> 
+          <p> end. <span class="unknown-node">&lt;/source&gt;</span> </p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Further reading </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> Free Pascal: Language Reference <a href="http://www.freepascal.org/docs-html/ref/ref.html">1</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Pascal programming language family}}</span> <span class="unknown-node">{{CProLang}}</span> </p> 
+      <p> <a href="Category:C programming language">Category:C programming language</a> <a href="Category:Pascal">Category:Pascal</a> <a href="Category:Pascal programming language family">Category:Pascal programming language family</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

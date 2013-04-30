@@ -1,0 +1,619 @@
+{{Multiple issues
+|out of date=February 2010
+|refimprove=February 2010
+|weasel=February 2010
+}}
+{{ProgLangCompare}}
+The computer [[programming language]]s [[C (programming language)|C]] and [[Pascal (programming language)|Pascal]] have similar times of origin, influences, and purposes. Both were used to design (and compile) their own compilers early in their lifetimes. The original Pascal definition appeared in 1969 and a first compiler in 1970. The first version of C appeared in 1972.
+
+Both are descendants of the [[ALGOL]] language series. ALGOL introduced [[structured programming]], where programs are constructed of single entry and single exit constructs such as '''if''', '''while''', '''for''' and '''case'''. Pascal stems directly from [[ALGOL W]], while it shared some new ideas with [[ALGOL 68]]. The C language is more indirectly related to ALGOL, originally through [[B (programming language)|B]], [[BCPL]], and [[CPL (programming language)|CPL]], and later through ALGOL 68 (for example in case of <tt>struct</tt> and <tt>union</tt>) and also Pascal (for example in case of enumerations, <tt>const</tt>, <tt>typedef</tt> and booleans). Some Pascal dialects also incorporated traits from C.
+
+What is documented here is the Pascal of Niklaus Wirth, as standardized as ISO 7185 in 1982. The C documented is the language of Brian W. Kernighan and Dennis M. Ritchie, as standardized in 1989. The reason is that these versions both represent the mature versions of the language, and also because they are the closest in time. C99 (the later C standard) features and features of new dialects of Pascal are not included in the comparison.
+
+== Syntax ==
+[[Programming language syntax|Syntactically]], Pascal is much more ALGOL-like than [[C syntax|C]]. English keywords are retained where C uses punctuation symbols ? Pascal has <code>and</code>, <code>or</code>, and <code>mod</code> where C uses <code>&&</code>, <code>||</code>, and <code>%</code> for example. However, C is actually more ALGOL-like than Pascal regarding (simple) declarations, retaining the ''type-name'' ''variable-name'' syntax. For example, C can accept declarations at the start of any block, not just the outer block of a function.
+
+===Semicolon use===
+Another, more subtle, difference is the role of the [[semicolon]]. In Pascal semicolons ''separate'' individual statements within a compound statement whereas they ''terminate'' the statement in C. They are also syntactically part of the statement itself in C (transforming an expression into a statement). This difference manifests itself primarily in two situations:
+
+* there can never be a semicolon directly before <code>else</code> in Pascal whereas it is mandatory in C (unless a block statement is used)
+* the last statement before an <code>end</code> is not required to be followed by a semicolon
+
+A superfluous semicolon can be put on the last line before '''end''', thereby formally inserting an ''empty statement''.
+
+===Comments===
+In traditional C, there are only <code>/* block comments */</code>. This is only supported by certain Pascal dialects like MIDletPascal.
+
+In traditional Pascal, there are <code>{ ''block comments'' }</code> and <code>(* ''block comments'' *)</code>.
+Modern Pascal, like Object Pascal (Delphi, FPC), as well as modern C implementations allow C++ style comments <code>// comments</code>
+
+===Identifiers and keywords===
+C and Pascal differ in their interpretation of upper and lower case. C is case sensitive while Pascal is not, thus <code>MyLabel</code> and <code>mylabel</code> are distinct names in C but identical in Pascal. In both languages, identifiers consist of letters and digits, with the rule that the first character may not be a digit. In C, the underscore counts as a letter, so even _abc is a valid name. Names with a leading underscore are often used to differentiate special system identifiers in C.
+
+Both C and Pascal use [[keyword (computer programming)|keyword]]s (words reserved for use by the language itself). Examples are '''if''', '''while''', '''const''', '''for''' and '''goto''', which are keywords that happen to be common to both languages. In C, the basic built-in type names are also keywords (e.g. '''int''', '''char''') or combinations of keywords (e.g. '''unsigned char'''), while in Pascal the built-in type names are predefined normal identifiers.
+
+===Definitions, declarations, and blocks===
+In Pascal, [[subroutine|procedure]] definitions start with keywords '''procedure''' or '''function''' and [[type (computer science)|type definitions]] with '''type'''. In C, function definitions are determined by syntactical context while type definitions use the keyword <code>typedef</code>. Both languages use a mix of keywords and punctuation for definitions of complex types; for instance, arrays are defined by the keyword '''array''' in Pascal and by punctuation in C, while [[enumeration]]s are defined by the keyword <code>enum</code> in C but by punctuation in Pascal.
+
+In Pascal functions, '''begin''' and '''end''' delimit a block of statements (proper), while C functions use "{" and "}" to delimit a block of statements optionally preceded by declarations. C (before C99) strictly defines that any declarations must occur ''before'' the statements within a particular block but allows blocks to appear within blocks, which is a way to go around this. Pascal is strict that declarations must occur before statements, but allows ''definitions'' of types and functions - not only variable declarations - to be encapsulated by function definitions to any level of depth.
+
+=== Implementation ===
+The grammars of both languages are of a similar size.  From an implementation perspective the main difference between the two languages is that to [[parsing|parse]] C it is necessary to have access to a symbol table for types, while in Pascal there is only one such construct, assignment.  For instance, the C fragment <code>X * Y;</code> could be a declaration of <code>Y</code> to be an object whose type is pointer to <code>X</code>, or a statement-expression that multiplies <code>X</code> and <code>Y</code>. The corresponding Pascal fragment <code>'''var''' Y:^X;</code> is unambiguous without a symbol table.
+
+== Simple types ==
+===Integers===
+Pascal requires all variable and function declarations to specify their type explicitly. In traditional C, a type name may be omitted in most contexts and the default type <code>int</code> (which corresponds to <code>[[integer]]</code> in Pascal) is then implicitly assumed (however, such defaults are considered bad practice in C and are often flagged by warnings).
+
+C accommodates different sizes and [[signedness|signed and unsigned]] modes for integers by using modifiers such as <code>long</code>, <code>short</code>, <code>signed</code>, <code>unsigned</code>, etc. The exact meaning of the resulting integer type is machine-dependent, however, what ''can'' be guaranteed is that <code> int </code> is at least 16 bits, <code>long int</code> is no shorter than <code>int</code> and <code>short int</code> is no longer than <code>int</code>.
+
+===Subranges===
+In Pascal, a similar end is performed by declaring a ''subrange'' of integer (a compiler may then choose to allocate a smaller amount of storage for the declared variable):
+
+<syntaxhighlight lang="pascal">
+type a = 1..100;
+     b = -20..20;
+     c = 0..100000;
+</syntaxhighlight>
+
+This subrange feature is not supported by C.
+
+A major, if subtle, difference between C and Pascal is how they promote integer operations. In Pascal, the result of an operation is defined for all integer/subrange types, even if intermediate results do not fit into an integer. The result is undefined only if it does not fit into the integer/subrange on the left hand side of the assignment. This may imply an artificial restriction on the range of integer types, or may require slow execution to handle the intermediate results: However, the compiler may take advantage of restricted subranges to produce more efficient code.  
+
+In C, operands must first be promoted to the size of the required result: intermediate results are undefined if they do not fit into the range of the promoted operands. If range of the required result is greater than the range of operands, this normally produces slow inefficient code, even from a good optimising compiler. However, a C compiler is never required or expected to handle out of range intermediate results: it is the programmers responsibility to ensure that all intermediate results fit into the operand range.
+
+The (only) pre-Standard implementation of C as well as Small-C et al. allowed integer and [[pointer (computer programming)|pointer]] types to be relatively freely intermixed.
+
+=== Character types ===
+In C the character type is <code>char</code> which is a kind of integer that is no longer than <code>short int</code>, . Expressions such as <code>'x'+1</code> are therefore perfectly legal, as are declarations such as <code>int i='i';</code> and <code>char c=74;</code>.
+
+This integer nature of <code>char</code> (one byte) is clearly illustrated by declarations such as
+<syntaxhighlight lang="c">
+unsigned char uc = 255;  /* common limit */
+signed char sc = -128;   /* common negative limit */
+</syntaxhighlight>
+
+Whether the <code>char</code> type should be regarded as <code>signed</code> or <code>unsigned</code> by default is up to the implementation.
+
+In Pascal, characters and integers are distinct types. The inbuilt compiler functions <code>ord()</code> and <code>chr()</code> can be used to typecast single characters to the corresponding integer value of the character set in use, and vice versa. e.g. on systems using the ASCII character set <code>ord('1') = 49</code> and <code>chr(9)</code> is a TAB character.
+
+=== Boolean types ===
+In Pascal, '''[[Boolean datatype|boolean]]''' is an enumerated type. The possible values of '''boolean''' are '''false''' and '''true'''. For conversion to '''integer''', '''ord''' is used:
+
+<syntaxhighlight lang="pascal">
+i := ord(b);
+</syntaxhighlight>
+
+There is no standard function for '''integer''' to '''boolean''', however, the conversion is simple in practice:
+
+<syntaxhighlight lang="pascal">
+b := i <> 0;
+</syntaxhighlight>
+
+C has binary valued relational operators (<, >, ==, !=, <=, >=) which may be regarded as ''boolean'' in the sense that they always give results which are either zero or one. As all tests (&&, ||, ?:, '''if''', '''while''', etc.) are performed by zero-checks, '''false''' is represented by zero, while '''true''' is represented by any other value.
+
+====Bitwise operations====
+C allows using [[bitwise operation|bitwise]] [[operator (programming)|operators]] to perform boolean operations. Care must be taken because the semantics are different when operands make use of more than one bit to represent a value.
+
+Pascal has another more abstract, high level method of dealing with bitwise data, '''sets'''.  Sets allow the programmer to set, clear, intersect, and unite bitwise data values, rather than using direct bitwise operators (which are available in modern Pascal as well).  Example;
+
+Pascal:  
+<syntaxhighlight lang="pascal">
+Status := Status + [StickyFlag];
+Status := Status - [StickyFlag];
+if (StickyFlag in Status) then ...
+</syntaxhighlight>
+
+or
+
+Pascal:  
+<syntaxhighlight lang="pascal">
+Status := Status or StickyFlag;
+Status := Status and not StickyFlag;
+if StickyFlag and Status = StickyFlag then ...
+</syntaxhighlight>
+
+      
+C:  
+<syntaxhighlight lang="c">
+Status |= StickyFlag;
+Status &= ~StickyFlag;
+if (Status & StickyFlag) { ...
+</syntaxhighlight>
+
+Although bit operations on integers and operations on sets can be considered similar if the sets are implemented using bits, there is no direct parallel between their uses unless a non-standard conversion between integers and sets is possible.
+
+====A note on implementation====
+During expression evaluation, and in ''both languages'', a boolean value may be internally stored as a single bit, a single byte, a full machine word, a position in the generated code, or as a condition code in a status register, depending on machine, compiler, and situation; these factors are usually more important than the language compiled.
+
+=== Floating point types ===
+C has a less strict model of [[floating point]] types than Pascal. In C, integers may be implicitly converted to floating point numbers, and vice versa (though possible precision loss may be flagged by warnings). In Pascal, integers may be implicitly converted to <code>real</code>, but conversion of <code>real</code> to <code>integer</code> (where information may be lost) must be done explicitly via the functions <code>trunc()</code> and <code>round()</code>, which [[truncation|truncate]] or [[rounding|round]] off the fraction, respectively.
+
+=== Enumeration types ===
+Both C and Pascal include enumeration types.  A Pascal example:
+
+<syntaxhighlight lang="pascal">
+type
+  color = (red, green, blue);
+var
+  a: color;
+</syntaxhighlight>
+
+A C example:
+
+<syntaxhighlight lang="c">
+enum color {red, green, blue};
+enum color a;
+</syntaxhighlight>
+
+The behavior of the types in the two languages however is very different.  In C, <code>red</code> becomes just a synonym for 0, <code>green</code> for 1, <code>blue</code> for 2, and nothing prevents a value outside this range to be assigned to the variable <code>a</code>.  Furthermore, operations like <code>a = a + 1;</code> are strictly forbidden in Pascal; instead you would use <code>a := succ(a);</code>. In C, enums can be freely converted to and from ints, but in Pascal, the function ord() must be used to convert from enumerated types to integers, and there is no function to convert from integer to enumerated types.
+
+==Structured types==
+=== Array types ===
+Both C and Pascal allow [[array data type|array]]s of other complex types, including other arrays. However, there the similarity between the languages ends. C arrays are simply defined by a base type and the number of elements:
+<syntaxhighlight lang="c">
+int a[SIZE];
+</syntaxhighlight>
+and are always indexed from 0 up to SIZE-1 (i.e. modulo SIZE).
+
+In Pascal, the range of indices is often specified by a subrange (as introduced under simple types above). The ten elements of
+<syntaxhighlight lang="pascal">var a : array[0..9] of integer;</syntaxhighlight>
+would be indexed by 0..9 (just as in C in this case). Array indices can be any [[ordinal data type]], however, not just ranges:
+<syntaxhighlight lang="pascal">
+type
+   TColor = (red, green, blue);       (* enumeration *)
+   RGB = array[TColor] of 0..255;
+
+var picture : array[1..640, 1..480] of RGB
+
+var palette : array[byte, 0..2] of byte
+</syntaxhighlight>
+Strings consisting of n (>1) characters are defined as packed arrays with range 1..n.
+
+====Arrays and pointers====
+In C expressions, an identifier representing an array is treated as a constant pointer to the first element of the array, thus, given the declarations <code>int a[10]</code> and <code>int *p;</code> the assignment <code>p = a</code> is valid and causes p and a to point to the same array. As the identifier <code>a</code> represents a ''constant'' address, <code>a = p</code> is not valid however.
+
+While arrays in C are fixed, pointers to them are interchangeable. This flexibility allows C to manipulate any length array using the same code. It also leaves the programmer with the responsibility not to write outside the allocated array, as no checks are built in into the language itself.
+
+In Pascal, arrays are a distinct type from pointers. This makes [[bounds checking]] for arrays possible from a compiler perspective. Practically all Pascal compilers support range checking as a compile ''option''. 
+The ability to both have arrays that change length at runtime, and be able to check them under language control, is often termed "dynamic arrays". In Pascal the number of elements in each array type is determined at compile-time and cannot be changed during the execution of the program. Hence, it is not possible to define an array whose length depends in any way on program data.
+
+C has the ability to initialize arrays of arbitrary length. The <code>[[sizeof]]</code> operator can be used to obtain the size of a statically initialized array in C code.  For instance in the following code, the terminating index for the loop automatically adjusts should the list of strings be changed.  
+
+<syntaxhighlight lang="c">
+static char *wordlist[] = {
+  "print",   "out",   "the",  "text",   "message" };
+static int listSize = (sizeof(wordlist)/sizeof(wordlist[0]));
+int i;
+
+for (i=0; i<listSize; i++)
+  puts(wordlist[i]);
+for (i=listSize-1; i>=0; i--)
+  puts(wordlist[i]);
+</syntaxhighlight>
+
+Pascal has neither array initialization (outside of the case of strings) nor a means of determining arbitrary array sizes at compile time. 
+
+One way of implementing the above example in Pascal, but without the automatic size adjustment, is: 
+
+<syntaxhighlight lang="pascal">
+const
+  minlist = 1;
+  maxlist = 5;
+  maxword = 7;
+
+type
+  listrange = minlist .. maxlist;
+  wordrange = 1..maxword;
+  word = record
+    contents: packed array [wordrange] of char;
+    length: wordrange
+  end;
+  wordlist = array[listrange] of word;
+var
+  i: integer;
+  words: wordlist;
+
+procedure CreateList(var w: wordlist);
+begin
+  w[1].contents := 'print  ';
+  w[1].length := 5;
+  w[2].contents := 'out    ';
+  w[2].length := 3;
+  w[3].contents := 'the    ';
+  w[3].length := 3;
+  w[4].contents := 'text   ';
+  w[4].length := 4;
+  w[5].contents := 'message';
+  w[5].length := 7;
+end;
+
+begin
+  CreateList(words);
+  for i := minlist to maxlist do
+    with words[i] do
+      WriteLn(contents: length);
+  for i := maxlist downto minlist do
+    with words[i] do
+      WriteLn(contents: length)
+end.
+</syntaxhighlight>
+
+=== Strings ===
+{{Unreferenced section|date=February 2010}}
+String are in both languages are primitive arrays of characters. 
+
+In Pascal a string literal of length n is compatible with the type <code>packed array [1..n] of char</code>. In C a string generally has the type <code>char[n]</code>.
+
+Pascal suffers from a problem in that it has no support for variable-length arrays, and so any set of routines to perform string operations is dependent on a particular string size. However, the now standardized Pascal "conformant array parameter" extension solves this to a great extent, and many or even most implementations of Pascal have support for strings native to the language.
+
+C automatically terminates string literals with a trailing null character as an end-of-string "sentinel":
+<syntaxhighlight lang="c">
+const char *p;
+p = "the rain in Spain";     /* null-terminated */
+</syntaxhighlight>
+Null-termination must be manually maintained for string variables stored in arrays (this is often partly handled by library routines).
+
+C does not have built-in string or array assignment, so the string is not actually being transferred to p, but rather p is being made to point to the constant string in memory.
+
+=== Record types ===
+Both C and Pascal can declare "[[Object composition|record]]" types. In C, they are termed "structures".
+<syntaxhighlight lang="c">
+struct a {
+   int b;
+   char c;
+};
+</syntaxhighlight>
+<syntaxhighlight lang="pascal">
+type a = record 
+   b: integer;
+   c: char;
+end;
+</syntaxhighlight>
+In C, the exact bit length of a field can be specified:
+<syntaxhighlight lang="c">
+struct a {
+   unsigned int b:3;
+   unsigned int c:1;
+};
+</syntaxhighlight>
+How much storage is actually used depends on traits (e.g. word-alignment) of the target system.
+
+This feature is available in Pascal by using the subrange construct (3 bits gives a range from 0 to 7) in association with the keyword '''packed''':
+<syntaxhighlight lang="pascal">
+type a = packed record
+   b: 0..7;
+   c: 0..1;
+end;
+</syntaxhighlight>
+Both C and Pascal support records which can include different fields overlapping each other:
+<syntaxhighlight lang="c">
+union a {
+   int a;
+   float b;
+};
+</syntaxhighlight>
+<syntaxhighlight lang="pascal">
+type a = record
+   case boolean of
+      false: (a: integer);
+      true:  (b: real)
+end;
+</syntaxhighlight>
+Both language processors are free to allocate only as much space for these records as needed to contain the largest type in the union/record.
+
+The biggest difference between C and Pascal is that Pascal supports the [[Tagged union|explicit use of a "tagfield"]] for the language processor to determine if the valid component of the variant record is being accessed:
+<syntaxhighlight lang="pascal">
+type a = record
+   case q: boolean of
+      false: (a: integer);
+      true:  (b: real)
+end;
+</syntaxhighlight>
+In this case, the tagfield q must be set to the right state to access the proper parts of the record.
+
+== Pointers ==
+In C, pointers can be made to point at most program entities, including objects or functions:
+
+<syntaxhighlight lang="c">
+int a;
+int *b;
+int (*compare)(int c, int d);
+int  MyCompare(int c, int d);
+ 
+b = &a;
+compare = &MyCompare;
+</syntaxhighlight>
+
+In C, since arrays and pointers have a close equivalence, the following are the same:
+
+<syntaxhighlight lang="c">
+a = b[5];
+a = *(b+5);
+a = *(5+b);
+a = 5[b];
+</syntaxhighlight>
+
+Thus, pointers are often used in C as just another method to access arrays.
+
+To create dynamic data, the library functions <code>malloc()</code> and <code>free()</code> are used to obtain and release dynamic blocks of data. Thus, [[dynamic memory allocation]] is not built into the language processor. This is especially valuable when C is being used in operating system kernels or embedded targets as these things are very platform (not just architecture) specific and would require changing the C compiler for each platform (or operating system) that it would be used on.
+
+Pascal doesn't have the same kind of pointers as C, but it does have an indirection operator that covers the most common use of C pointers. Each pointer is bound to a single dynamic data item, and can only be moved by assignment:
+
+<syntaxhighlight lang="pascal">
+type a = ^integer;
+ 
+var b, c: a;
+ 
+new(b);
+c := b;
+</syntaxhighlight>
+
+Pointers in Pascal are type safe; i.e. a pointer to one data type can only be assigned to a pointer of the same data type. Also pointers can never be assigned to non-pointer variables. Pointer arithmetic (a common source of programming errors in C, especially when combined with [[endianness]] issues and platform-independent type sizes) is not permitted in Pascal.
+All of these restrictions reduce the possibility of pointer-related errors in Pascal compared to C, but do not prevent invalid pointer references in Pascal altogether. For example, a runtime error will occur if a pointer is referenced before it has been initialized or after it has been disposed.
+
+==Expressions==
+===Precedence levels===
+The languages differ significantly when it comes to expression evaluation, but all-in-all they are comparable.
+
+''Pascal''
+#''Logical negation:'' <code>'''not'''</code>
+#''Multiplicative:'' <code>'''* / div mod and'''</code>
+#''Additive:'' <code>'''+ - or'''</code>
+#''Relational:'' <code>'''= <> < > <= >= in'''</code>
+
+''C''
+#''Unary postfix:'' <code>'''[] () . -> ++ --'''</code>
+#''Unary prefix:'' <code>'''& * + - ! ~ ++ -- (type) sizeof'''</code>
+#''Multiplicative:'' <code>'''* / %'''</code>
+#''Additive:'' <code>'''+ -'''</code>
+#''Shift:'' <code>'''<< >>'''</code>
+#''Relational:'' <code>'''< > <= >='''</code>
+#''Equality:'' <code>'''== !='''</code>
+#''Bitwise and:'' <code>'''&'''</code>
+#''Bitwise xor:'' <code>'''^'''</code>
+#''Bitwise or:'' <code>'''|'''</code>
+#''Logical and:'' <code>'''&&'''</code>
+#''Logical or:'' <code>'''||'''</code>
+#''Conditional:'' <code>'''? :'''</code>
+#''Assignment:'' <code>'''= += -= *= /= %= <<= >>= &= ^= |='''</code>
+#''Comma operator'':  <code>''','''</code>
+
+===Typing===
+Most operators serve several purposes in Pascal, for instance, the minus sign may be used for negation, subtraction, or set difference (depending on both type and syntactical context), the <code>&gt;=</code> operator may be used to compare numbers, strings, or sets, and so on. C uses dedicated operator symbols to a greater extent.
+
+==== Assignment and equality tests ====
+The two languages use different operators for assignment. Pascal, like [[ALGOL]], uses the mathematical equality operator for equality test and the symbol <code>:=</code> for assignment, whereas C, like [[B (programming language)|B]] uses the mathematical equality operator for assignment. In C (and B) the new <code>==</code> symbol was therefore introduced for equality test.
+
+It is a common mistake, either due to inexperience or a simple typing error, to accidentally put assignment expressions in conditional statements such as <code>if (a = 10) { ... }</code>. The code in braces will always execute because the assignment expression <code>a = 10</code> has the value 10 ? 0 and is therefore considered "true" in C. Also note that <code>a</code> now has the value <code>10</code>, which may affect the following code. Recent C compilers try to detect these cases and warn the user, asking for a less ambiguous syntax like <code>if ((a=10) != 0 ) { ... }</code>. This kind of mistake cannot happen in Pascal, as assignments are not expressions; using the wrong operator will cause a compile error (and it's not likely that anyone would mistake the <code>:=</code> symbol for equality test).
+
+===Implementation issues===
+When [[Niklaus Wirth]] designed Pascal, the desire was to limit the number of levels of precedence (fewer parse routines, after all). So the OR and exclusive OR operators are treated just like an Addop and processed at the level of a math  expression. Similarly, the AND is treated like a Mulop and processed with Term. The precedence levels are
+<pre>
+          Level   Syntax Element     Operator
+
+          0       factor             literal, variable
+          1       signed factor      unary minus, NOT
+          2       term               *, /, AND
+          3       expression         +, -, OR
+</pre>          
+Notice that there is only ONE set of syntax rules, applying to both kinds of operators. According to this grammar, then, expressions like
+<pre>
+     x + (y AND NOT z) DIV 3
+</pre>
+are perfectly legal. And, in fact, they are, as far as the parser is concerned. Pascal doesn't allow the mixing of arithmetic and Boolean variables, and things like this are caught at the semantic level, when it comes time to generate code for them, rather than at the syntax level.
+
+The authors of C took a diametrically opposite approach: they treat the operators as different, and have something much more akin to our seven levels of precedence. In fact, in C there are no fewer than 15 levels. That's because C also has the operators '=', '+=' and its kin, '<<', '>>', '++', '--', etc. Although in C the arithmetic and Boolean operators are treated separately, the variables are not: a Boolean test can be made on any integer value. A strange consequence of this grammar is that every expression is potentially a Boolean expression.
+
+====Logical connectives====
+In Pascal a ''boolean'' expression that relies on a particular evaluation ordering (possibly via side-effects in function calls) is, more or less, regarded as an error. The Pascal compiler has the freedom to use whatever ordering it may prefer and must always evaluate the whole expression even if the result can be determined by partial evaluation.
+
+In C, dependence on ''boolean'' evaluation order is perfectly legal, and often systematically employed using the <code>&&</code> and <code>||</code> operators together with operators such as <code>++</code>, <code>+=<code>, the comma operator, etc.  The <code>&&</code> and <code>||</code> operators thereby function as combinations of logical operators and conditional ''statements''.
+
+Short circuit expression evaluation has been commonly considered an advantage for C because of the "evaluation problem":
+<syntaxhighlight lang="pascal">
+var i: integer;
+    a: packed array [1..10] of char;
+  
+  ...
+  i := 1;
+  while (i <= 10) and (a[i] <> 'x') do i := i+1;
+  ...
+</syntaxhighlight>
+This seemingly straightforward search is problematic in Pascal because the array access a[i] would be invalid for i equal to 11. 
+
+However, in superscalar processors there is a penalty for all jumps because they cause pipeline stalls, and programs created for them are more efficient if jumps are removed where possible. Pascal's ability to evaluate using a fixed formula without jumps can be an advantage with highly optimizing compilers, whereas C has effectively prevented this by requiring short circuit optimization.
+
+== Control structures ==
+Statements for building control structures are roughly analogous and relatively similar (at least the first three).
+
+''Pascal has:''
+*'''if''' ''cond'' '''then''' ''stmt'' '''else''' ''stmt''
+*'''while''' ''cond'' '''do''' ''stmt''
+*'''repeat''' ''stmt'' '''until''' ''cond''
+*'''for''' ''id'' := ''expr'' '''to''' ''expr'' '''do''' ''stmt'' and '''for''' ''id'' := ''expr'' '''downto''' ''expr'' '''do''' ''stmt''
+*'''case''' ''expr'' '''of''' ''expr'' ''':''' ''stmt''; ... ''expr'' ''':''' ''stmt''; '''else:''' ''stmt''; '''end'''
+
+''C has:''
+*'''if''' (''cond'') ''stmt'' '''else''' ''stmt''
+*'''while''' (''cond'') ''stmt''
+*'''do''' ''stmt'' '''while''' (''cond'')
+*'''for''' (''expr''; ''cond''; ''expr'') ''stmt''
+*'''switch''' (''expr'') { '''case''' ''expr'' ''':''' ''stmt''; ... '''case''' ''expr'' ''':''' ''stmt''; '''default:''' ''stmt'' }
+
+Pascal, in its original form, did not have an equivalent to '''default''', but an equivalent '''else''' clause is a common extension. Pascal programmers otherwise had to guard case-statements with an expression such as:  '''if''' ''expr'' '''not''' '''in''' [A..B] '''then''' ''default-case''.
+
+C has the so-called early-out statements '''break''' and '''continue''', and some Pascals have them as well. There is controversy about whether the inclusion of these statements is in keeping with structured programming methodology. The best that can be said about this is that the use of break and continue may make programming easier, but there is no case where they cannot be replaced by "orthodox" structured programming constructs.
+
+Both C and Pascal have a '''goto''' statement. However, since Pascal has nested procedures/functions, jumps can be done from an inner procedure or function to the containing one; this was commonly used to implement error recovery. C has this ability via the ANSI C [[setjmp/longjmp|setjmp and longjmp]]. This is equivalent, but arguably less safe, since it stores program specific information like jump addresses and stack frames in a programmer accessible structure.
+
+== Functions, procedures ==
+Pascal routines that return a value are called functions; routines that don't return a value are called procedures. All routines in C are called functions; C functions that do not return a value are declared with a return type of ''[[void type|void]]''.
+
+Pascal procedures are considered equivalent to C "void" functions, and Pascal functions are equivalent to C functions that return a value.
+
+The following two declarations in C:
+<syntaxhighlight lang="c">
+int f(int x, int y);
+void k(int q);
+</syntaxhighlight>
+
+are equivalent to the following declarations in Pascal:
+<syntaxhighlight lang="pascal">
+function f(x, y: integer): integer;
+procedure k(q: integer);
+</syntaxhighlight>
+
+Pascal has two different types of parameters: pass-by-value, and pass-by-reference (VAR).
+<syntaxhighlight lang="pascal">
+function f(var k: integer): integer;
+x := f(t);
+</syntaxhighlight>
+
+In C all parameters are passed by value but pass-by-reference can be simulated using pointers. The following segment is similar to the Pascal segment above:
+
+<syntaxhighlight lang="c">
+int f(int *k); //function accepts a pointer as parameter
+x = f(&t);
+</syntaxhighlight>
+
+C allows for functions to accept a variable number of parameters, known as [[variadic function]]s.
+
+<syntaxhighlight lang="c">
+int f(int a, ...);
+f(1, 2, 3, 4, 5);
+</syntaxhighlight>
+
+The function <code>f()</code> uses a special set of functions that allow it to access each of the parameters in turn.  This set of functions was undefined in original C, but was defined in ANSI C.
+
+Additionally Pascal has I/O statements built into the language to handle variable amount of parameters, like <code>Writeln</code>.  Pascal allows procedures and functions to be [[nested function|nested]]. This is convenient to allow variables that are local to a group of procedures, but not global. C does not have this feature and the localization of variables or functions could only be done for a compilation module wherein the variables or functions would have been declared '''static'''.
+
+C allows functions to be indirectly invoked through a function pointer.  In the following example, the statement <code>(*cmpar)(s1, s2)</code> is equivalent to <code>strcmp(s1, s2)</code>:
+
+<syntaxhighlight lang="c">
+#include <string.h>
+
+int (*cmpar)(const char *a, const char *b);
+const char *s1 = "hello";
+const char *s2 = "world";
+
+cmpar = &strcmp;
+b = (*cmpar)(s1, s2);
+</syntaxhighlight>
+
+Though, in this example, it would be wiser to use preprocessor statements to accomplish similar ends (unless <code>cmpar</code> was set based upon run-time conditions, which cannot be handled by the preprocessor).
+
+Pascal also allows functions and procedures to be passed as parameters to functions or procedures:
+<syntaxhighlight lang="pascal">
+
+procedure ShowHex(i: integer);
+...
+end;
+
+procedure ShowInt(i: integer);
+...
+end;
+
+procedure Demo(procedure Show(i: integer));
+var j: integer;
+begin
+  Show(j)
+end;
+
+...
+  Demo(ShowHex);
+  Demo(ShowInt);
+...
+  
+</syntaxhighlight>
+
+== Preprocessor ==
+Early C had neither constant declarations nor type declarations, and the C language was originally defined as needing a "[[preprocessor]]"; a separate program, and pass, that handled constant, include and [[Macro (computer science)|macro]] definitions, to keep memory usage down. Later, with ANSI C, it obtained constant and type definitions features and the preprocessor also became part of the language itself, leading to the syntax we see today.
+
+Pascal constant and type defines are built in, but there were programmers using a preprocessor also with Pascal (sometimes the same one used with C), certainly not as common as with C. Although often pointed out as a "lack" in Pascal, technically  C doesn't have program modularity nor macros built in either. It has a simple low level separate compilation facility, however (traditionally using the same generic linker used for assembly language), Pascal does not.
+
+== Type escapes ==
+C supports the ability to "cast" any type to another type. While some imply a conversion of some sort (truncation, promotion etc.), pointer casts allow the user to simply assume the desired type is pointed:
+<syntaxhighlight lang="c">
+int *a;
+float b;
+
+a = (int*) &b;
+</syntaxhighlight>
+The meaning of such casts is entirely machine dependent. This feature often helps with low level conversion of data. For example, a floating point value can be output to a file as a series of bytes.
+
+It may be possible to do this in Pascal using an undiscriminated variant record:
+<syntaxhighlight lang="pascal">
+var a: integer;
+    b: real;
+    a2c: record
+           case boolean of
+             false: (a: integer);
+             true:  (b: real);
+           end;
+         end;
+begin
+  a2c.b := b;
+  a := a2c.a;
+end;
+</syntaxhighlight>
+Although casting is possible on the most of Pascal compilers and interpreters, even in the code above a2c.a and a2c.b aren't required by any Pascal standardizations to share the same address space. Niklaus Wirth, the designer of Pascal, has written about the problematic nature of attempting type escapes using this approach:
+
+"Most implementors of Pascal decided that this checking would be too expensive, enlarging code and deteriorating program efficiency. As a consequence, the variant record became a favourite feature to breach the type system by all programmers in love with tricks, which usually turn into pitfalls and calamities".
+
+Several languages now specifically exclude such type escapes, for example Java, C# and Wirth's own Oberon.
+
+== Files ==
+In C files do not exist as a built-in type (they are defined in a system header) and all I/O takes place via library calls.  Pascal has file handling built into the language.
+
+The typical statements used to perform I/O in each language are:
+
+<syntaxhighlight lang="c">printf("The sum is: %d\n", x);</syntaxhighlight>
+
+<syntaxhighlight lang="pascal">writeln('The sum is: ', x);</syntaxhighlight>
+
+The main difference is that C uses a "format string" that is interpreted to find the arguments to the printf function and convert them, whereas Pascal performs that under the control of the language processor. The Pascal method is arguably faster, because no interpretation takes place, but the C method is highly extensible.
+
+== Later Pascal implementations and extensions ==
+Some popular Pascal implementations have incorporated virtually all C constructs into Pascal. Examples include type casts, being able to obtain the address of any variable, local or global, and different types of integers with special promotion properties.
+
+However, the incorporation of C's lenient attitude towards types and type conversions can result in a Pascal that loses some or all of its type security. For example, [[Java (programming language)|Java]] and [[C Sharp (programming language)|C#]] were created in part to address some of the perceived type security issues of C, and have "managed" pointers that cannot be used to create invalid references. In its original form (as described by [[Niklaus Wirth]]), Pascal qualifies as a managed pointer language, some 30 years before either Java or C#. However, a Pascal amalgamated with C would lose that protection by definition. In general, the lower dependence on pointers for basic tasks makes it safer than C in practice.
+
+The Extended Pascal standard extends Pascal to support many things C supports, which the original standard Pascal did not, in a type safer manner. For example, schema types support (besides other uses) variable-length arrays while keeping the type-safety of mandatory carrying the array dimension with the array, allowing automatic run-time checks for out-of-range indices also for dynamically sized arrays.
+
+== Epilogue ==
+C and Pascal are similar languages, if one looks at the basic program structures, data types and aims of the two languages. A major difference between the languages is the handling of type security. Pascal has a better ability to detect type-related errors at compile time, whereas C allows more flexible handling of mixed data-types when required.
+
+One of the limitations of original Pascal is the inability to specify dynamic arrays as procedure parameters, which even the creator of Pascal later agreed was not a good idea. Many years later Pascal compilers added an extension for that feature, and the ISO 7185 standard addressed it as well. 
+
+Although C was originally described as a "systems" or "low level" language, it is used for all types of applications including high level ones. Pascal, a language with an academic and educational background, did not gain long lasting support in industry in its original standardized form. However, the extended Pascal derivatives (e.g. Delphi) are in active use for all types of applications.
+
+== See also ==
+*[[C (programming language)|C]], [[C++]]
+*[[Pascal (programming language)|Pascal]], [[Object Pascal]], [[Free Pascal]], [[Embarcadero Delphi|Delphi]], [[Oxygene (programming language)|Oxygene]]
+
+==Notes==
+{{reflist}}
+
+== Further reading ==
+* [[Kathleen Jensen]] and Niklaus Wirth: ''PASCAL - User Manual and Report.'' Springer-Verlag, 1974, 1985, 1991, ISBN 3-540-97649-3  [http://www.cs.inf.ethz.ch/~wirth/books/Pascal/]
+* [[Brian Kernighan]], [[Dennis Ritchie]]: ''[[The C Programming Language (book)|The C Programming Language]]''. Also called K&R ? the original book on C.
+**1st, Prentice Hall 1978; ISBN 0-13-110163-3. Pre-ANSI C.
+**2nd, Prentice Hall 1988; ISBN 0-13-110362-8. ANSI C.
+* Niklaus Wirth: [http://portal.acm.org/citation.cfm?id=987330 ''Comment on a note on dynamic arrays in PASCAL''] 37-38, ACM SIGPLAN Notices, Volume 11, Issue 1, January 1976.
+* Niklaus Wirth: [http://portal.acm.org/citation.cfm?id=155378 ''Recollections about the Development of Pascal.''] 333-342, ACM SIGPLAN Notices, Volume 28, Issue 3, March 1993.
+* [http://www.open-std.org/JTC1/SC22/WG14/www/standards ISO/IEC 9899]. The official C:1999 standard, along with defect reports and a rationale.
+* [http://www.knosof.co.uk/ctop.ps Detailed analysis of converting C to Pascal]
+*Alan R. Feuer, Narain H. Gehani: [http://portal.acm.org/citation.cfm?id=356869.356872 ''Comparison of the Programming Languages C and Pascal''] 73-92, ACM Computing Surveys, Volume 14, Issue 1, March 1982.
+* ''Comparing and Assessing Programming Languages: Ada, C and Pascal'', Ed. by Alan R. Feuer and Narain Gehani, Prentice Hall, 1984. ISBN 0-13-154840-9
+*Scott Meyers: ''Effective C++'', 2nd Ed., Addison-Wesley, 1998, ISBN 0-201-92488-9
+* Vincent Hayward: [http://portal.acm.org/citation.cfm?id=14950 ''Compared anatomy of the programming languages Pascal and C''] 50-60, ACM Sigplan Notices, Volume 21, Issue 5, May 1986.
+*[http://wiki.lazarus.freepascal.org/Pascal_for_C_users Pascal for C users]
+
+{{Pascal programming language family}}
+{{CProLang}}
+
+{{DEFAULTSORT:Comparison of Pascal and C}}
+[[Category:Programming language comparisons|Pascal and C]]
+[[Category:C programming language]]
+[[Category:Pascal]]
+[[Category:Pascal programming language family]]

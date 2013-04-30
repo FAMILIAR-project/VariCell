@@ -1,0 +1,347 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of hardware random number generators</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of hardware random number generators</h1> 
+   <div class="article-content"> 
+    <p> In computing, a <a href="hardware random number generator">hardware random number generator</a> is an apparatus that generates random numbers from a physical process. Such devices are often based on microscopic phenomena that generate a low-level, statistically random &quot;noise&quot; signal, such as <a href="thermal noise">thermal noise</a> or the <a href="photoelectric effect">photoelectric effect</a> or other quantum phenomena. </p> 
+    <table class="wikitable sortable" style="font-size:85%; width:99%; text-align:center;"> 
+     <tbody>
+      <tr> 
+       <th> <p> Manufacturer </p> </th> 
+       <th> <p> Model </p> </th> 
+       <th> <p> Intro Date </p> </th> 
+       <th> <p> Interface </p> </th> 
+       <th> <p> OS </p> </th> 
+       <th> <p> Price (USD) </p> </th> 
+       <th> <p> Price </p> </th> 
+       <th> <p> Throughput </p> </th> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.entropykey.co.uk/">Simtec Electronics</a> </p> </td> 
+       <td> <p> Entropy Key </p> </td> 
+       <td> <p> 2009 </p> </td> 
+       <td> <p> USB </p> </td> 
+       <td> <p> Windows<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span>/Linux/BSD </p> </td> 
+       <td> <p> <s>60</s> </p> </td> 
+       <td> <p> <s>&pound;36</s> </p> </td> 
+       <td> <p> 32 kbit/s<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.idquantique.com/">ID Quantique SA</a> </p> </td> 
+       <td> <p> Quantis-USB </p> </td> 
+       <td> <p> 2006 </p> </td> 
+       <td> <p> USB </p> </td> 
+       <td> <p> Windows/Linux </p> </td> 
+       <td> <p> 1,310 </p> </td> 
+       <td> <p> 990? </p> </td> 
+       <td> <p> 4 Mbit/s<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> ID Quantique SA </p> </td> 
+       <td> <p> Quantis-PCI-4 </p> </td> 
+       <td> <p> 2006 </p> </td> 
+       <td> <p> PCI </p> </td> 
+       <td> <p> Windows/Linux </p> </td> 
+       <td> <p> 2,952 </p> </td> 
+       <td> <p> 2,230? </p> </td> 
+       <td> <p> 16 Mbit/s<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://comscire.com/">Comscire</a> </p> </td> 
+       <td> <p> R2000KU </p> </td> 
+       <td> <p> 2006 </p> </td> 
+       <td> <p> USB </p> </td> 
+       <td> <p> Linux/Windows </p> </td> 
+       <td> <p> 895 </p> </td> 
+       <td> <p> 738? </p> </td> 
+       <td> <p> 2 Mbit/s<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://comscire.com/">Comscire</a> </p> </td> 
+       <td> <p> R32MU </p> </td> 
+       <td> <p> 2012 </p> </td> 
+       <td> <p> USB </p> </td> 
+       <td> <p> Linux/Windows </p> </td> 
+       <td> <p> 1,495 </p> </td> 
+       <td> <p> 1,232? </p> </td> 
+       <td> <p> 32 Mbit/s<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.letech.jpn.com/rng/index_rng_e.html">LETech</a> </p> </td> 
+       <td> <p> GRANG </p> </td> 
+       <td> <p> 2008-2012 </p> </td> 
+       <td> <p> PCI/USB3/SATA </p> </td> 
+       <td> <p> Linux/Windows </p> </td> 
+       <td> <p> 6,800 </p> </td> 
+       <td> <p> 5,500? </p> </td> 
+       <td> <p> 400 Mbit/s<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.trng98.se">TRNG98</a> </p> </td> 
+       <td> <p> TRNG9803 </p> </td> 
+       <td> <p> 2009 </p> </td> 
+       <td> <p> SERIAL </p> </td> 
+       <td> <p> Linux/Windows/Solaris/BSD </p> </td> 
+       <td> <p> 230 </p> </td> 
+       <td> <p> 179? </p> </td> 
+       <td> <p> 72 kbit/s<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <p> <a href="http://www.trng98.se">TRNG98</a> </p> </td> 
+       <td> <p> TRNG9815 </p> </td> 
+       <td> <p> 2009 </p> </td> 
+       <td> <p> USB </p> </td> 
+       <td> <p> Linux/Windows/Solaris/BSD </p> </td> 
+       <td> <p> 830 </p> </td> 
+       <td> <p> 620? </p> </td> 
+       <td> <p> 550 kbit/s<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+      <p> <a href="Category:Random number generation">Category:Random number generation</a> <a href="Category:Computer peripherals">Category:Computer peripherals</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

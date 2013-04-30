@@ -1,0 +1,2933 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of web application frameworks</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of web application frameworks</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{ProgLangCompare}}</span> </p> 
+    <p> This is a comparison of notable <b><a href="web application framework">web application frameworks</a></b>. </p> 
+    <div class="section"> 
+     <h2>General</h2> 
+     <div class="section-body"> 
+      <p> Basic information about each framework. </p> 
+      <div class="section"> 
+       <h3>ASP.NET</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> <a href="programming language">Language</a> </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="software license">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ASP.NET MVC Framework">ASP.NET MVC Framework</a> (ASP.NET MVC) </p> </th> 
+           <td> <p> <a href="ASP.NET">ASP.NET</a> </p> </td> 
+           <td> <p> 4.0 </p> </td> 
+           <td> <p> 2012-08-15 </p> </td> 
+           <td> <p> <a href="Apache License">Apache</a> v2<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Base One Foundation Component Library">Base One Foundation Component Library</a> (BFC) </p> </th> 
+           <td> <p> ASP.NET </p> </td> 
+           <td> <p> 7.43 </p> </td> 
+           <td> <p> 2011-01-15 </p> </td> 
+           <td> <p> <a href="proprietary software">Proprietary</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Component-based Scalable Logical Architecture">Component-based Scalable Logical Architecture</a> (CSLA) </p> </th> 
+           <td> <p> <a href="C Sharp (programming language)">C#</a>, <a href="Visual Basic .NET">Visual Basic .NET</a> </p> </td> 
+           <td> <p> 4.3.10 </p> </td> 
+           <td> <p> 2012-03-04 </p> </td> 
+           <td> <p> Proprietary <a href="freeware">freeware</a>, no limit on use type </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="DotNetNuke">DotNetNuke</a> </p> </th> 
+           <td> <p> ASP.NET </p> </td> 
+           <td> <p> 07.00.03 </p> </td> 
+           <td> <p> 2013-01-13 </p> </td> 
+           <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Kentico">Kentico</a> </p> </th> 
+           <td> <p> ASP.NET </p> </td> 
+           <td> <p> 6.0 </p> </td> 
+           <td> <p> 2011-10-10 </p> </td> 
+           <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MonoRail (software)">MonoRail</a> </p> </th> 
+           <td> <p> ASP.NET </p> </td> 
+           <td> <p> 2.1 RC </p> </td> 
+           <td> <p> 2011-03-17 </p> </td> 
+           <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="OpenRasta">OpenRasta</a> </p> </th> 
+           <td> <p> ASP.NET </p> </td> 
+           <td> <p> 2.0 RC </p> </td> 
+           <td> <p> 2009-11-04 </p> </td> 
+           <td> <p> MIT </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Sinatra (software)#Frameworks inspired by Sinatra">Nancy</a> </p> </th> 
+           <td> <p> C#, Visual Basic .NET </p> </td> 
+           <td> <p> 0.6.0 </p> </td> 
+           <td> <p> 2011-06 </p> </td> 
+           <td> <p> MIT </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>C++</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="software license">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CppCMS">CppCMS</a> </p> </th> 
+           <td> <p> 1.0.3 </p> </td> 
+           <td> <p> 2013-01-04<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GNU Lesser General Public License">LGPL</a>, <a href="Proprietary software">Proprietary</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="POCO C++ Libraries">Poco</a> </p> </th> 
+           <td> <p> 1.4.6p1 </p> </td> 
+           <td> <p> 2013-03-06<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="Boost Software License">Boost Software License</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Tntnet">Tntnet</a> </p> </th> 
+           <td> <p> 2.1 </p> </td> 
+           <td> <p> 2012-04-02 </p> </td> 
+           <td> <p> LGPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Wt (web toolkit)">Wt</a> </p> </th> 
+           <td> <p> 3.3.0 </p> </td> 
+           <td> <p> 2013-04-09<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a>, <a href="Proprietary software">Proprietary</a> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>ColdFusion Markup Language (CFML)</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="software license">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ColdBox Platform">ColdBox Platform</a> </p> </th> 
+           <td> <p> 3.5.2 </p> </td> 
+           <td> <p> 2012-08-01 </p> </td> 
+           <td> <p> <a href="Apache License">Apache</a> v2 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ColdFusion on Wheels">ColdFusion on Wheels</a> </p> </th> 
+           <td> <p> 1.1.8 </p> </td> 
+           <td> <p> 2012-05-07 </p> </td> 
+           <td> <p> Apache v2 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ColdSpring">ColdSpring</a> </p> </th> 
+           <td> <p> 1.2 </p> </td> 
+           <td> <p> 2008-09-12 </p> </td> 
+           <td> <p> Apache v2 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Fusebox (programming)">Fusebox</a> </p> </th> 
+           <td> <p> 5.5.1 </p> </td> 
+           <td> <p> 2008-03-08 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Framework One">FW/1</a> </p> </th> 
+           <td> <p> 1.2 </p> </td> 
+           <td> <p> 2010-10-18 </p> </td> 
+           <td> <p> Apache v2 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mach-II">Mach-II</a> </p> </th> 
+           <td> <p> 1.8.1 </p> </td> 
+           <td> <p> 2010-09-20 </p> </td> 
+           <td> <p> <a href="GPLv3">GPLv3</a> with <a href="Classpath exception">Classpath exception</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Model-Glue">Model-Glue</a> </p> </th> 
+           <td> <p> 3.1.299 </p> </td> 
+           <td> <p> 2010-03-05 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="onTap">onTap</a> </p> </th> 
+           <td> <p> 3.3 </p> </td> 
+           <td> <p> 2009-11-07 </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Java</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="License">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Click">Apache Click</a> </p> </th> 
+           <td> <p> 2.3.0 </p> </td> 
+           <td> <p> 2011-03-27 </p> </td> 
+           <td> <p> Apache Software License 2.0 (ASL 2.0) </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache OFBiz">Apache OFBiz</a> </p> </th> 
+           <td> <p> 11.04.01 </p> </td> 
+           <td> <p> 2012-11-18 </p> </td> 
+           <td> <p> Apache Software License 2.0 (ASL 2.0) </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Shale Framework (software)">Apache Shale</a> </p> </th> 
+           <td> <p> 1.0.4 (Retired) </p> </td> 
+           <td> <p> 2007-12-19 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Sling">Apache Sling</a> </p> </th> 
+           <td> <p> 6 </p> </td> 
+           <td> <p> 2011-04-18 </p> </td> 
+           <td> <p> Apache 2.0 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Struts">Apache Struts</a> </p> </th> 
+           <td> <p> 2.3.12 </p> </td> 
+           <td> <p> 2013-03-06 </p> </td> 
+           <td> <p> Apache 2.0 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Tapestry">Apache Tapestry</a> </p> </th> 
+           <td> <p> 5.3.6 </p> </td> 
+           <td> <p> 2012-10-12 </p> </td> 
+           <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Wicket">Apache Wicket</a> </p> </th> 
+           <td> <p> 6.7.0 </p> </td> 
+           <td> <p> 2013-04-12 </p> </td> 
+           <td> <p> Apache 2.0 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="AppFuse">AppFuse</a> </p> </th> 
+           <td> <p> 2.1 </p> </td> 
+           <td> <p> 2011-04-04 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Remote Application Platform">Eclipse RAP</a> </p> </th> 
+           <td> <p> 2.0 </p> </td> 
+           <td> <p> 2013-02-11 </p> </td> 
+           <td> <p> <a href="Eclipse Public License">Eclipse</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="FormEngine">FormEngine</a> </p> </th> 
+           <td> <p> 2.0.1 </p> </td> 
+           <td> <p> 2011-05-08 </p> </td> 
+           <td> <p> <a href="MIT License">MIT</a>, <a href="Proprietary software">Proprietary</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Grails (framework)">Grails</a> </p> </th> 
+           <td> <p> 2.2.1 </p> </td> 
+           <td> <p> 2013-02-25 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Google Web Toolkit">Google Web Toolkit</a> </p> </th> 
+           <td> <p> 2.5.1 </p> </td> 
+           <td> <p> 2013-03-11 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Hamlets">Hamlets</a> </p> </th> 
+           <td> <p> 1.7 </p> </td> 
+           <td> <p> 2011-03-11 </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ItsNat">ItsNat</a> </p> </th> 
+           <td> <p> 1.2 </p> </td> 
+           <td> <p> 2011-05-24 </p> </td> 
+           <td> <p> <a href="GNU Lesser General Public License">LGPL</a>, proprietary </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="JavaServer Faces">JavaServer Faces</a> </p> </th> 
+           <td> <p> 2.1 </p> </td> 
+           <td> <p> 2010-10-22 </p> </td> 
+           <td> <p> Implementation dependent </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="JBoss Seam">JBoss Seam</a> </p> </th> 
+           <td> <p> 3.1.0 final </p> </td> 
+           <td> <p> 2012-01-13 </p> </td> 
+           <td> <p> LGPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Jspx-bay">Jspx-bay</a> </p> </th> 
+           <td> <p> 1.2 </p> </td> 
+           <td> <p> 2013-02-14 </p> </td> 
+           <td> <p> Apache 2.0 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="JVx (Framework)">JVx</a> </p> </th> 
+           <td> <p> 1.1 </p> </td> 
+           <td> <p> 2013-01-23 </p> </td> 
+           <td> <p> Apache 2.0 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="OpenLaszlo">OpenLaszlo</a> </p> </th> 
+           <td> <p> 4.9.0 </p> </td> 
+           <td> <p> 2010-10-21 </p> </td> 
+           <td> <p> <a href="Common Public License">CPL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="OpenXava">OpenXava</a> </p> </th> 
+           <td> <p> 4.7 </p> </td> 
+           <td> <p> 2013-04-02 </p> </td> 
+           <td> <p> LGPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Oracle Application Development Framework">Oracle ADF</a> </p> </th> 
+           <td> <p> 11.1.2 </p> </td> 
+           <td> <p> 2012-10-22 </p> </td> 
+           <td> <p> Oracle Technology Network Developer License </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Play Framework">Play!</a> </p> </th> 
+           <td> <p> 2.1.1 </p> </td> 
+           <td> <p> 2013-04-03 </p> </td> 
+           <td> <p> Apache 2.0 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="RIFE">RIFE</a> </p> </th> 
+           <td> <p> 1.6.1 </p> </td> 
+           <td> <p> 2007-07-14 </p> </td> 
+           <td> <p> <a href="Common Development and Distribution License">CDDL</a>, LGPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SmartClient">SmartClient</a> </p> </th> 
+           <td> <p> 8.3 </p> </td> 
+           <td> <p> 2011-12-05 </p> </td> 
+           <td> <p> LGPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Spring Framework">Spring</a> </p> </th> 
+           <td> <p> 3.2.2 </p> </td> 
+           <td> <p> 2013-03-14 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Stripes (framework)">Stripes</a> </p> </th> 
+           <td> <p> 1.5.7 </p> </td> 
+           <td> <p> 2012-05-17 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ThinWire">ThinWire</a> </p> </th> 
+           <td> <p> 1.2 </p> </td> 
+           <td> <p> 2007-09-17 </p> </td> 
+           <td> <p> GPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Vaadin">Vaadin</a> </p> </th> 
+           <td> <p> 7.0.5 </p> </td> 
+           <td> <p> 2013-04-23 </p> </td> 
+           <td> <p> Apache 2.0 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Wavemaker">Wavemaker</a> </p> </th> 
+           <td> <p> 6.5.3 </p> </td> 
+           <td> <p> 2013-03-14 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="WebObjects">WebObjects</a> </p> </th> 
+           <td> <p> 5.4.3 </p> </td> 
+           <td> <p> 2008-09-15 </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="WebWork">WebWork</a> </p> </th> 
+           <td> <p> 2.2.6 </p> </td> 
+           <td> <p> 2007-07-21 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ZK (framework)">ZK</a> </p> </th> 
+           <td> <p> 6.5.2 </p> </td> 
+           <td> <p> 2013-03-26 </p> </td> 
+           <td> <p> LGPL, ZOL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ztemplates">ztemplates</a> </p> </th> 
+           <td> <p> 2.4.0 </p> </td> 
+           <td> <p> 2011-09-11 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>JavaScript</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="software license">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Nodejs#Web_application_frameworks_based_on_Node.js">multiple</a> frameworks based on <a href="Nodejs">node.js</a> </p> </th> 
+           <td> <p> 0.8.9 </p> </td> 
+           <td> <p> 2012-07-11 </p> </td> 
+           <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="qooxdoo">qooxdoo</a> </p> </th> 
+           <td> <p> 1.5 </p> </td> 
+           <td> <p> 2011-07-13 </p> </td> 
+           <td> <p> <a href="GNU Lesser General Public License">LGPL</a> or <a href="Eclipse Public License">Eclipse</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SproutCore">SproutCore</a> </p> </th> 
+           <td> <p> 1.8 (beta 2.0) </p> </td> 
+           <td> <p> 2012-03-07 </p> </td> 
+           <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="WaveMaker">WaveMaker</a> (client side) </p> </th> 
+           <td> <p> 6.3.3 </p> </td> 
+           <td> <p> 2011-09-22 </p> </td> 
+           <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Scala</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="License">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Play Framework">Play!</a> </p> </th> 
+           <td> <p> 2.1.0 </p> </td> 
+           <td> <p> 2013-02-04 </p> </td> 
+           <td> <p> Apache 2.0 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Lift (web framework)">Lift</a> </p> </th> 
+           <td> <p> 2.4 </p> </td> 
+           <td> <p> 2012-01-12 </p> </td> 
+           <td> <p> Apache 2.0 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Scalatra">Scalatra</a> </p> </th> 
+           <td> <p> 2.2.0 </p> </td> 
+           <td> <p> 2013-02-06 </p> </td> 
+           <td> <p> BSD </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Perl</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="software license">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Catalyst (software)">Catalyst</a> </p> </th> 
+           <td> <p> 5.90015 </p> </td> 
+           <td> <p> 2012-06-30 </p> </td> 
+           <td> <p> <a href="Artistic License">Artistic</a>, <a href="GNU General Public License">GPL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Dancer (software)">Dancer</a> </p> </th> 
+           <td> <p> 1.3110 </p> </td> 
+           <td> <p> 2012-10-06 </p> </td> 
+           <td> <p> Artistic, GPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mason (Perl)">Mason</a> </p> </th> 
+           <td> <p> 2.19 </p> </td> 
+           <td> <p> 2012-05-02 </p> </td> 
+           <td> <p> Artistic, GPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Maypole framework">Maypole</a> </p> </th> 
+           <td> <p> 2.13 </p> </td> 
+           <td> <p> 2008-04-18 </p> </td> 
+           <td> <p> Artistic, GPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mojolicious">Mojolicious</a> </p> </th> 
+           <td> <p> 3.58 </p> </td> 
+           <td> <p> 2012-11-14 </p> </td> 
+           <td> <p> Artistic </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>PHP</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th width="140pt"> <p> Project </p> </th> 
+           <th> <p> Start date </p> </th> 
+           <th width="90pt"> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="software license">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Agavi">Agavi</a> </p> </th> 
+           <td> <p> 2005-05 </p> </td> 
+           <td> <p> 1.0.7 </p> </td> 
+           <td> <p> 2011-12-22 </p> </td> 
+           <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Aiki Framework">Aiki Framework</a> </p> </th> 
+           <td> <p> 2009-09 </p> </td> 
+           <td> <p> 0.9.1 </p> </td> 
+           <td> <p> 2012-02-23<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="AGPLv3">AGPLv3</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="AppFlower">AppFlower</a> </p> </th> 
+           <td> <p> 2009-02 </p> </td> 
+           <td> <p> 1.3 </p> </td> 
+           <td> <p> 2012-10-09 </p> </td> 
+           <td> <p> <a href="GPLv3">GPLv3</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CakePHP">CakePHP</a> </p> </th> 
+           <td> <p> 2005-08 </p> </td> 
+           <td> <p> 2.3.1 </p> </td> 
+           <td> <p> 2013-03-03 </p> </td> 
+           <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CodeIgniter">CodeIgniter</a> </p> </th> 
+           <td> <p> 2006-01 </p> </td> 
+           <td> <p> 2.1.3 </p> </td> 
+           <td> <p> 2012-10-08<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="Open Software License">OSLv3</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Drupal">Drupal</a> </p> </th> 
+           <td> <p> 2001-01 </p> </td> 
+           <td> <p> 7.22 </p> </td> 
+           <td> <p> 2013-03-04<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL3</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Fat-Free Framework">Fat-Free</a> </p> </th> 
+           <td> <p> 2009-09 </p> </td> 
+           <td> <p> 3.0.6 </p> </td> 
+           <td> <p> 2013-03-31 </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL3</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Flow3">Flow3</a> </p> </th> 
+           <td> <p> 2007-01 </p> </td> 
+           <td> <p> 1.1.0 </p> </td> 
+           <td> <p> 2012-08-24 </p> </td> 
+           <td> <p> <a href="GNU Lesser General Public License">LGPLv3</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Hazaar MVC">Hazaar MVC</a> </p> </th> 
+           <td> <p> 2012-08 </p> </td> 
+           <td> <p> 1.0 </p> </td> 
+           <td> <p> 2013-03-19 </p> </td> 
+           <td> <p> <a href="Apache_License">Apache 2.0</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Joomla">Joomla! Platform</a> </p> </th> 
+           <td> <p> 2005-09 </p> </td> 
+           <td> <p> 12.1 </p> </td> 
+           <td> <p> 2012-05-09 </p> </td> 
+           <td> <p> <a href="GPLv2">GPLv2</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Kajona">Kajona</a> </p> </th> 
+           <td> <p> 2006 </p> </td> 
+           <td> <p> 4.0 </p> </td> 
+           <td> <p> 2013-01-09 </p> </td> 
+           <td> <p> <a href="GNU Lesser General Public License">LGPLv2</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Lithium (PHP framework)">Lithium</a> </p> </th> 
+           <td> <p> 2009-10 </p> </td> 
+           <td> <p> 0.11 </p> </td> 
+           <td> <p> 2012-10-03 </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="PHPixie">PHPixie</a> </p> </th> 
+           <td> <p> 2012-07 </p> </td> 
+           <td> <p> 2.1 </p> </td> 
+           <td> <p> 2012-04-24 </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Qcodo">Qcodo</a> </p> </th> 
+           <td> <p> 2005-10 </p> </td> 
+           <td> <p> 0.4.22 </p> </td> 
+           <td> <p> 2011-08-15<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SilverStripe">SilverStripe</a> </p> </th> 
+           <td> <p> 2005-11 </p> </td> 
+           <td> <p> 3.0.5 </p> </td> 
+           <td> <p> 2013-02-20 </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Seagull PHP Framework">Seagull</a> </p> </th> 
+           <td> <p> 2003-10 </p> </td> 
+           <td> <p> 1.0.4 </p> </td> 
+           <td> <p> 2013-01-04 </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Solodev">Solodev CMS</a> </p> </th> 
+           <td> <p> 2005-11 </p> </td> 
+           <td> <p> 8.0 </p> </td> 
+           <td> <p> 2006-11-12 </p> </td> 
+           <td> <p> <a href="proprietary software">Proprietary</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Symfony">Symfony</a> </p> </th> 
+           <td> <p> 2005-10 </p> </td> 
+           <td> <p> 2.2.0 </p> </td> 
+           <td> <p> 2013-02-28 </p> </td> 
+           <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Xyster Framework">Xyster Framework</a> </p> </th> 
+           <td> <p> 2007-09 </p> </td> 
+           <td> <p> 02 Build 01 </p> </td> 
+           <td> <p> 2010-10-18 </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Yii">Yii</a> </p> </th> 
+           <td> <p> 2008-01 </p> </td> 
+           <td> <p> 1.1.13 </p> </td> 
+           <td> <p> 2012-12-30 </p> </td> 
+           <td> <p> <a href="New BSD License">New BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Zend Framework">Zend Framework</a> </p> </th> 
+           <td> <p> 2006-03 </p> </td> 
+           <td> <p> 2.1.5 </p> </td> 
+           <td> <p> 2013-04-17 </p> </td> 
+           <td> <p> <a href="New BSD License">New BSD</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Python</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="software license">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="BlueBream">BlueBream</a> </p> </th> 
+           <td> <p> 1.0 </p> </td> 
+           <td> <p> 2011-01-18 </p> </td> 
+           <td> <p> <a href="Zope Public License">ZPL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CherryPy">CherryPy</a> </p> </th> 
+           <td> <p> 3.2.2 </p> </td> 
+           <td> <p> 2011-10-28 </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CubicWeb">CubicWeb</a> </p> </th> 
+           <td> <p> 3.15.2<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> 2012-07-24 </p> </td> 
+           <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Django (web framework)">Django</a> </p> </th> 
+           <td> <p> 1.5.1 </p> </td> 
+           <td> <p> 2013-03-28<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> BSD </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="web2py">web2py</a> </p> </th> 
+           <td> <p> 2.4.1 </p> </td> 
+           <td> <p> 2013-01-30<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> LGPL3 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Flask (programming)">Flask</a> </p> </th> 
+           <td> <p> 0.9 </p> </td> 
+           <td> <p> 2012-07-01<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> BSD </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Grok (web framework)">Grok</a> </p> </th> 
+           <td> <p> 1.4 </p> </td> 
+           <td> <p> 2011-04-04 </p> </td> 
+           <td> <p> ZPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Nagare (web framework)">Nagare</a> </p> </th> 
+           <td> <p> 0.4.1 </p> </td> 
+           <td> <p> 2012-01-18 </p> </td> 
+           <td> <p> BSD </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Pyjamas (software)">Pyjamas</a> </p> </th> 
+           <td> <p> 0.8 </p> </td> 
+           <td> <p> 2012-06-01 </p> </td> 
+           <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Pylons project#Pylons Framework">Pylons</a> </p> </th> 
+           <td> <p> 1.0.1 </p> </td> 
+           <td> <p> 2012-08-14 </p> </td> 
+           <td> <p> BSD </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Pylons project#Pyramid">Pyramid</a> </p> </th> 
+           <td> <p> 1.4.0 </p> </td> 
+           <td> <p> 2012-12-18 </p> </td> 
+           <td> <p> BSD </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Tornado (web server)">Tornado</a> </p> </th> 
+           <td> <p> 3.0<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> 2013-03-29 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="TurboGears">TurboGears</a> </p> </th> 
+           <td> <p> 2.2 </p> </td> 
+           <td> <p> 2012-08-23 </p> </td> 
+           <td> <p> MIT, LGPL </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Webware for Python">Webware</a> </p> </th> 
+           <td> <p> 1.1 </p> </td> 
+           <td> <p> 2011-08-03 </p> </td> 
+           <td> <p> <a href="Python License">Python</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Zope 2">Zope 2</a> </p> </th> 
+           <td> <p> 2.13.15 </p> </td> 
+           <td> <p> 2012-06-22<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> ZPL </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Ruby</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{see also|...}}</span> </p> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="software license">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Camping (microframework)">Camping</a> </p> </th> 
+           <td> <p> 2.1 </p> </td> 
+           <td> <p> 2010-08-20 </p> </td> 
+           <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ruby on Rails">Ruby on Rails</a> </p> </th> 
+           <td> <p> 3.2.13 </p> </td> 
+           <td> <p> 2013-03-18 </p> </td> 
+           <td> <p> MIT, <a href="Ruby License">Ruby</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ramaze">Ramaze</a> </p> </th> 
+           <td> <p> 2012.12.08 </p> </td> 
+           <td> <p> 2012-12-08 </p> </td> 
+           <td> <p> Ruby </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Sinatra (software)">Sinatra</a> </p> </th> 
+           <td> <p> 1.4.2 </p> </td> 
+           <td> <p> 2013-03-21 </p> </td> 
+           <td> <p> MIT </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Merb">Merb</a> </p> </th> 
+           <td> <p> 1.1.2 </p> </td> 
+           <td> <p> 2010-06-17 </p> </td> 
+           <td> <p> MIT </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Nitro (web framework)">Nitro</a> </p> </th> 
+           <td> <p> 0.41 </p> </td> 
+           <td> <p> 2006-12-12 </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="PureMVC">PureMVC</a> </p> </th> 
+           <td> <p> 2.0.4 </p> </td> 
+           <td> <p> 2008-08-14 </p> </td> 
+           <td> <p> <a href="Creative Commons license">CC</a> +Attribution </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Others</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 90%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> <a href="programming language">Language</a> </p> </th> 
+           <th> <p> Current stable version </p> </th> 
+           <th> <p> Release date </p> </th> 
+           <th> <p> <a href="software license">License</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="AIDA/Web">AIDA/Web</a> </p> </th> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+           <td> <p> 6.5 </p> </td> 
+           <td> <p> 2012-08-27 </p> </td> 
+           <td> <p> <a href="MIT License">MIT</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Oracle Application Express">Application Express</a> </p> </th> 
+           <td> <p> <a href="PL/SQL">PL/SQL</a> </p> </td> 
+           <td> <p> 4.2.1 </p> </td> 
+           <td> <p> 2012-12-14 </p> </td> 
+           <td> <p> <a href="Proprietary software">Proprietary</a> <a href="freeware">freeware</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Compojure">Compojure</a> </p> </th> 
+           <td> <p> Clojure </p> </td> 
+           <td> <p> 1.0.1 </p> </td> 
+           <td> <p> 2012-01-08 </p> </td> 
+           <td> <p> Eclipse </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Flex">Flex</a> </p> </th> 
+           <td> <p> <a href="ActionScript">ActionScript</a>, <a href="MXML">MXML</a> </p> </td> 
+           <td> <p> 4.9 </p> </td> 
+           <td> <p> 2013-01-11 </p> </td> 
+           <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Grails (framework)">Grails</a> </p> </th> 
+           <td> <p> <a href="Groovy (programming language)">Groovy</a> (JVM) </p> </td> 
+           <td> <p> 2.0.1 </p> </td> 
+           <td> <p> 2012-02-14 </p> </td> 
+           <td> <p> <a href="Apache License">Apache</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Kepler (software)">Kepler</a> </p> </th> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+           <td> <p> 1.1.1 </p> </td> 
+           <td> <p> 2009-03-11 </p> </td> 
+           <td> <p> MIT </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Morfik">Morfik</a> </p> </th> 
+           <td> <p> <a href="C Sharp (programming language)">C#</a>, <a href="BASIC">BASIC</a>, <a href="Pascal (programming language)">Pascal</a>, <a href="Java (programming language)">Java</a> </p> </td> 
+           <td> <p> 3.0.8.1 </p> </td> 
+           <td> <p> 2010-12-13 </p> </td> 
+           <td> <p> Proprietary freeware </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ocsigen">Ocsigen</a> </p> </th> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+           <td> <p> 2.3.0 </p> </td> 
+           <td> <p> 2012-12-10<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Opa (programming language)">Opa</a> </p> </th> 
+           <td> <p> Opa </p> </td> 
+           <td> <p> 1.1.0 </p> </td> 
+           <td> <p> 2013-02-12<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> MIT and <a href="Affero General Public License">AGPL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="OpenACS">OpenACS</a> </p> </th> 
+           <td> <p> <a href="Tcl">Tcl</a> </p> </td> 
+           <td> <p> 5.7.0 </p> </td> 
+           <td> <p> 2011-07-17 </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Seaside (software)">Seaside</a> </p> </th> 
+           <td> <p> Smalltalk </p> </td> 
+           <td> <p> 3.0 </p> </td> 
+           <td> <p> 2010-09-13 </p> </td> 
+           <td> <p> MIT </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Zotonic">Zotonic</a> </p> </th> 
+           <td> <p> <a href="Erlang">Erlang</a> </p> </td> 
+           <td> <p> 0.9.0 </p> </td> 
+           <td> <p> 2012-12-17 </p> </td> 
+           <td> <p> Apache </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Comparison of features</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>ASP.NET</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ASP.NET MVC Framework">ASP.NET MVC</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (client-side via plugins) </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Base One Foundation Component Library">BFC</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="DotNetNuke">DotNetNuke</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Kentico CMS">Kentico CMS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MonoRail (software)">MonoRail</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <a href="Active record pattern">Active record pattern</a> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="OpenRasta">OpenRasta</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+          <tr class="sortbottom"> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>C++</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CppCMS">CppCMS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Wt - Web toolkit">Wt</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Tntnet">Tntnet</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>ColdFusion Markup Language (CFML)</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ColdBox Platform">ColdBox Platform</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push-pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> via MockBox, MXUnit, <a href="list of unit testing frameworks#CFML (ColdFusion)">others</a> </p> </td> 
+           <td> <p> via plugin </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> via plugin </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ColdFusion on Wheels">ColdFusion on Wheels</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> via plugin <a href="http://cfwheels.org/plugins/listing/38">jLingua</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> integrated RocketUnit </p> </td> 
+           <td> <p> via plugin </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> via plugin </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Fusebox (programming)">Fusebox</a> </p> </th> 
+           <td> <p> via CF or any JavaScript library </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span>, custom </p> </td> 
+           <td> <p> via lexicons for Transfer, Reactor </p> </td> 
+           <td> <p> via MXUnit, others </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> via plugins </p> </td> 
+           <td> </td> 
+           <td> <p> via lexicon for <a href="ColdSpring">ColdSpring</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mach-II">Mach-II</a> </p> </th> 
+           <td> <p> via CF or any JavaScript library </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> via plugin </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> via MXUnit, others </p> </td> 
+           <td> </td> 
+           <td> <p> via plugins </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Model-Glue">Model-Glue</a> </p> </th> 
+           <td> <p> via CF or any JavaScript library </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> via MXUnit, others </p> </td> 
+           <td> </td> 
+           <td> <p> via plugins </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="onTap">onTap</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> via MXUnit, others </p> </td> 
+           <td> <p> DataFaucet has potential - supports multiple db platforms </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Ajax </p> </th> 
+           <th> <p> MVC framework </p> </th> 
+           <th> <p> MVC push-pull </p> </th> 
+           <th> <p> i18n &amp; L10n? </p> </th> 
+           <th> <p> ORM </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Java</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Language </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Click">Apache Click</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Page oriented </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache OFBiz">Apache OFBiz</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Sling">Apache Sling</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> Uses JCR content repository </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Struts">Apache Struts</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Tapestry">Apache Tapestry</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Apache Wicket">Apache Wicket</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Modular event driven </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="FormEngine">FormEngine</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> own connector API </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Grails (Framework)">Grails</a> </p> </th> 
+           <td> <p> <a href="Groovy (programming language)">Groovy</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <a href="Active record pattern">Active record pattern</a> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ItsNat">ItsNat</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="JavaServer Faces">JavaServer Faces</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Yes, with extensions </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="JBoss Seam">JBoss Seam</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Jspx-bay">Jspx-bay</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> Own API </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Master-content pages </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="JVx (Framework)">JVx WebUI</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Single sourcing </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="OpenXava">OpenXava</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> UI is automatically generated </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Play Framework">Play</a> </p> </th> 
+           <td> <p> Scala </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="RIFE">RIFE</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Spring Framework">Spring</a> </p> </th> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Stripes (framework)">Stripes</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Vaadin">Vaadin</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Wavemaker">Wavemaker</a> </p> </th> 
+           <td> <p> <a href="JavaScript">JavaScript</a> (client), Java (server) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="WebObjects">WebObjects</a> </p> </th> 
+           <td> <p> Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ztemplates">ztemplates</a> </p> </th> 
+           <td> <p> Java JDK 1.5 or newer </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push, multiple actions per URL </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Google Web Toolkit">Google Web Toolkit</a> </p> </th> 
+           <td> <p> Java, JavaScript </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> JUnit (too early), <a href="jsUnit">jsUnit</a> (too difficult), Selenium (best) </p> </td> 
+           <td> <p> via Java </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ZK (framework)">ZK</a> </p> </th> 
+           <td> <p> Java, ZUML </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>JavaScript</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="qooxdoo">qooxdoo</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SproutCore">SproutCore</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Perl</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Language </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Catalyst (software)">Catalyst</a> </p> </th> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push in its most common usage </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Dancer (software)">Dancer</a> </p> </th> 
+           <td> <p> Perl </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mason (Perl)">Mason</a> </p> </th> 
+           <td> <p> Perl </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Maypole framework">Maypole</a> </p> </th> 
+           <td> <p> Perl </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mojolicious">Mojolicious</a> </p> </th> 
+           <td> <p> Perl </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>PHP</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Start Date </p> </th> 
+           <th> <p> Language </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+           <th> <p> <a href="scaffold (programming)">Scaffolding</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="AppFlower">AppFlower</a> </p> </th> 
+           <td> <p> 2009-02 </p> </td> 
+           <td> <p> PHP 5 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CakePHP">CakePHP</a> </p> </th> 
+           <td> <p> 2005-08 </p> </td> 
+           <td> <p> PHP &gt;= 5.2 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CodeIgniter">CodeIgniter</a> </p> </th> 
+           <td> <p> 2006-01 </p> </td> 
+           <td> <p> PHP &gt;= 5.1 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Drupal">Drupal</a> </p> </th> 
+           <td> <p> 2001-01 </p> </td> 
+           <td> <p> PHP </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes |...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{N/A}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="FuelPHP">FuelPHP</a> </p> </th> 
+           <td> <p> 2010-10 </p> </td> 
+           <td> <p> PHP &gt;= 5.3.x </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span>, Plugins available </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span>, Plugins available </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Fusebox (programming)">Fusebox</a> </p> </th> 
+           <td> <p> 1997-11 </p> </td> 
+           <td> <p> PHP </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span>, custom </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Joomla">Joomla</a> </p> </th> 
+           <td> <p> 2005-09 </p> </td> 
+           <td> <p> PHP &gt;= 5.3.x </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> Mootools 1.3 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Kajona">Kajona</a> </p> </th> 
+           <td> <p> 2004-06 </p> </td> 
+           <td> <p> PHP 5 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Midgard (software)">Midgard</a> </p> </th> 
+           <td> <p> 1999-05 </p> </td> 
+           <td> <p> PHP </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="PHPixie">PHPixie</a> </p> </th> 
+           <td> <p> 2012-07 </p> </td> 
+           <td> <p> PHP </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="PRADO Framework">PRADO</a> </p> </th> 
+           <td> <p> 2004-07 </p> </td> 
+           <td> <p> PHP &gt;= 5.3.0 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Qcodo">Qcodo</a> </p> </th> 
+           <td> <p> 2005-10 </p> </td> 
+           <td> <p> PHP 5 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> Inherent </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SilverStripe">SilverStripe</a> (Sapphire) </p> </th> 
+           <td> <p> 2005-11 </p> </td> 
+           <td> <p> PHP &gt;= 5.2 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Solodev">Solodev CMS</a> </p> </th> 
+           <td> <p> 2005-11 </p> </td> 
+           <td> <p> PHP 5 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Symfony">Symfony</a> </p> </th> 
+           <td> <p> 2005-10 </p> </td> 
+           <td> <p> PHP 5 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Symfony">Symfony 2</a> </p> </th> 
+           <td> <p> 2010 </p> </td> 
+           <td> <p> PHP &gt;= 5.3.3 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Yii">Yii</a> </p> </th> 
+           <td> <p> 2008-01 </p> </td> 
+           <td> <p> PHP &gt;= 5.1.0 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Zend Framework">Zend Framework</a> </p> </th> 
+           <td> <p> 2006-03 </p> </td> 
+           <td> <p> PHP &gt;= 5.2.4 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Zend Framework 2">Zend Framework 2</a> </p> </th> 
+           <td> <p> 2010-06 </p> </td> 
+           <td> <p> PHP &gt;= 5.3.3 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Zikula">Zikula</a> </p> </th> 
+           <td> <p> 2008-06 </p> </td> 
+           <td> <p> PHP </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{N/A}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Python</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Language </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+           <th> <p> Python 3.* </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CherryPy">CherryPy</a> </p> </th> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="CubicWeb">CubicWeb</a> </p> </th> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Flask (programming)">Flask</a> </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Grok (web framework)">Grok</a> </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Pyjamas (software)">Pyjamas</a> </p> </th> 
+           <td> <p> Python, <a href="JavaScript">JavaScript</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Use <a href="PureMVC">PureMVC</a> Python version (compiled to JavaScript) </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> ??, no direct data access </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Pylons project#Pylons Framework">Pylons</a> </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Pylons project#Pyramid">Pyramid</a> </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{n/a|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{depends|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Django (web framework)">Django</a> </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="TurboGears">TurboGears</a> </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="web2py">web2py</a> </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Webware for Python">Webware</a> </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="BlueBream">BlueBream</a> (Zope 3) </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Zope">Zope</a> 2 </p> </th> 
+           <td> <p> Python </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="mnml">mnml</a> </p> </th> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Ruby</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Camping (microframework)">Camping</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Nitro (web framework)">Nitro</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ruby on Rails">Ruby on Rails</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Sinatra (software)">Sinatra</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Push </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Others</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 75%"> 
+         <tbody>
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Language </p> </th> 
+           <th> <p> <a href="Ajax (programming)">Ajax</a> </p> </th> 
+           <th> <p> <a href="model?view?controller">MVC</a> framework </p> </th> 
+           <th> <p> <a href="Web application framework#Push-based vs. pull-based">MVC push-pull</a> </p> </th> 
+           <th> <p> <a href="internationalization and localization">i18n &amp; L10n?</a> </p> </th> 
+           <th> <p> <a href="object-relational mapping">ORM</a> </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="AIDA/Web">AIDA/Web</a> </p> </th> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Oracle Application Express">Application Express</a> </p> </th> 
+           <td> <p> <a href="PL/SQL">PL/SQL</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Adobe Flex">Flex</a> </p> </th> 
+           <td> <p> <a href="ActionScript">ActionScript</a>, <a href="MXML">MXML</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Kepler (software)">Kepler</a> </p> </th> 
+           <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Lift (web framework)">Lift</a> </p> </th> 
+           <td> <p> <a href="Scala (programming language)">Scala</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Pull </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Ocsigen">Ocsigen</a> </p> </th> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Opa (programming language)">Opa</a> </p> </th> 
+           <td> <p> Opa </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="OpenACS">OpenACS</a> </p> </th> 
+           <td> <p> <a href="Tcl">Tcl</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Seaside (software)">Seaside</a> </p> </th> 
+           <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span>, intentionally </p> </td> 
+           <td> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> Project </p> </th> 
+           <th> <p> Language </p> </th> 
+           <th> <p> Ajax </p> </th> 
+           <th> <p> MVC framework </p> </th> 
+           <th> <p> MVC push-pull </p> </th> 
+           <th> <p> i18n &amp; L10n? </p> </th> 
+           <th> <p> ORM </p> </th> 
+           <th> <p> Testing framework(s) </p> </th> 
+           <th> <p> <a href="Schema migration">DB migration</a> framework(s) </p> </th> 
+           <th> <p> Security framework(s) </p> </th> 
+           <th> <p> Template framework(s) </p> </th> 
+           <th> <p> Caching framework(s) </p> </th> 
+           <th> <p> Form validation framework(s) </p> </th> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Comparison of free software eCommerce web application frameworks">Comparison of free software eCommerce web application frameworks</a></li> 
+       <li><a href="Web application framework">Web application framework</a></li> 
+       <li><a href="Content management system">Content management system</a></li> 
+       <li><a href="List of content management frameworks">List of content management frameworks</a></li> 
+       <li><a href="List of content management systems">List of content management systems</a></li> 
+       <li><a href="Java: View Technologies and Frameworks">Java: View Technologies and Frameworks</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison of web application frameworks}}</span> <a href="Category:Web application frameworks">Web application frameworks</a> <a href="Category:Lists of software">Web application frameworks</a> <a href="Category:Software comparisons">Web application frameworks</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

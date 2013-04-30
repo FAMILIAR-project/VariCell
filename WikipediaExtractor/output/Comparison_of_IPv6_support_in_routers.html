@@ -1,0 +1,792 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of IPv6 support in routers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of IPv6 support in routers</h1> 
+   <div class="article-content"> 
+    <p> This is a comparison of consumer and commercial <a href="Router (computing)">network routers</a> in regards to their support of the <a href="IPv6">IPv6</a> protocol. </p> 
+    <div class="section"> 
+     <h2> Comparison table </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: 100%"> 
+       <tbody>
+        <tr> 
+         <th> <p> Manufacturer </p> </th> 
+         <th> <p> Model </p> </th> 
+         <th> <p> Native <a href="IPv6">IPv6</a> support?<br /> </p> </th> 
+         <th> <p> Notes </p> </th> 
+         <th> <p> Reference links </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Allied Telesis">Allied Telesis</a> </p> </td> 
+         <td> <p> AR415S </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supports static and dynamic IPv6 routing </p> </td> 
+         <td> <p> <a href="http://www.alliedtelesis.com/p-2007.html">1</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Allied Telesis">Allied Telesis</a> </p> </td> 
+         <td> <p> AR550S / AR750S </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supports static and dynamic IPv6 routing </p> </td> 
+         <td> <p> <a href="http://www.alliedtelesis.com/pcline-32">2</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Allied Telesis">Allied Telesis</a> </p> </td> 
+         <td> <p> AR570S / AR770S </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supports static and dynamic IPv6 routing </p> </td> 
+         <td> <p> <a href="http://www.alliedtelesis.com/pcline-47">3</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apple Inc.">Apple</a> </p> </td> 
+         <td> <p> <a href="AirPort Extreme">AirPort Extreme</a> (4th generation and newer) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supports IPv6 over WAN or via a <a href="network tunnel">network tunnel</a>, cannot route IPv6 directly over <a href="DSL">DSL</a>. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apple Inc.">Apple</a> </p> </td> 
+         <td> <p> <a href="Time Capsule (Apple)">Time Capsule</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supports IPv6 over WAN or via a <a href="network tunnel">network tunnel</a>, cannot route IPv6 directly over <a href="DSL">DSL</a>. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apple Inc.">Apple</a> </p> </td> 
+         <td> <p> <a href="AirPort Express">AirPort Express</a> (2nd Generation) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supports IPv6 over WAN or via a <a href="network tunnel">network tunnel</a>, cannot route IPv6 directly over <a href="DSL">DSL</a>. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AVM GmbH">AVM</a> </p> </td> 
+         <td> <p> FRITZ!Box Fon wlan 7390 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supports IPv6 over WAN <a href="DSL">DSL</a> or via a <a href="network tunnel">network tunnel</a>. </p> </td> 
+         <td> <p> <a href="http://www.fritzbox.eu">4</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AVM GmbH">AVM</a> </p> </td> 
+         <td> <p> FRITZ!Box Fon wlan 7270 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supports IPv6 over WAN <a href="DSL">DSL</a> or via a <a href="network tunnel">network tunnel</a>. </p> </td> 
+         <td> <p> <a href="http://www.avm.de/de/Service/Datenblaetter/AVM_FRITZBox_Fon_WLAN_7270_int.pdf">5</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7402XL </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supported as of firmware version 6.21. </p> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">6</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7402X </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supported as of firmware version 6.21. </p> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">7</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7402GXL </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supported as of firmware version 6.21. </p> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">8</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7402GX </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supported as of firmware version 6.21. </p> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">9</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7402NXL </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">10</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7402NX </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supported as of firmware version 6.21. </p> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">11</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7402R2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> Firmware version 5.74 no support for IPv6. </p> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">12</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7401VGP-R3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> The recommended VoIP modem from <a href="Internode (ISP)">Internode</a>. </p> </td> 
+         <td> <p> <a href="http://au.billion.com/downloads/ver6.21.pdf">13</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7401VGP-X </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">14</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7404VGP-X </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://au.billion.com/downloads/ver6.21.pdf">15</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7404VGO-M </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> Firmware version 5.74 no support for IPv6. </p> </td> 
+         <td> <p> <a href="http://au.billion.com/downloads/ver6.21.pdf">16</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7404VGO-X </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://au.billion.com/downloads/ver6.21.pdf">17</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7404VNP-X </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://au.billion.com/downloads/ver6.21.pdf">18</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7404VNO-X </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://au.billion.com/downloads/ver6.21.pdf">19</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7700N </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">20</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7800 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supported as of firmware version 1.06e. </p> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">21</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7800N </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Supported as of firmware version 1.06d. </p> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">22</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Billion (company)">Billion</a> </p> </td> 
+         <td> <p> BiPAC 7800NL </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://www.billion.com/product/2011-Billion-Product-Guide.pdf">23</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Cisco">Cisco</a> </p> </td> 
+         <td> <p> RV220W </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Configuration is tricky but it does work. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Cisco">Cisco</a> </p> </td> 
+         <td> <p> 830 Series </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> IPv6 supported by PLUS images of IOS release 12.3(4XG) forward. </p> </td> 
+         <td> <p> <a href="http://www.cisco.com/en/US/docs/ios/12_3/12_3x/release/notes/rn800xg.html#IPv6_Support">24</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Cisco">Cisco</a> </p> </td> 
+         <td> <p> 1941 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> IPv6 supported by IPBase images of IOS release 15.x forward. (IPBase IOS - IPv6 traffic unfirewalled, Security IOS - IPv6 traffic firewalled.) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CradlePoint">CradlePoint</a> </p> </td> 
+         <td> <p> MBR95 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> As of June 22, 2012, none of the CradlePoint routers support IPv6. </p> </td> 
+         <td> <p> <a href="http://www.cradlepoint.com/sites/default/files/productdocs/MBR95_Datasheet_12_19_11.pdf">25</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DIR-300 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">26</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DIR-601 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">27</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DIR-615 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> IPv6 supported by hardware revisions C1 and E. Earlier revisions and revision D do not support IPv6. </p> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">28</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DIR-632 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">29</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DIR-655 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> IPv6 supported by hardware revision B. Earlier revisions do not support IPv6. </p> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">30</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DIR-685 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">31</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DIR-825 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> IPv6 supported by hardware revision B. Earlier revisions do not support IPv6. IPV6 traffic unfirewalled. </p> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">32</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DIR-852 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">33</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DIR-865 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">34</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="D-Link">D-Link</a> </p> </td> 
+         <td> <p> DHP-1320 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> (DSL modem/router) </p> </td> 
+         <td> <p> <a href="http://blog.dlink.com/connect/d-link-ready-big-switch-ipv6/">35</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DrayTek">DrayTek</a> </p> </td> 
+         <td> <p> Vigor 2130 Series </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Native dual-stack and broker (TSPC or AICCU) support </p> </td> 
+         <td> <p> <a href="http://www.draytek.co.uk/products/vigor2130.html">36</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DrayTek">DrayTek</a> </p> </td> 
+         <td> <p> Vigor 2750 Series </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Native dual-stack and broker (TSPC or AICCU) support </p> </td> 
+         <td> <p> <a href="http://www.draytek.co.uk/products/vigor2750.html">37</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DrayTek">DrayTek</a> </p> </td> 
+         <td> <p> Vigor 2830 Series </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Native dual-stack and broker (TSPC or AICCU) support </p> </td> 
+         <td> <p> <a href="http://www.draytek.co.uk/products/vigor2830.html">38</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DrayTek">DrayTek</a> </p> </td> 
+         <td> <p> Vigor 2850 Series </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Native dual-stack and broker (TSPC or AICCU) support </p> </td> 
+         <td> <p> <a href="http://www.draytek.co.uk/products/vigor2850.html">39</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DrayTek">DrayTek</a> </p> </td> 
+         <td> <p> Vigor 2920 Series </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Native dual-stack and broker (TSPC or AICCU) support <a href="http://www.draytek.co.uk/ipv6/">40</a> </p> </td> 
+         <td> <p> <a href="http://www.draytek.co.uk/products/vigor2920.html">41</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DrayTek">DrayTek</a> </p> </td> 
+         <td> <p> Vigor 3900 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Dual-Stack and Broker support </p> </td> 
+         <td> <p> <a href="http://www.draytek.co.uk/products/vigor3900.html">42</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Draytek">Draytek</a> </p> </td> 
+         <td> <p> Vigor 2960 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> Dual-Stack and Broker support </p> </td> 
+         <td> <p> <a href="http://www.draytek.co.uk/products/vigor2960.html">43</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Motorola">Motorola</a> </p> </td> 
+         <td> <p> SBG6580 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://www.motorola.com/Video-Solutions/US-EN/Products-and-Services/Voice-and-Data-Consumer-Premise-Equipment/DOCSIS-Modems-Gateways-and-eMTAs/Wireless-Cable-Modem-Gateways/SBG6580?localeId=33">44</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Netgear">Netgear</a> </p> </td> 
+         <td> <p> WNR3500L </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> IPv6 supported (<a href="http://kb.netgear.com/app/answers/detail/a_id/16643">45</a> Firmware Version 1.2.2.30) </p> </td> 
+         <td> <p> <a href="http://www.netgear.com/service-provider/products/routers-and-gateways/gigabit-ethernet-routers-gateways/WNR3500L.aspx">46</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Netgear">Netgear</a> </p> </td> 
+         <td> <p> WNDR3700/WNDR37AV </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> IPv6 supported (<a href="http://kb.netgear.com/app/answers/detail/a_id/18632">47</a> Firmware Version 1.0.7.98), WNDR37AV is identical to a WNDR3700 </p> </td> 
+         <td> <p> <a href="http://kb.netgear.com/app/products/model/a_id/11640">48</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Netgear">Netgear</a> </p> </td> 
+         <td> <p> WNDR4500 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> IPv6 supported on all shipping firmwares.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="http://www.netgear.com/home/products/wirelessrouters/ultimate-performance/WNDR4500.aspx">49</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Netgear">Netgear</a> </p> </td> 
+         <td> <p> D6300 </p> </td> 
+         <td> <p> IPv6 with software update 24 </p> </td> 
+         <td> <p> &nbsp; </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> Trendnet </p> </td> 
+         <td> <p> TEW-652BRP </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> Supports IPv6 when flashed with D-Link DIR-615 rev. C1 firmware update. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Technicolor SA">Technicolor SA</a> </p> </td> 
+         <td> <p> TG582n </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://www.technicolor.com/en/hi/digital-home/mediaaccess/dsl/wireless/adsl/technicolor-tg582n">50</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Technicolor SA">Technicolor SA</a> </p> </td> 
+         <td> <p> TG784n v3 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://www.technicolor.com/en/hi/digital-home/mediaaccess/dsl/advanced-service-gateways/adsl/technicolor-tg784n-v3">51</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> vantronix </p> </td> 
+         <td> <p> .vtFW-EM2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> dynamic address translation to extend proven dual stack functionality </p> </td> 
+         <td> <p> [www.vantronix.com] </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> vantronix </p> </td> 
+         <td> <p> .vtFW-EM2p </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> dynamic address translation to extend proven dual stack functionality </p> </td> 
+         <td> <p> [www.vantronix.com] </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> vantronix </p> </td> 
+         <td> <p> .vtFW-C1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> dynamic address translation to extend proven dual stack functionality </p> </td> 
+         <td> <p> [www.vantronix.com] </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> vantronix </p> </td> 
+         <td> <p> .vtFW-C2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> dynamic address translation to extend proven dual stack functionality </p> </td> 
+         <td> <p> [www.vantronix.com] </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> vantronix </p> </td> 
+         <td> <p> .vtFW-HA1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> dynamic address translation to extend proven dual stack functionality </p> </td> 
+         <td> <p> [www.vantronix.com] </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> vantronix </p> </td> 
+         <td> <p> .vtFW-ZL1 and .vtFWZL2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> dynamic address translation to extend proven dual stack functionality </p> </td> 
+         <td> <p> [www.vantronix.com] </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> vantronix </p> </td> 
+         <td> <p> .vtRT-ZL1 and .vtRT-ZL2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> dynamic address translation to extend proven dual stack functionality </p> </td> 
+         <td> <p> [www.vantronix.com] </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Yamaha Corporation">YAMAHA</a> </p> </td> 
+         <td> <p> RTX1200 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> RTX1200 and all other Yamaha routers are enabled IPv6 function in their factory default settings. </p> </td> 
+         <td> <p> <a href="http://www.rtpro.yamaha.co.jp/english/rtx1200/">52</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Yamaha Corporation">YAMAHA</a> </p> </td> 
+         <td> <p> RTX810 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> RTX1200 and all other Yamaha routers are enabled IPv6 function in their factory default settings. </p> </td> 
+         <td> <p> <a href="http://www.rtpro.yamaha.co.jp/english/rtx810/">53</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Yamaha Corporation">YAMAHA</a> </p> </td> 
+         <td> <p> NVR500 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> RTX1200 and all other Yamaha routers are enabled IPv6 function in their factory default settings. </p> </td> 
+         <td> <p> <a href="http://www.rtpro.yamaha.co.jp/english/nvr500/">54</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Zyxel">Zyxel</a> </p> </td> 
+         <td> <p> <a href="ZyNOS">ZyNOS</a> and ZyNOS based ZyWALL routers and UTMs, USG1000/2000, P662HW-61, P874, P-870H V2, P-870HNU-51B, P-2812HNU-51C </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="https://www.ipv6ready.org/db/index.php/public/search/?l=&amp;c=&amp;ds=&amp;de=&amp;pc=2&amp;ap=&amp;oem=&amp;etc=C&amp;fw=zyxel&amp;vn=&amp;do=1&amp;o=9">List</a> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Third-party firmwares with IPv6 support</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: 100%"> 
+       <tbody>
+        <tr> 
+         <th> <p> Name </p> </th> 
+         <th> <p> Notes </p> </th> 
+         <th> <p> Reference links </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenWrt">OpenWrt</a> </p> </td> 
+         <td> <p> 8.09 supports v6 routing with <a href="Quagga (software)">Quagga</a>. 10.03.1 supports v6 routing with Quagga &amp; <a href="Bird Internet routing daemon">BIRD</a>. </p> </td> 
+         <td> <p> <a href="http://wiki.openwrt.org/doc/howto/ipv6">55</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DD-WRT">DD-WRT</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="http://www.dd-wrt.com/">56</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Pfsense">Pfsense</a> </p> </td> 
+         <td> <p> Version 2.1 (currently in beta) or better </p> </td> 
+         <td> <p> <a href="http://pfsense.org">57</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Tomato (firmware)">Tomato</a> </p> </td> 
+         <td> <p> Some mods support IPv6, others do not (yet) - see <a href="Tomato (firmware)">article</a> </p> </td> 
+         <td> <p> Varies by mod </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Consumer routers with 6to4 support</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Apple Inc.">Apple</a>'s <a href="Airport Extreme">Airport Extreme</a> &amp; <a href="AirPort Express">Airport Express</a> base station</li> 
+       <li> Various <a href="Buffalo Technology">Buffalo Technology</a> wireless routers</li> 
+       <li> <a href="D-Link">D-Link</a> DIR-615, DIR-655 Rev.B, DIR-825 (V2 firmware; currently available for the DIR-825 Rev. B only!)</li> 
+       <li> <a href="AVM GmbH">AVM</a> <a href="FRITZ!Box">FRITZ!Box</a> 7270 &amp; 7390 (since firmware 74.04.86)</li> 
+       <li> <a href="Mikrotik">Mikrotik</a> RouterOS software and RouterBoard hardware. Requires v3 and above with the IPv6 package installed</li> 
+       <li> <a href="Fortinet">Fortinet</a> <a href="FortiGate">FortiGate</a>. Also supports stateful Firewalling, Antivirus, Application-Control and Intrusion-Protection for IPv6</li> 
+       <li> <a href="DrayTek">DrayTek</a> <a href="Vigor 2750 (VDSL)">Vigor 2750 (VDSL)</a></li> 
+       <li> <a href="DrayTek">DrayTek</a> <a href="Vigor 2130 (Ethernet WAN)">Vigor 2130 (Ethernet WAN)</a></li> 
+       <li> <a href="NETGEAR">NETGEAR</a> <a href="WNR3500L">WNR3500L</a> (since firmware V1.2.2.30)</li> 
+       <li> <a href="NETGEAR">NETGEAR</a> <a href="WNR3700v1">WNR3700v1</a> (since firmware V1.0.6.98)</li> 
+       <li> <a href="NETGEAR">NETGEAR</a> <a href="WNDR4000v1">WNDR4000v1</a> (since firmware V1.0.0.60)</li> 
+       <li> <a href="NETGEAR">NETGEAR</a> <a href="WNDR3800v1">WNDR3800v1</a> (since firmware V1.0.0.00)</li> 
+       <li> <a href="NETGEAR">NETGEAR</a> <a href="WNDR4500v1">WNDR4500v1</a> (all firmware versions)</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> External links </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="https://www.ipv6ready.org/db/index.php/public/search/?pc=2&amp;etc=C&amp;do=1&amp;lim=25&amp;o=9">List of routers that have the IPv6 Ready logo</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{IPv6}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Ipv6 Support In Routers}}</span> <a href="Category:IPv6">Category:IPv6</a> <a href="Category:Computing comparisons">Category:Computing comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

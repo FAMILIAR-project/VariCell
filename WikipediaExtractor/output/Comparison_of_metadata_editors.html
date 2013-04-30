@@ -1,0 +1,1054 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of metadata editors</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of metadata editors</h1> 
+   <div class="article-content"> 
+    <p> This article presents a comparison of metadata viewers and metadata editors. </p> 
+    <p> A metadata editor is a <a href="computer program">computer program</a> that allows users to view and edit <a href="metadata tag">metadata tags</a> interactively on the computer screen and save them in the graphics file. Usually a metadata viewer is preferred over a metadata editor for viewing tags. </p> 
+    <p> A number of metadata editors for various platforms exist. Users choose among them based on factors such as the availability for the user's platform, the feature set and usability of the <a href="user interface">user interface</a> (UI). </p> 
+    <p> The Metadata Working Group (MWG) is a consortium of leading companies in the digital media industry.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> The MWG publishes technical specifications that describe how to effectively store metadata into digital media files. These royalty-free specifications are made available to software developers, manufacturers and service providers so that they may create products that use metadata in a consistent way, and that allow consumers to better describe, organize and find their media. Where possible, these specifications rely on existing standards, and aim to create a unified and cohesive approach to applying these standards.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> 
+    <div class="section"> 
+     <h2> Features </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable"> 
+       <tbody>
+        <tr>
+         <th rowspan="2" align="center"> <p> Software </p> </th> 
+         <th rowspan="2" align="center"> <p> Platform </p> </th> 
+         <th rowspan="2" align="center"> <p> License </p> </th> 
+         <th rowspan="2" align="center"> <p> Latest version </p> </th> 
+         <th rowspan="2" align="center"> <p> Last release year </p> </th> 
+         <th rowspan="2" align="center"> <p> Size<br />(MB) </p> </th> 
+         <th rowspan="2" align="center"> <p> Description </p> </th> 
+         <th rowspan="2" align="center"> <p> Number<br />(*1) </p> </th> 
+         <th colspan="6" align="center"> <p> Supported metadata standards<br />(*2) </p> </th> 
+         <th colspan="4" align="center"> <p> Supported file formats<br />(*3) </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> Exif </p> </th> 
+         <th> <p> GPS </p> </th> 
+         <th> <p> IPTC </p> </th> 
+         <th> <p> XMP </p> </th> 
+         <th> <p> Maker </p> </th> 
+         <th> <p> Other </p> </th> 
+         <th> <p> JPG </p> </th> 
+         <th> <p> TIF </p> </th> 
+         <th> <p> RAW </p> </th> 
+         <th> <p> Other </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Auto ISO Tool">Auto ISO Tool</a><a href="http://aeropic.free.fr/H&amp;B/AUTO_ISO_patcher/">1</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> </td> 
+         <td> <p> 2007 </p> </td> 
+         <td align="right"> <p> 0.2 </p> </td> 
+         <td> <p> GUI for ExifTool to patch Canon ISO information. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> W </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AvPicFaceXmpTagger">AvPicFaceXmpTagger</a><a href="http://www.anvo-it.de/wiki/doku.php?id=avpicfacexmptagger:main">2</a> </p> </td> 
+         <td> <p> Windows<br />Linux </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 1.7 </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td align="right"> <p> 3.7 </p> </td> 
+         <td> <p> Write Picasa face recognition information as XMP to your images. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> RW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Description Explorer">Description Explorer</a><a href="http://www.optimasc.com/products/dex/index.html">3</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 0.5.2 </p> </td> 
+         <td> <p> 2009 </p> </td> 
+         <td align="right"> <p> 10.7 </p> </td> 
+         <td> <p> Collection of tools for XMP metadata. </p> </td> 
+         <td align="right"> <p> 15 </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Easy Exif Delete">Easy Exif Delete</a><a href="http://www.easyexifdelete.com/">4</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 1.0 </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td align="right"> <p> 0.8 </p> </td> 
+         <td> <p> Clean any Exif unwanted data from your digital pictures. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="EXIF-O-Matic">EXIF-O-Matic</a><a href="http://www.rahulbotics.com/personal-projects/exif-o-matic/">5</a> </p> </td> 
+         <td> <p> Windows<br />MacOS<br />Linux </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 1.2 </p> </td> 
+         <td> <p> 2012 </p> </td> 
+         <td align="right"> <p> 0.2 </p> </td> 
+         <td> <p> View Exif tags. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ExifAuto">ExifAuto</a><a href="http://home.roadrunner.com/~dick/ExifAuto.htm">6</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> 2007 </p> </td> 
+         <td align="right"> <p> 0.4 </p> </td> 
+         <td> <p> GUI front-end for ExifTool to perform simple operations. </p> </td> 
+         <td align="right"> <p> 5 </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="EXIF Browser">EXIF Browser</a><a href="http://www.software-factory.ch/software/exifbrowser/exifbrowser_software_en.htm">7</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 0.9 </p> </td> 
+         <td> <p> 2007 </p> </td> 
+         <td align="right"> <p> 0.9 </p> </td> 
+         <td> <p> Extract Exif information from image files. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Exif Copier">Exif Copier</a><a href="http://exifcopier.110mb.com/">8</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 0.9 </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td align="right"> <p> 5.0 </p> </td> 
+         <td> <p> Copy metadata between sets of multiple images using ExifTool. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> W </p> </td> 
+         <td> <p> W </p> </td> 
+         <td> <p> W </p> </td> 
+         <td> <p> W </p> </td> 
+         <td> <p> W </p> </td> 
+         <td> <p> W </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ExifCleaner">ExifCleaner</a><a href="http://www.superutils.com/products/exifcleaner/">9</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 1.6 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 1.2 </p> </td> 
+         <td> <p> Lets you to erase/remove photographic metadata. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="EXIF Date Changer">EXIF Date Changer</a><a href="http://www.relliksoftware.com/exifdatechanger/">10</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 2.52 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 3.7 </p> </td> 
+         <td> <p> Allows you change the time and date information stored in the metadata of your photos. </p> </td> 
+         <td align="right"> <p> 7 </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ExifDropper">ExifDropper</a><a href="http://fliggs.wordpress.com/exifdropper-help/">11</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 0.9 </p> </td> 
+         <td> <p> 2009 </p> </td> 
+         <td align="right"> <p> 0.1 </p> </td> 
+         <td> <p> Graphical front-end for ExifTool with drag-and-drop and command-line parameters. </p> </td> 
+         <td bgcolor="#99CCFF" align="right"> <p> &gt;200 </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ExifMixer">ExifMixer</a><a href="http://www.moonsoftware.com/exifmixer.asp">12</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 0.50 </p> </td> 
+         <td> <p> 2008 </p> </td> 
+         <td align="right"> <p> 0.4 </p> </td> 
+         <td> <p> GUI extension for the ExifTool with command-line parameters. </p> </td> 
+         <td bgcolor="#99CCFF" align="right"> <p> &gt;200 </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Exif Pilot">Exif Pilot</a><a href="http://www.colorpilot.com/exif.html">13</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 4.4 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 2.1 </p> </td> 
+         <td> <p> Software for viewing, editing, and creating metadata. </p> </td> 
+         <td align="right"> <p> 26 </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Exif Stats">Exif Stats</a><a href="http://www.thezeal.com/blog/exif-stats/">14</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> </td> 
+         <td> <p> 2006 </p> </td> 
+         <td align="right"> <p> 2.0 </p> </td> 
+         <td> <p> Extract some tags using ExifTool. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Exif Tag Remover">Exif Tag Remover</a><a href="http://www.rlvision.com/exif/about.asp">15</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 4.1 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 3.5 </p> </td> 
+         <td> <p> Allows you to easily delete all metadata tags. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ExifTool">ExifTool</a><a href="http://owl.phy.queensu.ca/~phil/exiftool/">16</a> </p> </td> 
+         <td> <p> Windows<br />MacOS<br />Linux </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 9.22 </p> </td> 
+         <td> <p> 2013 </p> </td> 
+         <td align="right"> <p> 3.3 </p> </td> 
+         <td> <p> Powerful command line utility. </p> </td> 
+         <td bgcolor="#99CCFF" align="right"> <p> &gt;200 </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ExifTool GUI">ExifTool GUI</a><a href="http://u88.n24.queensu.ca/~bogdan/">17</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 5.14 </p> </td> 
+         <td> <p> 2012 </p> </td> 
+         <td align="right"> <p> 1.3 </p> </td> 
+         <td> <p> GUI for the ExifTool with some editing features. </p> </td> 
+         <td align="right"> <p> 64 </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="EXIFutils">EXIFutils</a><a href="http://www.hugsan.com/EXIFutils">18</a> </p> </td> 
+         <td> <p> Windows<br />MacOS<br />Linux </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 3.1.4 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 3.5 </p> </td> 
+         <td> <p> Set of command line utilities that extract, add, remove, copy, and replace metadata. </p> </td> 
+         <td bgcolor="#99CCFF" align="right"> <p> &gt;200 </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ExifyMe">ExifyMe</a><a href="http://www.xtrasimplicity.info/archives/185">19</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 1.0 </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td align="right"> <p> 3.3 </p> </td> 
+         <td> <p> Restore Exif metadata from an original image. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> W </p> </td> 
+         <td> <p> W </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Exiv2">Exiv2</a><a href="http://www.exiv2.org/">20</a> </p> </td> 
+         <td> <p> Windows<br />Linux </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 0.22 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 1.6 </p> </td> 
+         <td> <p> Command line utility. </p> </td> 
+         <td bgcolor="#99CCFF" align="right"> <p> &gt;200 </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ExposurePlot">ExposurePlot</a><a href="http://www.vandel.nl/">21</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 1.14 </p> </td> 
+         <td> <p> 2009 </p> </td> 
+         <td align="right"> <p> 0.6 </p> </td> 
+         <td> <p> Analyze your usage of the focal length of your lenses, ISO, shutter speed and aperture. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Free EXIF Eraser">Free EXIF Eraser</a><a href="http://www.exiferaser.com/">22</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 1.1 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 0,8 </p> </td> 
+         <td> <p> Allows you to easily and effectively delete entire Exif/IPTC/XMP information from image files. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GUI2">GUI2</a><a href="http://gui2-for-exiftool.weebly.com/gui2-for-exiftool.html">23</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 1.3 </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td align="right"> <p> 15.7 </p> </td> 
+         <td> <p> GUI extension for the ExifTool. </p> </td> 
+         <td align="right"> <p> 12 </p> </td> 
+         <td> <p> R </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Image Info Toolkit">Image Info Toolkit</a><a href="http://www.image-info-toolkit.com/en/welcome.html">24</a> </p> </td> 
+         <td> <p> Windows<br />MacOS </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2012 </p> </td> 
+         <td align="right"> <p> 4.9 </p> </td> 
+         <td> <p> Editor for IPTC and XMP metadata. </p> </td> 
+         <td align="right"> <p> 36 </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="IPTC-PLUS Photo Metadata Toolkit">IPTC-PLUS Photo Metadata Toolkit</a><a href="http://www.iptc.org/cms/site/single.html">25</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 1.2 </p> </td> 
+         <td> <p> Editor for IPTC and PLUS photo metadata with Adobe CS3 to CS5. </p> </td> 
+         <td align="right"> <p> 150 </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="iTag">iTag</a><a href="http://itagsoftware.com/">26</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 478 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 9.1 </p> </td> 
+         <td> <p> A tool that adds title, description and keyword tags to photos. </p> </td> 
+         <td align="right"> <p> 10 </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JExifViewer">JExifViewer</a><a href="http://jexifviewer.sourceforge.net/">27</a> </p> </td> 
+         <td> <p> Windows<br />Linux </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> 1.8 </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td align="right"> <p> 5.3 </p> </td> 
+         <td> <p> View Exif information stored in JPG files. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> [[JPEG &amp; PNG Stripper]]<a href="http://www.steelbytes.com/?mid=30">28</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 1.5.4 </p> </td> 
+         <td> <p> 2012 </p> </td> 
+         <td align="right"> <p> 0.1 </p> </td> 
+         <td> <p> A tool for stripping/cleaning/removing unnecessary metadata. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td> <p> D </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MetadataFox">MetadataFox</a><a href="http://digitalconfidence.com/MetadataFox.html">29</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 1.1 </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td align="right"> <p> 0.4 </p> </td> 
+         <td> <p> A tool to explore files by their XMP metadata. </p> </td> 
+         <td align="right"> <p> 0 </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> R </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MetadataTouch">MetadataTouch</a><a href="http://digitalconfidence.com/MetadataTouch.html">30</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 5.2 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 0.6 </p> </td> 
+         <td> <p> A tool to view and edit IPTC and XMP metadata. </p> </td> 
+         <td align="right"> <p> 70 </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> EW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MetaEditor">MetaEditor</a><a href="http://www.kiwiczech.net/">31</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 3.2.6.0 </p> </td> 
+         <td> <p> 2011 </p> </td> 
+         <td align="right"> <p> 6.3 </p> </td> 
+         <td> <p> Allows you read and edit metadata within your digital photos. </p> </td> 
+         <td bgcolor="#99CCFF" align="right"> <p> &gt;200 </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MetaLith">MetaLith</a><a href="http://www.metalith.ru/">32</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 5.00 </p> </td> 
+         <td> <p> 2013 </p> </td> 
+         <td align="right"> <p> 11.9 </p> </td> 
+         <td> <p> Allows you read, analyze and edit metadata. The main feature of the program is the ability to simultaneously edit any number of files. </p> </td> 
+         <td bgcolor="#99CCFF" align="right"> <p> &gt;200 </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> R </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Opanda PowerExif">Opanda PowerExif</a><a href="http://www.opanda.com/en/pe/">33</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Shareware </p> </td> 
+         <td> <p> 1.22 </p> </td> 
+         <td> <p> 2013 </p> </td> 
+         <td align="right"> <p> 1.6 </p> </td> 
+         <td> <p> A powerful GUI tool with batch processing to edit Exif/GPS data and completely remove all data (include Exif) in images. </p> </td> 
+         <td align="right"> <p> &gt;130 </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PhotoME">PhotoME</a><a href="http://www.photome.de/">34</a> </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> Freeware </p> </td> 
+         <td> <p> 0.79 </p> </td> 
+         <td> <p> 2009 </p> </td> 
+         <td align="right"> <p> 3.0 </p> </td> 
+         <td> <p> Powerful tool to show and edit the metadata of image files. Thanks to the well organized layout and intuitive handling, it's possible to analyze and modify Exif and IPTC-NAA data as well as analyze ICC profiles. </p> </td> 
+         <td bgcolor="#99CCFF" align="right"> <p> &gt;200 </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> - </p> </td> 
+         <td bgcolor="#99CCFF"> <p> REW </p> </td> 
+         <td> <p> R </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+         <td bgcolor="#99CCFF"> <p> Yes </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> *1</li> 
+      </ul> 
+      <dl> 
+       <dd>
+        Number of editable tags
+       </dd> 
+      </dl> 
+      <ul> 
+       <li> *2</li> 
+      </ul> 
+      <dl> 
+       <dd>
+        Exif - Exchangeable image file format for digital still cameras
+       </dd> 
+       <dd>
+        GPS - The global positioning system
+       </dd> 
+       <dd>
+        IPTC - IPTC-NAA Information Interchange Model
+       </dd> 
+       <dd>
+        XMP - Extensible Metadata Platform
+       </dd> 
+       <dd>
+        Maker - Proprietary Maker Notes
+       </dd> 
+       <dd>
+        Other - Other standards, for example: IRB Adobe Photoshop image resource blocks, MPF - Multu-Picture Format 
+        <dl> 
+         <dd>
+          R - Can Read tags
+         </dd> 
+         <dd>
+          E - Can Edit tags
+         </dd> 
+         <dd>
+          W - Can Write tags
+         </dd> 
+         <dd>
+          D - Can Delete tags
+         </dd> 
+        </dl> 
+       </dd> 
+      </dl> 
+      <ul> 
+       <li> *3</li> 
+      </ul> 
+      <dl> 
+       <dd>
+        JPG - JPEG, ISO/IEC IS 10918-1 1993(E)
+       </dd> 
+       <dd>
+        TIF - TIFF, Tagged Image File Format
+       </dd> 
+       <dd>
+        RAW - Proprietary RAW formats
+       </dd> 
+       <dd>
+        Other - Other formats, for example: PSD Adobe Photoshop, DNG Digital Negative, JP2 JPEG2000 
+        <dl> 
+         <dd>
+          Yes - Format is supported
+         </dd> 
+        </dl> 
+       </dd> 
+      </dl> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Digital photography">Digital photography</a></li> 
+       <li> <a href="Exchangeable image file format">Exchangeable image file format</a> (Exif)</li> 
+       <li> <a href="IPTC Information Interchange Model">IPTC Information Interchange Model</a></li> 
+       <li> <a href="eXtensible Metadata Platform">eXtensible Metadata Platform</a> (XMP)</li> 
+       <li> <a href="Image file formats">Image file formats</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <p> <a href="Category:Digital photography">Category:Digital photography</a> <a href="Category:Metadata">Category:Metadata</a> </p> 
+      <p> <a href="ru:??????????? ????????? ??? ?????? ? ???????????">ru:??????????? ????????? ??? ?????? ? ???????????</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,804 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of audio synthesis environments</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of audio synthesis environments</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Lead too short|...}}</span> Software audio synthesis environments typically consist of an <a href="audio programming language">audio programming language</a> (which may be <a href="Visual programming language">graphical</a>) and a user environment to design/run the language in. Although many of these environments are comparable in their abilities to produce high-quality audio, their differences and specialties are what draw users to a particular platform. This article compares noteworthy audio synthesis environments, and enumerates basic issues associated with their use. </p> 
+    <div class="section"> 
+     <h2>Subjective comparisons</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Original research|...}}</span> </p> 
+      <p> Audio synthesis environments comprise a wide and varying range of software and hardware configurations. Even different versions of the same environment can differ dramatically. Because of this broad variability, certain aspects of different systems cannot be directly compared. Moreover, some levels of comparison are either very difficult to objectively quantify, or depend purely on personal preference. </p> 
+      <p> Some of the commonly considered subjective attributes for comparison include: </p> 
+      <ul> 
+       <li> <a href="Usability">Usability</a> (how difficult is it for beginners to generate some kind of meaningful output)</li> 
+       <li> <a href="Usability#Definition">Learnability</a> (how steep the <a href="learning curve">learning curve</a> is for new, average, and advancing users)</li> 
+       <li> Sound &quot;quality&quot; (which environment produces the most subjectively appealing sound)</li> 
+       <li> <a href="Flow (psychology)">Creative flow</a> (in what ways does the environment affect the creative process - e.g. guiding the user in certain directions)</li> 
+      </ul> 
+      <p> These attributes can vary strongly depending on the tasks used for evaluation. </p> 
+      <p> Some other common comparisons include: </p> 
+      <ul> 
+       <li> Audio performance (issues such as throughput, latency, concurrency, etc.)</li> 
+       <li> System performance (issues such as <i>buggyness</i> or stability)</li> 
+       <li> Support and community (who uses the system and who provides help, advice, training and tutorials)</li> 
+       <li> System capabilities (what is possible and what is not possible [regardless of effort] with the system)</li> 
+       <li> Interoperability (how well does the system integrate with other systems from different vendors)</li> 
+      </ul> 
+      <div class="section"> 
+       <h3> Building blocks of sound and sound &quot;quality&quot; </h3> 
+       <div class="section-body"> 
+        <p> Audio software often has a slightly different &quot;sound&quot; when compared against others. This is because there are different ways to implement the basic building blocks (such as <a href="sinewave">sinewaves</a>, <a href="pink noise">pink noise</a>, or <a href="Fast Fourier transform">FFT</a>) which result in slightly different aural characteristics. Although people can of course prefer one system's &quot;sound&quot; over another, perhaps the best output can be determined by using sophisticated audio analyzers in combination with the listener's ears. The idea of this would be to arrive at what most would agree is as &quot;pure&quot; a sound as possible. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> User interface </h3> 
+       <div class="section-body"> 
+        <p> The interface to an audio system often has a significant influence on the creative flow of the user, not because of what is <i>possible</i> (the stable/mature systems listed here are fully featured enough to be able to achieve an enormous range of sonic/compositional objectives), but because of <i>what is made easy</i> and <i>what is made difficult</i>. This is again very difficult to boil down to a brief comparative statement. One issue may be which <a href="interface metaphor">interface metaphors</a> are used (e.g. boxes-and-wires, documents, flow graphs, hardware mixing desks). </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>General</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: center"> 
+       <tbody>
+        <tr>
+         <th> <p> Name </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Primary Purpose(s) </p> </th> 
+         <th> <p> First release date </p> </th> 
+         <th> <p> Most recent update </p> </th> 
+         <th> <p> Most recent version </p> </th> 
+         <th> <p> Cost </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Main user interface type </p> </th> 
+         <th> <p> Development status </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> <a href="Audulus">Audulus</a> </p> </td> 
+         <td> <p> Taylor Holliday </p> </td> 
+         <td> <p> Realtime synthesis, audio processing, mobile music </p> </td> 
+         <td> <p> 2011/09 </p> </td> 
+         <td> <p> 2013/01 </p> </td> 
+         <td> <p> v1.9 </p> </td> 
+         <td> <p> $14.99 (iPad), $39.99 (Mac) </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> Stable </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ChucK">ChucK</a> </p> </td> 
+         <td> <p> Ge Wang and Perry Cook </p> </td> 
+         <td> <p> Realtime synthesis, <a href="live coding">live coding</a>, <a href="pedagogy">pedagogy</a>, <a href="acoustics">acoustic research</a>, <a href="algorithmic composition">algorithmic composition</a> </p> </td> 
+         <td> <p> 2004 </p> </td> 
+         <td> <p> 2012/09 </p> </td> 
+         <td> <p> v1.3.1.2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> Document </p> </td> 
+         <td> <p> Immature </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Csound">Csound</a> </p> </td> 
+         <td> <p> <a href="Barry Vercoe">Barry Vercoe</a> </p> </td> 
+         <td> <p> Realtime performance, sound synthesis, <a href="algorithmic composition">algorithmic composition</a>, <a href="acoustics">acoustic research</a> </p> </td> 
+         <td> <p> 1986 </p> </td> 
+         <td> <p> 2011/12 </p> </td> 
+         <td> <p> v5.15 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+         <td> <p> Document, graphical for realtime </p> </td> 
+         <td> <p> Mature </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Impromptu (programming environment)">Impromptu</a> </p> </td> 
+         <td> <p> Andrew Sorensen </p> </td> 
+         <td> <p> <a href="Live coding">Live coding</a>, <a href="algorithmic composition">algorithmic composition</a>, hardware control, realtime synthesis, 2d/3d graphics programming </p> </td> 
+         <td> <p> 2006 </p> </td> 
+         <td> <p> 2010/10 </p> </td> 
+         <td> <p> v2.5 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> Document </p> </td> 
+         <td> <p> Stable </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Max/MSP">Max/MSP</a> </p> </td> 
+         <td> <p> <a href="Miller Puckette">Miller Puckette</a> </p> </td> 
+         <td> <p> Realtime audio + video synthesis, hardware control </p> </td> 
+         <td> <p> 1980s (mid) </p> </td> 
+         <td> <p> 2012/02/15 </p> </td> 
+         <td> <p> v6.0.1 </p> </td> 
+         <td> <p> $400.00 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> Mature </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://nsound.sourceforge.net/">nsound</a> </p> </td> 
+         <td> <p> Nick Hilton </p> </td> 
+         <td> <p> Realtime synthesis, offline audio rendering, <a href="algorithmic composition">algorithmic composition</a>, <a href="acoustics">acoustic research</a> </p> </td> 
+         <td> <p> 2003 </p> </td> 
+         <td> <p> 2011/06/26 </p> </td> 
+         <td> <p> 0.8.1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> Document </p> </td> 
+         <td> <p> Mature </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Pure Data">Pure Data</a> </p> </td> 
+         <td> <p> <a href="Miller Puckette">Miller Puckette</a> </p> </td> 
+         <td> <p> Realtime synthesis, hardware control, <a href="acoustics">acoustic research</a> </p> </td> 
+         <td> <p> 1990s </p> </td> 
+         <td> <p> 2011/03/29 </p> </td> 
+         <td> <p> v0.43 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a>-like </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> Mature </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Reaktor">Reaktor</a> </p> </td> 
+         <td> <p> <a href="Native Instruments">Native Instruments</a> </p> </td> 
+         <td> <p> Realtime synthesis, hardware control, <a href="GUI">GUI</a> design </p> </td> 
+         <td> <p> 1996 </p> </td> 
+         <td> <p> 2011/09 </p> </td> 
+         <td> <p> 5.6.1 </p> </td> 
+         <td> <p> $399 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> Mature </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SuperCollider">SuperCollider</a> </p> </td> 
+         <td> <p> James McCartney </p> </td> 
+         <td> <p> Realtime synthesis, <a href="live coding">live coding</a>, <a href="algorithmic composition">algorithmic composition</a>, <a href="acoustics">acoustic research</a>, all-purpose programming language </p> </td> 
+         <td> <p> 1996, March </p> </td> 
+         <td> <p> 2012/03 </p> </td> 
+         <td> <p> v3.6 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+         <td> <p> Document </p> </td> 
+         <td> <p> Mature </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.eecs.berkeley.edu/~lazzaro/sa/">sfront</a> </p> </td> 
+         <td> <p> John Lazzaro </p> </td> 
+         <td> <p> <a href="MPEG-4 Structured Audio">MPEG-4/SA</a> implementation, Realtime synthesis, <a href="algorithmic composition">algorithmic composition</a>, structured Web audio. </p> </td> 
+         <td> <p> 1997 </p> </td> 
+         <td> <p> 2010/01/12 </p> </td> 
+         <td> <p> 0.96 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD licenses">BSD</a>-like </p> </td> 
+         <td> <p> Document </p> </td> 
+         <td> <p> Stable </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Usine">Usine</a> </p> </td> 
+         <td> <p> Olivier Sens </p> </td> 
+         <td> <p> Audio manipulation, <a href="live coding">live coding</a>, <a href="algorithmic composition">algorithmic composition</a> </p> </td> 
+         <td> <p> 2006 </p> </td> 
+         <td> <p> 2010/06 </p> </td> 
+         <td> <p> v5.20 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> Mature </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Programming language features</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: center"> 
+       <tbody>
+        <tr>
+         <th> <p> Name </p> </th> 
+         <th> <p> Textual/graphical </p> </th> 
+         <th> <p> <a href="Object-oriented">Object-oriented</a> </p> </th> 
+         <th> <p> <a href="Type system">Type system</a> </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> <a href="Audulus">Audulus</a> </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ChucK">ChucK</a> </p> </td> 
+         <td> <p> Textual </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Static </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Csound">Csound</a> </p> </td> 
+         <td> <p> Textual/Graphical (FLTK) </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Impromptu (programming environment)">Impromptu</a> </p> </td> 
+         <td> <p> Mostly textual </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> Dynamic &amp; static </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Max/MSP">Max/MSP</a> </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://nsound.sourceforge.net/">nsound</a> </p> </td> 
+         <td> <p> Textual </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Dynamic </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Pure Data">Pure Data</a> </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Reaktor">Reaktor</a> </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SuperCollider">SuperCollider</a> </p> </td> 
+         <td> <p> Textual/Graphical (Cocoa/Swing/Qt) </p> </td> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> Dynamic </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MPEG-4 Structured Audio">MPEG-4/SA</a> </p> </td> 
+         <td> <p> Textual </p> </td> 
+         <td> <p> No </p> </td> 
+         <td> <p> No </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Usine">Usine</a> </p> </td> 
+         <td> <p> Graphical </p> </td> 
+         <td> <p> Yes (scripts) </p> </td> 
+         <td> <p> Dynamic </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Data interface methods</h2> 
+     <div class="section-body"> 
+      <p> Interfaces between the language environment and other software or hardware (not <i>user</i> interfaces). </p> 
+      <table class="wikitable" style="text-align: center"> 
+       <tbody>
+        <tr>
+         <th rowspan="2"> <p> Name </p> </th> 
+         <th colspan="2"> <p> Shell scripting </p> </th> 
+         <th colspan="2"> <p> <a href="MIDI">MIDI</a> </p> </th> 
+         <th colspan="2"> <p> <a href="Open Sound Control">OSC</a> </p> </th> 
+         <th rowspan="2"> <p> <a href="Human interface device">HID</a> </p> </th> 
+         <th rowspan="2"> <p> <a href="Virtual Studio Technology">VST</a> </p> </th> 
+         <th colspan="2"> <p> <a href="Audio Units">Audio Units</a> </p> </th> 
+         <th rowspan="2"> <p> Other </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> In </p> </th> 
+         <th> <p> Out </p> </th> 
+         <th> <p> In </p> </th> 
+         <th> <p> Out </p> </th> 
+         <th> <p> In </p> </th> 
+         <th> <p> Out </p> </th> 
+         <th> <p> As host </p> </th> 
+         <th> <p> As unit </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Audulus">Audulus</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ChucK">ChucK</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Csound">Csound</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> binding from Haskell (hCsound) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Impromptu (programming environment)">Impromptu</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Bidirectional Scheme to Objective-C bridge </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Max/MSP">Max/MSP</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://nsound.sourceforge.net/">nsound</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> C++ API, Python API </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Pure Data">Pure Data</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> bindings for Python, Lua, Java, GStreamer </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Reaktor">Reaktor</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SuperCollider">SuperCollider</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> LADSPA Host, scsynth can be controlled by OSC messages (Haskell, Scala, Python, Ruby, Scheme etc.) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.eecs.berkeley.edu/~lazzaro/sa/">sfront</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <a href="MPEG-4 Structured Audio">MPEG-4/SA</a> language implementation. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Usine">Usine</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Multi-touch </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Technical</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: center"> 
+       <tbody>
+        <tr>
+         <th> <p> Name </p> </th> 
+         <th> <p> Operating system(s) </p> </th> 
+         <th> <p> Source code language(s) </p> </th> 
+         <th> <p> Programming (plugin) API language(s) </p> </th> 
+         <th> <p> Other technical features </p> </th> 
+        </tr>
+        <tr> 
+         <td> <p> <a href="Audulus">Audulus</a> </p> </td> 
+         <td> <p> <a href="iOS">iOS</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <a href="C++">C++</a>, <a href="Objective-C">Objective-C</a>, <a href="Lua (programming language)">Lua</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ChucK">ChucK</a> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Unified timing mechanism (no separation between audio-rate and control-rate), <a href="command-line">command-line</a> access </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Common Music">Common Music</a> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="Scheme (programming language)">Scheme</a>, <a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="Scheme (programming language)">Scheme</a>, <a href="Source Annotation Language">SAL</a> </p> </td> 
+         <td> <p> <a href="command-line">command-line</a> access </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Csound">Csound</a> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>; also <a href="Python (programming language)">Python</a>, <a href="Java (programming language)">Java</a>, <a href="Lisp (programming language)">Lisp</a>, <a href="Lua (programming language)">Lua</a>, <a href="Tcl">Tcl</a>, <a href="C++">C++</a> </p> </td> 
+         <td> <p> IDE (QuteCsound), multitrack interface (blue); several analysis/resynthesis facilities; can compute double-precision audio; <a href="Python (programming language)">Python</a> <a href="algorithmic composition">algorithmic composition</a> library </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Impromptu (programming environment)">Impromptu</a> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <a href="Lisp (programming language)">Lisp</a>, <a href="Objective-C">Objective-C</a>, <a href="Scheme (programming language)">Scheme</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a>, <a href="Objective-C">Objective-C</a>, <a href="Scheme (programming language)">Scheme</a> </p> </td> 
+         <td> <p> Native access to most OS X APIs including <a href="Core Image">Core Image</a>, <a href="Quartz">Quartz</a>, <a href="QuickTime">QuickTime</a> and <a href="OpenGL">OpenGL</a>. Impromptu also includes <a href="http://impromptu.moso.com.au/extras/ICR.html">its own</a> statically typed (inferencing) systems language for heavy numeric processing - OpenGL, RT AudioDSP etc.. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Max/MSP">Max/MSP</a> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="Objective-C">Objective-C</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="Java (programming language)">Java</a>, <a href="JavaScript">JavaScript</a>, also <a href="Python (programming language)">Python</a> and <a href="Ruby (programming language)">Ruby</a> via externals </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://nsound.sourceforge.net/">nsound</a> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="C++">C++</a>, <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> Real-Time Dynamic <a href="Digital Filters">Digital Filters</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Pure Data">Pure Data</a> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="iPod">iPod</a>, <a href="Android (operating system)">Android</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a>, <a href="FAUST (programming language)">FAUST</a>, <a href="Haskell (programming language)">Haskell</a>, <a href="Java (programming language)">Java</a>, <a href="Lua (programming language)">Lua</a>, <a href="Python (programming language)">Python</a>, <a href="Q (equational programming language)">Q</a>, <a href="Ruby (programming language)">Ruby</a>, <a href="Scheme (programming language)">Scheme</a>, others </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Reaktor">Reaktor</a> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SuperCollider">SuperCollider</a> </p> </td> 
+         <td> <p> <a href="Mac OS X">Mac OS X</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="FreeBSD">FreeBSD</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a>, <a href="Objective-C">Objective-C</a> </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> <a href="Client-server">Client-server</a> architecture; client and server can be used independently, <a href="command-line">command-line</a> access </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.eecs.berkeley.edu/~lazzaro/sa/">sfront</a> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>(via cygwin) </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Conforming <a href="MPEG-4 Structured Audio">MPEG-4/SA</a> implementation. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Usine">Usine</a> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <a href="Embarcadero Delphi">Delphi</a> </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Audio Synthesis Environments}}</span> <a href="Category:Audio programming languages">Category:Audio programming languages</a> <a href="Category:Electronic music software">Category:Electronic music software</a> <a href="Category:Free audio software"> </a> <a href="Category:Software comparisons">Audio synthesis environments</a> <a href="Category:Software synthesizers">Category:Software synthesizers</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

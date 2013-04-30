@@ -1,0 +1,505 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of programming languages (list comprehension)</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of programming languages (list comprehension)</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Refimprove|...}}</span> <span class="unknown-node">{{ProgLangCompare}}</span> </p> 
+    <div class="section"> 
+     <h2> List Comprehensions </h2> 
+     <div class="section-body"> 
+      <p> <a href="List comprehension">List comprehension</a> is a <a href="Syntax (programming languages)">syntactic</a> construct available in some <a href="programming language">programming languages</a> for creating a list based on existing lists. It follows the form of the mathematical <i><a href="set-builder notation">set-builder notation</a></i> (<i>set comprehension</i>.) as distinct from the use of <a href="Map (higher-order function)">map</a> and <a href="Filter (higher-order function)">filter</a> functions. </p> 
+      <div class="section"> 
+       <h3> Boo </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> List with all the doubles from 0 to 10 (exclusive) <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> doubles = [i*2 for i in range(10)] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> List with the names of the customers based on Rio de Janeiro <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> rjCustomers = [customer.Name for customer in customers if customer.State == &quot;RJ&quot;] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> C# </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> var ns = from x in Enumerable.Range(0,100) </p> 
+        <pre>        where x*x &gt; 3
+        select x*2;
+</pre> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> The previous code is <a href="syntactic sugar">syntactic sugar</a> for the following code written using lambda expressions: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> var ns = Enumerable.Range(0, 100) </p> 
+        <pre>       .Where(x =&gt; x*x &gt; 3)
+       .Select(x =&gt; x*2);
+</pre> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Clojure </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> An infinite lazy sequence: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> </p> 
+        <pre>(for [x (iterate inc 0) 
+      :when (&gt; (* x x) 3)]
+  (* 2 x))
+</pre> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> A list comprehension using multiple generators: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> </p> 
+        <pre>(for [x (range 20)
+      y (range 20)
+      z (range 20)
+      :when (== (+ (* x x) (* y y)) (* z z))]
+  [x y z])
+</pre> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Common Lisp </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> List comprehensions can be expressed with the <code>loop</code> macro's <code>collect</code> keyword. Conditionals are expressed with <code>if</code>, as follows: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> (loop for x from 0 to 100 if (&gt; (* x x) 3) collect (* 2 x)) <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Cobra </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> List the names of customers: <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> names = for cust in customers get cust.name <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> List the customers with balances: <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> names = for cust in customers where cust.balance &gt; 0 <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> List the names of customers with balances: <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> names = for cust in customers where cust.balance &gt; 0 get cust.name <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> The general forms: <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> for VAR in ENUMERABLE [where CONDITION] get EXPR for VAR in ENUMERABLE where CONDITION <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> Note that by putting the condition and expression <i>after</i> the variable name and enumerable object, editors and IDEs can provide <a href="autocompletion">autocompletion</a> on the members of the variable. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Erlang </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> <span class="unknown-node">&lt;source lang=&quot;erlang&quot;&gt;</span> L = lists:seq(0,100). S = [2*X || X &lt;- L, X*X &gt; 3]. <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> F# </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> Lazily-evaluated sequences: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;fsharp&quot;&gt;</span> seq { for x in 0 .. 100 do if x*x &gt; 3 then yield 2*x } <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> Or, for floating point values </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;fsharp&quot;&gt;</span> seq { for x in 0. .. 100. do if x**2. &gt; 3. then yield 2.*x } <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> Lists and arrays: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;fsharp&quot;&gt;</span> [ for x in 0. .. 100. do if x**2. &gt; 3. then yield 2.*x ] [| for x in 0. .. 100. do if x**2. &gt; 3. then yield 2.*x |] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> List comprehensions are the part of a greater family of language constructs called computation expressions. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Groovy </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;groovy&quot;&gt;</span> (0..100).findAll{ x -&gt; x * x &gt; 3 }.collect { x -&gt; 2 * x } <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Haskell </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> <span class="unknown-node">&lt;source lang=&quot;haskell&quot;&gt;</span> [x * 2 | x &lt;- [0 .. 99], x * x &gt; 3] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> An example of a list comprehension using multiple generators: <span class="unknown-node">&lt;source lang=&quot;haskell&quot;&gt;</span> pyth = [(x,y,z) | x &lt;- [1..20], y &lt;- [x..20], z &lt;- [y..20], x^2 + y^2 == z^2] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> ISLISP </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> List comprehensions can be expressed with the <code>for</code> special form. Conditionals are expressed with <code>if</code>, as follows: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;lisp&quot;&gt;</span> (for ((x 0 (+ x 1)) </p> 
+        <pre>     (collect ()))
+    ((&gt;= x 100) (reverse collect))
+    (if (&gt; (* x x) 3)
+        (setq collect (cons (* x 2) collect))))
+</pre> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> JavaScript </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> Borrowing from Python, JavaScript 1.7 and later have array comprehensions.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Although this feature has been proposed for inclusion in the fourth edition <a href="ECMAScript">ECMAScript</a> standard, Mozilla is the only implementation that currently supports it. </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;javascript&quot;&gt;</span> /* There is no &quot;range&quot; function in JavaScript's standard </p> 
+        <pre>  library, so the application must provide it. */
+</pre> 
+        <p> function range(n) { </p> 
+        <pre> for (var i = 0; i &lt; n; i++)
+   yield i;
+</pre> 
+        <p> } </p> 
+        <p> [2 * x for (x in range(100)) if (x * x &gt; 3)] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> JavaScript 1.8 adds Python-like generator expressions. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Mythryl </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <pre> s = [ 2*i for i in 1..100 where i*i &gt; 3 ];
+</pre> 
+        <p> Multiple generators: </p> 
+        <pre> pyth = [ (x,y,z) for x in 1..20 for y in x..20 for z in y..20 where x*x + y*y == z*z ];
+</pre> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Nemerle </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;ocaml&quot;&gt;</span> $[x*2 | x in [0 .. 100], x*x &gt; 3] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> OCaml </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> <i>OCaml supports List comprehension through OCaml Batteries</i>. <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Perl 6 </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <pre>my @s = ($_ * 2 if $_ ** 2 &gt; 3 for 0 .. 99);
+</pre> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Python </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> <a href="Python (programming language)">Python</a> uses the following syntax to express list comprehensions over finite lists: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> S = [2*x for x in range(100) if x**2 &gt; 3] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> A <b>generator expression</b> may be used in Python versions &gt;= 2.4 which gives <a href="lazy evaluation">lazy evaluation</a> over its input, and can be used with <a href="generator (computer science)">generators</a> to iterate over 'infinite' input such as the count generator function which returns successive integers: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;python&quot;&gt;</span> from itertools import count S = (2*x for x in count() if x**2 &gt; 3) <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> (Subsequent use of the generator expression will determine when to stop generating values). </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> R </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <pre>x = (0:100)
+S = 2 * x[x ^ 2 &gt; 3]
+</pre> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Racket </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> (for/list ([x (in-range 100)] #:when (&gt; (* x x) 3)) (* x 2)) <span class="unknown-node">&lt;/source&gt;</span> An example with multiple generators: <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> (for*/list ([x (in-range 1 21)] [y (in-range 1 21)] [z (in-range 1 21)] </p> 
+        <pre>           #:when (= (+ (* x x) (* y y)) (* z z)))
+ (list x y z))
+</pre> 
+        <p> <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Ruby</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;ruby&quot;&gt;</span> (0..100).select {|x| x**2 &gt; 3 }.map {|x| 2*x } <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Scala </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> Using the for-comprehension: </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scala&quot;&gt;</span> val s = for (x &lt;- Stream.from(0); if x*x &gt; 3) yield 2*x <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Scheme </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> List comprehensions are supported in Scheme through the use of the <a href="Scheme Requests for Implementation">SRFI</a>-42 library.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> (list-ec (: x 100) (if (&gt; (* x x) 3)) (* x 2)) <span class="unknown-node">&lt;/source&gt;</span> </p> 
+        <p> An example of a list comprehension using multiple generators: <span class="unknown-node">&lt;source lang=&quot;scheme&quot;&gt;</span> (list-ec (: x 1 21) (: y x 21) (: z y 21) (if (= (+ (* x x) (* y y)) (* z z))) (list x y z)) <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> SETL </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> <span class="unknown-node">&lt;source lang=&quot;html4strict&quot;&gt;</span> s := {2*x : x in {0..100} | x**2 &gt; 3 }; <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Smalltalk </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;smalltalk&quot;&gt;</span> ((1 to: 100) select: [ x | x squared &gt; 3 ]) collect: [ x | x * 2 ] <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Visual Prolog </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <pre><span style="color:#008000;">S</span> = <span style="color:#B9005C;">[</span> <span style="color:blue;">2</span>*<span style="color:#008000;">X</span> <span style="color:#B9005C;">||</span> <span style="color:#008000;">X</span> = list::getMember_nd<span style="color:#993300;">(</span><span style="color:#008000;">L</span><span style="color:#993300;">)</span>, <span style="color:#008000;">X</span>*<span style="color:#008000;">X</span> &gt; <span style="color:blue;">3</span> <span style="color:#B9005C;">]</span>
+</pre> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Windows PowerShell </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{further2|...}}</span> </p> 
+        <p> <span class="unknown-node">&lt;source lang=&quot;csharp&quot;&gt;</span> $s = ( 0..100 | ? {$_*$_ -gt 3} | % {2*$_} ) <span class="unknown-node">&lt;/source&gt;</span> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <a href="Category:Programming language comparisons">Category:Programming language comparisons</a> <a href="Category:Articles with example C Sharp code">Category:Articles with example C Sharp code</a> <a href="Category:Articles with example Erlang code">Category:Articles with example Erlang code</a> <a href="Category:Articles with example Haskell code">Category:Articles with example Haskell code</a> <a href="Category:Articles with example Lisp code">Category:Articles with example Lisp code</a> <a href="Category:Articles with example Python code">Category:Articles with example Python code</a> <a href="Category:Articles with example Racket code">Category:Articles with example Racket code</a> </p> 
+      <p> <a href="fr:Compr&eacute;hension de liste">fr:Compr&eacute;hension de liste</a> <a href="pt:List comprehension">pt:List comprehension</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

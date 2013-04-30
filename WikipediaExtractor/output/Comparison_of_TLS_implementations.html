@@ -1,0 +1,3233 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of TLS implementations</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of TLS implementations</h1> 
+   <div class="article-content"> 
+    <p> The <a href="Transport Layer Security">Transport Layer Security</a> (TLS) protocol provides the ability to secure communications across networks. This <b>comparison of TLS implementations</b> compares several of the most notable <a href="software library">libraries</a>. There are several TLS implementations which are <a href="free and open source software">free and open source software</a>. </p> 
+    <p> All comparison categories use the stable version of each implementation listed in the overview section. The comparison is limited to features that directly relate to the TLS protocol. </p> 
+    <div class="section"> 
+     <h2> Overview </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Developed By </p> </th> 
+         <th> <p> Open Source </p> </th> 
+         <th> <p> Software License </p> </th> 
+         <th> <p> Copyright Owner </p> </th> 
+         <th> <p> Latest Stable Version </p> </th> 
+         <th> <p> Release Date </p> </th> 
+         <th> <p> Origin </p> </th> 
+         <th> <p> Website </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> axTLS </p> </td> 
+         <td cameron="" rich=""> <p> Cameron Rich </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td cameron="" rich=""> <p> Cameron Rich </p> </td> 
+         <td> <p> 1.4.9 </p> </td> 
+         <td> <p> 2013-01-07 </p> </td> 
+         <td> <p> Australia </p> </td> 
+         <td> <p> <a href="http://axtls.sourceforge.net/">http://axtls.sourceforge.net/</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <a href="Peter Gutmann (computer scientist)">Peter Gutmann</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> and commercial license </p> </td> 
+         <td> <p> <a href="Peter Gutmann (computer scientist)">Peter Gutmann</a> </p> </td> 
+         <td> <p> 3.4.1 </p> </td> 
+         <td> <p> 2011-07-07 </p> </td> 
+         <td> <p> NZ </p> </td> 
+         <td> <p> <a href="http://www.cs.auckland.ac.nz/~pgut001/cryptlib/">http://www.cs.auckland.ac.nz/~pgut001/cryptlib/</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> wolfSSL </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> and commercial license </p> </td> 
+         <td> <p> yassl.com </p> </td> 
+         <td> <p> 2.6.0 </p> </td> 
+         <td> <p> 2013-04-15 </p> </td> 
+         <td> <p> US </p> </td> 
+         <td> <p> <a href="http://www.yassl.com">http://www.yassl.com</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <a href="GnuTLS">GnuTLS project</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <a href="http://www.fsf.org/">Free Software Foundation</a> </p> </td> 
+         <td> <p> 3.1.3 </p> </td> 
+         <td> <p> 2012-10-13 </p> </td> 
+         <td> <p> EU (Greece and Sweden) </p> </td> 
+         <td> <p> <a href="http://www.gnutls.org/">http://www.gnutls.org/</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> hs-tls </p> </td> 
+         <td vincent="" hanquez=""> <p> Vincent Hanquez </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td vincent="" hanquez=""> <p> Vincent Hanquez </p> </td> 
+         <td> <p> 1.0.1 </p> </td> 
+         <td> <p> 2012-10-30 </p> </td> 
+         <td> <p> EU </p> </td> 
+         <td> <p> <a href="http://github.com/vincenthz/hs-tls">http://github.com/vincenthz/hs-tls</a> <a href="http://hackage.haskell.org/package/tls">http://hackage.haskell.org/package/tls</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> PeerSec Networks </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> <a href="http://www.peersec.com/">PeerSec Networks</a> </p> </td> 
+         <td> <p> 3.4.1 </p> </td> 
+         <td> <p> 2013-02-06 </p> </td> 
+         <td> <p> US </p> </td> 
+         <td> <p> <a href="http://www.matrixssl.org">http://www.matrixssl.org</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> <p> PeerSec Networks </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <a href="http://www.peersec.com/">PeerSec Networks</a> </p> </td> 
+         <td> <p> 3.4.1 </p> </td> 
+         <td> <p> 2013-02-06 </p> </td> 
+         <td> <p> US </p> </td> 
+         <td> <p> <a href="http://www.matrixssl.org">http://www.matrixssl.org</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> NSS contributors </p> </td> 
+         <td> <p> 3.14<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> 2012-10-22 </p> </td> 
+         <td> <p> US </p> </td> 
+         <td> <p> <a href="http://www.mozilla.org/projects/security/pki/nss/">http://www.mozilla.org/projects/security/pki/nss/</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <a href="OpenSSL">OpenSSL project</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> Eric Young, Tim Hudson, Sun, OpenSSL project, and others </p> </td> 
+         <td> <p> 1.0.1e </p> </td> 
+         <td> <p> 2013-02-11 </p> </td> 
+         <td> <p> Australia/EU </p> </td> 
+         <td> <p> <a href="http://openssl.org/">http://openssl.org/</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> Offspark </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> and commercial license </p> </td> 
+         <td> <p> Brainspark B.V. (brainspark.nl) </p> </td> 
+         <td> <p> 1.2.5 </p> </td> 
+         <td> <p> 2013-02-02 </p> </td> 
+         <td> <p> EU (Netherlands) </p> </td> 
+         <td> <p> <a href="http://polarssl.org">http://polarssl.org</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> Microsoft Inc. </p> </td> 
+         <td> <p> Windows 7 </p> </td> 
+         <td> <p> 2009-10-22 </p> </td> 
+         <td> <p> US </p> </td> 
+         <td> <p> <a href="http://microsoft.com">http://microsoft.com</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Secure Transport </p> </td> 
+         <td> <p> <a href="Apple Inc.">Apple Inc.</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> Apple Inc. </p> </td> 
+         <td> <p> 55003 (<a href="Mac OS X">Mac OS X</a> 10.7.3) </p> </td> 
+         <td> <p> 2012-02-01 </p> </td> 
+         <td> <p> US </p> </td> 
+         <td> <p> Source: <a href="http://www.opensource.apple.com/source/libsecurity_ssl/">http://www.opensource.apple.com/</a> Documentation: <a href="http://developer.apple.com/documentation/security/Reference/secureTransportRef/">http://developer.apple.com/</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> Certicom </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> Certicom Corp., A Subsidiary of Research In Motion </p> </td> 
+         <td> <p> 5.5.1 </p> </td> 
+         <td> <p> 2011-02-28 </p> </td> 
+         <td> <p> Canada </p> </td> 
+         <td> <p> <a href="http://www.certicom.com">http://www.certicom.com</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <a href="Oracle Corporation">Oracle</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> and commercial license </p> </td> 
+         <td> <p> Oracle </p> </td> 
+         <td> <p> JDK 6, JDK 7 </p> </td> 
+         <td> <p> 2011-02-03 (ea snapshot release) </p> </td> 
+         <td> <p> US </p> </td> 
+         <td> <p> <a href="http://openjdk.java.net/">http://openjdk.java.net/</a> <a href="http://www.java.net/">http://www.java.net/</a> <a href="http://www.java.com/">http://www.java.com/</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Developed By </p> </th> 
+         <th> <p> Open Source </p> </th> 
+         <th> <p> Software License </p> </th> 
+         <th> <p> Copyright Owner </p> </th> 
+         <th> <p> Latest Stable Version </p> </th> 
+         <th> <p> Release Date </p> </th> 
+         <th> <p> Origin </p> </th> 
+         <th> <p> Website </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Protocol Support </h2> 
+     <div class="section-body"> 
+      <p> Several versions of the TLS protocol exist. SSL 2.0 is a deprecated protocol, vulnerable to several attacks. SSL 3.0 and TLS 1.0 are its successors without any major known vulnerabilities. TLS 1.1 fixes all the known issues in TLS 1.0, and TLS 1.2 is the latest published version, introducing new features. <a href="Datagram Transport Layer Security">Datagram Transport Layer Security</a> (DTLS or Datagram TLS) 1.0 is a modification of TLS 1.1 for a packet-oriented transport layer, where packet loss and packet reordering have to be tolerated. </p> 
+      <p> Note that there are known vulnerabilities in SSL 2.0, SSL 3.0 and TLS 1.0<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> protocols. </p> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> <a href="Transport Layer Security">SSL 2.0</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="Transport Layer Security">SSL 3.0</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="Transport Layer Security">TLS 1.0</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="Transport Layer Security">TLS 1.1</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="Transport Layer Security">TLS 1.2</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> <a href="Datagram Transport Layer Security">DTLS 1.0</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="Datagram Transport Layer Security">DTLS 1.2</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> axTLS </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> hs-tls </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{beta}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Secure Transport </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">{{cref2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{cref2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{cref2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{cref2|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> <a href="Transport Layer Security">SSL 2.0</a> </p> </th> 
+         <th> <p> <a href="Transport Layer Security">SSL 3.0</a> </p> </th> 
+         <th> <p> <a href="Transport Layer Security">TLS 1.0</a> </p> </th> 
+         <th> <p> <a href="Transport Layer Security">TLS 1.1</a> </p> </th> 
+         <th> <p> <a href="Transport Layer Security">TLS 1.2</a> </p> </th> 
+         <th> <p> <a href="Datagram Transport Layer Security">DTLS 1.0</a> </p> </th> 
+         <th> <p> <a href="Datagram Transport Layer Security">DTLS 1.2</a> </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{cnote2 begin |...}}</span> <span class="unknown-node">{{cnote2 |...}}</span> <span class="unknown-node">{{cnote2 end}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> CipherSuite Profiles </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> <a href="Transport Layer Security">TLS 1.2</a> <a href="NSA Suite B Cryptography">Suite B</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> hs-tls </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Secure Transport </p> </td> 
+         <td> <p> unknown </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> <a href="Transport Layer Security">TLS 1.2</a> <a href="NSA Suite B Cryptography">Suite B</a> </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Certifications </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Certified version </p> </th> 
+         <th> <p> <a href="FIPS 140-2">FIPS 140-2</a> </p> </th> 
+         <th> <p> <a href="Common Criteria">Common Criteria</a> </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> axTLS </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> hs-tls </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Secure Transport </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Certified version </p> </th> 
+         <th> <p> <a href="FIPS 140-2">FIPS 140-2</a> </p> </th> 
+         <th> <p> Common Criteria </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Key Exchange Algorithms (Certificate-only) </h2> 
+     <div class="section-body"> 
+      <p> This section lists the certificate verification functionality available in the various implementations. </p> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> RSA<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> RSA-EXPORT<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> DHE-RSA<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> DHE-DSS<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> ECDH-ECDSA<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> ECDHE-ECDSA<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> ECDH-RSA<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> ECDHE-RSA<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> VKO GOST R 34.10-2001<span class="unknown-node">&lt;ref .../&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> hs-tls </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> RSA </p> </th> 
+         <th> <p> RSA EXPORT </p> </th> 
+         <th> <p> DHE-RSA </p> </th> 
+         <th> <p> DHE-DSS </p> </th> 
+         <th> <p> ECDH-ECDSA </p> </th> 
+         <th> <p> ECDHE-ECDSA </p> </th> 
+         <th> <p> ECDH-RSA </p> </th> 
+         <th> <p> ECDHE-RSA </p> </th> 
+         <th> <p> VKO GOST R 34.10-2001 </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Certificate Verification Methods </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Application-defined </p> </th> 
+         <th> <p> PKIX path validation<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="Revocation_list">CRL</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="Online_Certificate_Status_Protocol">OCSP</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> DANE (DNSSEC)<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Trust on First Use (TOFU) </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="hs-tls">hs-tls</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Application-defined </p> </th> 
+         <th> <p> PKIX </p> </th> 
+         <th> <p> CRL </p> </th> 
+         <th> <p> OCSP </p> </th> 
+         <th> <p> DANE </p> </th> 
+         <th> <p> TOFU </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Key Exchange Algorithms (Alternative key-exchanges) </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> DH-ANON<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> SRP<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> SRP-DSS<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> SRP-RSA<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> PSK-RSA<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> PSK<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> DHE-PSK<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> ECDHE-PSK<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> ECDH-ANON<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="hs-tls">hs-tls</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> DH-ANON </p> </th> 
+         <th> <p> SRP </p> </th> 
+         <th> <p> SRP-DSS </p> </th> 
+         <th> <p> SRP-RSA </p> </th> 
+         <th> <p> PSK-RSA </p> </th> 
+         <th> <p> PSK </p> </th> 
+         <th> <p> DHE-PSK </p> </th> 
+         <th> <p> ECDHE-PSK </p> </th> 
+         <th> <p> ECDH-ANON </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Encryption Algorithms </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> AES-CBC </p> </th> 
+         <th> <p> AES-GCM<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> AES-CCM<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> 3DES-CBC </p> </th> 
+         <th> <p> DES-CBC (Insecure) </p> </th> 
+         <th> <p> RC4-128 </p> </th> 
+         <th> <p> RC4-40 (Insecure) </p> </th> 
+         <th> <p> CAMELLIA-CBC<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> GOST28147-89<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="hs-tls">hs-tls</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> MatrixSSL-open </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> AES-CBC </p> </th> 
+         <th> <p> AES-GCM </p> </th> 
+         <th> <p> AES-CCM </p> </th> 
+         <th> <p> 3DES-CBC </p> </th> 
+         <th> <p> DES-CBC </p> </th> 
+         <th> <p> RC4-128 </p> </th> 
+         <th> <p> RC4-40 </p> </th> 
+         <th> <p> CAMELLIA-CBC </p> </th> 
+         <th> <p> GOST28147-89 </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Supported elliptic curves </h2> 
+     <div class="section-body"> 
+      <p> This section lists the supported elliptic curves by each implementation. </p> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Arbitrary curves </p> </th> 
+         <th> <p> Arbitrary char2 curves </p> </th> 
+         <th> <p> sect163k1 (1) </p> </th> 
+         <th> <p> sect163r1 (2) </p> </th> 
+         <th> <p> sect163r2 (3) </p> </th> 
+         <th> <p> sect193r1 (4) </p> </th> 
+         <th> <p> sect193r2 (5) </p> </th> 
+         <th> <p> sect233k1 (6) </p> </th> 
+         <th> <p> sect233r1 (7) </p> </th> 
+         <th> <p> sect239k1 (8) </p> </th> 
+         <th> <p> sect283k1 (9) </p> </th> 
+         <th> <p> sect283r1 (10) </p> </th> 
+         <th> <p> sect409k1 (11) </p> </th> 
+         <th> <p> sect409r1 (12) </p> </th> 
+         <th> <p> sect571k1 (13) </p> </th> 
+         <th> <p> sect571r1 (14) </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Arbitrary curves </p> </th> 
+         <th> <p> Arbitrary char2 curves </p> </th> 
+         <th> <p> sect163k1 </p> </th> 
+         <th> <p> sect163r1 </p> </th> 
+         <th> <p> sect163r2 </p> </th> 
+         <th> <p> sect193r1 </p> </th> 
+         <th> <p> sect193r2 </p> </th> 
+         <th> <p> sect233k1 </p> </th> 
+         <th> <p> sect233r1 </p> </th> 
+         <th> <p> sect239k1 </p> </th> 
+         <th> <p> sect283k1 </p> </th> 
+         <th> <p> sect283r1 </p> </th> 
+         <th> <p> sect409k1 </p> </th> 
+         <th> <p> sect409r1 </p> </th> 
+         <th> <p> sect571k1 </p> </th> 
+         <th> <p> sect571r1 </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> secp160k1 (15) </p> </th> 
+         <th> <p> secp160r1 (16) </p> </th> 
+         <th> <p> secp160r2 (17) </p> </th> 
+         <th> <p> secp192k1 (18) </p> </th> 
+         <th> <p> secp192r1 prime192v1 (19) </p> </th> 
+         <th> <p> secp224k1 (20) </p> </th> 
+         <th> <p> secp224r1 (21) </p> </th> 
+         <th> <p> secp256k1 (22) </p> </th> 
+         <th> <p> secp256r1 prime256v1 (23) </p> </th> 
+         <th> <p> secp384r1 (24) </p> </th> 
+         <th> <p> secp521r1 (25) </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> secp160k1 </p> </th> 
+         <th> <p> secp160r1 </p> </th> 
+         <th> <p> secp160r2 </p> </th> 
+         <th> <p> secp192k1 </p> </th> 
+         <th> <p> secp192r1 prime192v1 </p> </th> 
+         <th> <p> secp224k1 </p> </th> 
+         <th> <p> secp224r1 </p> </th> 
+         <th> <p> secp256k1 </p> </th> 
+         <th> <p> secp256r1 prime256v1 </p> </th> 
+         <th> <p> secp384r1 </p> </th> 
+         <th> <p> secp521r1 </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Assisted cryptography </h2> 
+     <div class="section-body"> 
+      <p> This section lists the ability of an implementation to take advantage of CPU instruction sets that optimize encryption, or utilize system specific devices that allow access to underlying cryptographic hardware for acceleration or for data separation. </p> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> <a href="http://home.gna.org/cryptodev-linux/">/dev/crypto</a> </p> </th> 
+         <th> <p> <a href="PKCS11">PKCS #11 device</a> </p> </th> 
+         <th> <p> <a href="Cryptographic Service Provider">Windows CSP</a> </p> </th> 
+         <th> <p> <a href="AES instruction set">Intel AES-NI</a> </p> </th> 
+         <th> <p> <a href="VIA PadLock">VIA PadLock</a> </p> </th> 
+         <th> <p> <a href="http://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man3/Common%20Crypto.3cc.html">CommonCrypto</a> </p> </th> 
+         <th> <p> <a href="OpenSSL">OpenSSL Engine</a> </p> </th> 
+         <th> <p> <a href="http://www.cavium.com/processor_security.html">Cavium NITROX</a> </p> </th> 
+         <th> <p> <a href="http://www.st.com/internet/mcu/subclass/1520.jsp">STM32F2/F4</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="hs-tls">hs-tls</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://developer.apple.com/library/mac/#documentation/security/Conceptual/cryptoservices/Introduction/Introduction.html">Secure Transport</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> /dev/crypto </p> </th> 
+         <th> <p> PKCS #11 device </p> </th> 
+         <th> <p> Windows CSP </p> </th> 
+         <th> <p> Intel AES-NI </p> </th> 
+         <th> <p> VIA PadLock </p> </th> 
+         <th> <p> CommonCrypto </p> </th> 
+         <th> <p> OpenSSL Engine </p> </th> 
+         <th> <p> Cavium NITROX </p> </th> 
+         <th> <p> STM32F2/F4 </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> MAC Functions </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> AEAD </p> </th> 
+         <th> <p> HMAC-MD5 </p> </th> 
+         <th> <p> HMAC-SHA-1 </p> </th> 
+         <th> <p> HMAC-SHA-256 </p> </th> 
+         <th> <p> GOST28147-89-MAC<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> GOST 34.11-94<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="hs-tls">hs-tls</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> MatrixSSL-open </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> AEAD </p> </th> 
+         <th> <p> HMAC-MD5 </p> </th> 
+         <th> <p> HMAC-SHA-1 </p> </th> 
+         <th> <p> HMAC-SHA-256 </p> </th> 
+         <th> <p> GOST28147-89-MAC </p> </th> 
+         <th> <p> GOST 34.11-94 </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Compression </h2> 
+     <div class="section-body"> 
+      <p> Note the <a href="CRIME_(security_exploit)">CRIME_(security_exploit)</a> takes advantage of TLS compression, so conservative implementations do not enable compression at the TLS level. <a href="HTTP_compression">HTTP_compression</a> is unrelated and unaffected by this exploit. </p> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> DEFLATE<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> MatrixSSL-open </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> DEFLATE </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Cryptographic module/token support </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> <a href="Trusted Platform Module">TPM</a> support </p> </th> 
+         <th> <p> Hardware token support </p> </th> 
+         <th> <p> Objects identified via </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> User-defined label </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> PKCS #11 URLs<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> MatrixSSL-open </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> Custom method </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> UUID, User-defined label </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> TPM support </p> </th> 
+         <th> <p> Hardware token support </p> </th> 
+         <th> <p> Objects identified via </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Extensions </h2> 
+     <div class="section-body"> 
+      <p> In this section the extensions each implementation supports are listed. Note that the Secure Renegotiation extension is critical for HTTPS client security. TLS clients not implementing it are vulnerable to attacks, irrespective of whether the client implements TLS renegotiation. </p> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Secure<br />Renegotiation<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Server Name<br />Indication<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="OCSP_stapling">Certificate Status<br />Request</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> OpenPGP<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Supplemental<br />Data<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Session<br />Ticket<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Keying Material<br />Exporter<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Maximum<br />Fragment Length<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Truncated<br />HMAC<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="hs-tls">hs-tls</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> MatrixSSL-open </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span>? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>? </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SChannel">SChannel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Secure<br />Renegotiation </p> </th> 
+         <th> <p> Server Name<br />Indication </p> </th> 
+         <th> <p> Certificate Status<br />Request </p> </th> 
+         <th> <p> OpenPGP </p> </th> 
+         <th> <p> Supplemental<br />Data </p> </th> 
+         <th> <p> Session<br />Ticket </p> </th> 
+         <th> <p> Keying Material<br />Exporter </p> </th> 
+         <th> <p> Maximum<br />Fragment Length </p> </th> 
+         <th> <p> Truncated<br />HMAC </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Code Size and Dependencies </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th data-sort-type="number"> <p> Code size </p> </th> 
+         <th> <p> Dependencies </p> </th> 
+         <th> <p> Optional<br />dependencies </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> 12 kLoc </p> </td> 
+         <td> <p> libc </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> 48 kLoc </p> </td> 
+         <td> <p> libc </p> </td> 
+         <td> <p> zlib (compression) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> 138 kLoc </p> </td> 
+         <td> <p> libc<br />nettle or gcrypt </p> </td> 
+         <td> <p> zlib (compression)<br />p11-kit (PKCS #11) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="hs-tls">hs-tls</a> </p> </td> 
+         <td> <p> 5 kLoc </p> </td> 
+         <td> <p> Haskell </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> 22 kLoc </p> </td> 
+         <td> <p> none </p> </td> 
+         <td> <p> zlib (compression) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> <p> 18 kLoc </p> </td> 
+         <td> <p> libc or newlib </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> 400 kLoc </p> </td> 
+         <td> <p> libc<br />libnspr4<br />libsoftokn3<br />libplc4<br />libplds4 </p> </td> 
+         <td> <p> zlib (compression) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> 159 kLoc </p> </td> 
+         <td> <p> libc </p> </td> 
+         <td> <p> zlib (compression)<br /> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> 14 kLOC </p> </td> 
+         <td> <p> libc </p> </td> 
+         <td> <p> libpkcs11-helper (PKCS #11)<br />zlib (compression) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> 37 kLoc<br /> (Framework and Oracle provider) </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Code size </p> </th> 
+         <th> <p> Dependencies </p> </th> 
+         <th> <p> Optional<br />dependencies </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Development Environment </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Namespace </p> </th> 
+         <th> <p> Build Tools </p> </th> 
+         <th> <p> API Manual </p> </th> 
+         <th> <p> Crypto Back-end </p> </th> 
+         <th> <p> OpenSSL Compatibility Layer </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> SSL_CTX, SSL </p> </td> 
+         <td> <p> Makefile, mconf </p> </td> 
+         <td> <p> API Reference (HTML) </p> </td> 
+         <td> <p> Included (monolithic) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (limited) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> crypt* </p> </td> 
+         <td> <p> makefile, MSVC project workspaces </p> </td> 
+         <td> <p> Programmers reference manual (PDF), architecture design manual (PDF) </p> </td> 
+         <td> <p> Included (monolithic) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> CyaSSL_*<br /> SSL_* </p> </td> 
+         <td> <p> Autoconf, automake, libtool, MSVC project workspaces, XCode projects, CodeWarrior projects </p> </td> 
+         <td> <p> Manual and API Reference (HTML, PDF) </p> </td> 
+         <td> <p> Included (monolithic) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (about 10% of API) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> gnutls_* </p> </td> 
+         <td> <p> Autoconf, automake, libtool </p> </td> 
+         <td> <p> Manual and API reference (HTML, PDF) </p> </td> 
+         <td> <p> External, libnettle </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (limited) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="hs-tls">hs-tls</a> </p> </td> 
+         <td> <p> Network.TLS.* </p> </td> 
+         <td> <p> Cabal </p> </td> 
+         <td> <p> API reference (HTML) </p> </td> 
+         <td> <p> External, cryptohash, cryptocipher </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> matrixSsl_*<br /> ps* </p> </td> 
+         <td> <p> Makefile, MSVC project workspaces, Xcode projects for Mac OS X and iOS </p> </td> 
+         <td> <p> API Reference (PDF), Integration Guide </p> </td> 
+         <td> <p> Included (pluggable) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (Subset: SSL_read, SSL_write, etc.) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> <p> matrixSsl_*<br /> ps* </p> </td> 
+         <td> <p> Makefile, MSVC project workspaces, XCode projects </p> </td> 
+         <td> <p> API Reference (PDF), Integration Guide </p> </td> 
+         <td> <p> Included (pluggable) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> CERT_*<br /> SEC_*<br /> SECKEY_*<br /> NSS_*<br /> PK11_*<br /> SSL_*<br /> ... </p> </td> 
+         <td> <p> Makefile </p> </td> 
+         <td> <p> Manual (HTML) </p> </td> 
+         <td> <p> Included, PKCS#11 based<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (separate package called nss_compat_ossl<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span>) </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> SSL_*<br /> SHA1_*<br /> MD5_*<br /> EVP_*<br /> ... </p> </td> 
+         <td> <p> Makefile </p> </td> 
+         <td> <p> Man pages </p> </td> 
+         <td> <p> Included (monolithic) </p> </td> 
+         <td> <p> Not Applicable </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> ssl_*<br /> sha1_*<br /> md5_*<br /> x509parse_*<br /> ... </p> </td> 
+         <td> <p> Makefile, <a href="CMake">CMake</a>, MSVC project workspaces </p> </td> 
+         <td> <p> API Reference + High Level and Module Level Documentation (HTML) </p> </td> 
+         <td> <p> Included (monolithic) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> ssl_* </p> </td> 
+         <td> <p> makefile </p> </td> 
+         <td> <p> Programmers reference manual (PDF), User Guide (PDF) </p> </td> 
+         <td> <p> Included (monolithic) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> javax.net.ssl </p> </td> 
+         <td> <p> Makefile </p> </td> 
+         <td> <p> API Reference (HTML) + <span class="unknown-node">{{Javadoc:SE-guide|...}}</span> </p> </td> 
+         <td> <p> <a href="Java Cryptography Architecture">Java Cryptography Architecture</a>/<br /><a href="Java Cryptography Extension">Java Cryptography Extension</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Namespace </p> </th> 
+         <th> <p> Build Tools </p> </th> 
+         <th> <p> API Manual </p> </th> 
+         <th> <p> Crypto Back-end </p> </th> 
+         <th> <p> OpenSSL Compatibility Layer </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Portability Concerns </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: left; font-size: smaller"> 
+       <tbody>
+        <tr> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Platform Requirements </p> </th> 
+         <th> <p> Network Requirements </p> </th> 
+         <th> <p> Thread Safety </p> </th> 
+         <th> <p> Random Seed </p> </th> 
+         <th> <p> Able to Cross-Compile </p> </th> 
+         <th> <p> No OS (Bare Metal) </p> </th> 
+         <th> <p> Supported Operating Systems </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="axTLS">axTLS</a> </p> </td> 
+         <td> <p> C89 </p> </td> 
+         <td> <p> none </p> </td> 
+         <td> <p> POSIX threads (optional) </p> </td> 
+         <td> <p> /dev/urandom or platform dependent. </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Generally any POSIX or Windows based platforms. </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="cryptlib">cryptlib</a> </p> </td> 
+         <td> <p> C89 </p> </td> 
+         <td> <p> POSIX send() and recv(). API to supply your own replacement </p> </td> 
+         <td> <p> Thread-safe. </p> </td> 
+         <td> <p> Platform-dependent, including hardware sources </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> AMX, BeOS, ChorusOS, DOS, eCOS, FreeRTOS/OpenRTOS, uItron, MVS, OS/2, PalmOS, QNX Neutrino, RTEMS, Tandem NonStop, ThreadX, uC/OS II, Unix (AIX, FreeBSD, HPUX, Linux, OS X, Solaris, etc.), VDK, VM/CMS, VxWorks, Win16, Win32, Win64, WinCE/PocketPC/etc, XMK </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CyaSSL">CyaSSL</a> </p> </td> 
+         <td> <p> C89 </p> </td> 
+         <td> <p> POSIX send() and recv(). API to supply your own replacement. </p> </td> 
+         <td> <p> Thread-safe, needs mutex hooks if PThreads or WinThreads not available, can be turned off </p> </td> 
+         <td> <p> Random seed set through CTaoCrypt </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Win32/64, Linux, Mac OS X, Solaris, ThreadX, VxWorks, FreeBSD, NetBSD, OpenBSD, embedded Linux, Haiku, OpenWRT, iPhone (iOS), Android, Nintendo Wii and Gamecube through DevKitPro, QNX, MontaVista, OpenCL, NonStop, TRON/ITRON/&micro;ITRON, Micrium's &micro;C OS, FreeRTOS, SafeRTOS, Freescale MQX, Nucleus, TinyOS </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GnuTLS">GnuTLS</a> </p> </td> 
+         <td> <p> C89 </p> </td> 
+         <td> <p> POSIX send() and recv(). API to supply your own replacement. </p> </td> 
+         <td> <p> Thread-safe, needs custom mutex hooks if neither POSIX nor Windows threads are available. </p> </td> 
+         <td> <p> platform dependent </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Generally any POSIX platforms or Windows, commonly tested platforms include GNU/Linux, Win32/64, Mac OS X, Solaris, OpenWRT, FreeBSD, NetBSD, OpenBSD. </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="hs-tls">hs-tls</a> </p> </td> 
+         <td> <p> Haskell </p> </td> 
+         <td> <p> Haskell network library. </p> </td> 
+         <td> <p> Thread-safe. </p> </td> 
+         <td> <p> platform dependent </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Generally any POSIX or Windows based platforms. </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL</a> </p> </td> 
+         <td> <p> C89 </p> </td> 
+         <td> <p> none </p> </td> 
+         <td> <p> Thread-safe </p> </td> 
+         <td> <p> platform dependent </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> All </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MatrixSSL">MatrixSSL-open</a> </p> </td> 
+         <td> <p> C89 </p> </td> 
+         <td> <p> none </p> </td> 
+         <td> <p> Thread-safe </p> </td> 
+         <td> <p> platform dependent </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> All </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Network Security Services">NSS</a> </p> </td> 
+         <td> <p> C89, NSPR<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> NSPR<span class="unknown-node">&lt;ref .../&gt;</span> PR_Send() and PR_Recv(). API to supply your own replacement. </p> </td> 
+         <td> <p> Thread-safe </p> </td> 
+         <td> <p> Platform dependent<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (but cumbersome) </p> </td> 
+         <td> </td> 
+         <td> <p> AIX, Android, FreeBSD, NetBSD, OpenBSD, BeOS, HP-UX, IRIX, Linux, Mac OS X, OS/2, Solaris, OpenVMS, Amiga DE, Windows, WinCE, Sony PlayStation </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OpenSSL">OpenSSL</a> </p> </td> 
+         <td> <p> C89? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Needs mutex callbacks </p> </td> 
+         <td> <p> Set through native API </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Unix, DOS (with djgpp), Windows, OpenVMS, MacOS, NetWare </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PolarSSL">PolarSSL</a> </p> </td> 
+         <td> <p> C89 </p> </td> 
+         <td> <p> POSIX read() and write(). API to supply your own replacement. </p> </td> 
+         <td> <p> Thread-safe </p> </td> 
+         <td> <p> Random seed set through HAVEGE random engine </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Known to work on: Win32/64, Linux, Mac OS X, Solaris, FreeBSD, NetBSD, OpenBSD, OpenWRT, iPhone (iOS), Xbox </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> Security Builder SSL-C </p> </td> 
+         <td> <p> C89 </p> </td> 
+         <td> <p> Must write your own application callbacks for socket I/O </p> </td> 
+         <td> <p> Thread-safe under certain documented conditions </p> </td> 
+         <td> <p> platform dependent </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JSSE">JSSE</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> Java SE network components </p> </td> 
+         <td> <p> Thread-safe </p> </td> 
+         <td> <p> Depends on java.security.SecureRandom </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Java based, platform-independent </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Implementation </p> </th> 
+         <th> <p> Platform Requirements </p> </th> 
+         <th> <p> Network Requirements </p> </th> 
+         <th> <p> Thread Safety </p> </th> 
+         <th> <p> Random Seed </p> </th> 
+         <th> <p> Able to Cross-Compile </p> </th> 
+         <th> <p> No OS (Bare Metal) </p> </th> 
+         <th> <p> Supported Operating Systems </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="ZRTP">ZRTP</a></li> 
+       <li> <a href="SCTP">SCTP</a> ? with DTLS support</li> 
+       <li> <a href="DCCP">DCCP</a> ? with DTLS support</li> 
+       <li> <a href="SRTP">SRTP</a> ? with DTLS support (DTLS-SRTP) and Secure Real-Time Transport Control Protocol (SRTCP)</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Tls Implementations}}</span> <a href="Category:Cryptographic software">Category:Cryptographic software</a> <a href="Category:Software comparisons">TLS Implementations</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

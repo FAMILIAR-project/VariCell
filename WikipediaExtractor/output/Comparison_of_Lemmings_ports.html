@@ -1,0 +1,918 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of Lemmings ports</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of Lemmings ports</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{multiple issues|...}}</span> </p> 
+    <p> <span class="unknown-node">{{Main|...}}</span> </p> 
+    <div class="section"> 
+     <h2>General information</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 90%; text-align: center; width: auto; table-layout: fixed;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Platform </p> </th> 
+         <th> <p> Developer </p> </th> 
+         <th> <p> Publisher </p> </th> 
+         <th> <p> Released </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Amiga">Commodore Amiga</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Atari ST">Atari ST</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MS-DOS">MS-DOS</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ZX Spectrum">ZX Spectrum</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a>? </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Commodore CDTV">Commodore Amiga CDTV</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{sort|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Super Nintendo Entertainment System">SNES</a> </p> </td> 
+         <td> <p> <a href="Sunsoft">Sunsoft</a> </p> </td> 
+         <td> <p> <a href="Sunsoft">Sunsoft</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Arcade game">Arcade</a> (prototype only) </p> </td> 
+         <td> <p> <a href="Data East">Data East USA</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> TBA </p> </td> 
+         <td> <p> unreleased (developed in 1991) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="NEC PC-9801">PC-98</a> </p> </td> 
+         <td> <p> <a href="BANDIT Inc.">BANDIT Inc.</a> </p> </td> 
+         <td> <p> <a href="Imagineer (company)">Imagineer</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Acorn Archimedes">Acorn Archimedes</a> </p> </td> 
+         <td> <p> <a href="Krisalis Software">Krisalis Software</a> </p> </td> 
+         <td> <p> <a href="Krisalis Software">Krisalis Software</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Nintendo Entertainment System">NES</a> </p> </td> 
+         <td> <p> <a href="Ocean Software">Ocean Software</a> </p> </td> 
+         <td> <p> <a href="Sunsoft">Sunsoft</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="TurboGrafx-CD">TurboGrafx-CD</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Sunsoft">Sunsoft</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Atari Lynx">Atari Lynx</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Sega Master System">Sega Master System</a> </p> </td> 
+         <td> <p> <a href="Probe Software Limited">Probe Software Limited</a> </p> </td> 
+         <td> <p> <a href="Sega">Sega</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Mega Drive">Sega Genesis / Mega Drive</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <a href="Sunsoft">Sunsoft</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Amstrad CPC">Amstrad CPC</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SAM Coup&eacute;">SAM Coup&eacute;</a> </p> </td> 
+         <td> <p> Chris White </p> </td> 
+         <td> <p> <a href="SAM Coup&eacute;#FRED Publishing">FRED Publishing</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{sort|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Commodore 64">Commodore 64</a> </p> </td> 
+         <td> <p> <a href="E &amp; E Software">E &amp; E Software</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Amiga CD32">Commodore Amiga CD32</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{sort|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CD-i">CD-i</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="Philips">Philips Interactive Media</a> <span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Sega Game Gear">Sega Game Gear</a> </p> </td> 
+         <td> <p> <a href="Probe Software Limited">Probe Software Limited</a> </p> </td> 
+         <td> <p> <a href="Sega">Sega</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Game Boy">Game Boy</a> </p> </td> 
+         <td> <p> <a href="Ocean Software">Ocean Software</a> </p> </td> 
+         <td> <p> <a href="Ocean Software">Ocean Software</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="3DO Interactive Multiplayer">3DO</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Microsoft Windows">Windows 95</a> </p> </td> 
+         <td> <p> <a href="Visual Sciences (game company)">Visual Science</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Macintosh">Apple Macintosh</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OS/2">OS/2</a> (demo only) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apple IIGS">Apple II<sub>GS</sub></a> </p> </td> 
+         <td> <p> <a href="Brutal Deluxe Software">Brutal Deluxe Software</a> </p> </td> 
+         <td> <p> <a href="DMA Design">DMA Design</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PlayStation">PlayStation</a> </p> </td> 
+         <td> <p> <a href="Distinctive Developments">Distinctive Developments</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Game Boy Color">Game Boy Color</a> </p> </td> 
+         <td> <p> <a href="Take-Two Interactive">Take-Two Interactive</a> </p> </td> 
+         <td> <p> <a href="Take-Two Interactive">Take-Two Interactive</a>? </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Cambridge Z88">Cambridge Z88</a> </p> </td> 
+         <td> <p> <a href="Dominic Morris">Dominic Morris</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Mobile phone">Mobile phone</a> (<a href="Java Platform, Micro Edition">Java ME</a>) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Amstrad GX4000">Amstrad GX4000</a> </p> </td> 
+         <td> <p> <a href="Rockstar North">DMA Design</a> </p> </td> 
+         <td> <p> <a href="SCE Studio Liverpool">Psygnosis</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PlayStation Portable">PlayStation Portable</a> </p> </td> 
+         <td> <p> <a href="Team17">Team17</a> </p> </td> 
+         <td> <p> <a href="Sony Computer Entertainment">Sony Computer Entertainment</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> (Japan/Europe)<br /><span class="unknown-node">{{dts vgr2|...}}</span> (North America) </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PlayStation 2">PlayStation 2</a> </p> </td> 
+         <td> <p> <a href="Team17">Team17</a> </p> </td> 
+         <td> <p> <a href="Sony Computer Entertainment">Sony Computer Entertainment</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{dts vgr2|...}}</span> (Japan/Europe)<br /><span class="unknown-node">{{dts vgr2|...}}</span> (North America) </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Feature comparison</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto; table-layout: fixed;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Platform </p> </th> 
+         <th> <p> Levels </p> </th> 
+         <th> <p> Two-player mode </p> </th> 
+         <th> <p> Fast forward </p> </th> 
+         <th> <p> Action replay </p> </th> 
+         <th> <p> Maximum number<br />of lemmings </p> </th> 
+         <th> <p> Map thumbnail </p> </th> 
+         <th> <p> Adjustable release rate </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Amiga">Commodore Amiga</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Atari ST">Atari ST</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MS-DOS">MS-DOS</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 80 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ZX Spectrum">ZX Spectrum</a> </p> </td> 
+         <td> <p> 060<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 20<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Commodore CDTV">Commodore Amiga CDTV</a> </p> </td> 
+         <td> <p> 120? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Super Nintendo Entertainment System">SNES</a> </p> </td> 
+         <td> <p> 125 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Acorn Archimedes">Acorn Archimedes</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Arcade game">Arcade</a> (prototype only)<sup><span id="ref_2"></span><a href="#endnote 2"><b>[2]</b></a></sup><sup><span id="ref_3"></span><a href="#endnote 3"><b>[3]</b></a></sup> </p> </td> 
+         <td> <p> 67<sup><span id="ref_1"></span><a href="#endnote 1"><b>[1]</b></a></sup><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 25 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Nintendo Entertainment System">NES</a> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 14<sup><span id="ref_4"></span><a href="#endnote 4"><b>[4]</b></a></sup> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="TurboGrafx-CD">TurboGrafx-CD</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Atari Lynx">Atari Lynx</a><sup><span id="ref_5"></span><a href="#endnote 5"><b>[5]</b></a></sup> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 40 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Sega Master System">Sega Master System</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Mega Drive">Sega Genesis / Mega Drive</a> </p> </td> 
+         <td> <p> 180<sup><span id="ref_6"></span><a href="#endnote 6"><b>[6]</b></a></sup> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Amstrad CPC">Amstrad CPC</a><sup><span id="ref_7"></span><a href="#endnote 7"><b>[7]</b></a></sup><sup><span id="ref_8"></span><a href="#endnote 8"><b>[8]</b></a></sup><sup><span id="ref_9"></span><a href="#endnote 9"><b>[9]</b></a></sup> </p> </td> 
+         <td> <p> 60 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SAM Coup&eacute;">SAM Coup&eacute;</a><sup><span id="ref_10"></span><a href="#endnote 10"><b>[10]</b></a></sup><sup><span id="ref_11"></span><a href="#endnote 11"><b>[11]</b></a></sup> </p> </td> 
+         <td> <p> 120<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Commodore 64">Commodore 64</a> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Amiga CD32">Commodore Amiga CD32</a> </p> </td> 
+         <td> <p> 120? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="CD-i">Philips CD-i</a> </p> </td> 
+         <td> <p> 120<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Sega Game Gear">Sega Game Gear</a> <sup><span id="ref_13"></span><a href="#endnote 13"><b>[13]</b></a></sup> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Game Boy">Game Boy</a> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 14 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="3DO Interactive Multiplayer">3DO</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Microsoft Windows">Windows 95</a><sup><span id="ref_12"></span><a href="#endnote 12"><b>[12]</b></a></sup> </p> </td> 
+         <td> <p> 116 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Macintosh">Apple Macintosh</a><sup><span id="ref_12"></span><a href="#endnote 12"><b>[12]</b></a></sup> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 80 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="OS/2">OS/2</a> (demo only) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apple IIGS">Apple II<sub>GS</sub></a> </p> </td> 
+         <td> <p> 92 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 40?100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PlayStation">PlayStation</a><sup><span id="ref_12"></span><a href="#endnote 12"><b>[12]</b></a></sup> </p> </td> 
+         <td> <p> 209 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Game Boy Color">Game Boy Color</a> </p> </td> 
+         <td> <p> 209 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Mobile phone">Mobile phone</a> (<a href="Java Platform, Micro Edition">Java ME</a>) </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Amstrad GX4000">Amstrad GX4000</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PlayStation Portable">PlayStation Portable</a> </p> </td> 
+         <td> <p> 156 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PlayStation 3">PlayStation 3</a> </p> </td> 
+         <td> <p> 45 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Game Boy Advance">Game Boy Advance</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 40 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Nintendo DS">Nintendo DS</a> </p> </td> 
+         <td> <p> 292 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Commodore Plus/4">Commodore Plus/4</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 60 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DHTML">DHTML</a> </p> </td> 
+         <td> <p> 40 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Smartphone">UIQ2/3 Smartphones</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MSX">MSX</a>2 </p> </td> 
+         <td> <p> 60 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Palm Pilot">Palm Pilot</a> </p> </td> 
+         <td> <p> 180 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Pocket PC">Pocket PC</a> </p> </td> 
+         <td> <p> 120 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Cambridge Z88">Cambridge Z88</a> </p> </td> 
+         <td> <p> 60 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> ;Notes: </p> 
+      <ul> 
+       <li>1 <span id="endnote_1"></span><b><a href="#ref 1">^</a></b> In this prototype, when you finish the last level, the game jumps back to level 45.<span class="unknown-node">&lt;ref .../&gt;</span></li> 
+       <li>2 <span id="endnote_2"></span><b><a href="#ref 2">^</a></b> The time limit works differently from most (if not all) other ports: 
+        <ul> 
+         <li> The amount of time left when you finish a level is carried over to the next level.</li> 
+         <li> After saving a certain number of lemmings from previous levels, you get a time bonus.</li> 
+         <li> Whenever the time runs out, the game pauses, and you are prompted to insert coin in order to continue. You are then given three minutes when you continue.</li> 
+         <li> The clock goes at the same speed <i>even when you pause or fast forward the game</i>.</li> 
+        </ul> </li> 
+       <li>3 <span id="endnote_3"></span><b><a href="#ref 3">^</a></b> When a lemming is assigned bomber, there is no 5-second countdown like most other ports, instead the lemming explodes immediately.</li> 
+       <li>4 <span id="endnote_4"></span><b><a href="#ref 4">^</a></b> With one exception, on every level at most 14 lemmings come out of the entrances. The exception is the level 'CLIMB EVERY MOUNTAIN' (21st level in rating Tricky). A total of 20 lemmings will come out of the entrance throughout the course of that level, but at most 14 lemmings will be in the level at any moment. This is because the entrance stops releasing new lemmings whenever there are already 14 lemmings in the level, and waits until one or more lemmings leaves the level (either by reaching the exit or being killed) before releasing the next lemming.</li> 
+       <li>5 <span id="endnote_5"></span><b><a href="#ref 5">^</a></b> Unlike most ports, the skills toolbar is <i>not</i> displayed together with the level. Instead, when you press the B button, it will pause the game and the screen will switch from displaying the level to displaying a skills selection menu page. Pressing B again will bring you back to the level.</li> 
+       <li>6 <span id="endnote_6"></span><b><a href="#ref 6">^</a></b> The maximum level width is smaller, meaning that a large proportion of the Amiga levels were replaced by completely new ones.</li> 
+       <li>7 <span id="endnote_7"></span><b><a href="#ref 7">^</a></b> This port has a &quot;lock cursor to lemming&quot; feature. Once you lock the cursor to a selected lemming, the cursor will automatically follow that lemming, until you unlock by moving the cursor away.</li> 
+       <li>8 <span id="endnote_8"></span><b><a href="#ref 8">^</a></b> Traps and metal do not work in this port and behave as normal terrain instead.</li> 
+       <li>9 <span id="endnote_9"></span><b><a href="#ref 9">^</a></b> Level numbering goes across all ratings, so that for example, the first level in rating Tricky is shown as level 16, rather than level 1 as in most other ports.</li> 
+       <li>10 <span id="endnote_10"></span><b><a href="#ref 10">^</a></b> The time limits on every level is lengthened by a factor of 2.5. For example, the first level, &quot;Just Dig!&quot;, has a time limit of 12.5 minutes, instead of 5 minutes as in the Amiga version. This is presumably to compensate for the slower movement of the lemmings in this port.</li> 
+       <li>11 <span id="endnote_11"></span><b><a href="#ref 11">^</a></b> Most of the music is different from the Amiga version.</li> 
+       <li>12 <span id="endnote_12"></span><b><a href="#ref 12">^</a></b> This port features high-resolution graphics.</li> 
+       <li>13 <span id="endnote_13"></span><b><a href="#ref 13">^</a></b> Due to the smaller screen size, the skills toolbar is only displayed when you move the cursor to the lower part of the screen.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Lemmings Ports}}</span> <a href="Category:Video game cleanup">Category:Video game cleanup</a> <a href="Category:Lemmings games">Category:Lemmings games</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

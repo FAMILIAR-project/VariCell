@@ -1,0 +1,1280 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of regular expression engines</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of regular expression engines</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{cleanup|...}}</span> <span class="unknown-node">{{external links|...}}</span> This is a <b>comparison of <a href="regular expression">regular expression</a> engines</b>. </p> 
+    <div class="section"> 
+     <h2>Libraries</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: center; font-size: 85%; width: auto; table-layout: fixed;"> 
+       <caption> 
+        <p> List of regular expression libraries </p> 
+       </caption> 
+       <tbody>
+        <tr> 
+         <th style="width: 12em"> <p> Name </p> </th> 
+         <th> <p> Official website </p> </th> 
+         <th> <p> <a href="Programming language">Programming language</a> </p> </th> 
+         <th> <p> <a href="Software license">Software license</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Boost C++ Libraries">Boost</a>.Regex<span class="unknown-node">{{R|...}}</span> </p> </th> 
+         <td> <p> <a href="http://www.boost.org/libs/regex/doc/html/">Boost C++ Libraries</a> </p> </td> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Boost<span class="unknown-node">{{Not a typo|...}}</span>Xpressive </p> </th> 
+         <td> <p> <a href="http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/">Boost C++ Libraries</a> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CL-PPCRE">CL-PPCRE</a> </p> </th> 
+         <td> <p> <a href="http://weitz.de/cl-ppcre/">Edi Weitz</a> </p> </td> 
+         <td> <p> <a href="Common Lisp">Common Lisp</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="cppre">cppre</a> </p> </th> 
+         <td> <p> <a href="http://jeff.bleugris.com/journal/projects/">Jeff Stuart</a> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> DEELX </p> </th> 
+         <td> <p> <a href="http://www.regexlab.com/en/deelx/">RegExLab</a> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> personal and commercial use </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FREJ<span class="unknown-node">{{R|...}}</span> </p> </th> 
+         <td> <p> <a href="http://frej.sf.net">Fuzzy Regular Expressions for Java</a> </p> </td> 
+         <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GLib">GLib</a>/GRegex<span class="unknown-node">{{R|...}}</span> </p> </th> 
+         <td> <p> <a href="http://www.barisione.org/gregex/glib-Perl-compatible-regular-expressions.html">Marco Barisione</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GRETA">GRETA</a> </p> </th> 
+         <td> <p> <a href="http://research.microsoft.com/projects/greta/">Microsoft Research</a> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="International Components for Unicode">ICU</a> </p> </th> 
+         <td> <p> <a href="http://www.icu-project.org/userguide/regexp.html">International Components for Unicode</a> </p> </td> 
+         <td> <p> C, C++ <span class="unknown-node">{{R|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Jakarta Project#Subprojects">Jakarta</a>/Regexp </p> </th> 
+         <td> <p> <a href="http://jakarta.apache.org/regexp/">The Apache Jakarta Project</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> JRegex </p> </th> 
+         <td> <p> <a href="http://jregex.sourceforge.net/">JRegex</a> </p> </td> 
+         <td> <p> Java </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oniguruma">Oniguruma</a> </p> </th> 
+         <td> <p> <a href="http://www.geocities.jp/kosako3/oniguruma/">Kosako</a> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Pattwo </p> </th> 
+         <td> <p> <a href="http://www.javaregex.com/home.html">Stevesoft</a> </p> </td> 
+         <td> <p> Java (compatible with Java 1.0) </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perl Compatible Regular Expression">PCRE</a> </p> </th> 
+         <td> <p> <a href="http://www.pcre.org/">Philip Hazel</a> </p> </td> 
+         <td> <p> C, C++<span class="unknown-node">{{R|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Qt (toolkit)">Qt</a>/QRegExp </p> </th> 
+         <td> <p> <a href="http://doc.trolltech.com/4.7/qregexp.html">1</a> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> regex - <a href="Henry Spencer">Henry Spencer</a>'s regular expression libraries </p> </th> 
+         <td> <p> <a href="http://arglist.com/regex/">ArgList</a> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="re2">re2</a> </p> </th> 
+         <td> <p> <a href="http://code.google.com/p/re2/">Google Code</a> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TRE (computing)">TRE</a> <span class="unknown-node">{{R|...}}</span> </p> </th> 
+         <td> <p> <a href="http://laurikari.net/tre/">Ville Laurikari</a> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> TPerlRegEx </p> </th> 
+         <td> <p> <a href="http://www.regexbuddy.com/delphi.html">TPerlRegEx VCL Component</a> </p> </td> 
+         <td> <p> <a href="Object Pascal">Object Pascal</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> TRegExpr </p> </th> 
+         <td> <p> <a href="http://regexpstudio.com/TRegExpr/TRegExpr.html">RegExp Studio</a> </p> </td> 
+         <td> <p> Object Pascal </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> RGX </p> </th> 
+         <td> <p> <a href="https://www.p6r.com/software/rgx.html">RGX </a> </p> </td> 
+         <td> <p> C++ based component library </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XRegExp </p> </th> 
+         <td> <p> <a href="http://xregexp.com/">XRegExp</a> </p> </td> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Languages</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: center; font-size: 0.85em; line-height: 1.3em; width: auto; table-layout: fixed;"> 
+       <caption> 
+        <p> List of languages and frameworks including regular expression support </p> 
+       </caption> 
+       <tbody>
+        <tr> 
+         <th> <p> Language </p> </th> 
+         <th> <p> Official website </p> </th> 
+         <th> <p> <a href="Software license">Software license</a> </p> </th> 
+         <th> <p> Remarks </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href=".NET Framework">.NET</a> </p> </th> 
+         <td> <p> <a href="http://msdn2.microsoft.com/en-us/library/system.text.regularexpressions.aspx">MSDN</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="C++0x">C++0x</a> (<a href="C++">C++</a>) </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> since ISO14822:2011(e) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="D (programming language)">D</a> </p> </th> 
+         <td> <p> <a href="http://www.digitalmars.com/d/">D</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Go (programming language)">Go</a> </p> </th> 
+         <td> <p> <a href="http://golang.org/pkg/regexp/">Golang.org</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Haskell (programming language)">Haskell</a> </p> </th> 
+         <td> <p> <a href="http://haskell.org/haskellwiki/Regular_expressions">Haskell.org</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> Omitted in the language report, and in GHC's Hierarchical Libraries </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Java (programming language)">Java</a> </p> </th> 
+         <td> <p> <a href="http://www.java.com">Java</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> REs are written as strings in source code: all backslashes must be doubled, harming readability </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JavaScript">JavaScript</a> (<a href="ECMAScript">ECMAScript</a>) </p> </th> 
+         <td> <p> <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMA-262</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> Limited but REs are first-class citizens of the language with a specific <code>/.../mod</code> syntax </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Lua (programming language)">Lua</a> </p> </th> 
+         <td> <p> <a href="http://www.lua.org">Lua.org</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> Uses simplified, limited dialect; can be bound to more powerful library, like PCRE or an alternative parser like LPeg </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mathematica">Mathematica</a> </p> </th> 
+         <td> <p> <a href="http://www.wolfram.com/mathematica/">Wolfram</a> </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td style="text-align: left;"> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Free Pascal">Free Pascal</a> (<a href="Object Pascal">Object Pascal</a>) </p> </th> 
+         <td> <p> <a href="http://www.freepascal.org">www.freepascal.org</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> Free Pascal 2.6+ ships with TRegExpr from Sorokin and 2 other regular expression libraries; see <a href="http://wiki.lazarus.freepascal.org/Regexpr">http://wiki.lazarus.freepascal.org/Regexpr</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cocoa (API)">Cocoa</a> (<a href="Objective-C">Objective-C</a>) </p> </th> 
+         <td> <p> <a href="http://developer.apple.com/library/ios/#documentation/Foundation/Reference/NSRegularExpression_Class/Reference/Reference.html">Apple</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> As of 2012, available on only iOS 4+ and OS X 10.7+ </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OCaml">OCaml</a> </p> </th> 
+         <td> <p> <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Str.html">Caml</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perl">Perl</a> </p> </th> 
+         <td> <p> <a href="http://www.perl.com/doc/manual/html/pod/perlre.html">Perl.com</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> Full, central part of the language </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PHP">PHP</a> </p> </th> 
+         <td> <p> <a href="http://www.php.net/manual/en/reference.pcre.pattern.syntax.php">PHP.net</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> Has two implementations, with PCRE being the more efficient in speed, functions </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Python (programming language)">Python</a> </p> </th> 
+         <td> <p> <a href="http://docs.python.org/lib/module-re.html">python.org</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Ruby (programming language)">Ruby</a> </p> </th> 
+         <td> <p> <a href="http://www.ruby-doc.org/docs/ProgrammingRuby/html/ref_c_regexp.html">ruby-doc.org</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> Ruby 1.8 and 1.9 use different engines; 1.9 integrates Oniguruma </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ABAP">SAP ABAP</a> </p> </th> 
+         <td> <p> <a href="http://www.sap.com">SAP.com</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Tcl">Tcl</a> 8.4 </p> </th> 
+         <td> <p> <a href="http://www.tcl.tk/">tcl.tk</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ActionScript">ActionScript</a> 3 </p> </th> 
+         <td> <p> <a href="http://www.adobe.com/devnet/actionscript.html">ActionScript Technology Center</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td style="text-align: left;"> <p> <span class="unknown-node">{{-}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Language features</h2> 
+     <div class="section-body"> 
+      <p> <b>NOTE:</b> An application using a library for regular expression support does not necessarily offer the full set of features of the library, e.g. GNU Grep which uses PCRE does not offer lookahead support, though PCRE does. </p> 
+      <div class="section"> 
+       <h3>Part 1</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="text-align: center; font-size: 85%; width: auto; table-layout: fixed;"> 
+         <caption> 
+          <p> Language feature comparison (part 1) </p> 
+         </caption> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> &quot;+&quot; quantifier </p> </th> 
+           <th> <p> Negated character classes </p> </th> 
+           <th> <p> Non-greedy quantifiers<span class="unknown-node">{{R|...}}</span> </p> </th> 
+           <th> <p> Shy groups<span class="unknown-node">{{R|...}}</span> </p> </th> 
+           <th> <p> Recursion </p> </th> 
+           <th> <p> Lookahead </p> </th> 
+           <th> <p> Lookbehind </p> </th> 
+           <th> <p> Backreferences<span class="unknown-node">{{R|...}}</span> </p> </th> 
+           <th> <p> &gt;9 indexable captures </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Boost.Regex">Boost.Regex</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Boost.Xpressive">Boost.Xpressive</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="CL-PPCRE">CL-PPCRE</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="EmEditor">EmEditor</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> FREJ </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Some}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="GLib">GLib</a>/GRegex </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Grep">GNU Grep</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="International Components for Unicode">ICU</a> Regex </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="JavaScript">JavaScript</a> (<a href="ECMAScript">ECMAScript</a>) </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Just Great Software">JGsoft</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href=".NET framework">.NET</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="OmniOutliner">OmniOutliner</a> 3.6.2 </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Perl Compatible Regular Expression">PCRE</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Qt (toolkit)">Qt</a>/QRegExp </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="R (programming language)">R</a> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="re2">re2</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="TRE (computing)">TRE</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Vim (text editor)">Vim</a> <span class="unknown-node">{{Latest preview release/Vim}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> RGX </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> TRegExpr </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> XRegExp </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Part 2</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="text-align: center; font-size: 85%; width: auto; table-layout: fixed;"> 
+         <caption> 
+          <p> Language feature comparison (part 2) </p> 
+         </caption> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> Directives <span class="unknown-node">{{R|...}}</span> </p> </th> 
+           <th> <p> Conditionals </p> </th> 
+           <th> <p> Atomic groups <span class="unknown-node">{{R|...}}</span> </p> </th> 
+           <th> <p> Named capture <span class="unknown-node">{{R|...}}</span> </p> </th> 
+           <th> <p> Comments </p> </th> 
+           <th> <p> Embedded code </p> </th> 
+           <th> <p> <a href="Unicode">Unicode</a> property support <a href="http://www.unicode.org/reports/tr18/">2</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Boost.Regex">Boost.Regex</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Some}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Boost.Xpressive">Boost.Xpressive</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="CL-PPCRE">CL-PPCRE</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="EmEditor">EmEditor</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> FREJ </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="GLib">GLib</a>/GRegex </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Some}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Grep">GNU Grep</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="International Components for Unicode">ICU</a> Regex </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Some}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="JavaScript">JavaScript</a> (<a href="ECMAScript">ECMAScript</a>) </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Just Great Software">JGsoft</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Some}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href=".NET framework">.NET</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Some}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="OCaml">OCaml</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="OmniOutliner">OmniOutliner</a> 3.6.2 </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Perl Compatible Regular Expression">PCRE</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Perl">Perl</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PHP">PHP</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Qt (toolkit)">Qt</a>/QRegExp </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="re2">re2</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Some}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Some}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="TRE (computing)">TRE</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Vim (text editor)">Vim</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> RGX </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> XRegExp </p> </td> 
+           <td> <p> Leading only </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>API features</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="text-align: center; font-size: 85%; width: auto; table-layout: fixed;"> 
+       <caption> 
+        <p> API feature comparison </p> 
+       </caption> 
+       <tbody>
+        <tr> 
+         <th style="width: 12em"> </th> 
+         <th> <p> Native <a href="UTF-16">UTF-16</a> support <span class="unknown-node">{{R|...}}</span> </p> </th> 
+         <th> <p> Native <a href="UTF-8">UTF-8</a> support <span class="unknown-node">{{R|...}}</span> </p> </th> 
+         <th> <p> Multi-line matching </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Boost.Regex">Boost.Regex</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GLib">GLib</a>/GRegex </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="International Components for Unicode">ICU</a> Regex </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Java (language, ver. 6)">Java</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href=".NET framework">.NET</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perl Compatible Regular Expression">PCRE</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> <span class="unknown-node">{{R|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Qt (toolkit)">Qt</a>/QRegExp </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TRE (computing)">TRE</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> RGX </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XRegExp </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="List of regular expression software">List of regular expression software</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://www.regular-expressions.info/refflavors.html">Regular Expression Flavor Comparison</a> ? Detailed comparison of the most popular regular expression flavors</li> 
+       <li> <a href="http://www.greenend.org.uk/rjk/2002/06/regexp.html">Regexp Syntax Summary</a></li> 
+       <li> <a href="http://www.regexplanet.com/">Online Regular Expression Testing</a> - with support for Java, JavaScript, .Net, PHP, Python and Ruby</li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Regular Expression Engines}}</span> <a href="Category:Pattern matching">Category:Pattern matching</a> <a href="Category:Software comparisons">Regular expression engines</a> <a href="Category:Regular expressions">Category:Regular expressions</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,424 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of OpenGL and Direct3D</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of OpenGL and Direct3D</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Refimprove|...}}</span> <span class="unknown-node">{{Original research|...}}</span> </p> 
+    <p> <b>Direct3D</b> and <b>OpenGL</b> are competing <a href="application programming interface">application programming interfaces</a> (APIs) which can be used in applications to render 2D and 3D <a href="computer graphics">computer graphics</a>, taking advantage of <a href="hardware acceleration">hardware acceleration</a> when available. Modern <a href="graphics processing unit">graphics processing unit</a> (GPUs) may implement a particular version of one or both of these APIs. </p> 
+    <div class="section"> 
+     <h2> Availability </h2> 
+     <div class="section-body"> 
+      <p> Direct3D application development generally targets the <a href="Microsoft Windows">Microsoft Windows</a> platform. The OpenGL API is an open standard, and implementations exist for a wide variety of platforms. </p> 
+      <table class="wikitable sortable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th> Desktop Support </th> 
+         <th> Embedded System Support </th> 
+         <th> <p> License </p> </th> 
+        </tr> 
+        <tr> 
+         <td> Direct3D </td> 
+         <td> <a href="Microsoft Windows">Microsoft Windows</a> only </td> 
+         <td> <a href="Windows CE">Windows CE</a> through <a href="Direct3D Mobile">Direct3D Mobile</a> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> OpenGL </td> 
+         <td> Cross-platform </td> 
+         <td> Cross-platform through <a href="OpenGL ES">OpenGL ES</a> </td> 
+         <td> <p> Open standard (some features patented) </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> In more detail, the two computer graphics APIs are: </p> 
+      <ol> 
+       <li> <a href="Microsoft Direct3D">Direct3D</a> is a <a href="proprietary software">proprietary</a> <a href="application programming interface">API</a> that provides functions to render three dimensional graphics, and uses hardware acceleration if it is available on the graphics card. It was designed by <a href="Microsoft Corporation">Microsoft Corporation</a> for use on the <a href="Microsoft Windows">Windows</a> platform. It can also be used on other operating systems through special software such as <a href="Wine (software)">Wine</a>, although the subset of features provided is not as complete as the reference implementation.</li> 
+       <li> <a href="OpenGL">OpenGL</a> is an <a href="open standard">open standard</a> API that provides a number of functions to render 2D and 3D graphics, and is available on most modern <a href="operating system">operating systems</a> including but not limited to <a href="Microsoft Windows">Windows</a>, <a href="Mac OS X">Mac OS X</a> and <a href="Linux">Linux</a>.</li> 
+      </ol> 
+      <p> Note that many essential <a href="OpenGL">OpenGL</a> extensions and methods, although documented, are actually patented, thus imposing serious legal troubles to implement them (see issues with <a href="Mesa 3D (OpenGL)">Mesa</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span>). </p> 
+      <p> OpenGL and Direct3D are both implemented in the display <a href="device driver">driver</a>. The following compares the two APIs, structured around various considerations mostly relevant to game development. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Portability</h2> 
+     <div class="section-body"> 
+      <p> Direct3D is officially implemented only on Microsoft's Windows family of operating systems, including embedded versions used in the <a href="Xbox">Xbox</a> family of <a href="video game console">video game consoles</a> and <a href="Sega">Sega</a>'s <a href="Dreamcast">Dreamcast</a>. Several mostly functional ports of the Direct3D API have been made by <a href="Wine (software)">Wine</a>, a project to port common Windows APIs to <a href="Unix-like">Unix-like</a> operating systems, and <a href="Cedega (software)">Cedega</a>, a proprietary fork of Wine, but this is impeded due to the interdependence of <a href="DirectX">DirectX</a> on many other components of Windows, and because Direct3D's proprietary nature requires <a href="reverse engineering">reverse engineering</a>, a difficult process. </p> 
+      <p> OpenGL has implementations available across many platforms including Microsoft Windows, <a href="Unix">Unix</a>-based systems such as <a href="Mac OS X">Mac OS X</a>, GNU/<a href="Linux">Linux</a>. It is a misconception that variants of OpenGL are used on Nintendo and Sony platforms, as they have developed their own libraries which are similar but not identical.<span class="unknown-node">{{Citation needed|...}}</span> The <a href="PlayStation 3">PlayStation 3</a> game console has an OpenGL implementation, but it remains unused by most developers due to performance issues<span class="unknown-node">{{Citation needed|...}}</span>. A subset of OpenGL was chosen as the main graphics library for <a href="Android (operating system)">Android</a>, <a href="BlackBerry">BlackBerry</a>, <a href="iOS (Apple)">iOS</a>, and <a href="Symbian">Symbian</a> in the <a href="OpenGL ES">OpenGL ES</a> form. </p> 
+      <p> Microsoft's OpenGL driver provides hardware acceleration in Windows Vista; support was dropped in Windows XP<span class="unknown-node">{{citation needed|...}}</span>, not long after they failed to deliver <a href="Fahrenheit graphics API">Fahrenheit Low Level</a> support for an OpenGL/Direct3D merger in the late 1990s. OpenGL hardware acceleration on Windows is achieved by users first installing <i>installable client drivers</i> (ICDs) developed by <a href="graphics processing unit">GPU</a> manufacturers.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> These ICDs are, in virtually all cases, bundled with the standard driver download package from the <a href="independent hardware vendor">hardware vendor</a> (IHV), so installing recent graphics drivers is sufficient to provide hardware OpenGL support.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Ease of use</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>Direct3D</h3> 
+       <div class="section-body"> 
+        <p> The first version of Direct3D in 1996 elicited widespread criticism because even simple operations, such as state changes, required creating and submitting objects called &quot;execute buffers&quot;. In contrast, in OpenGL most state changes can be performed with one function call. The Direct3D model frustrated many programmers. A very famous complaint was made by high-profile game developer <a href="John D. Carmack">John D. Carmack</a> in the .plan file in which he urged Microsoft to abandon Direct3D in favor of OpenGL.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Chris Hecker">Chris Hecker</a> made a similar request in an &quot;Open Letter to Microsoft&quot; in the April?May 1997 issue of Game Developer Magazine.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> 
+        <p> Version 5 (the second version, named to reflect its release as part of DirectX 5) replaced execute buffers with the new DrawPrimitive API, but it was still considered cumbersome. Chris Hecker's &quot;Open Letter to Microsoft&quot; referred to DrawPrimitive as &quot;an immature and poorly-designed clone of OpenGL that's missing some of the architectural decisions that make OpenGL fast.&quot;<span class="unknown-node">&lt;ref .../&gt;</span> </p> 
+        <p> Despite the controversy, Microsoft continued to evolve the API. A detailed history of releases and added features is given on the <a href="Microsoft Direct3D">Microsoft Direct3D</a> web pages. </p> 
+        <p> Some former critics of Direct3D acknowledge that now Direct3D is as good if not better than OpenGL in terms of abilities and ease of use. In January 2007, John Carmack said that &quot;?DX9 is really quite a good <a href="application programming interface">API</a> level. Even with the <a href="Direct3D">Direct3D</a> side of things, where I know I have a long history of people thinking I'm antagonistic against it. Microsoft has done a very, very good job of sensibly evolving it at each step?they're not worried about breaking backwards compatibility?and it's a pretty clean API. I especially like the work I'm doing on the 360, and it's probably the best graphics API as far as a sensibly designed thing that I've worked with.&quot;<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+        <p> Some design features of Direct3D have remained unchanged since version one, most notably its reliance on Microsoft's <a href="Component Object Model">COM</a>. One advantage of using COM is that the API can be used in any COM-aware language, notably <a href="Object Pascal">Delphi</a>, and Microsoft <a href="Visual C++">Visual C++</a>, <a href="C Sharp (programming language)">C#</a>, and <a href="Visual Basic .NET">Visual Basic .NET</a>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>OpenGL</h3> 
+       <div class="section-body"> 
+        <p> OpenGL is a specification implemented in the <a href="C (programming language)">C language</a>, though it can use other <a href="programming language">programming languages</a>. It is built on the concept of a <a href="state machine">state machine</a>, though more recent OpenGL versions have transformed it into much more of an object-based system <span class="unknown-node">{{Citation needed|...}}</span>. As an API, OpenGL depends on no particular language feature, and can be made callable from almost any programming language with the proper bindings. Such bindings exist for <a href="Ada (programming language)">Ada</a>, <a href="BASIC">BASIC</a> (<a href="Blitz BASIC">BlitzMax</a> (often used to program games), <a href="PureBasic">PureBasic</a>, <a href="Visual Basic">Visual Basic</a>), <a href="C Sharp (programming language)">C#</a>, <a href="Object Pascal">Delphi</a>, <a href="Fortran">Fortran</a>, <a href="Go (programming language)">Go</a>, <a href="Haskell (programming language)">Haskell</a>, <a href="Java (programming language)">Java</a>, <a href="Lisp (programming language)">Lisp</a>, <a href="Lua (programming language)">Lua</a>, <a href="Pascal (programming language)">Pascal</a>, <a href="Perl">Perl</a>, <a href="Python (programming language)">Python</a>, and <a href="Ruby (programming language)">Ruby</a> to name some. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Comparison</h3> 
+       <div class="section-body"> 
+        <p> In general, Direct3D is designed to virtualize 3D hardware interfaces. Direct3D frees the game programmer from accommodating the graphics hardware. OpenGL, on the other hand, is designed to be a 3D hardware-accelerated rendering system that may be emulated in software. These two APIs are fundamentally designed under two separate modes of thought. </p> 
+        <p> As such, there are functional differences in how the two APIs work. Direct3D expects the application to manage hardware resources; OpenGL makes the implementation do it. This tradeoff for OpenGL decreases difficulty in developing for the API, while at the same time increasing the complexity of creating an implementation (or driver) that performs well. With Direct3D, the developer must manage hardware resources independently; however, the implementation is simpler, and developers have the flexibility to allocate resources in the most efficient way possible for their application. </p> 
+        <p> Until about 2005, another functional difference between the APIs was the way they handled rendering to textures. The Direct3D method (<tt>SetRenderTarget()</tt>) is convenient, while prior versions of OpenGL required manipulating pixel buffers (P-buffers). This was cumbersome and risky: if the programmer's codepath was different from that anticipated by the driver maker, the code would have fallen back to software rendering, causing a substantial performance drop. However, widespread support for the &quot;frame buffer objects&quot; extension, which provided an OpenGL equivalent of the Direct3D method, successfully addressed this shortcoming, and the &quot;render target&quot; feature of OpenGL brought OpenGL up to par with Direct3D in this respect. </p> 
+        <p> Outside of a few minor functional differences which have mostly been addressed over the years, the two APIs provide nearly the same level of function. Hardware and software makers generally respond rapidly to changes in <a href="DirectX">DirectX</a>, e.g. pixel processor and <a href="shader">shader</a> requirements in DirectX 9 to <a href="stream processing">stream processors</a> in DirectX 10, while new features in <a href="OpenGL">OpenGL</a> are mainly implemented first by vendors and afterward retroactively applied to the standard. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Performance</h2> 
+     <div class="section-body"> 
+      <p> Shortly after the establishment of both Direct3D and OpenGL as viable graphics libraries (circa 1995), <a href="Microsoft">Microsoft</a> and <a href="Silicon Graphics">SGI</a> engaged in what has been called the &quot;<a href="application programming interface">API</a> Wars&quot;. Much of the argument revolved around which API offered superior performance. This question was relevant due to the very high cost of <a href="graphics processing unit">graphics accelerators</a> during this time, which meant the consumer market was using <a href="software renderer">software renderers</a> implemented by Microsoft for both Direct3D and OpenGL. </p> 
+      <div class="section"> 
+       <h3>Early debate</h3> 
+       <div class="section-body"> 
+        <p> <a href="DOS">DOS</a> business software such as <a href="AutoCAD">AutoCAD</a> and DOS games such as <a href="id Software">id Software</a>'s <i><a href="Doom (video game)">Doom</a></i> originally had to be optimized to run on many different graphics chipsets. When hardware manufacturers such as <a href="3Dlabs">3Dlabs</a> (member of the <a href="OpenGL Architecture Review Board">OpenGL Architecture Review Board</a>) made OpenGL compatible graphics accelerators (e.g., GLint chip), developers such as John Carmack of id Software optimized their products for OpenGL. As multitasking user environments such as <a href="Microsoft Windows">Microsoft Windows</a> on the PC and the <a href="X Window">X Window</a> system (X11) on <a href="Unix-like">Unix-like</a> systems became prevalent, the relevance of this hardware faded. </p> 
+        <p> Microsoft had marketed Direct3D as faster based on in-house performance comparisons of these two software libraries. The performance deficit was blamed on the rigorous specification and conformance required of OpenGL. This perception was changed at the 1996 Special Interest Group on GRAPHics and Interactive Techniques (<a href="SIGGRAPH">SIGGRAPH</a>) conference. At that time, <a href="Silicon Graphics">SGI</a> challenged Microsoft with their own optimized Windows software implementation of OpenGL called <a href="CosmoGL">CosmoGL</a> which in various demos matched or exceeded the performance of Direct3D. For SGI, this was a critical milestone as it showed that OpenGL's poor software rendering performance was due to Microsoft's reference OpenGL implementation, and not due to alleged design flaws in OpenGL itself. </p> 
+        <p> On the other hand, software rendering by the 3D API was largely irrelevant for both Direct3D and OpenGL applications. Not many DirectX applications used Direct3D's software rendering, preferring to perform their own software rendering using <a href="DirectDraw">DirectDraw</a>'s facilities to access the display hardware. As for OpenGL applications, hardware support was expected, and the hardware was so much faster that software fallback by the OpenGL application constituted a rude surprise to the OpenGL developer. </p> 
+        <p> In any case, by the time SGI had demonstrated that OpenGL software rendering performance could be competitive with that of Direct3D, software rendering was fast becoming irrelevant due to the widespread availability of inexpensive 3D graphics hardware. By 1998, even the <a href="S3 ViRGE">S3 ViRGE</a> graphics accelerator was substantially faster than the fastest <a href="Pentium II">Pentium II</a> running Direct3D's <a href="MMX (instruction set)">MMX</a> <a href="raster graphics">rasterizer</a>. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Mode switching (on Microsoft Windows)</h3> 
+       <div class="section-body"> 
+        <p> A more substantive and modern performance difference arises because of the structure of the hardware drivers provided by hardware developers. Under DirectX, <a href="independent hardware vendor">IHV</a> drivers are kernel-mode drivers installed into the operating system. The user-mode portion of the API is handled by the DirectX runtime provided by Microsoft. Under OpenGL however, the IHV driver is broken into two parts: a user-mode portion that implements the OpenGL API, and a kernel-mode driver that is called by the user-mode portion. </p> 
+        <p> This is an issue because calling kernel-mode operations from user-mode requires performing a <a href="system call">system call</a> (i.e. making the CPU switch to kernel mode). This is a slow operation, taking on the order of <a href="microsecond">microseconds</a> to complete.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> During this time, the CPU is unable to perform any operations. As such, minimizing the number of times this switching operation must be performed would optimize performance. For example, if the GPU's command buffer is full of rendering data, the API could simply store the requested rendering call in a temporary buffer and, when the command buffer is close to being empty, it can perform a switch to kernel-mode and add a number of stored commands all at once. This is known as <a href="marshalling (computer science)">marshalling</a>. </p> 
+        <p> Because Direct3D IHV drivers are kernel-mode, and the user-mode code is out of the IHV's hand, there is no chance for such optimizations to occur. Because the Direct3D runtime, the user-mode portion that implements the API, cannot have explicit knowledge of the driver's inner workings, it cannot effectively support marshalling. This means that every Direct3D call that sends commands to the hardware must perform a kernel-mode switch, which again, takes time in the order of microseconds to complete. This has led to a number of behaviors regarding use of Direct3D, the most important being the need for submitting large batches of triangles in one function call.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+        <p> Since OpenGL's IHV drivers have a user-mode component to them, IHVs have the ability to implement marshalling, thus improving performance. There is still kernel-mode switching, but the theoretical maximum number of switches under OpenGL implementations is simply equal to the Direct3D standard behavior. </p> 
+        <p> <a href="Direct3D 10">Direct3D 10</a>, the release included with <a href="Windows Vista">Windows Vista</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> allows portions of drivers to run in user-mode, making it possible for IHVs to implement marshalling, thus bringing the two back into relative performance parity. <a href="Mac OS X">Mac OS X</a>'s OpenGL system is very similar, where IHVs implement a simpler version of the OpenGL API (with both user and kernel mode components), and Apple's additions to the runtime provide the direct interface to the user code, and some basic work to make IHVs' jobs easier. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Structure</h2> 
+     <div class="section-body"> 
+      <p> OpenGL, originally designed for then-powerful SGI workstations, includes a number of features, like <a href="stereoscopy">stereo</a> rendering and the &quot;imaging subset&quot;, that were generally considered of limited utility for games - although stereoscopic gaming has drawn a lot more interest as of 2011.<span class="unknown-node">{{Citation needed|...}}</span> The API as a whole contains about 250 calls, but only a subset of perhaps 100 are useful for game development.<span class="unknown-node">{{Citation needed|...}}</span> However, no official gaming-specific subset was ever defined. MiniGL, released by 3Dfx as a stopgap measure to support glQuake, might have served as a starting point, but additional features like <a href="stencil shadowing">stencil</a> were soon adopted by games, and support for the entire OpenGL standard continued. Today, workstations and consumer machines use the same architectures and operating systems, and so modern incarnations of the OpenGL standard still include these features, although only special workstation-class video cards accelerate them. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Extensions</h2> 
+     <div class="section-body"> 
+      <p> The OpenGL <i>extension</i> mechanism is probably the most heavily disputed difference between the two APIs<span class="unknown-node">{{citation needed|...}}</span>. OpenGL includes a mechanism where any driver can advertise its own extensions to the API, thus introducing new functions such as blend modes, new ways to transfer data to GPUs, or different texture wrapping parameters. This allows new functions to be exposed quickly, but can lead to confusion if different vendors implement similar extensions with different APIs. Many of these extensions are periodically standardized by the <a href="OpenGL Architecture Review Board">OpenGL Architecture Review Board</a> (ARB), and some are made a core part of future OpenGL revisions. </p> 
+      <p> On the other hand, Direct3D is specified by one vendor only (<a href="Microsoft">Microsoft</a>), leading to a more consistent API, but denying access to vendor-specific features. <a href="NVIDIA">NVIDIA</a>'s UltraShadow technology, for instance, is not available in the stock Direct3D APIs at the time of writing.<span class="unknown-node">{{Citation needed|...}}</span><span class="unknown-node">{{When|...}}</span> It should be noted that Direct3D does support texture format extensions (via <i><a href="FourCC">FourCC</a></i>). These were once little-known and rarely used, but are now used for <a href="S3 Texture Compression">S3 Texture Compression</a>. </p> 
+      <p> When graphics cards added support for <a href="pixel shader">pixel shaders</a> (known on OpenGL as &quot;fragment programs&quot;), Direct3D provided one &quot;Pixel Shader 1.1&quot; (PS1.1) standard with which the <a href="GeForce">GeForce</a> 3 and up, and <a href="Radeon">Radeon</a> 8500 and up, advertised compatibility. Under OpenGL the same functions were accessed through a variety of custom extensions. </p> 
+      <p> In theory, the Microsoft approach allows one code path to support both brands of card, whereas under OpenGL, programmers must write two separate systems. In reality, though, because of the limits on pixel processing of those early cards, Pixel Shader 1.1 was nothing more than a pseudo-assembly language version of the NVIDIA-specific OpenGL extensions. For the most part, the only cards that claimed PS 1.1 functionality were by NVIDIA, and that is because they were built for it natively. When the Radeon 8500 was released, Microsoft released an update to Direct3D that included Pixel Shader 1.4, which was nothing more than a pseudo-assembly language version of the <a href="ATI Technologies">ATI</a>-specific OpenGL extensions. The only cards that claimed PS 1.4 support were ATI cards because they were designed with the precise hardware needed to make that functionality happen. </p> 
+      <p> This situation existed only for a short time under both APIs. Second-generation pixel shading cards functioned far more similarly, with each architecture evolving toward the same kind of pixel processing conclusion. As such, Pixel Shader 2.0 allowed a unified code path under Direct3D. Around the same time OpenGL introduced its own ARB-approved vertex and pixel shader extensions (<tt>GL_ARB_vertex_program</tt> and <tt>GL_ARB_fragment_program</tt>), and both sets of cards supported this standard also. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Users </h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>Professional graphics</h3> 
+       <div class="section-body"> 
+        <p> OpenGL has always seen more use in the professional graphics market than DirectX, while DirectX is used mostly for computer games. (The term <i>professional</i> is used here to refer to the professional production and display of graphics, such as in computer animated films and scientific visualisation, as opposed to games where the graphics produced are for the end user's personal, rather than professional, use.) Currently both OpenGL and DirectX have a large enough overlap in functionality that either could be used for most common purposes, with the operating system itself often being the primary criterion dictating which is used, with DirectX the common choice on Windows, and OpenGL being used on nearly everything else. Some esoteric applications still divide the applicability of the two APIs: doing accelerated 3D across a network connection is only directly supported by OpenGL with <a href="GLX">GLX</a>, for example. </p> 
+        <p> At one point many professional graphics cards only supported OpenGL, now virtually all professional cards which work on the Windows platform will also support Direct3D. Part of this has been a change in the professional graphics market from largely Unix-based hardware like SGIs and Suns to less expensive PC-based systems, leading to the growth of Windows in this market segment, while at the same time providing a new market for OpenGL software in Unix-based consumer systems running Linux or Apple OS X. </p> 
+        <p> The principal historical reason for OpenGL's dominance in the professional market was performance. Many professional graphics applications (for example, <a href="Softimage">Softimage</a>|3D, <a href="Alias Systems Corporation">Alias</a> <a href="PowerAnimator">PowerAnimator</a>) were originally written in <a href="IRIS GL">IRIS GL</a> for high-end SGI workstations, which were far more capable, both graphically and in raw CPU power, than the PCs of the time. Later, many of these were ported to OpenGL, even as the personal computer was evolving into a system powerful enough to run some professional graphics applications. Users were able to run <a href="Autodesk Maya">Maya</a>, for example, the successor to <a href="Alias Systems Corporation">Alias</a> on either SGIs or Windows-based personal computers (and today on Linux, Mac OS X, and Windows). Price competition eventually broke SGI's dominance in the market, but the established base of OpenGL software engineers and the broadening user base for OpenGL in Apple, Linux, and other operating systems, has resulted in a market where both DirectX and OpenGL are viable, widespread APIs. </p> 
+        <p> The other reason for OpenGL's historical advantage was marketing and design. DirectX is a set of APIs that were not marketed towards professional graphics applications. Indeed, they were not even designed with those applications in mind. DirectX was an API designed for low-level, high-performance access to broadly available, lower-performance, consumer-priced graphics hardware for the purpose of game development. OpenGL is a much more general purpose 3D API, targeting a full range of graphics hardware from low-end commodity graphics cards up to professional and scientific graphics visualization well out of the range of the average consumer, and providing features that are not necessarily exclusive towards any particular kind of user. </p> 
+        <p> Gaming developers typically haven't demanded as wide an API as professional graphics system developers. Many games don't need overlay planes, stencils, and so on, although this hasn't prevented some game developers from using them when available. In particular, game designers are rarely interested in the pixel invariance demanded in certain parts of the OpenGL standards, which are conversely highly useful to film and computer-aided modeling. </p> 
+        <p> An attempt was once made to merge OpenGL and DirectX by SGI and Microsoft. The <a href="Fahrenheit graphics API">Fahrenheit graphics API</a> was intended to bring together both the high end capability of OpenGL with the broad low-level support of DirectX. Microsoft eventually retreated from the project, having never allocated sufficient resources to produce its portion of the rendering engine, in a move widely held to be to ensure lock-in of developers to the Window/DirectX platform, which would be lost if the Fahrenheit API became the world de facto standard graphics API. However, Fahrenheit led to a number of improvements in DirectX, and the primary architect of Fahrenheit now works at Microsoft on DirectX.<span class="unknown-node">{{citation needed|...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Gaming</h3> 
+       <div class="section-body"> 
+        <p> In the earliest days of 3D accelerated gaming, performance and reliability were key benchmarks and several 3D accelerator cards competed against each other for dominance. Software was written specifically for a particular brand of graphics card. However, over the years, OpenGL and Direct3D emerged as software layers above the hardware, mainly because of industry support for a cross-hardware graphics library. Competition between the two rose as each game developer would choose either one or the other. </p> 
+        <p> In the early days of 3D accelerated gaming, most vendors did not actually supply a full OpenGL driver. On the one hand, most consumer-oriented accelerators did not implement enough functionality to properly accelerate OpenGL. On the other hand, many vendors struggled to implement a full OpenGL driver with good performance and compatibility. Instead, they wrote <a href="MiniGL">MiniGL</a> drivers, which only implemented a subset of OpenGL, enough to run GLQuake (and later other OpenGL games, mostly based on the Quake engine). Proper OpenGL drivers became more prevalent as the hardware evolved, and consumer-oriented accelerators caught up with the SGI systems that OpenGL was originally designed for. This would be around the time of DirectX 6 or DirectX 7. </p> 
+        <p> In the console world proprietary native APIs are dominant, with some consoles (e.g. the PS3) providing an OpenGL wrapper around its native API. The original Xbox supported Direct3D 8.1 as its native API while the Xbox 360 supports a modified version of Direct3D 9.0c as its native API. Most console developers prefer to use the native APIs for each console in order to maximize performance, making OpenGL and Direct3D comparisons primarily relevant for PC platforms. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Mobile phones and other embedded devices</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{Expand section|...}}</span> <span class="unknown-node">{{Main|...}}</span> <span class="unknown-node">{{Main|...}}</span> <a href="OpenGL ES">OpenGL for Embedded Systems</a> (also known as OpenGL ES) is a subset of the OpenGL 3D graphics API designed for <a href="embedded device">embedded devices</a>. Various versions of <a href="smartphone">smartphone</a> <a href="mobile operating system">operating systems</a> support OpenGL ES, such as <a href="Android (operating system)">Android</a>, <a href="iOS (Apple)">iOS</a> (<a href="iPad">iPad</a>, <a href="iPhone">iPhone</a>, <a href="iPod Touch">iPod Touch</a>), <a href="Maemo">Maemo</a> (<a href="Nokia N900">Nokia N900</a>), and <a href="Symbian">Symbian</a>. </p> 
+        <p> OpenGL ES is available in 4 variants, OpenGL ES 1.0, 1.1, 2.0 and 3.0. Starting with the release of 2.0, backwards compatibility with older variants was removed, due to the extensive programmable pipeline functions available in GL ES 2.0, over the fixed-pipeline functions of GL ES 1.0 and 1.1. </p> 
+        <p> <a href="Direct3D Mobile">Direct3D Mobile</a>, a derivative from Direct3D, is supported by <a href="Windows CE">Windows CE</a>.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Currently all <a href="Windows Phone 7">Windows Phone 7</a> devices use a <a href=".NET Framework">.NET Framework</a> UI accelerated by Direct3D Mobile 9 on Adreno 200 integrated GPUs by Qualcomm. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Microsoft Direct3D">Direct3D</a></li> 
+       <li> <a href="Fahrenheit graphics API">Fahrenheit graphics API</a></li> 
+       <li> <a href="Glide API">Glide API</a></li> 
+       <li> <a href="OpenGL">OpenGL</a></li> 
+       <li> <a href="RRedline">RRedline</a></li> 
+       <li> <a href="WebGL">WebGL</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://www.neoseeker.com/news/story/6039/">OpenGL to be fully supported by Vista</a></li> 
+       <li> <a href="http://blogs.msdn.com/kamvedbrat/archive/2006/02/22/537624.aspx">MSDN blog on Vista implementation of OpenGL</a></li> 
+       <li> <a href="http://www.tomshardware.com/reviews/opengl-directx,2019.html">OpenGL 3 &amp; DirectX 11: The War Is Over</a></li> 
+       <li><a href="http://www.itproportal.com/2012/08/03/valve-opengl-outpaces-directx-even-under-windows/">Valve: OpenGL outpaces DirectX, even under Windows</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Opengl And Direct3d}}</span> <a href="Category:DirectX">Category:DirectX</a> <a href="Category:Application programming interfaces">Category:Application programming interfaces</a> <a href="Category:Microsoft application programming interfaces">Category:Microsoft application programming interfaces</a> <a href="Category:Software comparisons">OpenGL and Direct3D</a> <a href="Category:OpenGL">Category:OpenGL</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

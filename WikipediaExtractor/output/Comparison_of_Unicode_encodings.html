@@ -1,0 +1,443 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of Unicode encodings</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of Unicode encodings</h1> 
+   <div class="article-content"> 
+    <p> This article compares <a href="Unicode">Unicode</a> encodings. Two situations are considered: <a href="8-bit-clean">8-bit-clean</a> environments, and environments that forbid use of <a href="byte">byte</a> values that have the high bit set. Originally such prohibitions were to allow for links that used only seven data bits, but they remain in the standards and so software must generate messages that comply with the restrictions. <a href="Standard Compression Scheme for Unicode">Standard Compression Scheme for Unicode</a> and <a href="Binary Ordered Compression for Unicode">Binary Ordered Compression for Unicode</a> are excluded from the comparison tables because it is difficult to simply quantify their size. </p> 
+    <div class="section"> 
+     <h2>Compatibility issues</h2> 
+     <div class="section-body"> 
+      <p> A <a href="UTF-8">UTF-8</a> file that contains only <a href="ASCII">ASCII</a> characters is identical to an ASCII file. Legacy programs can generally handle UTF-8 encoded files, even if they contain non-ASCII characters. For instance, the <a href="C (programming language)">C</a> <a href="Input/output">print</a> function can print a UTF-8 format string, as it only looks for the byte matching the ASCII '%' character, and prints all other bytes unchanged, thus any UTF-8 (which never contains a '%' byte) will be copied unchanged to the output. </p> 
+      <p> <a href="UTF-16">UTF-16</a> and <a href="UTF-32">UTF-32</a> are incompatible with ASCII files, and thus require <a href="Unicode">Unicode</a>-aware programs to display, print and manipulate them, even if the file is known to contain only characters in the ASCII subset. Because they contain many zero bytes, the strings cannot be manipulated by normal <a href="null-terminated string">null-terminated string</a> handling for even simple operations such as copy. </p> 
+      <p> Therefore, even most UTF-16 systems such as <a href="Windows">Windows</a> and <a href="Java (software platform)">Java</a> store text files, such as program code, with 8-bit encodings (ASCII, <a href="ISO-8859-1">ISO-8859-1</a><span class="unknown-node">{{Citation needed|...}}</span>, or UTF-8), not UTF-16. One of the few counterexamples of a UTF-16 file is the &quot;strings&quot; file used by <a href="Mac OS X">Mac OS X</a> (10.3 and later) applications for lookup of internationalized versions of messages, these default to UTF-16 and &quot;files encoded using UTF-8 are not guaranteed to work. When in doubt, encode the file using UTF-16&quot;.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> This is because the default string class in Mac OS X (NSString) stores characters in UTF-16.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+      <p> <a href="XML">XML</a> is, by default, encoded as UTF-8, and all XML processors must at least support UTF-8 (including US-ASCII by definition) and UTF-16.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Efficiency</h2> 
+     <div class="section-body"> 
+      <p> <a href="UTF-8">UTF-8</a> requires either 8, 16, 24 or 32 bits (one to four <a href="Octet (computing)">octets</a>) to encode a Unicode character, <a href="UTF-16">UTF-16</a> requires either 16 or 32 bits to encode a character, and <a href="UTF-32">UTF-32</a> always requires 32 bits to encode a character. The first 128 Unicode <a href="code point">code points</a>, U+0000 to U+007F, used for the <a href="C0 Controls and Basic Latin">C0 Controls and Basic Latin</a> characters and which correspond one-to-one to their ASCII-code equivalents, are encoded using 8 bits in UTF-8, 16 bits in UTF-16, and 32 bits in UTF-32. The next 1,920 characters, U+0080 to U+07FF (encompassing the remainder of almost all <a href="Latin-derived alphabet">Latin-derived alphabets</a>, and also <a href="Greek alphabet">Greek</a>, <a href="Cyrillic script">Cyrillic</a>, <a href="Coptic alphabet">Coptic</a>, <a href="Armenian alphabet">Armenian</a>, <a href="Hebrew alphabet">Hebrew</a>, <a href="Arabic alphabet">Arabic</a>, <a href="Syriac alphabet">Syriac</a>, <a href="T?na">T?na</a> and <a href="N'Ko alphabet">N'Ko</a>), requires 16 bits to encode in both UTF-8 and UTF-16, and 32 bits in UTF-32. For U+0800 to U+FFFF, i.e. the remainder of the characters in the <a href="Basic Multilingual Plane">Basic Multilingual Plane</a> (BMP, plane 0, U+0000 to U+FFFF), which encompasses the rest of the characters of most of the world's living languages, UTF-8 needs 24 bits to encode a character, while UTF-16 needs 16 bits and UTF-32 needs 32. Code points U+010000 to U+10FFFF, which represent characters in the <a href="Plane (Unicode)">supplementary planes</a> (planes 1-16), require 32 bits in UTF-8, UTF-16 and UTF-32. All printable characters in <a href="UTF-EBCDIC">UTF-EBCDIC</a> use at least as many bytes as in UTF-8, and most use more, due to a decision made to allow encoding the C1 control codes as single bytes. For seven-bit environments, <a href="UTF-7">UTF-7</a> is more space efficient than the combination of other Unicode encodings with <a href="quoted-printable">quoted-printable</a> or <a href="base64">base64</a> for almost all types of text (see &quot;<a href="#Seven-bit environments">Seven-bit environments</a>&quot; below). </p> 
+      <p> Each format has its own set of advantages and disadvantages with respect to storage efficiency (and thus also of transmission time), and processing efficiency. Storage efficiency is subject to the location within the Unicode <a href="code point">code space</a> in which any given text's characters are predominately from. Since Unicode code space blocks are organized by character set (i.e. alphabet/script), storage efficiency of any given text effectively depends on the <a href="alphabet">alphabet/script</a> used for that text. So, for example, UTF-8 needs one less byte per character (8 versus 16 bits) than UTF-16 for the 128 code points between U+0000 and U+007F, but needs one more byte per character (24 versus 16 bits) for the 63,488 code points between U+0800 and U+FFFF. Therefore if there are more characters in the range U+0000 to U+007F than there are in the range U+0800 to U+FFFF then UTF-8 is more efficient, while if there are fewer then UTF-16 is more efficient. If the counts are equal then they are exactly the same size. A surprising result is that real-world documents written in languages that use characters only in the high range are still often shorter in UTF-8, due to the extensive use of spaces, digits, newlines, html markup, and embedded English words. </p> 
+      <p> As far as processing time is concerned, text with variable-length encoding such as UTF-8 is harder to process if there is a need to find the individual code units, as opposed to working with sequences of code units. Searching is unaffected by whether the characters are variable sized, since a search for a sequence of code units does not care about the divisions (it does require that the encoding be self-synchronizing, which both UTF-8 and UTF-16 are). A common misconception is that there is a need to &quot;find the <i>n</i>th character&quot; and that this requires a fixed-length encoding; however, in real use the number <i>n</i> is only derived from examining the <i>n</i> ? 1 characters, thus sequential access is needed anyway. </p> 
+      <p> On the other hand, UTF-8 is <a href="endianness">endian-neutral</a>, while UTF-16 and UTF-32 are not. This means that when character sequences in one endian order are loaded onto a machine with a different endian order, the characters need to be converted before they can be processed efficiently. This is more of a communication problem than a computation one. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Processing issues</h2> 
+     <div class="section-body"> 
+      <p> For processing, a format should be easy to search, truncate, and generally process safely. All normal Unicode encodings use some form of fixed size code unit. Depending on the format and the code point to be encoded, one or more of these code units will represent a Unicode <a href="code point">code point</a>. To allow easy searching and truncation, a sequence must not occur within a longer sequence or across the boundary of two other sequences. UTF-8, UTF-16, UTF-32 and UTF-EBCDIC have these important properties but <a href="UTF-7">UTF-7</a> and <a href="GB 18030">GB 18030</a> do not. </p> 
+      <p> Fixed-size characters can be helpful, but even if there is a fixed byte count per code point (as in UTF-32), there is not a fixed byte count per displayed character due to <a href="combining character">combining characters</a>. If you are working with a particular <a href="application programming interface">API</a> heavily and that API has standardised on a particular Unicode encoding, it is generally a good idea to use the encoding that the API does to avoid the need to convert before every call to the API. Similarly if you are writing server-side software, it may simplify matters to use the same format for processing that you are communicating in. </p> 
+      <p> UTF-16 is popular because many APIs date to the time when Unicode was 16-bit fixed width. However, using UTF-16 makes characters outside the <a href="Mapping of Unicode character planes">Basic Multilingual Plane</a> a special case which increases the risk of oversights related to their handling. That said, programs that mishandle surrogate pairs probably also have problems with combining sequences, so using UTF-32 is unlikely to solve the more general problem of poor handling of multi-code-unit characters. </p> 
+      <p> If any stored data is in UTF-8 (such as file contents or names), it is very difficult to write a system that uses UTF-16 or UTF-32 as an api. This is due to the often-overlooked fact that the byte array used by UTF-8 can physically contain invalid sequences. For instance it is impossible to fix an invalid UTF-8 filename using a UTF-16 api, as no possible UTF-16 string will translate to that invalid filename. The opposite is not true, it is trivial to translate invalid UTF-16 to a unique (though technically invalid) UTF-8 string, so a UTF-8 API can control both UTF-8 and UTF-16 files and names, making UTF-8 preferred in any such mixed environment. (An unfortunate but far more common &quot;solution&quot; used by UTF-16 systems is to interpret the UTF-8 as some other encoding such as <a href="cp1252">cp1252</a> and ignore the <a href="mojibake">mojibake</a> for any non-ASCII data) </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>For communication and storage</h2> 
+     <div class="section-body"> 
+      <p> UTF-16 and UTF-32 are not <a href="byte orientation">byte oriented</a>, so a byte order must be selected when transmitting them over a byte-oriented network or storing them in a byte-oriented file. This may be achieved by standardising on a single byte order, by specifying the <a href="endianness">endianness</a> as part of external metadata (for example the <a href="MIME">MIME</a> charset registry has distinct <a href="UTF-16BE">UTF-16BE</a> and <a href="UTF-16LE">UTF-16LE</a> registrations) or by using a <a href="byte-order mark">byte-order mark</a> at the start of the text. UTF-8 is byte-oriented and does not have this problem. </p> 
+      <p> If the byte stream is subject to <a href="data corruption">corruption</a> then some encodings recover better than others. UTF-8 and UTF-EBCDIC are best in this regard as they can always resynchronize at the start of the next code point, GB 18030 is unable to recover after a corrupt or missing byte until the next ASCII non-number. UTF-16 and UTF-32 will handle corrupt (altered) bytes by resynchronizing on the next good code point, but an odd number of lost or spurious <a href="octet (computing)">byte (octet)s</a> will garble all following text. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>In detail</h2> 
+     <div class="section-body"> 
+      <p> The tables below list the number of bytes per code point for different Unicode ranges. Any additional comments needed are included in the table. The figures assume that overheads at the start and end of the block of text are negligible. </p> 
+      <blockquote> 
+       <i><b>N.B.</b> The tables below list numbers of bytes per <b>code point</b>, <b>not</b> per user visible &quot;character&quot; (or &quot;grapheme cluster&quot;). It can take multiple code points to describe a single grapheme cluster, so even in UTF-32, care must be taken when splitting or concatenating strings.</i> 
+      </blockquote> 
+      <div class="section"> 
+       <h3>Eight-bit environments</h3> 
+       <div class="section-body"> 
+        <table class="wikitable"> 
+         <tbody>
+          <tr>
+           <th> Code range (hexadecimal) </th> 
+           <th> <a href="UTF-8">UTF-8</a> </th> 
+           <th> <a href="UTF-16">UTF-16</a> </th> 
+           <th> <a href="UTF-32">UTF-32</a> </th> 
+           <th> <a href="UTF-EBCDIC">UTF-EBCDIC</a> </th> 
+           <th> <p> <a href="GB 18030">GB 18030</a> </p> </th> 
+          </tr>
+          <tr> 
+           <td> 000000 ? 00007F </td> 
+           <td> 1 </td> 
+           <td rowspan="6"> 2 </td> 
+           <td rowspan="8"> 4 </td> 
+           <td rowspan="2"> 1 </td> 
+           <td> <p> 1 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> 000080 ? 00009F </td> 
+           <td rowspan="3"> 2 </td> 
+           <td rowspan="5"> <p> 2 for characters inherited from<br /><a href="GB 2312">GB 2312</a>/<a href="GBK">GBK</a> (e.g. most<br />Chinese characters) 4 for<br />everything else. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> 0000A0 ? 0003FF </td> 
+           <td> <p> 2 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> 000400 ? 0007FF </td> 
+           <td rowspan="2"> <p> 3 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> 000800 ? 003FFF </td> 
+           <td rowspan="2"> <p> 3 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> 004000 ? 00FFFF </td> 
+           <td rowspan="2"> <p> 4 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> 010000 ? 03FFFF </td> 
+           <td rowspan="2"> 4 </td> 
+           <td rowspan="2"> 4 </td> 
+           <td rowspan="2"> <p> 4 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> 040000 ? 10FFFF </td> 
+           <td> <p> 5 </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Seven-bit environments</h3> 
+       <div class="section-body"> 
+        <p> This table may not cover every special case and so should be used for estimation and comparison only. To accurately determine the size of text in an encoding, see the actual specifications. </p> 
+        <table class="wikitable"> 
+         <tbody>
+          <tr> 
+           <th> <p> Code range (hexadecimal) </p> </th> 
+           <th> <p> UTF-7 </p> </th> 
+           <th> <p> UTF-8 <a href="quoted-printable">quoted-<br />printable</a> </p> </th> 
+           <th> <p> UTF-8 <a href="base64">base64</a> </p> </th> 
+           <th> <p> UTF-16 q.-p. </p> </th> 
+           <th> <p> UTF-16 base64 </p> </th> 
+           <th> <p> GB&nbsp;18030 q.-p. </p> </th> 
+           <th> <p> GB&nbsp;18030 base64 </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> ASCII<br /><a href="graphic character">graphic characters</a><br />(except U+003D ?=?) </p> </td> 
+           <td rowspan="2"> <p> 1 for &quot;direct characters&quot; (depends on the encoder setting for some code points), 2 for U+002B ?+?, otherwise same as for 000080 ? 00FFFF </p> </td> 
+           <td> <p> 1 </p> </td> 
+           <td rowspan="3"> <p> <span class="unknown-node">{{frac|...}}</span> </p> </td> 
+           <td> <p> 4 </p> </td> 
+           <td rowspan="5"> <p> <span class="unknown-node">{{frac|...}}</span> </p> </td> 
+           <td> <p> 1 </p> </td> 
+           <td rowspan="3"> <p> <span class="unknown-node">{{frac|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> 00003D (equals sign) </p> </td> 
+           <td> <p> 3 </p> </td> 
+           <td rowspan="2"> <p> 6 </p> </td> 
+           <td> <p> 3 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> ASCII<br /><a href="control character">control characters</a>:<br />000000 ? 00001F<br />and 00007F </p> </td> 
+           <td> <p> as above, depending on directness </p> </td> 
+           <td> <p> 1 or 3 depending on directness </p> </td> 
+           <td> <p> 1 or 3 depending on directness </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> 000080 ? 0007FF </p> </td> 
+           <td rowspan="2"> <p> 5 for an isolated case inside a run of single byte characters. For runs <span class="unknown-node">{{frac|...}}</span> per character plus padding to make it a whole number of bytes plus two to start and finish the run </p> </td> 
+           <td> <p> 6 </p> </td> 
+           <td> <p> <span class="unknown-node">{{frac|...}}</span> </p> </td> 
+           <td rowspan="2"> <p> 2?6 depending on if the byte values need to be escaped </p> </td> 
+           <td rowspan="2"> <p> 4?6 for characters inherited from GB2312/GBK (e.g.<br />most Chinese characters) 8 for everything else. </p> </td> 
+           <td rowspan="2"> <p> <span class="unknown-node">{{frac|...}}</span> for characters inherited from GB2312/GBK (e.g.<br />most Chinese characters) <span class="unknown-node">{{frac|...}}</span> for everything else. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> 000800 ? 00FFFF </p> </td> 
+           <td> <p> 9 </p> </td> 
+           <td> <p> 4 </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> 010000 ? 10FFFF </p> </td> 
+           <td> <p> 8 for isolated case, <span class="unknown-node">{{frac|...}}</span> per character plus padding to integer plus 2 for a run </p> </td> 
+           <td> <p> 12 </p> </td> 
+           <td> <p> <span class="unknown-node">{{frac|...}}</span> </p> </td> 
+           <td> <p> 8?12 depending on if the low bytes of the surrogates need to be escaped. </p> </td> 
+           <td> <p> <span class="unknown-node">{{frac|...}}</span> </p> </td> 
+           <td> <p> 8 </p> </td> 
+           <td> <p> <span class="unknown-node">{{frac|...}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> Size of codes for UTF-16 do not differ for -LE and -BE versions of UTF-16. The use of UTF-32 under quoted-printable is highly impratical, but if implemented, will result in 8?12 bytes per code point (about 10 bytes in average), namely for BMP, each code point will occupy exactly 6 bytes more than the same code in quoted-printable/UTF-16. Base64/UTF-32 gets <span class="unknown-node">{{frac|...}}</span> bytes for <i>any</i> code point. Endianness also does not affect sizes for UTF-32. </p> 
+        <p> An ASCII control character under quoted-printable or UTF-7 may be represented either directly or encoded (escaped). The need to escape a given control character depends on many circumstances, but <a href="newline">newlines</a> in text data are usually coded directly. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Compression schemes </h3> 
+       <div class="section-body"> 
+        <p> <a href="Binary Ordered Compression for Unicode">BOCU-1</a> and <a href="Standard Compression Scheme for Unicode">SCSU</a> are two ways to compress Unicode data. Their <a href="character encoding">encoding</a> relies on how frequently the text is used. Most runs of text use the same script; for example, <a href="Latin alphabet">Latin</a>, <a href="Cyrillic script">Cyrillic</a>, <a href="Greek alphabet">Greek</a> and so on. This normal use allows many runs of text to compress down to about 1 byte per code point. These stateful encodings make it more difficult to randomly access text at any position of a string. </p> 
+        <p> These two compression schemes are not as efficient as other compression schemes, like <a href="ZIP (file format)">zip</a> or <a href="bzip2">bzip2</a>. Those general-purpose compression schemes can compress longer runs of bytes to just a few bytes. The <a href="Standard Compression Scheme for Unicode">SCSU</a> and <a href="Binary Ordered Compression for Unicode">BOCU-1</a> compression schemes will not compress more than the theoretical 25% of text encoded as UTF-8, UTF-16 or UTF-32. Other general-purpose compression schemes can easily compress to 10% of original text size. The general purpose schemes require more complicated algorithms and longer chunks of text for a good compression ratio. </p> 
+        <p> <a href="http://www.unicode.org/notes/tn14/">Unicode Technical Note #14</a> contains a more detailed comparison of compression schemes. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Historical: UTF-5 and UTF-6 </h3> 
+       <div class="section-body"> 
+        <p> Proposals have been made for a UTF-5 and UTF-6 for the <a href="Internationalized domain name">internationalization of domain names</a> (IDN). The UTF-5 proposal used a <a href="Base32">base 32</a> encoding, where <a href="Punycode">Punycode</a> is (among other things, and not exactly) a <a href="base 36">base 36</a> encoding. The name UTF-5 for a code unit of 5 bits is explained by the equation 2<sup>5</sup> = 32.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> The UTF-6 proposal added a running length encoding to UTF-5, here <b>6</b> simply stands for <i>UTF-5 plus 1</i>.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> The <a href="Internet Engineering Task Force">IETF</a> IDN WG later adopted the more efficient <a href="Punycode">Punycode</a> for this purpose.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Not being seriously pursued </h3> 
+       <div class="section-body"> 
+        <p> <a href="UTF-1">UTF-1</a> never gained serious acceptance. UTF-8 is much more frequently used. </p> 
+        <p> <a href="UTF-9 and UTF-18">UTF-9 and UTF-18</a>, despite being theoretically functional encodings, were not intended for practical use, mostly because systems using 9-bit bytes were largely extinct by the time they were designed. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+      <p> <span class="unknown-node">{{Unicode navigation}}</span> </p> 
+      <p> <span class="unknown-node">{{Use dmy dates|...}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Unicode Encodings}}</span> <a href="Category:Unicode Transformation Formats"> </a> <a href="Category:Software comparisons">Unicode</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

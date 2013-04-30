@@ -1,0 +1,882 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of web map services</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of web map services</h1> 
+   <div class="article-content"> 
+    <table class="wikitable"> 
+     <tbody>
+      <tr> 
+       <th width="10%"> <p> Feature </p> </th> 
+       <th width="13%"> <p> <a href="Google Maps">Google Maps</a> </p> </th> 
+       <th width="13%"> <p> <a href="Yahoo! Maps">Yahoo! Maps</a> </p> </th> 
+       <th width="13%"> <p> <a href="Bing Maps">Bing Maps</a> </p> </th> 
+       <th width="13%"> <p> <a href="MapQuest">MapQuest</a> </p> </th> 
+       <th width="13%"> <p> <a href="OpenStreetMap">OpenStreetMap</a> </p> </th> 
+       <th width="13%"> <p> <a href="Here (Nokia)">Nokia Here</a> </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> License </p> </th> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+       <td> <p> <a href="ODbL">ODbL</a> </p> </td> 
+       <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Availability </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Full Extra Functionality </p> </th> 
+       <td> <p> Australia, Canada, China, France, Germany, Israel, Italy, Netherlands, Spain, UK, United States. </p> </td> 
+       <td> <p> United States, Canada, Puerto Rico, the Virgin Islands, and most European countries. </p> </td> 
+       <td> <p> United States, Canada (with the exception of the rural northeastern provinces), United Kingdom, Germany, Italy, Australia, New Zealand, Japan(Yahoo Japan only), India </p> </td> 
+       <td> <p> United States </p> </td> 
+       <td> <p> All </p> </td> 
+       <td> <p> More than 180 navigable countries </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Limited Extra Functionality </p> </th> 
+       <td> <p> Andorra, Austria, Belgium, Brazil, China, Croatia, Czech Republic, Denmark, Finland, Gibraltar, Greece, Hong Kong, Hungary, Ireland, Liechtenstein, Luxembourg, Monaco, New Zealand, Norway, Poland, Portugal, Russia (Moscow only), San Marino, Singapore, Slovakia, Slovenia, South Africa, Sweden, Switzerland, Turkey (Istanbul only) </p> </td> 
+       <td> <p> Unknown </p> </td> 
+       <td> <p> Unknown </p> </td> 
+       <td> </td> 
+       <td> <p> No limited functionality </p> </td> 
+       <td> <p> Voice guided navigation for both pedestrians and drivers for 74 countries in 46 different languages </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Directory Listings </p> </th> 
+       <td> <p> Australia, Belgium, Canada, China, Japan, Finland, France, Germany, Hong Kong, Ireland, Italy, the Netherlands, Norway, Singapore, South Africa, Spain, Taiwan, the UK, and the United States </p> </td> 
+       <td> <p> Unknown </p> </td> 
+       <td> <p> Australia and United States </p> </td> 
+       <td> </td> 
+       <td> <p> None </p> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Officially Supported Web Browsers </p> </th> 
+       <td> <p> IE7+, Firefox 2.0.0.8+, Safari 3+, Mozilla 1.7+, Opera 8.02+, Google Chrome 1+ </p> </td> 
+       <td> <p> IE6+, Firefox 2, Opera 9 or Safari 3 </p> </td> 
+       <td> <p> IE6+, Firefox 2+, Safari 3+ </p> </td> 
+       <td> <p> IE6+, Firefox 2+, Safari 3+ </p> </td> 
+       <td> <p> IE7+, Mozilla Firefox 3.5+, Google Chrome 4+, Safari 4+ </p> </td> 
+       <td> <p> IE7+, Mozilla Firefox 3.5+, Google Chrome 4+, Safari 4+ </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Officially Supported Interface Languages </p> </th> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Dansk, Deutsch, Dutch, English, French, Italian, Norwegian, Portuguese, Spanish, Swedish </p> </td> 
+       <td> <p> 50+ website translations, unlimited map languages </p> </td> 
+       <td> <p> 30 including English, Croatian, Czech, Danish, Finnish, French, German, Greek, Hindi, Hungarian, Icelandic, Indonesian, Italian, Korean, Polish, Portuguese (Brazil), Portuguese, Romanian, Russian, Slovak, Spanish, Swedish, Thai, Turkish </p> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Viewing Interface </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Degrees of Motion </p> </th> 
+       <td> <p> Vertical, Horizontal, Depth, Rotation(beta), 360 Panoramic (Street View), 3D Mode (Google Earth JavaScript) </p> </td> 
+       <td> <p> Vertical, Horizontal, Depth </p> </td> 
+       <td> <p> Vertical, Horizontal, Depth, 360 Panoramic (Streetside), 3D Mode(Tilt, Pan, Rotate) </p> </td> 
+       <td> <p> Vertical, Horizontal, Depth </p> </td> 
+       <td> <p> Vertical, Horizontal, Depth </p> </td> 
+       <td> <p> Vertical, Horizontal, Depth (zoom), Tilt (3D), Rotate 360 degrees </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Map Zoom </p> </th> 
+       <td> <p> 19 (more levels available through parameter) </p> </td> 
+       <td> <p> 17 </p> </td> 
+       <td> <p> 23<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+       <td> <p> 17 </p> </td> 
+       <td> <p> 19 </p> </td> 
+       <td> <p> 18 </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Mouse Scroll Wheel Map Zoom </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Direct Mouse Interface (Draggable etc.) </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> (Low Bandwidth Version: No) </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Dynamic search results based on dragging on the Map </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Keyboard Shortcuts </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - routing with directions </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Map Types </p> </th> 
+       <td> <p> 6: Map, Satellite, Hybrid, Street, Traffic, 3D </p> </td> 
+       <td> <p> 3: Map, Satellite, Hybrid, Traffic(US) </p> </td> 
+       <td> <p> 10: Road, Satellite, Hybrid, Bird's Eye, Traffic, 3D, Street, London Street Map, Ordnance Survey Map, Venue Maps </p> </td> 
+       <td> <p> 3: Road, Satellite, Traffic </p> </td> 
+       <td> <p> 3: Standard Map, Transport Map, Cycle Map </p> </td> 
+       <td> <p> 7: Map View, Satellite, Terrain, 3D, Traffic, Public Transportation, Heat Map, Map Creator, Explore Places, Community <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> 3D Mode </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> (with plugin) </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> since November 2010 (previously with plugin) </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> Yes, via <a href="http://www.osm-3d.org/">http://www.osm-3d.org/</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> 3D Landmarks </p> </th> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Weather </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Backend </p> </th> 
+       <td> <p> JSON </p> </td> 
+       <td> <p> JSON, XML </p> </td> 
+       <td> <p> .NET </p> </td> 
+       <td> </td> 
+       <td> <p> XML </p> </td> 
+       <td> <p> Java, JavaScript </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Backend Providers </p> </th> 
+       <td> <p> deCarta (formally Telcontar) </p> </td> 
+       <td> <p> Yahoo </p> </td> 
+       <td> <p> Microsoft </p> </td> 
+       <td> </td> 
+       <td> <p> Various companies who donate server usage </p> </td> 
+       <td> <p> <a href="Nokia">Nokia</a>/<a href="Navteq">Navteq</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Data </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Age of Map Imagery </p> </th> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Updated Daily </p> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Age of Satellite Imagery </p> </th> 
+       <td> <p> 1?3 years old </p> </td> 
+       <td> <p> 4?5 years old </p> </td> 
+       <td> <p> 1?3 years old </p> </td> 
+       <td> <p> 1-4 years old </p> </td> 
+       <td> </td> 
+       <td> <p> 1?3 years old </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Map Data Providers </p> </th> 
+       <td> <p> MAPIT, TeleAtlas, DigitalGlobe, MDA Federal </p> </td> 
+       <td> <p> NAVTEQ, TeleAtlas, i-cubed, Public domain </p> </td> 
+       <td> <p> NAVTEQ, Intermap, <a href="Pictometry International">Pictometry International</a>, NASA </p> </td> 
+       <td> <p> <a href="Navteq">Navteq</a>, <a href="OpenStreetMap">OpenStreetMap</a> user contributions </p> </td> 
+       <td> <p> User Contributions </p> </td> 
+       <td> <p> <a href="Navteq">Navteq</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Directory Data Providers </p> </th> 
+       <td> <p> Google, ThomsonLocal.com </p> </td> 
+       <td> <p> Infoserve - Powered by SmartView </p> </td> 
+       <td> <p> Live Local Listings, Yellow Pages </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="http://wiki.openstreetmap.org/wiki/Nominatim">OpenStreetMap Nominatim</a>, <a href="GeoNames">GeoNames</a> </p> </td> 
+       <td> <p> <a href="Navteq">Navteq</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Searching </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Location </p> </th> 
+       <td> <p> Post Code, Street Name, Town, Neighborhood, City, Long/Lat </p> </td> 
+       <td> <p> Post Code, Street Name, Town, City </p> </td> 
+       <td> <p> Post Code, Street Name, Town, City, Zip+4, Long/Lat </p> </td> 
+       <td> <p> Post Code, Street Name, Town, State, Zip+4 </p> </td> 
+       <td> <p> Post Code, Street Name, Town, Neighborhood/Suburb, State/Region, City, Country, Zip+4, Long/Lat </p> </td> 
+       <td> <p> Post Code, Street Name, Town, Neighborhood/Suburb, State/Region, City, Country, Long/Lat </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Entity </p> </th> 
+       <td> <p> Business, Places of Interest, Airport Code </p> </td> 
+       <td> <p> Business, Places of Interest, Airport Code </p> </td> 
+       <td> <p> Businesses, Collections, Directories, Postal Codes </p> </td> 
+       <td> <p> Business, Places of Interest </p> </td> 
+       <td> <p> All Possibility, no restriction </p> </td> 
+       <td> <p> Business, Places of Interest, Landmarks, Airport Codes </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> User Created </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Levels of Filtering </p> </th> 
+       <td> <p> 1 </p> </td> 
+       <td> <p> Many - SmartView </p> </td> 
+       <td> <p> 0 </p> </td> 
+       <td> <p> 0 </p> </td> 
+       <td> <p> 0 </p> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Directions </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Directions </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> Yes via <a href="http://maps.cloudmade.com/#">http://maps.cloudmade.com/#</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> ? by car, foot, public transport </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Reverse Directions </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Public Transport Integration </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - London Underground </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> Yes, via <a href="http://www.&ouml;pnvkarte.de/">http://www.&ouml;pnvkarte.de/</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> in more than 420 cities worldwide<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Walking Directions </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> (beta) </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> Third-party <a href="http://maps.cloudmade.com/">1</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Wheelchair Directions </p> </th> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> Third-party <a href="http://www.rollstuhlrouting.de/routenplaner.html">2</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Bicycle Directions </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> (beta) </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Multiple Destinations </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Send to Device </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, via Email </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, via Email, SMS, Car </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, via Email, SMS, GPS </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, via Email, SMS, Car, GPS, Facebook </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, via synchronization </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Live Traffic Information </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Historic Traffic </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> ? </p> </td> 
+       <td bgcolor="orange"> <p> ? </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Personalization </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Set Home Location </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> No, but remembers last location </p> </td> 
+       <td bgcolor="orange"> <p> Yes, via Microsoft Location Finder ActiveX Control </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> No, but remembers last location </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Save Maps </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Printing </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Print Option </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> No, but exported images can be printed </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Scale to Print </p> </th> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> Yes, if exported image </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Crop to Print </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Notes </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Retains Overlays? </p> </th> 
+       <td> <p> Matched Searches, Directions </p> </td> 
+       <td> <p> Smartview, Directions </p> </td> 
+       <td> <p> Matches Searches, Directions, Collections </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> Favourites, Directions </p> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Collaboration / Embedding </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Create hyperlink </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, both Permalink and Shortlink </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Send hyperlink to email </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Embed HTML Iframe link </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Application Integration </p> </th> 
+       <td> <p> <a href="Google Earth">Google Earth</a>, BMW Assist </p> </td> 
+       <td> <p> Mercedes-Benz In Car System </p> </td> 
+       <td> <p> <a href="Microsoft Office">Microsoft Office</a>, Microsoft Research <a href="WorldWide Telescope">WorldWide Telescope</a>, Microsoft <a href="Photosynth">Photosynth</a> </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="Apple Maps">Apple Maps</a>, <a href="MapQuest">MapQuest</a>, <a href="Foursquare">Foursquare</a>, <a href="Craigslist">Craigslist</a>, Apple <a href="iPhoto">iPhoto</a>, Wikipedia, <a href="World Bank">World Bank</a> </p> </td> 
+       <td> <p> Mercedes-Benz In Car System, Alpine In Car System </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> API Available </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - Javascript and Flash </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - Javascript and Silverlight </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - <span class="unknown-node">{{URL|...}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Other </p> </th> 
+       <td> </td> 
+       <td> <p> Save to del.icio.us </p> </td> 
+       <td> <p> Blog on Windows Live Space </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Wordpress plugin / open search </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Shareable Maps </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> Yes, in <a href="http://in.maps.yahoo.com">3</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Readily Available Overlays </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> (Collections) </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Advertising </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Business Advertising </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th colspan="7"> <p> Mobile </p> </th> 
+      </tr> 
+      <tr> 
+       <th> <p> Mobile-Specific Website </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - <a href="http://m.here.net/">4</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Mobile-Specific Application </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - <a href="OsmAnd">OsmAnd</a> for <a href="Android (operating system)">Android</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, for Nokia mobile phones and <a href="iOS">iOS</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Contact Integration </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Voice Integration </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, via Android Maps app, upcoming feature for full web mode </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - with <a href="OsmAnd">OsmAnd</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> GPS Integration </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Directions </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> Send directions via SMS with hyperlink </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - with <a href="OsmAnd">OsmAnd</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Turn-by-turn navigation">Turn-by-turn navigation</a> </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, if on Android </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> - with <a href="OsmAnd">OsmAnd</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Interactive Maps </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Types of Map </p> </th> 
+       <td> <p> Map, Satellite, Terrain, Street </p> </td> 
+       <td> <p> Map, Satellite, Hybrid </p> </td> 
+       <td> <p> Map, Road, Aerial, Street, London Street Map, Ordnance Survey Map, Venue Maps </p> </td> 
+       <td> <p> Map, Satellite </p> </td> 
+       <td> <p> Map, Terrain, Satellite (exclusive to editing) </p> </td> 
+       <td> <p> Map, Satellite, Terrain, 3D with plugin, 3D without plugin for compatible browsers, Night Mode </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Cell-based Location </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> Unknown </p> </td> 
+       <td bgcolor="orange"> <p> Unknown </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> Wi-Fi Location </p> </th> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td bgcolor="orange"> <p> Unknown </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Navteq">Navteq</a></li> 
+       <li> <a href="Traffic Message Channel">Traffic Message Channel</a> (TMC)</li> 
+       <li> <a href="Virtual globe#Online_virtual_globes">Online virtual globes</a>, with more web map services</li> 
+       <li> <a href=":Category:Street view services">:Category:Street view services</a></li> 
+       <li> <a href="http://www.mapsofall.com/">MapsOfAll</a> - compare all mentioned maps systems in one place</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Sources</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+      <ul> 
+       <li><a href="http://www.bing.com/maps/">Bing Maps</a></li> 
+       <li><a href="http://maps.google.com/">Google Maps</a></li> 
+       <li><a href="http://www.mapquest.com/">MapQuest Maps</a></li> 
+       <li><a href="http://maps.yahoo.com/">Yahoo! Maps</a></li> 
+       <li><a href="http://www.openstreetmap.org/">OpenStreetMap</a></li> 
+       <li><a href="http://here.net/">Nokia Here</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Web Map Services}}</span> <a href="Category:Online services comparisons">Web mapping</a> <a href="Category:Web mapping">Category:Web mapping</a> <a href="Category:Transport">Category:Transport</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

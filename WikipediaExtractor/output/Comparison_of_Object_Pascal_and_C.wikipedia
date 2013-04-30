@@ -1,0 +1,319 @@
+{{Multiple issues
+|unreferenced = October 2011
+|notability = October 2011
+|essay-like = October 2011
+}}
+
+{{ProgLangCompare}}
+The computer [[programming language]]s [[C (programming language)|C]] and [[Object Pascal]] have similar times of origin, influences, and purposes. Both were used to design (and compile) their own compilers early in their lifetimes. 
+
+Both C and Pascal are old programming languages: The original Pascal definition appeared in 1969 and a first compiler in 1970. The first version of C appeared in 1972. While C didn't change much in time, Pascal has evolved a lot and nowadays the vast majority of Pascal programming is done in modern [[Object Pascal]], not in the old procedural Pascal. The old procedural Pascal today is essentially limited to microcontroller programming with tools such as [[mikroPascal]], while Object Pascal is the main dialect and is used with tools such as [[Delphi]], [[Lazarus (IDE)]] and [[Free Pascal]].
+
+What is documented here is the modern Object Pascal used in Free Pascal and Delphi. The C documented is C99, as standardized in 1999. The reason is that these versions are the currently used versions of these languages. There is no reason to compare C with an old version of Pascal which is not in current use, the correct is comparing it with Pascal as used today in the Object Pascal dialect.
+
+== Syntax ==
+Syntactically, Object Pascal is much more Algol-like than C. English keywords are retained where C uses punctuation symbols &mdash; Pascal has <code>and</code>, <code>or</code>, and <code>mod</code> where C uses <code>&&</code>, <code>||</code>, and <code>%</code> for example. However, C is actually more Algol-like than Pascal regarding (simple) declarations, retaining the ''type-name'' ''variable-name'' syntax. For example, C can accept declarations at the start of any block, not just the outer block of a function.
+
+===Semicolon use===
+Another, more subtle, difference is the role of the [[semicolon]]. In Pascal semicolons ''separate'' individual statements within a compound statement whereas they ''terminate'' the statement in C. They are also syntactically part of the statement itself in C (transforming an expression into a statement). This difference manifests itself primarily in two situations:
+
+* there can never be a semicolon directly before <code>else</code> in Pascal whereas it is mandatory in C (unless a block statement is used)
+* the last statement before an <code>end</code> is not required to be followed by a semicolon
+
+A superfluous semicolon can be put on the last line before '''end''', thereby formally inserting an ''empty statement''.
+
+===Comments===
+In traditional C, there are only <code>/* block comments */</code>. Since C99, there are also <code> //Line comments </code>.
+In Object Pascal, there are <code>{ ''block comments'' }</code>, <code>(* ''block comments'' *)</code>, and <code>// Line comments</code>.
+
+===Identifiers and keywords===
+C and Pascal differ in their interpretation of upper and lower case. C is case sensitive while Pascal is not, thus <code>MyLabel</code> and <code>mylabel</code> are distinct names in C but identical in Pascal. In both languages, identifiers consist of letters and digits, with the rule that the first character may not be a digit. In C, the underscore counts as a letter, so even _abc is a valid name. Names with a leading underscore are often used to differentiate special system identifiers in C. Pascal also accepts _ character as a part of identifiers, no difference with C.
+
+Both C and Pascal use [[keyword (computer programming)|keyword]]s (words reserved for use by the language itself). Examples are '''if''', '''while''', '''const''', '''for''' and '''goto''', which are keywords that happen to be common to both languages. In C, the basic built-in type names are also keywords (e.g. '''int''', '''char''') or combinations of keywords (e.g. '''unsigned char'''), while in Pascal the built-in type names are predefined normal identifiers.
+
+Recent Object Pascal compilers however allow to escape keywords with &, this feature is mainly need when directly communication to foreign OOP systems like COM and COCOA that might use fields and methods based on Pascal keywords. C has no way to escape keywords.
+
+===Definitions, declarations, and blocks===
+In Pascal, [[procedure (programming)|procedure]] definitions start with keywords '''procedure''' or '''function''' and [[type (computer science)|type definitions]] with '''type'''. In C, function definitions are determined by syntactical context while type definitions use the keyword <code>typedef</code>. Both languages use a mix of keywords and punctuation for definitions of complex types; for instance, arrays are defined by the keyword '''array''' in Pascal and by punctuation in C, while [[enumeration]]s are defined by the keyword <code>enum</code> in C but by punctuation in Pascal.
+
+In Pascal functions, '''begin''' and '''end''' delimit a block of statements (proper), while C functions use "{" and "}" to delimit a block of statements optionally preceded by declarations. C (prior to C99) strictly defines that any declarations must occur ''before'' the statements within a particular block but allows blocks to appear within blocks, which is a way to go around this. Pascal is strict that declarations must occur before statements, but allows ''definitions'' of types and functions - not only variable declarations - to be encapsulated by function definitions to any level of depth.
+
+=== Implementation ===
+The grammars of both languages are of a similar size.  From an implementation perspective the main difference between the two languages is that to [[Parsing|parse]] C it is necessary to have access to a symbol table for types, while in Pascal there is only one such construct, assignment.  For instance, the C fragment <code>X * Y;</code> could be a declaration of <code>Y</code> to be an object whose type is pointer to <code>X</code>, or a statement-expression that multiplies <code>X</code> and <code>Y</code>. The corresponding Pascal fragment <code>'''var''' Y:^X;</code> is unambiguous without a symbol table.
+
+== Simple types ==
+===Integers===
+Pascal requires all variable and function declarations to specify their type explicitly. In traditional C, a type name may be omitted in most contexts and the default type <code>int</code> (which corresponds to <code>[[integer]]</code> in Pascal) is then implicitly assumed (however, such defaults are considered bad practice in C and are often flagged by warnings).
+
+C accommodates different sizes and [[Signedness|signed and unsigned]] modes for integers by using modifiers such as <code>long</code>, <code>short</code>, <code>signed</code>, <code>unsigned</code>, etc. The exact meaning of the resulting integer type is machine-dependent, however, what ''can'' be guaranteed is that <code>long int</code> is no shorter than <code>int</code> and <code>int</code> is no shorter than <code>short int</code>. However, in C standard, there are at least minimal sizes of types are specified which guarantees <code>char</code> to be a single [[byte]] and <code>int</code> to be at least two bytes.
+
+===Subranges===
+In Pascal, a similar end is performed by declaring a ''subrange'' of integer (a compiler may then choose to allocate a smaller amount of storage for the declared variable):
+
+<source lang="pascal">
+type a = 1..100;
+     b = -20..20;
+     c = 0..100000;
+</source>
+
+This subrange feature is not supported by C.
+
+A major, if subtle, difference between C and Pascal is how they promote integer operations. In Pascal, all operations on integers or integer subranges have the same effect, as if all of the operands were promoted to a full integer. In C, there are defined rules as to how to promote different types of integers, typically with the resultant type of an operation between two integers having a precision that is greater than or equal to the precisions of the operands. This can make machine code generated from C efficient on many processors. A highly optimizing Pascal compiler can reduce, but not eliminate, this effect under standard Pascal rules. 
+
+The (only) pre-Standard implementation of C as well as Small-C et al. allowed integer and [[pointer (computer programming)|pointer]] types to be relatively freely intermixed.
+
+=== Character types ===
+In C the character type is <code>char</code> which is a kind of integer that is no longer than <code>short int</code>, . Expressions such as <code>'x'+1</code> are therefore perfectly legal, as are declarations such as <code>int i='i';</code> and <code>char c=74;</code>.
+
+This integer nature of <code>char</code> (an eight-bit byte on most machines) is clearly illustrated by declarations such as
+<source lang="c">
+unsigned char uc = 255;  /* common limit */
+signed char sc = -128;   /* common negative limit */
+</source>
+
+Whether the <code>char</code> type should be regarded as <code>signed</code> or <code>unsigned</code> by default is up to the implementation.
+
+In Pascal, characters and integers are distinct types. The inbuilt compiler functions <code>ord()</code> and <code>chr()</code> can be used to typecast single characters to the corresponding integer value of the character set in use, and vice versa. e.g. on systems using the ASCII character set <code>ord('1') = 49</code> and <code>chr(9)</code> is a TAB character.
+
+In addition to <code>Char</code> type, Object Pascal also has <code>WideChar</code> to represent Unicode characters. In C, this is usually implemented as a macro or <code>typedef</code> with name <code>wchar_t</code>, which is simply an alias for <code>int</code>.
+
+=== Boolean types ===
+In Pascal, '''[[Boolean datatype|boolean]]''' is an enumerated type. The possible values of '''boolean''' are '''false''' and '''true''', with false=0 and true=1, other values are undefined. For conversion to '''integer''', '''ord''' is used:
+
+<source lang="pascal">
+i := ord(b);
+</source>
+
+There is no standard function for '''integer''' to '''boolean''', however, the conversion is simple in practice:
+
+<source lang="pascal">
+b := boolean(i); // Will raise proper rangecheck errors for undefined values with range checks on.
+</source>
+
+C has binary valued relational operators (<, >, ==, !=, <=, >=) which may be regarded as ''boolean'' in the sense that they always give results which are either zero or one. As all tests (&&, ||, ?:, '''if''', '''while''', etc.) are performed by zero-checks, '''false''' is represented by zero, while '''true''' is represented by any other value.
+
+To interface with COM, Object Pascal has added <code>ByteBool</code>, <code>WordBool</code> and <code>LongBool</code> type whose size respects their prefix and that follow the C truth table.
+
+Free Pascal has added proper Pascal boolean types with size suffix (<code>boolean8, 16, 32, 64</code>) to interface with GLIB, that uses <code>gboolean</code>, a 32-bit boolean type with Pascal truth table.
+
+====Bitwise operations====
+The C programmer may sometimes use [[Bitwise operation|bitwise]] [[Operator (programming)|operators]] to perform boolean operations. Care needs to be taken because the semantics are different when operands make use of more than one bit to represent a value.
+
+Pascal has another more abstract, high level method of dealing with bitwise data, '''sets'''.  Sets allow the programmer to set, clear, intersect, and unite bitwise data values, rather than using direct bitwise operators.  Example;
+
+Pascal:  
+<source lang="pascal">
+Status := Status + [StickyFlag]; // or Include(Status,StickyFlag);
+Status := Status - [StickyFlag]; // or Exclude(Status,StickyFlag);
+if (StickyFlag in Status) then ...
+</source>
+      
+C:  
+<source lang="c">
+Status |= StickyFlag;
+Status &= ~StickyFlag;
+if (Status & StickyFlag) { ...
+</source>
+
+Although bit operations on integers and operations on sets can be considered similar if the sets are implemented using bits, there is no direct parallel between their uses unless a non-standard conversion between integers and sets is possible.
+
+Pascal could also do bitwise operations exactly the same way as C through the use of <code>and</code>, <code>or</code>, <code>not</code> and <code>xor</code> operators. These operators normally work on booleans, but when the operands are integers, they behave as bitwise operators. This is made possible by boolean and integer being distinct incompatible types. Therefore, the C code above could be written in Pascal as:
+
+<source lang="pascal">
+Status := Status or StickyFlag;
+Status := Status and not StickyFlag;
+if Status and StickyFlag <> 0 then ...
+</source>
+
+== Advanced Types ==
+=== String type ===
+In C, string remains as pointer to the first element of a '''null''' terminated array of char, as it was in 1972. One still has to use library support from <code>&lt;string.h&gt;</code> to manipulate strings.
+
+Object Pascal has many string types because when a new type is introduced, the old one is kept for backwards compatibility. This happened twice, once with Delphi 2 (introduction of ansistring) and Delphi 2009 (Unicodestring). Besides the main stringtypes (short-,ansi-,wide-,unicodestring) and the corresponding character types (ansichar,widechar=unicodechar), all types derived from the character type have some string properties too (pointer to char, array of char, dynamic array of char, pointer to array of char etc.).
+
+In Object Pascal, <code>string</code> is a compiler managed type and is reference-counted (if it has to be). i.e., its storage management is handled by the compiler (or more accurately, by the code injected by the compiler in the executable). String concatenation is done with <code>+</code> operator, and string comparison could be done with standard relational operators (case sensitive): <code>&lt; &lt;= = <> &gt;= &gt;</code>.
+
+Object Pascal also provides C-compatible strings under the type <code>PAnsiChar</code>, with manipulation routines defined in <code>Strings</code> unit. Moreover, Object Pascal provides a wide variety of string types:
+
+* <code>ShortString</code>, which internally is an <source lang="pascal">array [0 .. N] of Char;</source> with N as the maximum number of characters that can be stored and the 0th index contains the string length. Maximally 255 characters could be stored in a <code>ShortString</code>, this is because the upper limit of an unsigned byte is 255 and the container array is defined to have maximally 255 characters data (remember that 0th index contains the string length). N is given at either type definition or variable declaration (see example below)
+* <code>AnsiString</code>, dynamic unlimited length and reference counted version of <code>ShortString</code>. Since Delphi 2009 it has a field that signals the encoding of the contents.
+* <code>WideString</code>, on Windows(win32/64/ce) compatible to COM BSTR, UCS2/UTF16 refcounted by COM. On non Windows  equal to Unicodestring.
+* <code>UnicodeString</code>, like <code>WideString</code>, but encoded in UTF-16 
+
+For convenience, plain <code>String</code> type is provided, which depending on compiler switch could mean <code>ShortString</code>, <code>AnsiString</code> or even <code>UnicodeString</code>. An additional convention used, if a number of characters limit is given, it's a <code>ShortString</code>, otherwise it's the other.
+
+It's free to intermix <code>Short-</code> and <code>Ansi-</code> Strings when manipulating strings, the compiler will do silent conversion when required.
+
+Example:
+<source lang="pascal">
+type
+  TString80 = String[80];
+var
+  ss  : ShortString;
+  s80 : String[80]; // declare a (short-)string of maximum length 80
+  s80t: TString80; // same as above
+  as  : AnsiString;
+  s   : String; // could mean String[255], AnsiString or UnicodeString
+begin
+  ss := as + s80; // YES, this is possible and conversion is done transparently by the compiler
+end;
+</source>
+
+=== Array type ===
+==== Static array ====
+In C, there's no real concept of array. There's only a pseudo construct to declare storage for multiple variables of the same type. Arrays in C don't know their own length, and they're referred through the pointer to the first element, which is why they're always 0 based. Example:
+
+<source lang="c">
+// declare int "array" named a of length 10
+int a[10];
+// print the first element, or more precisely element at address hold by a + 0
+printf("%d",a[0]);
+// print the second element, or more precisely element at address hold by a + 1
+printf("%d",a[1]);
+// pass array to a function, or more precisely pass the pointer to the first element
+somefunction(a);
+// same as above
+somefunction(&a[0]);
+</source>
+
+To get array length, one has to calculate <code>sizeof(&lt;array_variable&gt;) / sizeof(&lt;base_type&gt;)</code>. Therefore, to count the length of an integer array, use: <code>sizeof(intarr) / sizeof(int)</code>. It's a common mistake to calculate this in a function expecting array as argument. Despite of its look, functions can only accept pointer as argument, not the real array. Therefore, inside the function, the array is treated as plain pointer. Example:
+
+<source lang="c">
+// This function does NOT accept array, but a pointer to int
+// Semantically, it's the same as: int *a
+void func(int a[]) {
+  // WRONG! Would return sizeof(pointer) / sizeof(int)
+  int len = sizeof(a) / sizeof(int);
+}
+
+int main() {
+  int a[5];
+  // correct, would return 5
+  int len = sizeof(a) / sizeof(int);
+  func(a);
+  return 0;
+}
+</source>
+
+A common solution to the problem above is to always pass array length as function argument, and functions that expect array argument should also provide placeholder its length.
+
+Despite of its treatment as pointer, not all pointer style constructs could be used to array. For example, this code would compile fine but would cause access violation when executed:
+
+<source lang="c">
+void func(int *a) {
+  // RUNTIME ERROR! a is allocated statically
+  a = (int*) malloc(sizeof(int) * 10);
+}
+
+int main() {
+  int a[5];
+  func(a);
+}
+</source>
+
+Care should be taken when designing such code, and documentation should explicitly state this to help users from doing such mistake.
+
+Assignment between static arrays isn't allowed and one must use <code>memcpy</code> function and its variants to copy data between arrays.
+
+In Pascal, arrays are declared using the <code>array</code> keyword, specifying its lower and upper bound, and its base type. For example:
+
+<source lang="pascal">
+type
+  T10IntegerArray = array [1 .. 10] of Integer;
+  TNegativeLowerBoundArray = array [-5 .. 5] of Integer;
+var
+  IntegerArray: T10IntegerArray;
+  NegArray: TNegativeLowerBoundArray;
+</source>
+
+Arrays know their upper and lower bound (and implicitly length), and it's passed along when a function expects array as argument. The functions <code>Low()</code>, <code>High()</code> and <code>Length()</code> retrieve lower bound, upper bound and array length, respectively, in any context.
+
+Without an explicit cast, arrays can't and won't be converted to pointer and is a compile time error. This is a property of type safe programming.
+
+Assignment between static arrays is allowed. The assignment would copy all items from the source array to destination. It's mandatory that the upper and lower bound is compatible between source and destination. If somehow they're different, then one can use <code>Move</code> to copy data partially. However, since <code>Move</code> is a low level function, one must use it with care. It's the programmer's responsibility to ensure that data movement exceeds neither destination nor source boundary. Example:
+
+<source lang="pascal">
+type
+  TArray1 = array [1 .. 10] of Integer;
+  TArray2 = array [1 .. 5] of Integer;
+var
+  a,b: TArray1;
+  c: TArray2;
+begin
+  a := b; // OK
+  // Copy all elements from c to a, overwriting elements from the 1st index of a up to 1st index + Length(c)
+  Move(c,a,Length(c) * SizeOf(Integer));
+  // Copy all elements from c to a, starting at index 5 of a
+  Move(c,a[5],Length(c) * SizeOf(Integer));
+  // Copy first 5 elements from b to c
+  Move(b,c,5 * SizeOf(Integer));
+end.
+</source>
+
+==== Dynamic array ====
+C has no language support for declaring and using dynamic array. However, due to its pointer dereference syntax a dynamic array could be implemented with memory management functions, usually those from <code>&lt;stdlib.h&gt;</code>. Example:
+
+<source lang="c">
+int size = 10;
+int *a = (int*) malloc(sizeof(int) * size); // allocate dynamic array of integer with size 10
+int i;
+
+for (i = 0; i < size; i++)
+  ... // do something with a[i]
+
+size *= 2;
+int *temp = realloc(a,sizeof(int) * size); // double the space, retaining the existing elements
+if (temp == NULL)
+  error("Not enough memory!");
+a = temp;
+... // do something with a
+free(a); // free the storage
+</source>
+As can be seen, again the length isn't maintained automatically, and reallocation should use additional variable to protect against not enough memory error.
+Assignment between dynamic arrays follows pointer assignment rule.
+
+Object Pascal provides language level support for dynamic arrays. It's declared with lower and upper bound omitted. One then must call <code>SetLength()</code> function to allocate the storage. Dynamic arrays in Object Pascal are reference counted, so one doesn't have to worry about freeing the storage. Dynamic arrays are always zero-based. The three functions <code>Low()</code>, <code>High()</code> and <code>Length()</code> would still retrieve lower bound, upper bound and array length correctly. Example:
+<source lang="pascal">
+type
+  TIntArray = array of Integer;
+  T2DimIntArray = array of array of Integer;
+var
+  a  : TIntArray;
+  a2 : T2DimIntArray;
+  i,j: Integer;
+begin
+  SetLength(a,10); // allocate 10 storage
+  for i := Low(a) to High(a) do
+    ... // do something with a[i]
+  SetLength(a2,10,10); // allocate 10 x 10 storage
+  for i := Low(a2) to High(a2) do
+    for j := Low(a2[i]) to High(a2[i]) do
+      ... // do something with a[i,j]
+end;
+</source>
+
+Assignment between dynamic arrays copies the reference of the source array to the destination. If a real copy is required, one can use <code>Copy</code> function. Example:
+
+<source lang="pascal">
+type
+  TIntegerArray = array of Integer;
+var
+  a,b: TIntegerArray;
+begin
+  ... // initialize a and b
+  a := b; // a now points to the same array pointed by b
+  a[1] := 0; // b[1] should be 0 as well after this
+  a := Copy(b,3,5); // Copy 5 elements from b starting from index 3
+                    // a would access it from 0 to 4 however
+end.
+</source>
+
+== Further reading ==
+* Free Pascal: Language Reference [http://www.freepascal.org/docs-html/ref/ref.html]
+
+{{Pascal programming language family}}
+{{CProLang}}
+
+[[Category:C programming language]]
+[[Category:Pascal]]
+[[Category:Pascal programming language family]]

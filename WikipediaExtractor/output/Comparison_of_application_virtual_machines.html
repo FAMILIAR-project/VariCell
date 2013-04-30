@@ -1,0 +1,849 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of application virtual machines</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of application virtual machines</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{ref improve|...}}</span> This article lists some software <a href="virtual machine">virtual machines</a> that are typically used for allowing application <a href="bytecode">bytecode</a> to be portably run on many different computer architectures and operating systems. The application is usually run on the computer using an <a href="Interpreter (computing)">interpreter</a> or <a href="just-in-time compilation">just-in-time compilation</a>. There are often many implementations of a given virtual machine, each covering a different functionality footprint. </p> 
+    <div class="section"> 
+     <h2> Comparison of virtual machines </h2> 
+     <div class="section-body"> 
+      <p> The table here summarizes elements for which the virtual machine designs intended to be efficient, not the list of capabilities present in any implementation. </p> 
+      <table class="wikitable sortable"> 
+       <tbody>
+        <tr>
+         <th> <p> Virtual machine </p> </th> 
+         <th> <p> Machine model </p> </th> 
+         <th> <p> Memory management </p> </th> 
+         <th> <p> Code security </p> </th> 
+         <th> <p> Interpreter </p> </th> 
+         <th> <p> JIT </p> </th> 
+         <th> <p> Precompilation </p> </th> 
+         <th> <p> Shared libraries </p> </th> 
+         <th> <p> Common Language Object Model </p> </th> 
+         <th> <p> Dynamic typing </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="Common Language Runtime">CLR</a> </p> </th> 
+         <td> <p> <a href="Stack machine">stack</a> </p> </td> 
+         <td> <p> automatic or manual </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Dis virtual machine">Dis</a> (<a href="Inferno (operating system)">Inferno</a>) </p> </th> 
+         <td> <p> <a href="Register machine">register</a> </p> </td> 
+         <td> <p> automatic </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DotGNU">DotGNU</a> <a href="Portable.NET">Portable.NET</a> </p> </th> 
+         <td> <p> <a href="Stack machine">stack</a> </p> </td> 
+         <td> <p> automatic or manual </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Java Virtual Machine">JVM</a> </p> </th> 
+         <td> <p> <a href="Stack machine">stack</a> </p> </td> 
+         <td> <p> automatic </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JikesRVM">JikesRVM</a> </p> </th> 
+         <td> <p> <a href="Stack machine">stack</a> </p> </td> 
+         <td> <p> automatic </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Low Level Virtual Machine">LLVM</a> </p> </th> 
+         <td> <p> <a href="Register machine">register</a> </p> </td> 
+         <td> <p> manual </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mono (software)">Mono</a> </p> </th> 
+         <td> <p> <a href="Stack machine">stack</a> </p> </td> 
+         <td> <p> automatic or manual </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Parrot virtual machine">Parrot</a> </p> </th> 
+         <td> <p> <a href="Register machine">register</a> </p> </td> 
+         <td> <p> automatic </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Dalvik virtual machine">Dalvik</a> </p> </th> 
+         <td> <p> <a href="Register machine">register</a> </p> </td> 
+         <td> <p> automatic </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="libJIT">libJIT</a> </p> </th> 
+         <td> <p> <a href="Stack machine">stack</a> </p> </td> 
+         <td> <p> manual </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Squeak">Squeak</a> </p> </th> 
+         <td> <p> <a href="Stack machine">stack</a> </p> </td> 
+         <td> <p> automatic </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> Virtual machine instructions process data in local variables using a main <b><a href="model of computation">model of computation</a></b>, typically that of a <a href="stack machine">stack machine</a>, <a href="register machine">register machine</a>, or <a href="random access machine">random access machine</a> often called the memory machine. Use of these three techniques is motivated by different tradeoffs in virtual machines vs physical machines, such as ease of interpretation, compilation, and verifiability for security. </p> 
+      <p> <b><a href="Memory management">Memory management</a></b> in these portable virtual machines is addressed at a higher level of abstraction than in physical machines. Some virtual machines, such as the popular JVM, are involved with addresses in such a way as to require safe automatic memory management by allowing the virtual machine to trace pointer references, and disallow machine instructions from manually constructing pointers to memory. Other virtual machines, such as LLVM, are more like traditional physical machines, allowing direct use and manipulation of pointers. <a href="Common Intermediate Language">CIL</a> offers a hybrid in between, offering both controlled use of memory (like the JVM, which allows safe automatic memory management), while also offering an 'unsafe' mode that allows direct manipulation of pointers in ways that can violate type boundaries and permission. </p> 
+      <p> <b>Code security</b> generally refers to the ability of the portable virtual machine to run code while only offering it a prescribed set of capabilities. For example, the virtual machine might only allow the code access to a certain set of functions or data. The same controls over pointers which make automatic memory management possible and allow the virtual machine to ensure typesafe data access are used to assure that a code fragment is only allowed to certain elements of memory and cannot sidestep the virtual machine itself. Other security mechanisms are then layered on top as code verifiers, stack verifiers, and other techniques. </p> 
+      <p> An <b><a href="Interpreter (computing)">interpreter</a></b> allows programs made of virtual instructions to be loaded and immediately run without a potentially costly compilation into native machine instructions. Any virtual machine which can be run can be interpreted, so the column designation here refers to whether the design includes provisions for efficient interpretation (for common usage). </p> 
+      <p> <a href="Just-in-time compilation">Just-in-time compilation</a> or <b>JIT</b>, refers to a method of compiling to native instructions at the latest possible time, usually immediately before or during the running of the program. The challenge of JIT is more one of implementation than of virtual machine design, however, modern designs have begun to make considerations to help efficiency. The simplest JIT techniques simply perform compilation to a code-fragment similar to an offline compiler. However, more complicated techniques are often employed, which specialize compiled code-fragments to parameters that are known only at runtime (see <a href="Adaptive optimization">Adaptive optimization</a>). </p> 
+      <p> <b>Precompiling</b> refers to the more classical technique of using an offline compiler to generate a set of native instructions which do not change during the runtime of the program. Because aggressive compilation and optimization can take time, a precompiled program may launch faster than one which relies on JIT alone for execution. JVM implementations have mitigated this startup cost by using interpretation initially to speed launch times, until native code-fragments can be generated through JIT. </p> 
+      <p> <b><a href="Shared library">Shared libraries</a></b> are a facility to reuse segments of native code across multiple running programs. In modern operating systems, this generally means using <a href="virtual memory">virtual memory</a> to share the memory pages containing a shared library across different processes which are protected from each other via <a href="memory protection">memory protection</a>. It is interesting that aggressive JIT techniques such as adaptive optimization often produce code-fragments unsuitable for sharing across processes or successive runs of the program, requiring a tradeoff be made between the efficiencies of precompiled and shared code and the advantages of adaptively specialized code. For example, several design provisions of CIL are present to allow for efficient shared libraries, possibly at the cost of more specialized JIT code. The JVM implementation on <a href="Mac OS X">Mac OS X</a> uses a Java Shared Archive (<a href="http://developer.apple.com/mac/library/documentation/Java/Conceptual/Java14Development/00-Intro/JavaDevelopment.html">apple docs</a>) to provide some of the benefits of shared libraries. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>List of application virtual machine implementations</h2> 
+     <div class="section-body"> 
+      <p> In addition to the portable virtual machines described above, virtual machines are often used as an execution model for individual scripting languages, usually by an interpreter. This table lists specific virtual machine implementations, both of the above portable virtual machines, and of scripting language virtual machines. </p> 
+      <table class="wikitable sortable"> 
+       <tbody>
+        <tr>
+         <th> <p> Virtual machine </p> </th> 
+         <th> <p> Languages </p> </th> 
+         <th> <p> Comments </p> </th> 
+         <th> <p> Interpreter </p> </th> 
+         <th> <p> <a href="Just-in-time compilation">JIT</a> </p> </th> 
+         <th> <p> Implementation Language </p> </th> 
+         <th> <p> <a href="Source lines of code">SLoC</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="Adobe Flash Player">Adobe Flash Player</a> (aka <a href="Tamarin (JavaScript engine)">Tamarin</a>) </p> </th> 
+         <td> <p> <a href="ActionScript">ActionScript</a>, <a href="SWF">SWF</a> (file format) </p> </td> 
+         <td> <p> interactive web authoring tool. bytecode is named &quot;ActionScript Byte Code (.abc)&quot; </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> 135k (initially released) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> BEAM </p> </th> 
+         <td> <p> <a href="Erlang (programming language)">Erlang</a>, <a href="Reia (programming language)">Reia</a>, Lisp Flavoured Erlang, <a href="https://github.com/josevalim/elixir">Elixir</a> </p> </td> 
+         <td> <p> There exists a native-code compiler, HiPE. </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> 247k </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Clipper p-code </p> </th> 
+         <td> <p> <a href="Clipper (programming language)">Clipper</a>, <a href="Harbour compiler">Harbour</a> </p> </td> 
+         <td> <p> plankton, HVM </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Dis virtual machine">Dis</a> (<a href="Inferno (operating system)">Inferno</a>) </p> </th> 
+         <td> <p> <a href="Limbo (programming language)">Limbo</a> </p> </td> 
+         <td> <p> <a href="http://doc.cat-v.org/inferno/4th_edition/dis_VM_specification">Dis Virtual Machine Specification</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> 15k + 2850 per JIT arch + 500 per host OS </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DotGNU">DotGNU</a>/<a href="Portable.NET">Portable.NET</a> </p> </th> 
+         <td> <p> <a href="List of CLI languages">CLI languages</a> including: <a href="C Sharp (programming language)">C#</a> </p> </td> 
+         <td> <p> Clone of Common Language Runtime </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C, C# </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Forth virtual machine">Forth</a> </p> </th> 
+         <td> <p> <a href="Forth (programming language)">Forth</a> </p> </td> 
+         <td> <p> Features are simplified, usually include assembler, compiler, text-level and binary-level interpreters, sometimes editor, debugger and OS. Compilation speeds are &gt;20 SKLOC/S and behave much like JIT. </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Forth, Forth Assembler </p> </td> 
+         <td> <p> 2.8K to 5.6K; advanced, professional implementations are smaller. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Glulx">Glulx</a> </p> </th> 
+         <td> <p> <a href="Glulx">Glulx</a>, <a href="Z-machine">Z-code</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Icon (programming language)">Icon</a> </p> </th> 
+         <td> <p> <a href="Icon (programming language)">Icon</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Java Virtual Machine">JVM</a> </p> </th> 
+         <td> <p> <a href="Java (programming language)">Java</a>, <a href="Jython">Jython</a>, <a href="Groovy (programming language)">Groovy</a>, <a href="JRuby">JRuby</a>, <a href="C (programming language)">C</a>, <a href="C++">C++</a>, <a href="Clojure">Clojure</a>, <a href="Scala (programming language)">Scala</a> and <a href="http://www.is-research.de/info/vmlanguages/">several others</a> </p> </td> 
+         <td> <p> <a href="http://java.sun.com/javase/">Reference implementation</a> by Sun ; <a href="OpenJDK">OpenJDK</a>: code under <a href="GPL">GPL</a> ; <a href="IcedTea">IcedTea</a>: code and tools under <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="JDK">JDK</a>, <a href="OpenJDK">OpenJDK</a> &amp; <a href="IcedTea">IcedTea</a> with regular JIT : Java, C, ASM ; <a href="IcedTea">IcedTea</a> with the &quot;Zero&quot; JIT : Java, C </p> </td> 
+         <td> <p> JVM is around 6500k lines; <a href="Technology Compatibility Kit">TCK</a> is 80k tests and around 1000k lines </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Low Level Virtual Machine">LLVM</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a>, <a href="Objective-C">Objective-C</a>, <a href="Ada (programming language)">Ada</a>, and <a href="Fortran">Fortran</a> </p> </td> 
+         <td> <p> MSIL, C and C++ output are supported. ActionScript Byte Code output is supported by Adobe Alchemy. bytecode is named &quot;LLVM Bytecode (.bc)&quot;. assembly is named &quot;LLVM Assembly Language (*.ll)&quot;. </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> 811k <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Lua (programming language)">Lua</a> </p> </th> 
+         <td> <p> <a href="Lua (programming language)">Lua</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="http://luajit.org/">LuaJIT</a> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> 13k + 7k LuaJIT </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MMIX">MMIX</a> </p> </th> 
+         <td> <p> <a href="MMIX">MMIX</a>AL </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mono (software)">Mono</a> </p> </th> 
+         <td> <p> <a href="List of CLI languages">CLI languages</a> including: <a href="C Sharp (programming language)">C#</a>, <a href="VB.NET">VB.NET</a>, <a href="IronPython">IronPython</a>, <a href="IronRuby">IronRuby</a>, and others </p> </td> 
+         <td> <p> clone of Common Language Runtime. </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C#, C </p> </td> 
+         <td> <p> 2332k </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mozart Programming System">Oz</a> </p> </th> 
+         <td> <p> <a href="Oz (programming language)">Oz</a>, <a href="Alice (programming language)">Alice</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NekoVM">NekoVM</a> </p> </th> 
+         <td> <p> currently <a href="NekoVM">Neko</a> and <a href="haXe">haXe</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> x86 only </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> 46k </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="O-code machine">O-code machine</a> </p> </th> 
+         <td> <p> <a href="BCPL">BCPL</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="p-code machine">p-code machine</a> </p> </th> 
+         <td> <p> <a href="Pascal (programming language)">Pascal</a> </p> </td> 
+         <td> <p> UCSD Pascal, widespread in late 70s including Apple II </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Parrot virtual machine">Parrot</a> </p> </th> 
+         <td> <p> Perl (<a href="Perl 6">6</a> &amp; <a href="Perl#2000?present">5</a>), NQP-rx, <a href="Parrot intermediary language">PIR</a>, <a href="Parrot assembler language">PASM</a>, <a href="bytecode">PBC</a>, <a href="BASIC">BASIC</a>, <a href="bc programming language">bc</a>, <a href="C99">C</a>, <a href="ECMAScript">ECMAScript</a>, <a href="Lisp (programming language)">Lisp</a>, <a href="Lua (programming language)">Lua</a>, <a href="GNU m4">m4</a>, <a href="Tcl">Tcl</a>, <a href="WMLScript">WMLScript</a>, <a href="Simple API for XML#XML processing with SAX">XML</a>, and others </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C, Perl </p> </td> 
+         <td> <p> 111k&nbsp;C, 240k&nbsp;Perl </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perl virtual machine">Perl virtual machine</a> </p> </th> 
+         <td> <p> <a href="Perl">Perl</a> </p> </td> 
+         <td> <p> <a href="op-code">op-code</a> tree walker </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> C, Perl </p> </td> 
+         <td> <p> 175k&nbsp;C, 9k&nbsp;Perl </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CPython">CPython</a> </p> </th> 
+         <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="Psyco">Psyco</a> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> 387k&nbsp;C, 368k&nbsp;Python, 10k&nbsp;ASM, 31k&nbsp;Psyco </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PyPy">PyPy</a> </p> </th> 
+         <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> <a href="Self-hosting">Self-hosting</a> implementation of Python, next generation of <a href="Psyco">Psyco</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Python </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Rubinius">Rubinius</a> </p> </th> 
+         <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+         <td> <p> Virtual machine for another <a href="Ruby (programming language)">Ruby</a> implementation </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C++, Ruby </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Silverlight">Silverlight</a> </p> </th> 
+         <td> <p> <a href="C Sharp (programming language)">C#</a>, <a href="VB.NET">VB.NET</a> </p> </td> 
+         <td> <p> A Micro-version of Microsoft .NET Framework to let applications run sandboxed inside browser </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> 7MB (initially released) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Simple Extensible Abstract Machine">SEAM</a> </p> </th> 
+         <td> <p> <a href="Alice (programming language)">Alice</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ScummVM">ScummVM</a> </p> </th> 
+         <td> <p> <a href="Scumm">Scumm</a> </p> </td> 
+         <td> <p> Computer game engine </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SECD machine">SECD</a> </p> </th> 
+         <td> <p> <a href="ISWIM">ISWIM</a>, <a href="Lispkit Lisp">Lispkit Lisp</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Squirrel (programming language)">Squirrel</a> </p> </th> 
+         <td> <p> <a href="Squirrel (programming language)">Squirrel</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> Squirrel_JIT </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> 12k </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Smalltalk">Smalltalk</a> </p> </th> 
+         <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SQLite">SQLite</a> </p> </th> 
+         <td> <p> SQLite opcodes </p> </td> 
+         <td> <p> Virtual database engine </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Squeak">Squeak</a> </p> </th> 
+         <td> <p> <a href="Squeak">Squeak</a> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+         <td> <p> <a href="Self hosting">Self hosting</a> implementation of <a href="Squeak">Squeak</a> virtual machine. Rich multi-media support. </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> Smalltalk/<a href="http://wiki.squeak.org/squeak/2267">Slang</a> </p> </td> 
+         <td> <p> 110k Smalltalk, ~300K C </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Intent (software)">TaoGroup</a> VP/VP2 </p> </th> 
+         <td> <p> C, Java </p> </td> 
+         <td> <p> Proprietary embedded VM </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SpiderMonkey_(JavaScript_engine)#TraceMonkey">TraceMonkey</a> </p> </th> 
+         <td> <p> JavaScript </p> </td> 
+         <td> <p> Based on <a href="Tamarin (JavaScript engine)">Tamarin</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C++ </p> </td> 
+         <td> <p> 173k </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Translator's Workbench">Translator Engine</a><span class="unknown-node">{{Citation needed|...}}</span> </p> </th> 
+         <td> <p> <a href="Flat File Tables/Global C++ variable declarations">Flat File Tables/Global C++ variable declarations</a> </p> </td> 
+         <td> <p> IDE, programming by demonstration </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TrueType">TrueType</a> </p> </th> 
+         <td> <p> <a href="TrueType#Hinting_language">TrueType</a> </p> </td> 
+         <td> <p> Font rendering engine </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> C (typically) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Valgrind">Valgrind</a> </p> </th> 
+         <td> <p> <a href="x86">x86</a>/<a href="x86-64">x86-64</a> binaries </p> </td> 
+         <td> <p> Checking of memory accesses and leaks under <a href="Linux">Linux</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> 467k <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="VisualWorks">VisualWorks</a> </p> </th> 
+         <td> <p> <a href="Smalltalk">Smalltalk</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://vmkit.llvm.org/">VMKit</a> </p> </th> 
+         <td> </td> 
+         <td> <p> JVM and CLI virtual machine based on LLVM. </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vx32">Vx32 virtual machine</a> </p> </th> 
+         <td> <p> <a href="x86">x86</a> binaries </p> </td> 
+         <td> <p> Application-level virtualization for native code </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SuperWaba">Waba</a> </p> </th> 
+         <td> </td> 
+         <td> <p> Virtual machine for small devices, similar to <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="YARV">Yet Another Ruby VM (YARV)</a> </p> </th> 
+         <td> <p> <a href="Ruby (programming language)">Ruby</a> </p> </td> 
+         <td> <p> Virtual machine of the reference implementation for <a href="Ruby (programming language)">Ruby</a> 1.9 and newer versions </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Z-machine">Z-machine</a> </p> </th> 
+         <td> <p> <a href="Z-machine">Z-Code</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Zend Engine">Zend Engine</a> </p> </th> 
+         <td> <p> <a href="PHP">PHP</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> C </p> </td> 
+         <td> <p> 75k </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="libJIT">libJIT Library for Just-In-Time compilation</a> </p> </th> 
+         <td> <p> <a href="Common Intermediate Language">Common Intermediate Language</a> <a href="Java bytecode">Java bytecode</a> <a href="Domain-specific language">Domain-specific programming language</a> </p> </td> 
+         <td> <p> Virtual machine is used in Portable.NET Just-In-Time compiler, ILDJIT, HornetsEye </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> C, ia32, arm, amd64, alpha, low-level CPU architecture specific machine code </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <ul> 
+       <li><a href="http://lists.gnu.org/archive/html/dotgnu-libjit/2004-05/index.html">&quot;libJIT vs LLVM discussion&quot; Rhys Weatherley (libJIT) and Chris Lattner (LLVM)</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Application virtualization">Application virtualization</a></li> 
+       <li> <a href="Language binding">Language binding</a></li> 
+       <li> <a href="Foreign function interface">Foreign function interface</a></li> 
+       <li> <a href="Calling convention">Calling convention</a></li> 
+       <li> <a href="Name mangling">Name mangling</a></li> 
+       <li> <a href="Application programming interface">Application programming interface</a> (API)</li> 
+       <li> <a href="Application Binary Interface">Application Binary Interface</a> (ABI)</li> 
+       <li> <a href="Comparison of platform virtual machines">Comparison of platform virtual machines</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://java-virtual-machine.net/other.html">List of Java Virtual Machines (JVMs), Java Development Kits (JDKs), Java Runtime Environments (JREs)</a></li> 
+      </ul> 
+      <p> <a href="Category:Software comparisons">Virtual machines</a> <a href="Category:Virtualization software">*</a> <a href="Category:Virtual machines">*</a> </p> 
+      <p> <a href="pt:Compara&ccedil;&atilde;o entre aplica&ccedil;&otilde;es de virtualiza&ccedil;&atilde;o de m&aacute;quinas">pt:Compara&ccedil;&atilde;o entre aplica&ccedil;&otilde;es de virtualiza&ccedil;&atilde;o de m&aacute;quinas</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

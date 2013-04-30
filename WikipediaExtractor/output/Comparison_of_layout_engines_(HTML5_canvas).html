@@ -1,0 +1,604 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of layout engines (HTML5 canvas)</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of layout engines (HTML5 canvas)</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{HTML|...}}</span> The following tables compare support for the drawing APIs of the <a href="Canvas element">Canvas element</a>, a feature of <a href="HTML5">HTML5</a>. These tables compare native support by web browsers, without any <a href="Plug-in (computing)">plugins</a>, add-ons or <a href="ECMAScript">ECMAScript</a> <a href="workaround">workarounds</a>. </p> 
+    <p> <span class="unknown-node">{{Layout engine nomenclature}}</span> <span class="unknown-node">{{Explanation of the tables2}}</span> </p> 
+    <div class="section"> 
+     <h2>Canvas functions</h2> 
+     <div class="section-body"> 
+      <table style="text-align: center; width: 95%" class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th style="width: 18%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>getContext</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>toDataURL</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Supported contexts</h2> 
+     <div class="section-body"> 
+      <table style="text-align: center; width: 95%" class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th style="width: 18%;"> <p> <a href="Trident (layout engine)">Trident</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Gecko (layout engine)">Gecko</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="WebKit">WebKit</a> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Presto (layout engine)">Presto</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>2d</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <a href="WebGL">WebGL</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{depends}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2.9.220<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Canvas Rendering Context 2D</h2> 
+     <div class="section-body"> 
+      <table style="text-align: center; width: 95%" class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> </th> 
+         <th style="width: 18%;"> <p> <a href="Trident (layout engine)">Trident</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Gecko (layout engine)">Gecko</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="WebKit">WebKit</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th style="width: 18%;"> <p> <a href="Presto (layout engine)">Presto</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> The canvas state </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>save</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>restore</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Transformations </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>scale</code> </p> </th> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>rotate</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>translate</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>transform</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>setTransform</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Compositing </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>globalAlpha</code> </p> </th> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>globalCompositeOperation</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Colors and styles </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>strokeStyle</code> </p> </th> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>fillStyle</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>createLinearGradient</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>createRadialGradient</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>createPattern</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Line styles </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>lineWidth</code> </p> </th> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>lineCap</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>lineJoin</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>miterLimit</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Shadows </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>shadowOffsetX</code> </p> </th> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>shadowOffsetY</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>shadowBlur</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>shadowColor</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Simple shapes </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>clearRect</code> </p> </th> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;3&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>fillRect</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>strokeRect</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Complex shapes </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>beginPath</code> </p> </th> 
+         <td> <p> rowspan=&quot;13&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;13&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;13&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>closePath</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>moveTo</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>lineTo</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>quadraticCurveTo</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>bezierCurveTo</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>arcTo</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>rect</code> </p> </th> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>arc</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>fill</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>stroke</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>clip</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>isPointInPath</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Focus management </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>drawFocusRing</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Text </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>font</code> </p> </th> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">{{#tag:ref|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;6&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>textAlign</code> </p> </th> 
+         <td> <p> rowspan=&quot;5&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>textBaseline</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>fillText</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>strokeText</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>measureText</code> </p> </th> 
+        </tr> 
+        <tr> 
+         <th colspan="5"> <p> Images </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>drawImage</code> </p> </th> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> rowspan=&quot;4&quot; <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>createImageData</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>getImageData</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> rowspan=&quot;2&quot; <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align: left;"> <p> <code>putImageData</code> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist |...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>Trident references</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{reflist |...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Gecko references</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{reflist |...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Webkit references</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{reflist |...}}</span> </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Presto references</h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{reflist |...}}</span> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <span class="unknown-node">{{Citation |...}}</span></li> 
+       <li> <span class="unknown-node">{{Citation |...}}</span> </li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Web browser engines}}</span> </p> 
+      <p> <a href="Category:HTML">Category:HTML</a> <a href="Category:Layout engine comparisons">Category:Layout engine comparisons</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

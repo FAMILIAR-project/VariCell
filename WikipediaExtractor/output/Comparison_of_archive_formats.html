@@ -1,0 +1,842 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of archive formats</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of archive formats</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Expert-subject|...}}</span> </p> 
+    <p> There are many popular computer data <b><a href="archive format">archive formats</a></b> for creating and maintaining <a href="archive file">archive files</a>. The tables below <b>compare many popular archive formats</b>. </p> 
+    <div class="section"> 
+     <h2>Features</h2> 
+     <div class="section-body"> 
+      <p> The table compares various features column-by-column in the table below: </p> 
+      <div class="section"> 
+       <h3>Purpose</h3> 
+       <div class="section-body"> 
+        <p> The earliest use of archive formats was for backup, mobility, and <a href="archiving">archiving</a>. Improved versions of archive formats added the ability to <a href="data compression">compress</a> the data to consume less storage space and network bandwidth. There are multiple compression algorithms available to statistically compress data. Some kinds of data can be highly compressed and some kinds of data do not benefit from compression. Currently, archive formats are also used to <a href="package (package management system)">package</a> software files for distribution, installation, and execution. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Filename extension</h3> 
+       <div class="section-body"> 
+        <p> The <a href="DOS">DOS</a> and <a href="Microsoft Windows">Windows</a> operating systems required filenames to include a three-character extension to identify the file type and use. Filename extensions must be unique for each type of file. Many <a href="operating systems">operating systems</a> identify a file's type from its contents without the need for an extension in its name. However, the use of three-character extensions has been embraced as a useful and efficient shorthand for identifying file types?both for computer software, and for humans. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Integrity check</h3> 
+       <div class="section-body"> 
+        <p> Archive files are often stored on <a href="magnetic media">magnetic media</a>, which is subject to <a href="computer data storage">data storage</a> errors. Early <a href="Magnetic tape data storage">tape media</a> had a higher rate of errors than is expected for magnetic media today. Many archive formats contain extra data embedded in the files in order to detect data storage or transmission errors, and the software used to read the archive files contain <a href="logic">logic</a> to detect errors. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Recovery record</h3> 
+       <div class="section-body"> 
+        <p> Many archive formats contain redundant data embedded in the files in order to detect data storage or transmission errors, and the software used to read the archive files contain logic to detect and correct errors. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Encryption</h3> 
+       <div class="section-body"> 
+        <p> In order to protect the data being stored or transferred from being read if intercepted, many archive formats include the capability to encrypt the data. There are multiple mathematical algorithms available to encrypt data. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Comparison</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="width: auto; text-align: center; font-size: smaller; table-layout: fixed;"> 
+       <tbody>
+        <tr>
+         <th> <p> Format </p> </th> 
+         <th> <p> Filename extension </p> </th> 
+         <th> <p> Created by </p> </th> 
+         <th> <p> Introduced in </p> </th> 
+         <th> <p> Based on </p> </th> 
+         <th> <p> Integrity check </p> </th> 
+         <th> <p> Recovery record </p> </th> 
+         <th> <p> Encryption supported </p> </th> 
+         <th> <p> <a href="Unicode">Unicode</a> filenames </p> </th> 
+         <th> <p> Modification date resolution </p> </th> 
+        </tr>
+        <tr> 
+         <th colspan="10" style="background-color: #eeeeff"> <p> Archiving only </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Ar (Unix)">Archive</a> (ar) </p> </th> 
+         <td> <p> .a </p> </td> 
+         <td> <p> <a href="CSRG">CSRG</a> </p> </td> 
+         <td> <p> 0000 <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 1 s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="cpio">cpio</a> </p> </th> 
+         <td> <p> .cpio </p> </td> 
+         <td> <p> <a href="Bell Labs">Bell Labs</a> </p> </td> 
+         <td> <p> 1983 <a href="UNIX System V">Unix System V</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span>, select formats only </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 1 s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="shar">Shell Archive</a> (shar and makeself) </p> </th> 
+         <td> <p> .shar, .run </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> 1994 <a href="4.4BSD">4.4BSD</a> </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, commonly MD5 </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> arbitrary (typically 1 s) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Tar (file format)">Tape Archive</a> (tar) </p> </th> 
+         <td> <p> .tar </p> </td> 
+         <td> <p> <a href="Bell Labs">Bell Labs</a> </p> </td> 
+         <td> <p> 1975 <a href="Version 6 Unix">Version 6 Unix</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span>, metadata only. Full integrity providable by filters such as gzip. </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{optional}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> 1 s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Extended TAR format (pax) </p> </th> 
+         <td> <p> .tar </p> </td> 
+         <td> <p> <a href="OpenGroup">OpenGroup</a> </p> </td> 
+         <td> <p> 2001 </p> </td> 
+         <td> <p> Sun proposal + TAR </p> </td> 
+         <td> <p> metadata </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> arbitrary (typically 1 ns) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BagIt">BagIt</a> </p> </th> 
+         <td> <p> - </p> </td> 
+         <td> <p> <a href="The Library of Congress">The Library of Congress</a> </p> </td> 
+         <td> <p> 2007 </p> </td> 
+         <td> <p> file system </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="10" style="background-color: #eeeeff"> <p> Archiving and Compression </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="7z">7z</a> </p> </th> 
+         <td> <p> .7z </p> </td> 
+         <td> <p> Igor Pavlov </p> </td> 
+         <td> <p> 2000 </p> </td> 
+         <td> <p> <a href="Lempel-Ziv-Markov algorithm">LZMA</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, AES </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 1 ms (maybe better?) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ACE (file format)">ACE</a> </p> </th> 
+         <td> <p> .ace </p> </td> 
+         <td> <p> Marcel Lemke </p> </td> 
+         <td> <p> 0000 <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, Blowfish </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> AFA </p> </th> 
+         <td> <p> .afa </p> </td> 
+         <td> <p> Vicente S&aacute;nchez-Alarcos </p> </td> 
+         <td> <p> 2009 </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, AES and CAST </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ARC (file format)">ARC</a> </p> </th> 
+         <td> <p> .arc </p> </td> 
+         <td> <p> Thom Henderson (SEA) </p> </td> 
+         <td> <p> 1985 </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{bad|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 2s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ARJ">ARJ</a> </p> </th> 
+         <td> <p> .arj </p> </td> 
+         <td> <p> Robert Jung </p> </td> 
+         <td> <p> 1991 </p> </td> 
+         <td> <p> <a href="AR001">AR001</a> and <a href="AR002">AR002</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cabinet (file format)">Cabinet</a> </p> </th> 
+         <td> <p> .cab </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> 1992 <a href="Windows 3.1">Windows 3.1</a> </p> </td> 
+         <td> <p> <a href="DEFLATE (algorithm)">DEFLATE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{optional}}</span> PKCS7 <a href="Authenticode">Authenticode</a> signature </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{optional}}</span> (with SDK) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 2&nbsp;s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CFS (Compact File Set file format)">Compact File Set</a> </p> </th> 
+         <td> <p> .cfs </p> </td> 
+         <td> <p> Joe Lowe (Pismo Technic Inc.) </p> </td> 
+         <td> <p> 2008, April 1 </p> </td> 
+         <td> <p> ZIP/LZMA </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Compact Pro">Compact Pro</a> </p> </th> 
+         <td> <p> .cpt </p> </td> 
+         <td> <p> Bill Goodman </p> </td> 
+         <td> <p> 1990, May 5 (as &quot;Compactor&quot;) </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DAR (Disk Archiver)">Disk Archive</a> (DAR) </p> </th> 
+         <td> <p> .dar </p> </td> 
+         <td> <p> Denis Corbin </p> </td> 
+         <td> <p> 2002 </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 1 s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DGCA (Computing)">DGCA</a> </p> </th> 
+         <td> <p> .dgc </p> </td> 
+         <td> <p> Shin-ichi Tsuruta </p> </td> 
+         <td> <p> 2001 </p> </td> 
+         <td> <p> <a href="GCA (file format)">GCA</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="FreeArc">FreeArc</a> </p> </th> 
+         <td> <p> .arc </p> </td> 
+         <td> <p> Bulat Ziganshin </p> </td> 
+         <td> <p> 2006 </p> </td> 
+         <td> <p> <a href="LZMA">LZMA</a>, <a href="PPMD">PPMD</a>, <a href="TTA (codec)">TTA</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, AES, Blowfish, Twofish and Serpent </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LHA (file format)">LHA</a> (also LZH) </p> </th> 
+         <td> <p> .lzh, .lha </p> </td> 
+         <td> <p> Haruyasu Yoshizaki </p> </td> 
+         <td> <p> 1988 </p> </td> 
+         <td> <p> <a href="Frozen (file format)">Frozen</a> </p> </td> 
+         <td> <p> Only on recent LHA releases </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 1?2 s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LZX (algorithm)#Amiga LZX">LZX</a> </p> </th> 
+         <td> <p> .lzx </p> </td> 
+         <td> <p> <a href="Jonathan Forbes (programmer)">Jonathan Forbes</a> and Tomi&nbsp;Poutanen </p> </td> 
+         <td> <p> 1995 </p> </td> 
+         <td> <p> <a href="LZ77">LZ77</a> </p> </td> 
+         <td> <p> Only on recent LZX releases </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Sparc">Sparc</a> </p> </th> 
+         <td> <p> .arc </p> </td> 
+         <td> <p> David Pilling </p> </td> 
+         <td> <p> 1989 </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinMount format">WinMount format</a> </p> </th> 
+         <td> <p> .mou </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 2007 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href=".dmg">Macintosh Disk Image</a> </p> </th> 
+         <td> <p> .dmg </p> </td> 
+         <td> <p> <a href="Apple Computer">Apple Computer</a> </p> </td> 
+         <td> <p> 1991 <a href="System 7 (Macintosh)">Macintosh System 7</a> </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PartImage">Partition Image</a> (PartImage) </p> </th> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Fran&ccedil;ois&nbsp;Dupoux and Franck&nbsp;Ladurelle </p> </td> 
+         <td> <p> 2000 </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PAQ">PAQ</a> (Several formats) </p> </th> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Matt Mahoney </p> </td> 
+         <td> <p> 2002?2006 </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PeaZip#Native_archive_format">PEA</a> </p> </th> 
+         <td> <p> .pea </p> </td> 
+         <td> <p> Giorgio Tani </p> </td> 
+         <td> <p> 2006 </p> </td> 
+         <td> <p> Original, Deflate based compression </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> Adler32, CRC32, CRC64, MD5, SHA1, RIPEMD-160, SHA256, SHA512, Whirlpool </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> Authenticated Encryption, AES128 and AES256 in EAX mode </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> system dependent </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> arbitrary </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PIM </p> </th> 
+         <td> <p> .pim </p> </td> 
+         <td> <p> Ilia Muraviev </p> </td> 
+         <td> <p> 2004?2008 </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Quadruple D">Quadruple D</a> </p> </th> 
+         <td> <p> .qda </p> </td> 
+         <td> <p> Taku Hayase (aka sandman) </p> </td> 
+         <td> <p> 1997 </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="RAR (file format)">RAR</a> </p> </th> 
+         <td> <p> .rar </p> </td> 
+         <td> <p> Eugene Roshal </p> </td> 
+         <td> <p> 1993 </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, AES </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 2 <a href="Second">s</a>, 1 <a href="Second">s</a>, 6.5536 <a href="Millisecond">ms</a>, 25.6 <a href="Microsecond">&micro;s</a> or 100 <a href="Nanosecond">ns</a> <span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="WinRK">RK</a> </p> </th> 
+         <td> <p> .rk </p> </td> 
+         <td> <p> M Software, Ltd. </p> </td> 
+         <td> <p> 2004 </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, AES, Square, Twofish </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 1&nbsp;s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="StuffIt">StuffIt</a> (also SIT) </p> </th> 
+         <td> <p> .sit </p> </td> 
+         <td> <p> Raymond Lau </p> </td> 
+         <td> <p> 1987 </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="StuffIt X">StuffIt X</a> (also SITx) </p> </th> 
+         <td> <p> .sitx </p> </td> 
+         <td> <p> Aladdin/<a href="Allume Systems">Allume Systems</a> </p> </td> 
+         <td> <p> 2002 </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{optional}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, RC4,Blowfish,AES,DES </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> UltraCompressor II </p> </th> 
+         <td> <p> .uc .uc0 .uc2 .ucn .ur2 .ue2 </p> </td> 
+         <td> <p> Nico de Vries </p> </td> 
+         <td> <p> 1992?1996 </p> </td> 
+         <td> <p> <a href="LZ77">LZ77</a> and <a href="Huffman coding">Huffman coding</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, triple DES </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Imaging Format">Windows Image</a> </p> </th> 
+         <td> <p> .wim </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> 0000 <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> Original </p> </td> 
+         <td> <p> <span class="unknown-node">{{Optional}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ZIP (file format)">ZIP</a> (also PKZIP) </p> </th> 
+         <td> <p> .zip </p> </td> 
+         <td> <p> <a href="Phil Katz">Phil Katz</a> </p> </td> 
+         <td> <p> 1989 </p> </td> 
+         <td> <p> <a href="DEFLATE (algorithm)">DEFLATE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, AES </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 1 s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ZPAQ">ZPAQ</a> </p> </th> 
+         <td> <p> .zpaq </p> </td> 
+         <td> <p> <a href="Matt Mahoney">Matt Mahoney</a> </p> </td> 
+         <td> <p> 2009 </p> </td> 
+         <td> <p> <a href="PAQ">PAQ</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, SHA-1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th colspan="10" style="background-color: #eeeeff"> <p> Software Packaging and Distribution </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Deb (file format)">Debian package</a> (deb) </p> </th> 
+         <td> <p> .deb </p> </td> 
+         <td> <p> <a href="Debian">Debian</a> </p> </td> 
+         <td> <p> 1994 <a href="Debian">Debian</a> 0.91 </p> </td> 
+         <td> <p> <a href="Ar (Unix)">ar</a>, <a href="Tar (file format)">tar</a>, and <a href="gzip">gzip</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> 1&nbsp;s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Installer (Mac OS X)">Macintosh Installer</a> </p> </th> 
+         <td> <p> .pkg, .mpkg (metapackage) </p> </td> 
+         <td> <p> <a href="NeXT">NeXT</a> </p> </td> 
+         <td> <p> 1989 <a href="NeXTSTEP">NeXTSTEP</a> 1.0 </p> </td> 
+         <td> <p> <a href="Pax (Unix)">pax</a> and <a href="gzip">gzip</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="RPM Package Manager">RPM Package Manager</a> (RPM) </p> </th> 
+         <td> <p> .rpm </p> </td> 
+         <td> <p> <a href="Red Hat">Red Hat</a> </p> </td> 
+         <td> <p> 1995 <a href="Red Hat Linux">Red Hat Linux</a> 1.0 </p> </td> 
+         <td> <p> <a href="cpio">cpio</a> and <a href="gzip">gzip</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> 1&nbsp;s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Slackware">Slackware</a> Package </p> </th> 
+         <td> <p> .tgz </p> </td> 
+         <td> <p> <a href="Patrick Volkerding">Patrick Volkerding</a> </p> </td> 
+         <td> <p> 1993 <a href="Slackware">Slackware</a> 1.0 </p> </td> 
+         <td> <p> <a href="Tar (file format)">tar</a> and <a href="gzip">gzip</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Installer">Windows Installer</a> (also MSI) </p> </th> 
+         <td> <p> .msi </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> 2000 <a href="Windows 2000">Windows 2000</a> </p> </td> 
+         <td> <p> OLE Structured Storage, <a href="Cabinet (file format)">Cabinet</a> and <a href="SQL">SQL</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{optional}}</span> PKCS7 <a href="Authenticode">Authenticode</a> Signature </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> 2&nbsp;s </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JAR (file format)">Java Archive</a> (JAR<span class="unknown-node">{{ref|...}}</span>) </p> </th> 
+         <td> <p> .jar </p> </td> 
+         <td> <p> <a href="Sun Microsystems">Sun Microsystems</a> </p> </td> 
+         <td> <p> 1997 <a href="JDK">JDK</a> 1.1 </p> </td> 
+         <td> <p> <a href="PKZIP">PKZIP</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Google Chrome">Google Chrome</a> <a href="Chrome Web Store">extension</a> package </p> </th> 
+         <td> <p> .crx </p> </td> 
+         <td> <p> <a href="Google">Google</a> </p> </td> 
+         <td> <p> 9 September, 2009 (Chrome 4.0) </p> </td> 
+         <td> <p> <a href=".zip">Zip</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <div class="section"> 
+       <h3> Notes </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{note|...}}</span> While the original <a href="tar (file format)">tar</a> format uses the <a href="ASCII">ASCII</a> character encoding, current implementations use the <a href="UTF-8">UTF-8</a> (Unicode) encoding, which is backwards compatible with ASCII.<br /> <span class="unknown-node">{{note|...}}</span> Supports the external Parchive program (par2).&lt;/br/&gt; <span class="unknown-node">{{note|...}}</span> From 3.20 release RAR can store modification, creation and last access time with the precision up to 0.0000001 second (= 0.1 &micro;s). <a href="http://www.win-rar.com/index.php?id=24&amp;kb_article_id=85">1</a> <a href="http://www.winrar-tr.com/WinRAR/Help/ENG/html/HELPSwTS.htm">2</a>&lt;/br/&gt; <span class="unknown-node">{{note|...}}</span> There is also <a href="JAR (software)">JAR</a> the archiver by Robert K. Jung. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="List of archive formats">List of archive formats</a></li> 
+       <li><a href="Comparison of file archivers">Comparison of file archivers</a></li> 
+       <li><a href="Comparison of file systems">Comparison of file systems</a></li> 
+       <li><a href="List of file systems">List of file systems</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Archive formats}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Archive Formats}}</span> <a href="Category:Archive formats">*</a> <a href="Category:Software comparisons">Archive formats</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

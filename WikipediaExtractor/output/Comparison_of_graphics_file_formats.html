@@ -1,0 +1,3187 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of graphics file formats</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of graphics file formats</h1> 
+   <div class="article-content"> 
+    <p> This is a <b>comparison of <a href="image file formats">image file formats</a></b>. </p> 
+    <p> <span class="magic-word">__FORCETOC__</span> </p> 
+    <div class="section"> 
+     <h2>General</h2> 
+     <div class="section-body"> 
+      <p> Ownership of the format and related information. </p> 
+      <table class="sortable wikitable" style="text-align: center; width: auto; font-size: smaller;"> 
+       <tbody>
+        <tr> 
+         <th style="width: 7em;"> Format </th> 
+         <th> Full name </th> 
+         <th> Owner </th> 
+         <th> Based Format </th> 
+         <th> <a href="File extension">File extension</a> </th> 
+         <th> <a href="MIME">MIME</a> type </th> 
+         <th> Application </th> 
+         <th> <p> Patented </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> Abc </p> </th> 
+         <td> <p> <a href="http://www.leadtools.com/sdk/compression/abc.htm">Advanced Bitonal Compression</a> </p> </td> 
+         <td> <p> LEAD Technologies </p> </td> 
+         <td> </td> 
+         <td> <p> .abc </p> </td> 
+         <td> </td> 
+         <td> <p> Bitonal document and check images.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> ADRG </p> </th> 
+         <td> <p> ARC Digitized Raster Graphics </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .adrg </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> AdobeResource </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> <p> TIFF? </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> ADRI </p> </th> 
+         <td> <p> ARC Digitized Raster Images </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .adri </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> AGP </p> </th> 
+         <td> <p> ArtGem Project </p> </td> 
+         <td> <p> <a href="RL Vision">RL Vision</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .agp </p> </td> 
+         <td> </td> 
+         <td> <p> Preferred graphics format when working with ArtGem </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Adobe Illustrator Artwork">AI</a> </p> </th> 
+         <td> <p> Adobe Illustrator Document </p> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .ai </p> </td> 
+         <td> <p> application/illustrator, application/postscript </p> </td> 
+         <td> <p> Adobe Illustrator files are editable using programs that support the format, such as Adobe Illustrator, Inkscape, CorelDRAW, etc. </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Alias Pix image </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pix, .matte, .mask,<br />.alpha, .als </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> AMI </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .ami </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by Amica Paint </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ANI (file format)">ANI</a> </p> </th> 
+         <td> <p> ANI file format </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> <a href="Resource Interchange File Format">RIFF</a> </p> </td> 
+         <td> <p> .ani </p> </td> 
+         <td> </td> 
+         <td> <p> Used by <a href="Microsoft Windows">Microsoft Windows</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ANIM">ANIM</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Electronic Arts">Electronic Arts</a> and <a href="Commodore Amiga">Commodore Amiga</a> </p> </td> 
+         <td> <p> <a href="Interchange File Format">IFF</a> </p> </td> 
+         <td> <p> .iff, .anim </p> </td> 
+         <td> <p> video/x-anim </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="APNG">APNG</a> </p> </th> 
+         <td> <p> Animated Portable Network Graphics </p> </td> 
+         <td> <p> <a href="Mozilla">Mozilla</a> </p> </td> 
+         <td> <p> <a href="Portable Network Graphics">PNG</a> </p> </td> 
+         <td> <p> .png </p> </td> 
+         <td> <p> image/png </p> </td> 
+         <td> <p> <a href="Gecko (layout engine)">1.9</a> and <a href="Opera (web browser)">Opera</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Apple Icon Image">Apple Icon Image</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Apple Inc.">Apple Inc.</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .icns </p> </td> 
+         <td> </td> 
+         <td> <p> Used by <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> APX </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .apx </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by Ebuyer Photo Paint </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ART image file format">ART</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="AOL">AOL</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .art </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> ART </p> </th> 
+         <td> <p> PFS: 1st Publisher clip art </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .art </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ASCII art">ASCII art</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .txt, .ansi, .text </p> </td> 
+         <td> <p> text/plain </p> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Authorware map </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .aam </p> </td> 
+         <td> <p> application/x-authorware-map </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Authorware seg </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .aas </p> </td> 
+         <td> <p> application/x-authorware-seg </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Authorware bin </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .aab, .x32, .u32,<br />.vox </p> </td> 
+         <td> <p> application/x-authorware-bin </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AutoCAD DXF">AutoCAD DXF</a> </p> </th> 
+         <td> <p> Drawing Interchange Format </p> </td> 
+         <td> <p> <a href="Autodesk">Autodesk</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .dxf </p> </td> 
+         <td> <p> image/vnd.dxf </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> AWD </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .awd </p> </td> 
+         <td> <p> image/awd </p> </td> 
+         <td> <p> Used by PhotoPhilia </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">ARW</a> </p> </th> 
+         <td> <p> Sony Alpha RAW </p> </td> 
+         <td> <p> <a href="Sony">Sony</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .arw </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">BAY</a> </p> </th> 
+         <td> <p> Casio RAW </p> </td> 
+         <td> <p> <a href="Casio">Casio</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .bay </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BEF (image format)">BEF</a> </p> </th> 
+         <td> <p> Unified Color BEF </p> </td> 
+         <td> <p> <a href="Unified Color">Unified Color</a> </p> </td> 
+         <td> <p> <a href="TIFF">TIFF</a> </p> </td> 
+         <td> <p> .bef </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="HDR PhotoStudio">HDR PhotoStudio</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> BigTIFF </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .btf, .tiff, .tif </p> </td> 
+         <td> <p> image/tiff </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BMF Bitmap">BMF</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Corel">Corel</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .bmf </p> </td> 
+         <td> </td> 
+         <td> <p> Used by Corel Clipart Gallery apps and any BMF image utility </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BMP file format">BMP</a> </p> </th> 
+         <td> <p> Windows bitmap </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .bmp, .dib, .rle,<br />.2bp (2bpp) </p> </td> 
+         <td> <p> image/x-bmp </p> </td> 
+         <td> <p> Used by many 2D applications. </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> bmp compressor </p> </th> 
+         <td> <p> Bit Map Compressor </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .hpc </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> BLEND </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .blend </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="Blender (software)">Blender</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> BRK </p> </th> 
+         <td> <p> Brooktrout Fax </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .brk </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BSAVE (graphics image format)">BSAVE</a> </p> </th> 
+         <td> <p> BSAVE Image </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .BSV </p> </td> 
+         <td> </td> 
+         <td> <p> Used by <a href="IBM PC">IBM PC</a>. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CAM </p> </th> 
+         <td> <p> Casio CAM </p> </td> 
+         <td> <p> <a href="Casio">Casio</a> </p> </td> 
+         <td> <p> JPEG </p> </td> 
+         <td> <p> .cam </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CADRG </p> </th> 
+         <td> <p> Compressed ARC Digitized Raster Graphics </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cadrg </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CALS Raster file format">CAL</a> </p> </th> 
+         <td> <p> CALS raster file format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cal, .cals, .ras, .dcl </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Capture One RAW </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Phase One (company)">Phase One</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .cap </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Camera Image File Format">CIFF</a> </p> </th> 
+         <td> <p> Camera Image File Format </p> </td> 
+         <td> <p> <a href="Canon (company)">Canon</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .crw, .ciff </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">CR2</a> </p> </th> 
+         <td> <p> Canon RAW 2 </p> </td> 
+         <td> <p> <a href="Canon (company)">Canon</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .cr2 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CorelDRAW">CDR</a> </p> </th> 
+         <td> <p> CorelDRAW Document </p> </td> 
+         <td> <p> <a href="Corel Corporation">Corel Corporation</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .cdr, .ccx, .cdt, .cmx </p> </td> 
+         <td> <p> application/coreldraw </p> </td> 
+         <td> <p> CorelDRAW files are editable using programs that support the format, such as CorelDRAW, Adobe Illustrator, Inkscape, etc. </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Computer Graphics Metafile">CGM</a> </p> </th> 
+         <td> <p> Computer Graphics Metafile </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cgm </p> </td> 
+         <td> <p> image/cgm </p> </td> 
+         <td> <p> CGM files are editable using programs that support the format, such as <a href="IBM Lotus Freelance Graphics">IBM Lotus Freelance Graphics</a>, Inkscape, etc. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cineon">CIN</a> </p> </th> 
+         <td> <p> Cineon </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cin </p> </td> 
+         <td> <p> image/cineon </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Corel Paint Shop Pro Pattern </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pat </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by Corel Paint Shop Pro </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cartesian Perceptual Compression">CPC</a> </p> </th> 
+         <td> <p> Cartesian Perceptual Compression </p> </td> 
+         <td> <p> <a href="http://www.cartesianinc.com">Cartesian Products, Inc.</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .cpc, .cpi </p> </td> 
+         <td> <p> image/cpi </p> </td> 
+         <td> <p> Highly compressed raster imaging format. </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CPKT </p> </th> 
+         <td> <p> APP5-CPKT Format </p> </td> 
+         <td> </td> 
+         <td> <p> JPEG </p> </td> 
+         <td> <p> .jpg, .jpe, .jpeg </p> </td> 
+         <td> <p> image/jpeg </p> </td> 
+         <td> <p> Used by PROSERPINE. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CPT </p> </th> 
+         <td> <p> Corel Photo-Paint Image </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cpt </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Crack Art </p> </th> 
+         <td> </td> 
+         <td> <p> Detlef R&ouml;ttger &amp; Jan Borchers </p> </td> 
+         <td> </td> 
+         <td> <p> .ca1, .ca2, .ca3 </p> </td> 
+         <td> </td> 
+         <td> <p> An application on <a href="Atari ST">Atari ST</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CUT </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cut </p> </td> 
+         <td> </td> 
+         <td> <p> Used by DSHELL. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CMYK </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cmyk </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> CMYKA </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cmyka </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">DCS</a> </p> </th> 
+         <td> <p> Kodak DCS Pro RAW </p> </td> 
+         <td> <p> <a href="Kodak">Kodak</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .dcs </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">DCR</a> </p> </th> 
+         <td> <p> Digital Camera Raw </p> </td> 
+         <td> <p> <a href="Kodak">Kodak</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .dcr </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DirectDraw_Surface">DDS</a> </p> </th> 
+         <td> <p> DirectDraw Surface </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .dds </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Degas </p> </th> 
+         <td> <p> Design &amp; Entertainment Graphic Arts System </p> </td> 
+         <td> <p> Integral Solutions </p> </td> 
+         <td> </td> 
+         <td> <p> .pi1, .pi2, .pi3,<br />.pc1, .pc2, .pc3 </p> </td> 
+         <td> </td> 
+         <td> <p> An application on <a href="Atari ST">Atari ST</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Digital Negative (file format)">DNG</a> </p> </th> 
+         <td> <p> Digital Negative </p> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> <p> Compatible with ISO 12234-2, <a href="Tag Image File Format / Electronic Photography">TIFF/EP</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> .dng </p> </td> 
+         <td> </td> 
+         <td> <p> A <a href="raw image format">raw image format</a> suitable as an archival format and as the native raw format of digital cameras<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> No: no known intellectual property encumbrances or license requirements<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> DIA </p> </th> 
+         <td> <p> Dia Drawing </p> </td> 
+         <td> </td> 
+         <td> <p> XML </p> </td> 
+         <td> <p> .dia </p> </td> 
+         <td> </td> 
+         <td> <p> Used by <a href="Dia (software)">Dia</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DICOM">DICOM</a> </p> </th> 
+         <td> <p> Digital Imaging and Communications in Medicine </p> </td> 
+         <td> <p> <a href="National Electrical Manufacturers Association">National Electrical Manufacturers Association</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .dcm, .dicom </p> </td> 
+         <td> <p> application/dicom<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Numerous biomedical imaging applications<span class="unknown-node">&lt;ref .../&gt;</span> (e.g. <a href="OsiriX">OsiriX</a>, XMedCon), some general bitmap graphics applications (e.g. <a href="GIMP">GIMP</a>, <a href="Adobe Photoshop">Photoshop</a>) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="DjVu">DjVu</a> </p> </th> 
+         <td> <p> DjVu </p> </td> 
+         <td> <p> AT&amp;T Research </p> </td> 
+         <td> </td> 
+         <td> <p> .djvu, .djv </p> </td> 
+         <td> <p> image/vnd.djvu </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Doodle </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .doo </p> </td> 
+         <td> </td> 
+         <td> <p> An application on <a href="Atari ST">Atari ST</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Digital Picture Exchange">DPX</a> </p> </th> 
+         <td> <p> Digital Picture eXchange file format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .dpx </p> </td> 
+         <td> <p> image/dpx </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">DRF</a> </p> </th> 
+         <td> <p> Kodak Pro Back RAW </p> </td> 
+         <td> <p> <a href="Kodak">Kodak</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .drf </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Dr. Halo </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cut </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Encapsulated PostScript">Encapsulated PostScript</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .epi, .eps, .eps2,<br />.eps3, .epsf, .epsi,<br />.ept </p> </td> 
+         <td> <p> application/postscript </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr enhanced="" compressed="" wavelet=""> 
+         <th> <p> <a href="ECW (file format)">ECW</a> </p> </th> 
+         <td> <p> Enhanced Compressed Wavelet </p> </td> 
+         <td> <p> <a href="http://www.erdas.com/products/ecw/ecw/details.aspx">ERDAS</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .ecw </p> </td> 
+         <td> </td> 
+         <td> <p> Wavelet image format used primarily with geo-referenced aerial and satellite imagery </p> </td> 
+         <td> <p> Yes </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> EDG </p> </th> 
+         <td> <p> EDGE2 Original Format </p> </td> 
+         <td> <p> TAKABO </p> </td> 
+         <td> </td> 
+         <td> <p> .edg </p> </td> 
+         <td> </td> 
+         <td> <p> Used by EDGE2 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Enhanced Metafile">EMF</a> </p> </th> 
+         <td> <p> Enhanced Metafile Format </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .emf, .emz </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="Microsoft Office">Microsoft Office</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Enhanced Metafile">EMF+</a> </p> </th> 
+         <td> <p> Enhanced Metafile Format Plus Extensions </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .emf, .emz </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">ERF</a> </p> </th> 
+         <td> <p> EPSON RAW </p> </td> 
+         <td> <p> EPSON </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .erf </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> ERI </p> </th> 
+         <td> <p> Entis Rasterized Image format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .eri </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Exchangeable image file format">Exif</a> </p> </th> 
+         <td> <p> Exchangeable Image File Format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .exif </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Extended Vector Animation">EVA</a> </p> </th> 
+         <td> <p> Extended Vector Animation </p> </td> 
+         <td> <p> <a href="Sharp Corporation">Sharp Corporation</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .eva </p> </td> 
+         <td> <p> application/x-eva </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OpenEXR">EXR</a> </p> </th> 
+         <td> <p> OpenEXR </p> </td> 
+         <td> <p> <a href="Industrial Light &amp; Magic">ILM</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .exr </p> </td> 
+         <td> <p> image/exr </p> </td> 
+         <td> <p> Used in film effects for 3d rendering and hdr images. </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FIF </p> </th> 
+         <td> <p> Fractal Image Format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .fif </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FIG </p> </th> 
+         <td> <p> FIG format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .fig </p> </td> 
+         <td> <p> application/x-xfig </p> </td> 
+         <td> <p> Supported by <a href="Xfig">Xfig</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="FITS">FITS</a> </p> </th> 
+         <td> <p> Flexible Image Transport System </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .fit, .fits </p> </td> 
+         <td> </td> 
+         <td> <p> Scientific (esp. astronomical) data acquisition </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FLA </p> </th> 
+         <td> <p> Flash Source File </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .fla </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="FLIC (file format)">FLIC</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Autodesk">Autodesk</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .fli, .flc, .flx, .flh, .flt </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FLW </p> </th> 
+         <td> <p> Kivio Document </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .flw </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="Kivio">Kivio</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="FlashPix">FPX</a> </p> </th> 
+         <td> <p> FlashPix (1.0.2) </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .fpx </p> </td> 
+         <td> <p> image/vnd.fpx </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FreeHand </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .fh4, .fh5, .fh7,<br />.fh8, .fhc, .fh </p> </td> 
+         <td> <p> image/x-freehand </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FutureSplash </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .spl </p> </td> 
+         <td> <p> application/futuresplash </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> FXT </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="3DFX">3DFX</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .fxt </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GEGL composition </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> .xml </p> </td> 
+         <td> <p> application/xml </p> </td> 
+         <td> <p> Used by <a href="GEGL">GEGL</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Gerber Format">Gerber Format</a> </p> </th> 
+         <td> <p> RS-274X Extended Gerber Format<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="Ucamco">Ucamco</a> </p> </td> 
+         <td> <p> Printable ASCII </p> </td> 
+         <td> <p> .ger, others </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="Printed Circuit Board">Printed Circuit Board</a> or PCB software </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GIF">GIF</a> </p> </th> 
+         <td> <p> Graphics Interchange Format </p> </td> 
+         <td> <p> <a href="CompuServe">CompuServe</a>,<br /><a href="Unisys">Unisys</a> (compression algorithm) </p> </td> 
+         <td> </td> 
+         <td> <p> .gif, .gfa, .giff </p> </td> 
+         <td> <p> image/gif </p> </td> 
+         <td> <p> Supported by most web browsers. Supports transparency and animation. </p> </td> 
+         <td> <p> Expired </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GIMP brush </p> </th> 
+         <td> </td> 
+         <td> <p> The GIMP Team </p> </td> 
+         <td> </td> 
+         <td> <p> .gbr </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GIMP compressed XJT image </p> </th> 
+         <td> </td> 
+         <td> <p> The GIMP Team </p> </td> 
+         <td> <p> JPEG, tar </p> </td> 
+         <td> <p> .xjt,<br />.xjtgz&nbsp;(compressed),<br />.xjtbz2&nbsp;(compressed) </p> </td> 
+         <td> <p> None. Lossy format, not suitable for editing </p> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GIH </p> </th> 
+         <td> <p> Gimp image hose </p> </td> 
+         <td> <p> The GIMP Team </p> </td> 
+         <td> </td> 
+         <td> <p> .gih </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GIMP patterns </p> </th> 
+         <td> </td> 
+         <td> <p> The GIMP Team </p> </td> 
+         <td> </td> 
+         <td> <p> .pat </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> GRA </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .gra </p> </td> 
+         <td> </td> 
+         <td> <p> Used by QSV and QLD. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> G3 Fax </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .g3 </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hasselblad 3FR RAW </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .3fr </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Hasselblad/Imacon FFF </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .fff </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HDRi (data format)">HDRi</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .tif, .tiff </p> </td> 
+         <td> <p> image/tiff </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> HG </p> </th> 
+         <td> <p> Hyper Graphic Press </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .hg </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by some old Japanese applications. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ICER">ICER</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="NASA">NASA</a> <a href="Mars Rovers">Mars Rovers</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> IIQ RAW </p> </th> 
+         <td> <p> Intelligent Image Quality RAW </p> </td> 
+         <td> <p> <a href="Phase One (company)">Phase One</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .iiq </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> IMA </p> </th> 
+         <td> <p> .ima </p> </td> 
+         <td> <p> .ima team </p> </td> 
+         <td> </td> 
+         <td> <p> .ima </p> </td> 
+         <td> </td> 
+         <td> <p> Format for <a href="photograph">photographic</a> images with <a href="High dynamic range imaging">HDR</a> encoding. </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> IMG (GEM Paint) </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .img </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by GEM Paint </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> IMG (ERDAS IMAGINE) </p> </th> 
+         <td> <p> ERDAS IMAGINE </p> </td> 
+         <td> <p> ERDAS </p> </td> 
+         <td> <p> Hierarchical File Architecture (HFA) </p> </td> 
+         <td> <p> .img </p> </td> 
+         <td> </td> 
+         <td> <p> Image format used primarily with geo-referenced imagery, thematic grid data, and elevation grid data. </p> </td> 
+         <td> <p> No </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> im4 </p> </th> 
+         <td> </td> 
+         <td> <p> Masahide Hirabayashi </p> </td> 
+         <td> </td> 
+         <td> <p> .im4 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Inkscape SVG </p> </th> 
+         <td> </td> 
+         <td> <p> The Inkscape Team </p> </td> 
+         <td> <p> SVG </p> </td> 
+         <td> <p> .svg, .svgz </p> </td> 
+         <td> <p> image/svg+xml </p> </td> 
+         <td> <p> Used by <a href="Inkscape">Inkscape</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ICO (icon image file format)">ICO</a> </p> </th> 
+         <td> <p> ICO file format </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .ico, .cur </p> </td> 
+         <td> <p> image/vnd.Microsoft.icon, image/x-icon </p> </td> 
+         <td> <p> Used by <a href="Microsoft Windows">Microsoft Windows</a> and <a href="web browser">web browsers</a> as <a href="favicon">favicon</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Image Cytometry Standard">ICS</a> </p> </th> 
+         <td> <p> Image Cytometry Standard </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .ics, .ids </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IGES">IGES</a> </p> </th> 
+         <td> <p> Initial Graphics Exchange Specification </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .igs </p> </td> 
+         <td> <p> image/iges </p> </td> 
+         <td> <p> <a href="Computer-aided technologies">CAD/CAM</a> <a href="interoperability">interoperability</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ILBM">ILBM</a> </p> </th> 
+         <td> <p> InterLeaved BitMap </p> </td> 
+         <td> <p> <a href="Electronic Arts">Electronic Arts</a> and <a href="Commodore Amiga">Commodore Amiga</a> </p> </td> 
+         <td> <p> <a href="Interchange File Format">IFF</a> </p> </td> 
+         <td> <p> .iff, .ilbm, .lbm </p> </td> 
+         <td> <p> image/x-ilbm </p> </td> 
+         <td> <p> <a href="Planar (computer graphics)">Planar</a> graphics format designed for <a href="Amiga">Amiga</a> graphics hardware. </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> IPTC/NAA </p> </th> 
+         <td> <p> IPTC/NAA </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="Tagged Image File Format">TIFF</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JBIG">JBIG</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Joint Bi-level Image Experts Group">Joint Bi-level Image Experts Group</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .jbig, .bie, .jbg </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JBIG2">JBIG2</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Joint Bi-level Image Experts Group">Joint Bi-level Image Experts Group</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JNG">JNG</a> </p> </th> 
+         <td> <p> JPEG Network Graphics </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .jng </p> </td> 
+         <td> <p> image/x-jng </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JPEG">JPEG</a> </p> </th> 
+         <td> <p> Joint Photographic Experts Group </p> </td> 
+         <td> <p> <a href="Joint Photographic Experts Group">Joint Photographic Experts Group</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .jpg, .jpeg, .jpe<br />(containers:<br />.jif, .jfif, .jfi) </p> </td> 
+         <td> <p> image/jpeg </p> </td> 
+         <td> <p> <a href="Photograph">Photographic</a> images. Supported by most web browsers. </p> </td> 
+         <td> <p> <a href="http://www.groklaw.net/article.php?story=20060526105754880">Invalid</a>. Also see <a href="Forgent#JPEG">Forgent#JPEG</a>. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JPEG 2000">JPEG 2000</a> </p> </th> 
+         <td> <p> Joint Photographic Experts Group 2000 </p> </td> 
+         <td> <p> <a href="Joint Photographic Experts Group">Joint Photographic Experts Group</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .jp2, .j2c, .jpc,<br />.j2k, .jpx </p> </td> 
+         <td> <p> image/jp2 </p> </td> 
+         <td> <p> <a href="Photograph">Photographic</a> images, eventual replacement for <a href="JPEG">JPEG</a>. </p> </td> 
+         <td> <p> Yes (no licence costs for part 1) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JPEG-LS">JPEG-LS</a> </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Joint Photographic Experts Group">Joint Photographic Experts Group</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .jls </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JPEG-HDR">JPEG-HDR</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JPEG XR">JPEG XR</a> / <a href="HD Photo">HD Photo</a> </p> </th> 
+         <td> <p> JPEG XR / HD Photo </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .wdp, .hdp, .jxr </p> </td> 
+         <td> <p> image/vnd.ms-photo </p> </td> 
+         <td> <p> TIFF-like container format with <a href="High dynamic range imaging">HDR</a> encoding for photographic images </p> </td> 
+         <td> <p> Yes (royalty-free) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> J6I </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="RICOH">RICOH</a> </p> </td> 
+         <td> <p> JPEG </p> </td> 
+         <td> <p> .j6i </p> </td> 
+         <td> </td> 
+         <td> <p> Used by RICOH DC-1/2 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">KDC</a> </p> </th> 
+         <td> <p> Kodak DC40/DC50 RAW </p> </td> 
+         <td> <p> <a href="Kodak">Kodak</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .kdc </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KOA </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .koa,<br />.gg (compressed) </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by Koala Paint </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KIFF </p> </th> 
+         <td> <p> Kt Interchange File Format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .kif, .kiff </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KISS CEL </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .cel </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Kodak TIFF extensions </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Kodak">Kodak</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .tif </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Kodak YCC </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Kodak">Kodak</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .pcd </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> KQP </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Minolta">Minolta</a> </p> </td> 
+         <td> <p> JPEG </p> </td> 
+         <td> <p> .kqp </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">K25</a> </p> </th> 
+         <td> <p> Kodak DC25 RAW </p> </td> 
+         <td> <p> <a href="Kodak">Kodak</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .k25 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Leaf Mosaic RAW </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .mos </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> LightStream Picture </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .lsp </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Logluv TIFF">Logluv TIFF</a> </p> </th> 
+         <td> </td> 
+         <td> <p> Greg Ward </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="Libtiff">Libtiff</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Mac Paint </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pnt, .mac </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MDC </p> </th> 
+         <td> <p> Minolta RD175 Format </p> </td> 
+         <td> <p> <a href="Minolta">Minolta</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .mdc </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MET </p> </th> 
+         <td> <p> OS/2 Metafile Format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .met </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by SAS/GRAPH </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Multiple-image Network Graphics">MNG</a> </p> </th> 
+         <td> <p> Multiple-image Network Graphics </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="Portable Network Graphics">PNG</a> </p> </td> 
+         <td> <p> .mng </p> </td> 
+         <td> <p> video/x-mng </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MO:DCA </p> </th> 
+         <td> <p> MO:DCA </p> </td> 
+         <td> <p> <a href="IBM">IBM</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .mda, .ica, .mmr,<br />.afp </p> </td> 
+         <td> <p> image </p> </td> 
+         <td> <p> IBM's Content Manager and Image Plus </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MSP </p> </th> 
+         <td> <p> Microsoft Paint </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .msp </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MYD </p> </th> 
+         <td> <p> Myd format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .myd </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MYV </p> </th> 
+         <td> <p> Myv vector format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .myv </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">NEF</a> </p> </th> 
+         <td> <p> Nikon RAW </p> </td> 
+         <td> <p> <a href="Nikon">Nikon</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .nef </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MEF </p> </th> 
+         <td> <p> Mamiya RAW </p> </td> 
+         <td> <p> <a href="Mamiya">Mamiya</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .mef </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Neochrome </p> </th> 
+         <td> </td> 
+         <td> <p> Dave Staugas </p> </td> 
+         <td> </td> 
+         <td> <p> .neo </p> </td> 
+         <td> </td> 
+         <td> <p> An application on <a href="Atari ST">Atari ST</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MAG </p> </th> 
+         <td> <p> MAKIchan Graphic loader </p> </td> 
+         <td> <p> Woody-Rinn </p> </td> 
+         <td> </td> 
+         <td> <p> .mag </p> </td> 
+         <td> </td> 
+         <td> <p> Used by many old Japanese applications. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MAKI </p> </th> 
+         <td> <p> MAKIchan net format </p> </td> 
+         <td> <p> Woody-Rinn </p> </td> 
+         <td> </td> 
+         <td> <p> .mki </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Magick Image File Format">MIFF</a> </p> </th> 
+         <td> <p> Magick image file format </p> </td> 
+         <td> <p> ImageMagick Studio </p> </td> 
+         <td> </td> 
+         <td> <p> .miff </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="ImageMagick">ImageMagick</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MSA </p> </th> 
+         <td> <p> Misachan File </p> </td> 
+         <td> <p> Hirohumi Iguchi </p> </td> 
+         <td> </td> 
+         <td> <p> .msa </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by old Japanese applications </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MSL </p> </th> 
+         <td> <p> Magick Scripting Language </p> </td> 
+         <td> <p> ImageMagick Studio </p> </td> 
+         <td> </td> 
+         <td> <p> .msl </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="ImageMagick">ImageMagick</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MVG </p> </th> 
+         <td> <p> Magick Vector Graphics </p> </td> 
+         <td> <p> ImageMagick Studio </p> </td> 
+         <td> </td> 
+         <td> <p> .mvg </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="ImageMagick">ImageMagick</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MPC </p> </th> 
+         <td> <p> Magick Persistent Cache image file format </p> </td> 
+         <td> <p> ImageMagick Studio </p> </td> 
+         <td> </td> 
+         <td> <p> .mpc </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="ImageMagick">ImageMagick</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">MRW</a> </p> </th> 
+         <td> <p> Minolta RAW </p> </td> 
+         <td> <p> <a href="Minolta">Minolta</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .mrw </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> NSK-TIFF </p> </th> 
+         <td> <p> NSK-TIFF </p> </td> 
+         <td> <p> <a href="Japan Newspaper Publishers and Editors Association">Nihon Shinbun Kyokai (??????)</a> </p> </td> 
+         <td> <p> <a href="Tagged Image File Format">TIFF</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> OAZ </p> </th> 
+         <td> <p> OAZ Fax </p> </td> 
+         <td> <p> Oaz Communications </p> </td> 
+         <td> </td> 
+         <td> <p> .oaz </p> </td> 
+         <td> </td> 
+         <td> <p> Used by NetFax Manager </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> ODG </p> </th> 
+         <td> <p> OpenDocument drawing </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .odg </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OpenRaster">ORA</a> </p> </th> 
+         <td> <p> OpenRaster </p> </td> 
+         <td> <p> freedesktop.org </p> </td> 
+         <td> <p> OpenDocument/XML </p> </td> 
+         <td> <p> .ora </p> </td> 
+         <td> </td> 
+         <td> <p> DrawPile, <a href="GIMP">GIMP</a>, <a href="Krita">Krita</a>, MyPaint, Nathive, <a href="Pinta (software)">Pinta</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">ORF</a> </p> </th> 
+         <td> <p> Olympus RAW </p> </td> 
+         <td> <p> <a href="Olympus Corporation">Olympus</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .orf </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PAM graphics format">PAM</a> </p> </th> 
+         <td> <p> portable anymap file format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pam </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Panasonic RAW </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Panasonic">Panasonic</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .raw, .rw2 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PCIF </p> </th> 
+         <td> <p> Polyomino Compressed Image Format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pcf </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PhaseOne P25/P30/P45 RAW </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Phase One (company)">Phase One</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .tif, .tiff </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PictureGear Pocket Image </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .prc </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Portable Bitmap File Format">PBM</a> </p> </th> 
+         <td> <p> Portable Bitmap File Format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pbm </p> </td> 
+         <td> <p> image/x-portable-bitmap </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PCD </p> </th> 
+         <td> <p> Kodak ImagePac Photo CD </p> </td> 
+         <td> <p> <a href="Kodak">Kodak</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .pcd </p> </td> 
+         <td> <p> image/jpcd </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PCF </p> </th> 
+         <td> <p> Pixel Coordination Format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pcf </p> </td> 
+         <td> <p> image/pcf </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PCX">PCX</a> </p> </th> 
+         <td> <p> ZSoft PC Paintbrush File </p> </td> 
+         <td> <p> <a href="ZSoft Corporation">ZSoft Corporation</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .pcx, .pcc, .dcx </p> </td> 
+         <td> <p> image/x-pcx </p> </td> 
+         <td> <p> Dated rle packed indexed image format, used in some early 3d shooting games like Unreal Tournament as it takes up very little space and is easy to decode. </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PDF">PDF</a> </p> </th> 
+         <td> <p> Portable Document Format </p> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .pdf, .epdf </p> </td> 
+         <td> <p> application/pdf </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PDN </p> </th> 
+         <td> <p> <a href="Paint.NET">Paint.NET</a> Image </p> </td> 
+         <td> <p> dotPDN LLC </p> </td> 
+         <td> </td> 
+         <td> <p> .pdn </p> </td> 
+         <td> </td> 
+         <td> <p> Preferred and supported by <a href="Paint.NET">Paint.NET</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">PEF</a> </p> </th> 
+         <td> <p> PENTAX RAW </p> </td> 
+         <td> <p> PENTAX </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .pef </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Progressive Graphics File">PGF</a> </p> </th> 
+         <td> <p> Progressive Graphics File </p> </td> 
+         <td> <p> <a href="http://www.xeraina.ch">xeraina GmbH</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .pgf </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="Photograph">Photographic</a> images, eventual replacement for <a href="JPEG">JPEG</a>. </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Portable Graymap File Format">PGM</a> </p> </th> 
+         <td> <p> Portable Graymap File Format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pgm </p> </td> 
+         <td> <p> image/x-portable-graymap </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Precision Graphics Markup Language">PGML</a> </p> </th> 
+         <td> <p> Precision Graphics Markup Language </p> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a>, <a href="IBM">IBM</a>, <a href="Netscape">Netscape</a>, <a href="Sun Microsystems">Sun Microsystems</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Photochrome </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pcs </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PNM </p> </th> 
+         <td> <p> <a href="Portable anymap">Portable anymap</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pnm </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PTX </p> </th> 
+         <td> <p> Pentax RAW Bitmap Graphic </p> </td> 
+         <td> <p> <a href="Pentax">Pentax</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .ptx </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Pi </p> </th> 
+         <td> </td> 
+         <td> <p> Yanagisawa </p> </td> 
+         <td> </td> 
+         <td> <p> .pi </p> </td> 
+         <td> </td> 
+         <td> <p> Used by some old Japanese applications. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PIC </p> </th> 
+         <td> <p> Yanagisawa PIC </p> </td> 
+         <td> <p> Yanagisawa </p> </td> 
+         <td> </td> 
+         <td> <p> .pic </p> </td> 
+         <td> </td> 
+         <td> <p> Used by many old Japanese applications. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PIC </p> </th> 
+         <td> <p> DoGA PIC </p> </td> 
+         <td> <p> Project Team DoGA </p> </td> 
+         <td> </td> 
+         <td> <p> .pic </p> </td> 
+         <td> </td> 
+         <td> <p> Used by DoGA CGA System. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PICT">PICT</a> </p> </th> 
+         <td> <p> Macintosh PICT Format </p> </td> 
+         <td> <p> <a href="Apple Inc.">Apple Inc.</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .pict, .pic, .pct,<br />.pct1, .pct2 </p> </td> 
+         <td> <p> image/pict </p> </td> 
+         <td> <p> <a href="Metafile">Metafile</a> for <a href="Mac OS">Mac OS</a>, not meant for print publishing. </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PICtor PIC image format">PICtor</a> </p> </th> 
+         <td> </td> 
+         <td> <p> John Bridges, Doug Wolfgram </p> </td> 
+         <td> </td> 
+         <td> <p> .pic </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="PCPaint">PCPaint</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PIC2 </p> </th> 
+         <td> </td> 
+         <td> <p> Yanagisawa </p> </td> 
+         <td> </td> 
+         <td> <p> .p2 </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by some old Japanese applications. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Pixel image editor">Pixel</a> </p> </th> 
+         <td> <p> Pixel image format </p> </td> 
+         <td> <p> <a href="Pixel image editor">Pixel</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .px </p> </td> 
+         <td> <p> image/px </p> </td> 
+         <td> <p> Native format of the Pixel image editing program. </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PLD </p> </th> 
+         <td> <p> PhotoLine Document </p> </td> 
+         <td> <p> Computerinsel GmbH </p> </td> 
+         <td> </td> 
+         <td> <p> .pld </p> </td> 
+         <td> <p> application/pld </p> </td> 
+         <td> <p> Native format of the PhotoLine image editing program. </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PMP </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Sony">Sony</a> </p> </td> 
+         <td> <p> JPEG </p> </td> 
+         <td> <p> .pmp </p> </td> 
+         <td> </td> 
+         <td> <p> Used by Sony Cyber-Shot </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Portable Network Graphics">PNG</a> </p> </th> 
+         <td> <p> Portable Network Graphics </p> </td> 
+         <td> <p> <a href="World Wide Web Consortium">World Wide Web Consortium</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .png </p> </td> 
+         <td> <p> image/png </p> </td> 
+         <td> <p> <a href="W3C">W3C</a> endorsed replacement for <a href="GIF">GIF</a>. Supported by most web browsers. </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PostScript">PostScript</a> </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> ps, ps2, ps3 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Portable Pixmap File Format">PPM</a> </p> </th> 
+         <td> <p> Portable Pixmap File Format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .ppm </p> </td> 
+         <td> <p> image/x-portable-pixmap </p> </td> 
+         <td> <p> Very easy to understand. Programs to analyze and write to this format are easily written. </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Adobe Photoshop#File format">PSD</a> </p> </th> 
+         <td> <p> Photoshop Document </p> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .psd, .psb, .pdb,<br />.pdd </p> </td> 
+         <td> <p> image/vnd.adobe.photoshop<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Used mainly for storing image manipulation &amp; editing data. </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Corel Paint Shop Pro">PSP</a> </p> </th> 
+         <td> <p> Paint Shop Pro Document </p> </td> 
+         <td> <p> <a href="Corel Corporation">Corel Corporation</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .psp, .tub,<br />.pspimage </p> </td> 
+         <td> <p> image/x-psp </p> </td> 
+         <td> <p> It can only be opened in programs that support the format, such as <a href="Paint Shop Pro">Paint Shop Pro</a>, <a href="The GIMP">The GIMP</a>, etc. </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PSX TIM </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .tim </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PSX TIM2 </p> </th> 
+         <td> <p> Sony PlayStation Tim2 </p> </td> 
+         <td> <p> <a href="Sony">Sony</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .tm2, .str </p> </td> 
+         <td> </td> 
+         <td> <p> Used by PlayStation 2 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PXA </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .pxa </p> </td> 
+         <td> </td> 
+         <td> <p> Used by <a href="Pixia">Pixia</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> QuickTime Image </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Apple Inc.">Apple Inc.</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .qtif, .qti, .qif </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Q0 </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .q0 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Q4 </p> </th> 
+         <td> <p> XLD4 </p> </td> 
+         <td> <p> MAJYO </p> </td> 
+         <td> </td> 
+         <td> <p> .q4 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Radiance (software)#Scene description format">RAD</a> </p> </th> 
+         <td> </td> 
+         <td> <p> Gregory Ward Larson </p> </td> 
+         <td> </td> 
+         <td> <p> .rad </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="Radiance (software)">Radiance</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">RAF</a> </p> </th> 
+         <td> <p> Fujifilm RAW </p> </td> 
+         <td> <p> <a href="Fujifilm">Fujifilm</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .raf </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> RGB </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .rgb </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> RGBA </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .rgba </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="RGBE image format">RGBE</a> </p> </th> 
+         <td> </td> 
+         <td> <p> Gregory Ward Larson </p> </td> 
+         <td> </td> 
+         <td> <p> .hdr </p> </td> 
+         <td> <p> image/vnd.radiance </p> </td> 
+         <td> <p> <a href="Radiance (software)">Radiance</a>, most HDR imaging software </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="RGFX">RGFX</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> SView5 RGFX </p> </td> 
+         <td> <p> <a href="Electronic Arts">Electronic Arts</a> and <a href="Andreas R. Kleinert">Andreas R. Kleinert</a> </p> </td> 
+         <td> <p> <a href="Interchange File Format">IFF</a> </p> </td> 
+         <td> <p> .rgx, .rgfx, .iff </p> </td> 
+         <td> <p> image/x-rgfx </p> </td> 
+         <td> <p> 1-128 bit (LDR/HDR) graphics format with cross-plattform metadata support. </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> R3D </p> </th> 
+         <td> <p> RED REDCODE RAW </p> </td> 
+         <td> <p> <a href="RED Digital Camera Company">Red</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .r3d </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SAI </p> </th> 
+         <td> </td> 
+         <td> <p> SYSTEMAX </p> </td> 
+         <td> </td> 
+         <td> <p> .sai </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="SAI (software)">PaintTool SAI</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SCT </p> </th> 
+         <td> <p> <a href="Scitex Continuous Tone">Scitex Continuous Tone</a> Picture </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .sct </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SDA </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Sun Microsystems">Sun Microsystems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .sda </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="StarOffice">StarOffice</a> Draw 3-5 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SDD </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Sun Microsystems">Sun Microsystems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .sdd </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="StarOffice">StarOffice</a> Draw 3-5 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SFW </p> </th> 
+         <td> <p> Seattle File Works image </p> </td> 
+         <td> <p> <a href="http://www.filmworks.com/">Seattle File Works</a> </p> </td> 
+         <td> <p> JPEG (JFIF) </p> </td> 
+         <td> <p> .sfw, .pwp </p> </td> 
+         <td> </td> 
+         <td> <p> JPEG-converters sfwjpg and pwpjpg for <a href="http://www.lipman.org/software/sfw/">Unix/Linux</a> and <a href="http://www.joenord.com/apps/sfwjpg/">Windows</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SGB </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Sun Microsystems">Sun Microsystems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .sgb </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by StarOffice Graphics 2 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Silicon Graphics Image">SGI</a> </p> </th> 
+         <td> <p> Silicon Graphics Image </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .sgi, .rgb, .rgba,<br />.bw, .int, .inta,<br />.icon </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Shockwave Director </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .dir, .dcr, .dxr, .fgd </p> </td> 
+         <td> <p> application/x-director </p> </td> 
+         <td> <p> Used by <a href="Adobe Shockwave">Adobe Shockwave</a>. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SHAPE </p> </th> 
+         <td> <p> Dia Stencil </p> </td> 
+         <td> </td> 
+         <td> <p> SVG </p> </td> 
+         <td> <p> .shape </p> </td> 
+         <td> </td> 
+         <td> <p> Used by <a href="Dia (software)">Dia</a>. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SK </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .sk </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="Skencil">Skencil</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SketchUp Format </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .skp, .skb </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="SketchUp">SketchUp</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SML </p> </th> 
+         <td> <p> Kivio stencil </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .sml </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="Kivio">Kivio</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">SRF</a> </p> </th> 
+         <td> <p> Sony RAW File </p> </td> 
+         <td> <p> <a href="Sony">Sony</a> </p> </td> 
+         <td> <p> TIFF </p> </td> 
+         <td> <p> .srf, .sr2 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SUN </p> </th> 
+         <td> <p> Sun rasterfile </p> </td> 
+         <td> <p> <a href="Sun Microsystems">Sun Microsystems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .sun, .ras, .rs, .im1,<br />.im8, .im24, .im32 </p> </td> 
+         <td> </td> 
+         <td> <p> Supported by <a href="GIMP">GIMP</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> STX </p> </th> 
+         <td> <p> SBIG CCD camera ST-x </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .stx, .st4, .st5,<br />.st6, .st7, .st8,<br />.st9 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SView5 Graphics </p> </th> 
+         <td> </td> 
+         <td> <p> Andreas Kleinert </p> </td> 
+         <td> </td> 
+         <td> <p> .svg/.sgx </p> </td> 
+         <td> </td> 
+         <td> <p> Used by SView5-Library/SDK </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Scalable Vector Graphics">SVG</a> </p> </th> 
+         <td> <p> Scalable Vector Graphics </p> </td> 
+         <td> <p> <a href="World Wide Web Consortium">World Wide Web Consortium</a> </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> .svg,<br />.svgz (compressed) </p> </td> 
+         <td> <p> image/svg+xml </p> </td> 
+         <td> <p> Scriptable vector image format; supported by major web browsers, occasionally via plug-in. </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SWF">SWF</a> </p> </th> 
+         <td> <p> Shockwave Flash </p> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .swf </p> </td> 
+         <td> <p> application/x-shockwave-flash </p> </td> 
+         <td> <p> Supported by many web browsers via plug-in. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> SXD </p> </th> 
+         <td> <p> <a href="OpenOffice.org">OpenOffice.org</a> 1.0 drawing format </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .sxd </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Truevision TGA">TGA</a> </p> </th> 
+         <td> <p> Truevision Targa </p> </td> 
+         <td> <p> Truevision Inc. </p> </td> 
+         <td> </td> 
+         <td> <p> .tga, .tpic </p> </td> 
+         <td> <p> image/tga </p> </td> 
+         <td> <p> Used by many 3D rendering applications and 3d games. </p> </td> 
+         <td> <p> Yes? </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Tagged Image File Format">TIFF</a> </p> </th> 
+         <td> <p> Tagged Image File Format </p> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .tiff, .tif </p> </td> 
+         <td> <p> image/tiff </p> </td> 
+         <td> <p> Document scanning and imaging format, also functions as a container. </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TIFF/EP">TIFF/EP</a> </p> </th> 
+         <td> <p> Tag Image File Format / Electronic Photography </p> </td> 
+         <td> <p> International Organization for Standardization </p> </td> 
+         <td> <p> <a href="Tagged Image File Format">TIFF</a> </p> </td> 
+         <td> <p> .tiff, .tif </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> TIFF-FX </p> </th> 
+         <td> <p> Tag Image File Format Fax eXtended </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="Tagged Image File Format">TIFF</a> </p> </td> 
+         <td> <p> .tiff, .tif </p> </td> 
+         <td> <p> image/tiff-fx </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Tiny Stuff </p> </th> 
+         <td> </td> 
+         <td> <p> David Mumper </p> </td> 
+         <td> </td> 
+         <td> <p> .tny, .tn1, .tn2, .tn3,<br />.tn4, .tn5, tn6 </p> </td> 
+         <td> </td> 
+         <td> <p> An application on <a href="Atari ST">Atari ST</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> TLG5 </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .tlg </p> </td> 
+         <td> </td> 
+         <td> <p> Used by <a href="KiriKiri">KiriKiri</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> TLG6 </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .tlg </p> </td> 
+         <td> </td> 
+         <td> <p> Used by <a href="KiriKiri">KiriKiri</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> UFO </p> </th> 
+         <td> <p> Ulead File for Objects </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .ufo </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vector Markup Language">VML</a> </p> </th> 
+         <td> <p> Vector Markup Language </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> XML </p> </td> 
+         <td> <p> .htm, .html </p> </td> 
+         <td> <p> application/vnd. openxmlformats-officedocument. vmlDrawing </p> </td> 
+         <td> <p> <a href="Internet Explorer">Internet Explorer</a>, <a href="Microsoft Office">Microsoft Office</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Wireless Application Protocol Bitmap Format">WBMP</a> </p> </th> 
+         <td> <p> Wireless Application Protocol Bitmap Format </p> </td> 
+         <td> <p> <a href="Open Mobile Alliance">Open Mobile Alliance</a> (formerly WAP Forum)) </p> </td> 
+         <td> </td> 
+         <td> <p> .wbmp, .wbm, .wbp </p> </td> 
+         <td> <p> image/vnd.wap.wbmp </p> </td> 
+         <td> <p> Used in <a href="Wireless Application Protocol">WAP</a>-pages </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> WinFax </p> </th> 
+         <td> </td> 
+         <td> <p> <a href="Symantec">Symantec</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .wfx, fxs, fxo </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Windows Metafile">WMF</a> </p> </th> 
+         <td> <p> Windows Metafile Format </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .wmf, .wmz </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> WordPerfect Graphics File </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .wpg </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XAML">XAML</a> </p> </th> 
+         <td> <p> Extensible Application Markup Language </p> </td> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> .xaml </p> </td> 
+         <td> <p> application/xaml+xml </p> </td> 
+         <td> <p> Used by <a href="Windows Presentation Foundation">Windows Presentation Foundation</a> and <a href="Microsoft Silverlight">Microsoft Silverlight</a>. </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xar (graphics)">XAR</a> </p> </th> 
+         <td> <p> Xar </p> </td> 
+         <td> <p> <a href="Xara">Xara</a> </p> </td> 
+         <td> <p> <a href="Xar_(graphics)">Xar_(graphics)</a> </p> </td> 
+         <td> <p> .xar </p> </td> 
+         <td> <p> application/vnd.xara </p> </td> 
+         <td> <p> Used by <a href="Xara Photo &amp; Graphic Designer">Xara Photo &amp; Graphic Designer</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XBM">XBM</a> </p> </th> 
+         <td> <p> X BitMap </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .xbm, .bm,<br />.icon, .bitmap </p> </td> 
+         <td> <p> image/x-xbitmap </p> </td> 
+         <td> <p> Used by many legacy Unix applications. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XCF (file format)">XCF</a> </p> </th> 
+         <td> <p> XCF, name derived from <a href="eXperimental Computing Facility">eXperimental Computing Facility</a> </p> </td> 
+         <td> <p> The GIMP Team </p> </td> 
+         <td> </td> 
+         <td> <p> .xcf,<br />.xcfbz2&nbsp;(compressed),<br />.xcfgz&nbsp;(compressed) </p> </td> 
+         <td> <p> application/x-gimp-image </p> </td> 
+         <td> <p> Used by GIMP </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XPM (image format)">XPM</a> </p> </th> 
+         <td> <p> X-Pixmap </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .xpm, .pm </p> </td> 
+         <td> <p> image/x-xpm </p> </td> 
+         <td> <p> Used by many legacy Unix applications. </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Raw image format">X3F</a> </p> </th> 
+         <td> <p> SIGMA RAW </p> </td> 
+         <td> <p> <a href="SIGMA">SIGMA</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .x3f </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XWD </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .xwd, .x11 </p> </td> 
+         <td> </td> 
+         <td> <p> Used by <a href="X Window System">X Window System</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> XYZ </p> </th> 
+         <td> <p> <a href="RPG Maker">RPG Maker</a> image file </p> </td> 
+         <td> <p> <a href="ASCII (company)">ASCII</a> </p> </td> 
+         <td> </td> 
+         <td> <p> .xyz </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="RPG Maker">RPG Maker</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> YCbCr </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .ycbcr </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> YCbCrA </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .ycbcra </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> YUV </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .yuv </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> ZDT </p> </th> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> .zdt </p> </td> 
+         <td> </td> 
+         <td> <p> Used by TECH Win </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="width: 7em;"> Format </th> 
+         <th> Full name </th> 
+         <th> Owner </th> 
+         <th> Based Format </th> 
+         <th> <a href="File extension">File extension</a> </th> 
+         <th> <a href="MIME">MIME</a> type </th> 
+         <th> Application </th> 
+         <th> <p> Patented </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Technical details</h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="text-align: center; width: auto; font-size: smaller;"> 
+       <tbody>
+        <tr>
+         <th style="width: 7em;"> Format </th> 
+         <th> <a href="Compression algorithm">Compression<br /> algorithm</a> </th> 
+         <th> <a href="raster graphics">Raster</a>/<br /><a href="Vector graphics">vector</a> </th> 
+         <th> <a href="Color depth">Color depth</a> </th> 
+         <th> <a href="Indexed color">Indexed color</a> </th> 
+         <th> <a href="Transparency in graphic files">Transparency</a> </th> 
+         <th> <a href="Metadata">Metadata</a> </th> 
+         <th> <a href="Interlace (bitmaps)">Interlacing</a> </th> 
+         <th> Multi-page </th> 
+         <th> <a href="Animation">Animation</a> </th> 
+         <th> Layers </th> 
+         <th> <a href="Color management">Color management</a> </th> 
+         <th> Extend&shy;able </th> 
+         <th> <p> <a href="High dynamic range imaging">HDR format</a> </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> AGP </p> </th> 
+         <td> <p> <a href="Run-length encoding">RLE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Adobe Illustrator Artwork">AI</a> </p> </th> 
+         <td> <p> Lossy and lossless </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> 1, 8, 24, and 32 (possibly with multiple palettes) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BEF (image format)">BEF</a> </p> </th> 
+         <td> <p> Visual lossless and lossy compression based on <a href="JND">JND</a> metric </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 32-bit floating point </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Not required </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BMP file format">BMP</a> </p> </th> 
+         <td> <p> None, <a href="Run-length encoding">RLE</a>, JPEG, and PNG </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 1, 4, 8, 16, 24, and 32 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>; 8b per-pixel <a href="alpha channel">alpha channel</a> for ARGB </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CorelDRAW">CDR</a> </p> </th> 
+         <td> <p> Lossy and lossless </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> 1, 8, 24,and 32 (multiple palettes) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Cartesian Perceptual Compression">CPC</a> </p> </th> 
+         <td> <p> CPC </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, via embedded dictionary </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Encapsulated PostScript">EPS</a> </p> </th> 
+         <td> <p> None, <a href="LZW">LZW</a>, <a href="DEFLATE">DEFLATE</a>, <a href="Run-length encoding">RLE</a>, <a href="Discrete cosine transform">DCT</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> Device specific </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OpenEXR">EXR</a> </p> </th> 
+         <td> <p> None, <a href="Run-length encoding">RLE</a>, <a href="ZIP (file format)">ZIP</a>, Piz, PXR24, and B44 </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 16?128 (<a href="IEEE floating-point standard">floating-point</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GIF">GIF</a> </p> </th> 
+         <td> <p> <a href="LZW">LZW</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 3, 4, 5, 6, 7, and 8 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>; 1b plane-only mask using color index </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (GIF89a) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="HD Photo">HD Photo</a> / <a href="JPEG XR">JPEG XR</a> </p> </th> 
+         <td> <p> Lossy and lossless bi-orthogonal transform </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 8, 16, 24, 32, 48, 64, and 128 (<a href="IEEE floating-point standard">floating-point</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ILBM">ILBM</a> </p> </th> 
+         <td> <p> Optional <a href="run-length encoding">run-length encoding</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 4, 8, 16, 32, 64, 64 <a href="Extra Half-Brite">EHB</a>, 128, 256 (<a href="8-bit">8-bit</a>), 4,096 (<a href="Hold And Modify">HAM6</a> pseudo 12-bit), 4,096 pure <a href="12-bit">12-bit</a>, 262, 144 (<a href="Hold And Modify#Advanced Graphics Architecture HAM mode (HAM8)">HAM8</a> pseudo <a href="18-bit">18-bit</a>), and <a href="24-bit">24-bit</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>,<br /><a href="Palette-shifting">Palette-shifting</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> IMA </p> </th> 
+         <td> <p> Lossy and lossless original mutiresolution analysis transformation </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <a href="8-bit">8-bit</a>, <a href="16-bit">16-bit</a> <a href="integer">integer</a>, <a href="32-bit">32-bit</a> <a href="floating-point">floating-point</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JPEG">JPEG</a> </p> </th> 
+         <td> <p> Lossy (and partly lossless), <a href="discrete cosine transform">DCT</a>, <a href="run-length encoding">RLE</a>, and <a href="Huffman coding">Huffman</a> predictive nearest neighbor </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <a href="8-bit">8-bit</a> (<a href="greyscale">greyscale</a>), 12-bit, and <a href="24-bit">24-bit</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> (see unofficial <a href="JPEG-HDR">JPEG-HDR</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="JPEG 2000">JPEG 2000</a> </p> </th> 
+         <td> <p> Lossy and lossless (<a href="Discrete Wavelet Transform">DWT</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <a href="8-bit">8</a> and <a href="16-bit">16</a> (<a href="greyscale">greyscale</a>) with possibly color up to <a href="48-bit">48-bit</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="OpenRaster">ORA</a> </p> </th> 
+         <td> <p> Lossless </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 4, 8, 16, 24, 32, 48, and 64 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PAM graphics format">PAM</a> </p> </th> 
+         <td> <p> None </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> Up to 16 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PCX">PCX</a> </p> </th> 
+         <td> <p> None, <a href="Run-length encoding">RLE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 4, 8, 24 and 32 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Progressive Graphics File">PGF</a> </p> </th> 
+         <td> <p> Lossy and lossless (<a href="Discrete Wavelet Transform">DWT</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <a href="greyscale">greyscale</a>: 1, 8, 16, 31; color: 12, 16, 24, 32, and 48 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PICT">PICT</a> </p> </th> 
+         <td> <p> None, <a href="run-length encoding">RLE</a>, and QuickTime </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 4, 8, 16, 24, and 32 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span>? </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Pixel image editor">Pixel</a> </p> </th> 
+         <td> <p> GZIP </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 1, 4, 8, 16, 24, and 32 </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> PLD </p> </th> 
+         <td> <p> Optional ZIP, JPEG </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> 1, 4, 8, 16, 24, 32, 48, and 64 </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Portable Network Graphics">PNG</a> </p> </th> 
+         <td> <p> Lossless and <a href="DEFLATE (algorithm)">DEFLATE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 4, 8, 16, 24, 32, 48, and 64 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (1?8 bit modes) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>; 8b, 16b per-pixel <a href="alpha channel">alpha channel</a>; 8b for indexed </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, <a href="Adam7 algorithm">Adam7 algorithm</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> (but see <a href="Multiple-image Network Graphics">MNG</a> and <a href="Animated Portable Network Graphics">APNG</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, via chunks </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span>, see discussion </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Portable pixmap">PPM</a> </p> </th> 
+         <td> <p> None </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> Up to 16 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Adobe Photoshop">PSD</a> </p> </th> 
+         <td> <p> None and <a href="Run-length encoding">RLE</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 4, 8, 16, 24, 32, 48, and 64 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>; 8b, 16b per-pixel <a href="alpha channel">alpha channel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span>? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Corel Paint Shop Pro">PSP</a> </p> </th> 
+         <td> <p> None </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 8, 16, 24, 32, and 48 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>; 8b and 16b per-pixel <a href="alpha channel">alpha channel</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Scalable Vector Graphics">SVG</a> </p> </th> 
+         <td> <p> None and lossless <a href="gzip">gzip</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 24 and 32 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> (1.2 draft)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> (<a href="Synchronized Multimedia Integration Language">SMIL</a>/<a href="SVG">SVG</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, <a href="XML">XML</a> based </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Truevision TGA">TGA</a> </p> </th> 
+         <td> <p> None, <a href="run-length encoding">RLE</a>, and other </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 4, 8, 16, 24, and 32 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Tagged Image File Format">TIFF</a> </p> </th> 
+         <td> <p> None, <a href="LZW">LZW</a>, <a href="Run-length encoding">RLE</a>, <a href="ZIP (file format)">ZIP</a>, and other </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> 1, 2, 4, 8, 16, 24, and 32 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> (1?8 bit modes) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, for JPEG compression </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, via tags </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, TIFF float </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XAML">XAML</a> </p> </th> 
+         <td> <p> None </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> 32 and 64 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="XCF (file format)">XCF</a> </p> </th> 
+         <td> <p> None and lossless (<a href="gzip">gzip</a> and <a href="bzip2">bzip2</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> 8, 24, and 32 </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th style="width: 7em;"> Format </th> 
+         <th> <a href="Compression algorithm">Compression algorithm</a> </th> 
+         <th> <a href="raster graphics">Raster</a>/<br /><a href="Vector graphics">vector</a> </th> 
+         <th> <a href="Color depth">Color depth</a> </th> 
+         <th> <a href="Indexed color">Indexed color</a> </th> 
+         <th> <a href="Transparency in graphic files">Transparency</a> </th> 
+         <th> <a href="Metadata">Metadata</a> </th> 
+         <th> <a href="Interlace (bitmaps)">Interlacing</a> </th> 
+         <th> Multi-page </th> 
+         <th> <a href="Animation">Animation</a> </th> 
+         <th> Layers </th> 
+         <th> <a href="Color management">Color management</a> </th> 
+         <th> Extend&shy;able </th> 
+         <th> <p> <a href="High dynamic range imaging">HDR format</a> </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{Graphics file formats}}</span> </p> 
+      <p> <a href="Category:Software comparisons">Graphics File Formats</a> <a href="Category:Graphics file formats">*</a> </p> 
+      <p> <a href="fa:??????? ???????? ?????????? ???????">fa:??????? ???????? ?????????? ???????</a> <a href="pt:Lista de formatos de ficheiro gr&aacute;fico">pt:Lista de formatos de ficheiro gr&aacute;fico</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,451 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of object database management systems</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of object database management systems</h1> 
+   <div class="article-content"> 
+    <p> This is a <b>comparison of notable object database management systems</b>, showing what fundamental <a href="object database">object database</a> features are implemented natively. </p> 
+    <table class="sortable wikitable" style="width: 100%; text-align: center"> 
+     <tbody>
+      <tr>
+       <th style="width: 25%"> <p> Name </p> </th> 
+       <th> <p> Current Stable Version </p> </th> 
+       <th> <p> <a href="Computer languages">Language(s)</a> </p> </th> 
+       <th> <p> <a href="SQL">SQL</a> support </p> </th> 
+       <th> <p> <a href="Datatypes">Datatypes</a> </p> </th> 
+       <th> <p> License </p> </th> 
+       <th> <p> Description </p> </th> 
+      </tr>
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Cach&eacute; (software)">Cach&eacute;</a> </p> </th> 
+       <td> <p> 2012.1 </p> </td> 
+       <td> <p> ObjectScript (dynamic language), Basic. Java/.NET object mapping supported. </p> </td> 
+       <td> <p> SQL subset. Object notation allowed. Supports embedded SQL, dynamic SQL and xDBC access. </p> </td> 
+       <td> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> MUMPS ancestry. Includes built-in support for XML, Web/AJAX and an EMB system called Ensemble. Supports embedded, client/server and distributed implementations. </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="ConceptBase">ConceptBase</a> </p> </th> 
+       <td> </td> 
+       <td> <p> <a href="Telos (computer science)">Telos</a> </p> </td> 
+       <td> <p> CBQL (based on <a href="Datalog">Datalog</a>) </p> </td> 
+       <td> <p> no types but classes </p> </td> 
+       <td> <p> open source, FreeBSD-style license </p> </td> 
+       <td> <p> historical db, active rules, meta-modeling, deductive rules </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Db4o">Db4o</a> </p> </th> 
+       <td> <p> 8.0 </p> </td> 
+       <td> <p> <a href="C Sharp (programming language)">C#</a>, <a href="Java (programming language)">Java</a> </p> </td> 
+       <td> <p> <a href="http://code.google.com/p/db4o-sql/">db4o-sql</a> </p> </td> 
+       <td> <p> .NET and Java data types </p> </td> 
+       <td> <p> <a href="GPL">GPL</a>, Commercial </p> </td> 
+       <td> <p> Native Queries, LINQ support, automatic schema evolution, Transparent Activation/Persistence, replication to RDBMS, Object Manager plugin for Visual Studio and Eclipse </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Eloquera database">Eloquera Database</a> </p> </th> 
+       <td> <p> 5.0 RC2 (Jan 2013) </p> </td> 
+       <td> <p> C#.NET </p> </td> 
+       <td> <p> <a href="http://wiki.eloquera.com/">SQL with object extensions</a>, LINQ </p> </td> 
+       <td> <p> .NET data types, classes. Supports dynamic types. </p> </td> 
+       <td> <p> Commercial. free community edition </p> </td> 
+       <td> <p> Distributed database designed for high volume, mission critical solutions. Includes built-in load balancing. Availability is guaranteed by fail over mechanisms and disaster recovery options. </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Eloquera database">Eloquera Database Community Edition</a> </p> </th> 
+       <td> <p> 5.0 (Jan 2013) </p> </td> 
+       <td> <p> Native to C#.NET, VB.NET, C++.NET. Provided JSON agent for other environments such as Java, Ruby, Python </p> </td> 
+       <td> <p> <a href="http://wiki.eloquera.com/">SQL with object extensions</a>, LINQ </p> </td> 
+       <td> <p> .NET data types, classes. Supports dynamic types. </p> </td> 
+       <td> <p> Free for Commercial use, Commercial Support, Closed Source </p> </td> 
+       <td> <p> SQL and LINQ queries. Client/Server, desktop modes. In-memory mode support. Schema free design. Functionality of object-oriented and document-oriented databases. SNMP monitoring, control and profiling. Supports JOIN queries. Stored procedures. CLR types evolution. </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Gemstone (database)">Gemstone</a> </p> </th> 
+       <td> </td> 
+       <td> <p> Smalltalk, Java </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="NeoDatis ODB">NeoDatis ODB</a> </p> </th> 
+       <td> </td> 
+       <td> <p> <a href="C Sharp (programming language)">C#</a>, <a href="Java (programming language)">Java</a>, <a href="Mono (software)">Mono</a> </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> <a href="LGPL">LGPL</a> </p> </td> 
+       <td> <p> Embedded and Client/Server </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="ObjectDatabase++">ObjectDatabase++</a> </p> </th> 
+       <td> <p> 3.4 </p> </td> 
+       <td> <p> C++, TScript, .NET </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Commercial / Free Development </p> </td> 
+       <td> <p> Embedded </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="ObjectDB">ObjectDB</a> </p> </th> 
+       <td> <p> 2.4.6 </p> </td> 
+       <td> <p> Java </p> </td> 
+       <td> <p> None, uses <a href="Java Persistence API">JPA</a> or <a href="Java Data Objects">JDO</a> </p> </td> 
+       <td> </td> 
+       <td> <p> Commercial with free limited download </p> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Objectivity/DB">Objectivity/DB</a> </p> </th> 
+       <td> <p> 10.2.1 </p> </td> 
+       <td> <p> <a href="C++">C++</a>, <a href="C Sharp (programming language)">C#</a>, <a href="Java (programming language)">Java</a>, <a href="Python (programming language)">Python</a>, <a href="Smalltalk">Smalltalk</a> and <a href="XML">XML</a> </p> </td> 
+       <td> <p> SQL superset </p> </td> 
+       <td> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> Distributed, Parallel Query Engine </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Objectstore">ObjectStore</a> </p> </th> 
+       <td> <p> 7.2 (July 2011) </p> </td> 
+       <td> <p> <a href="C++">C++</a>, <a href="Java (programming language)">Java</a>, interoperable with .NET </p> </td> 
+       <td> <p> SQL subset (also has own object query language) </p> </td> 
+       <td> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> Embedded database supporting efficient, distributed management of C++ and Java objects. Avoids the complexities and limitations of ORM products such as Hibernate by storing objects directly with their relationships intact. Uses a page-based mapping system for fast locking and efficient, distributed, client-side caching. </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="ODABA">ODABA</a> </p> </th> 
+       <td> </td> 
+       <td> <p> C++, .NET </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> GPL </p> </td> 
+       <td> <p> <a href="Terminology-oriented database">Terminology-oriented database</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="OpenAccess">OpenAccess</a> </p> </th> 
+       <td> <p> 2.2 </p> </td> 
+       <td> <p> <a href="C++">C++</a> </p> </td> 
+       <td> <p> no </p> </td> 
+       <td> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> <a href="EDA database">EDA database</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Virtuoso Universal Server">OpenLink Virtuoso</a> </p> </th> 
+       <td> <p> 5.0.11 </p> </td> 
+       <td> <p> <a href="C++">C++</a>, <a href="Java (programming language)">Java/JSP</a>, ASP, <a href="ASPX">ASPX</a>, Mono, <a href="Resource Description Framework">RDF</a>, <a href="SPARQL">SPARQL</a>, <a href="SPARUL">SPARUL</a>, <a href="SQL">SQL</a>, Perl, <a href="Python (programming language)">Python</a>, <a href="PHP">PHP</a>, <a href="Ruby (programming language)">Ruby</a>, <a href="XML">XML</a>, ODBC, JDBC, ADO.NET, more </p> </td> 
+       <td> <p> SQL 9x/200x </p> </td> 
+       <td> </td> 
+       <td> <p> Open Source Edition = GPL; Closed-Source Edition = Commercial (customer choice, dependent on feature set) </p> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Perst">Perst</a> </p> </th> 
+       <td> <p> 4.2 </p> </td> 
+       <td> <p> <a href="Java (programming language)">Java</a> (including <a href="Java SE">Java SE</a>, <a href="Java ME">Java ME</a> &amp; <a href="Android (operating system)">Android</a>), <a href="C Sharp (programming language)">C#</a> (including <a href=".NET Framework">.NET</a>, <a href=".NET Compact Framework">.NET Compact Framework</a>, <a href="Mono (software)">Mono</a> &amp; <a href="Silverlight">Silverlight</a>) </p> </td> 
+       <td> <p> JSQL - object-oriented subset of SQL </p> </td> 
+       <td> <p> Java and .NET data types </p> </td> 
+       <td> <p> <a href="GPL">GPL</a>, Commercial </p> </td> 
+       <td> <p> Small footprint <a href="embedded database">embedded database</a>. Diverse <a href="database index">indexes</a> and specialized <a href="collection class">collection classes</a>; <a href="LINQ">LINQ</a>; replication; <a href="ACID">ACID transactions</a>; native <a href="full text search">full text search</a>; includes Silverlight, Android and Java ME demo apps. </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Picolisp">Picolisp</a> </p> </th> 
+       <td> <p> 3.1.1 </p> </td> 
+       <td> <p> Picolisp </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> MIT License (open source) </p> </td> 
+       <td> <p> DB built into the language </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="http://siaqodb.com/">siaqodb</a> </p> </th> 
+       <td> <p> 3.6 </p> </td> 
+       <td> <p> <a href="C Sharp (programming language)">C#</a>, <a href=".NET Framework">.NET</a>, <a href="Mono (software)">Mono</a>, <a href="WinRT">WinRT</a>, <a href="Silverlight">Silverlight</a>, <a href="Windows Phone">Windows Phone</a>, <a href="Android (operating system)">Android</a>, <a href="iOS">iOS</a>, <a href="Unity3D">Unity3D</a>, <a href=".NET Compact Framework">.NET Compact Framework</a> </p> </td> 
+       <td> <p> LINQ </p> </td> 
+       <td> <p> .NET data types, classes </p> </td> 
+       <td> <p> Commercial </p> </td> 
+       <td> <p> NoSQL embedded database for .NET that runs on .NET, Mono, WinRT, iOS, Android , WindowsPhone, Unity3D,Compact Framework </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Twig (database)">Twig</a> </p> </th> 
+       <td> </td> 
+       <td> <p> Java </p> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> <p> Apache 2.0 (open source) </p> </td> 
+       <td> <p> Built on <a href="Google App Engine">Google App Engine</a>'s low-level <a href="Datastore API">Datastore API</a> </p> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Versant Object Database">Versant Object Database</a> </p> </th> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+       <td> </td> 
+      </tr> 
+      <tr> 
+       <th style="text-align:left;"> <p> <a href="Zope Object Database">Zope Object Database</a> </p> </th> 
+       <td> </td> 
+       <td> <p> <a href="Python (programming language)">Python</a>, C </p> </td> 
+       <td> <p> No support. Object indexing and searching is done through ZCatalog facility. </p> </td> 
+       <td> </td> 
+       <td> <p> <a href="Zope Public License">Zope Public License</a> (open source) </p> </td> 
+       <td> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Comparison of object-relational database management systems">Comparison of object-relational database management systems</a></li> 
+       <li><a href="Object-relational database">Object-relational database</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Databases}}</span> </p> 
+      <p> <a href="Category:Object-oriented database management systems">Category:Object-oriented database management systems</a> <a href="Category:Database software comparisons">object database management systems</a> </p> 
+      <p> <a href="pl:Lista obiektowych system&oacute;w zarz?dzania bazami danych">pl:Lista obiektowych system&oacute;w zarz?dzania bazami danych</a> <a href="pt:Anexo:Lista de sistemas de gerenciamento de bancos de dados orientados a objeto">pt:Anexo:Lista de sistemas de gerenciamento de bancos de dados orientados a objeto</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

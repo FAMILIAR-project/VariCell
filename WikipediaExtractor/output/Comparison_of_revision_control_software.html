@@ -1,0 +1,2756 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of revision control software</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of revision control software</h1> 
+   <div class="article-content"> 
+    <p> The following is a <b>comparison of revision control software</b>. The following tables include general and technical information on notable <a href="revision control">revision control</a> and <a href="software configuration management">software configuration management</a> (SCM) <a href="software">software</a>. For SCM software not suitable for <a href="source code">source code</a>, see <a href="Comparison of open source configuration management software">Comparison of open source configuration management software</a>. <span class="unknown-node">{{Dynamic list}}</span> </p> 
+    <div class="section"> 
+     <h2> General information </h2> 
+     <div class="section-body"> 
+      <p> <b>Table explanation</b> </p> 
+      <ul> 
+       <li> <i>Software</i>: The name of the application, that is described.</li> 
+       <li> <i>Maintainer</i>: The company or group that is currently taking responsibility for the software's maintenance or development</li> 
+       <li> <i>Development Status</i>: The current status of the software project</li> 
+       <li> <i><span id="Repository model">Repository model</span></i>: describes the relationship between various copies of the source code repository. In a <a href="client?server model">client?server model</a>, users access a master repository via a <a href="Client (computing)">client</a>; typically, their local machines hold only a <a href="working copy">working copy</a> of a project tree. Changes in one working copy must be committed to the master repository before they are propagated to other users. In a <a href="Distributed revision control">distributed</a> model, repositories act as peers, and users typically have a local repository with version history available, in addition to their working copies.</li> 
+       <li> <i><span id="Concurrency model">Concurrency model</span></i>: describes how changes to the working copy are managed to prevent simultaneous edits from causing nonsensical data in the repository. In a <i>lock</i> model, changes are disallowed until the user requests and receives an exclusive lock on the file from the master repository. In a <i>merge</i> model, users may freely edit files, but are informed of possible conflicts upon checking their changes into the repository, whereupon the version control system may merge changes on both sides, or let the user decide when conflicts arise. Note that distributed version control almost always implies a merge concurrency model.</li> 
+       <li> <i>License</i>: The license model under which the software is licensed. These can be both free and paid licenses</li> 
+       <li> <i>Platforms Supported</i>: The operating systems that the software application currently supports.</li> 
+       <li> <i>Cost</i>: The price of the software application</li> 
+      </ul> 
+      <table class="wikitable sortable" style="font-size: 80%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Software </p> </th> 
+         <th> <p> Maintainer </p> </th> 
+         <th> <p> Development status </p> </th> 
+         <th> <p> Market share (2009 Q3)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="#Repository model">Repository model</a> </p> </th> 
+         <th> <p> <a href="#Concurrency model">Concurrency model</a> </p> </th> 
+         <th> <p> <a href="Software license">License</a> </p> </th> 
+         <th> <p> Platforms supported </p> </th> 
+         <th> <p> Cost </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AccuRev SCM">AccuRev SCM</a> </p> </th> 
+         <td> <p> AccuRev, Inc. </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 0.4% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> Most <a href="Java (programming language)">Java</a> Platforms (<a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> Quoted on an individual basis. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bazaar (software)">Bazaar</a> </p> </th> 
+         <td> <p> <a href="Canonical Ltd.">Canonical Ltd.</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{GPL-lic}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BitKeeper">BitKeeper</a> </p> </th> 
+         <td> <p> BitMover Inc. </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> Quoted on an individual basis. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CA Software Change Manager">CA Software Change Manager</a> </p> </th> 
+         <td> <p> <a href="CA Technologies">CA Technologies</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 0.3% </p> </td> 
+         <td> <p> <a href="Client-server">Client-server</a> </p> </td> 
+         <td> <p> Merge or Lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="i5/OS">i5/OS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> Named licenses available with volume discounts available </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ClearCase">ClearCase</a> </p> </th> 
+         <td> <p> <a href="Rational Software">IBM Rational</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 5.4% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="AIX">AIX</a>, <a href="Solaris (operating system)">Solaris</a>, <a href="HP UX">HP UX</a>, <a href="i5/OS">i5/OS</a>, <a href="OS/390">OS/390</a>, <a href="z/OS">z/OS</a>, </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> $4600 per floating license (held automatically for 30-minutes minimum per user, can be surrendered manually) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Code Co-op">Code Co-op</a> </p> </th> 
+         <td> <p> Reliable Software </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> $150 per seat </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Codeville">Codeville</a> </p> </th> 
+         <td> <p> Ross Cohen </p> </td> 
+         <td> <p> <a href="http://codeville.org">official site</a> offline; latest release <span class="unknown-node">{{release date|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> precise codeville merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Concurrent Versions System">CVS</a> </p> </th> 
+         <td> <p> The CVS Team<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> maintained but new features not added </p> </td> 
+         <td> <p> 11.9% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{GPL-lic}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CVSNT">CVSNT</a> </p> </th> 
+         <td> <p> March Hare Software<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> and community members </p> </td> 
+         <td> <p> maintained and new features under development </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a>, <a href="i5/OS">i5/OS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="darcs">darcs</a> </p> </th> 
+         <td> <p> The Darcs team </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{GPL-lic}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Fossil (software)">Fossil</a> </p> </th> 
+         <td> <p> <a href="D. Richard Hipp">D. Richard Hipp</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <a href="POSIX">POSIX</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a>, Other </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Git (software)">Git</a> </p> </th> 
+         <td> <p> <a href="Junio Hamano">Junio Hamano</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 2.7% </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{GPL-lic}}</span> </p> </td> 
+         <td> <p> <a href="POSIX">POSIX</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU arch">GNU arch</a> </p> </th> 
+         <td> <p> Andy Tai </p> </td> 
+         <td> <p> unmaintained </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{GPL-lic}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IC Manage">IC Manage</a> </p> </th> 
+         <td> <p> IC Manage Inc. </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> Commercial </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MKS Integrity">MKS Integrity</a> </p> </td> 
+         <td> <p> Integrity, a PTC Company </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 0.9% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LibreSource">LibreSource Synchronizer</a> </p> </th> 
+         <td> <p> Artenum<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> maintained and new features under development </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> extended to &quot;tree&quot;<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{GPL-lic}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mercurial">Mercurial</a> </p> </th> 
+         <td> <p> Matt Mackall </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 0.7% </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{GPL-lic}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Monotone (software)">Monotone</a> </p> </th> 
+         <td> <p> Nathaniel Smith, Graydon Hoare </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{GPL-lic}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perforce">Perforce</a> </p> </th> 
+         <td> <p> Perforce Software Inc. </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 6.1% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Plastic SCM">Plastic SCM</a> </p> </th> 
+         <td> <p> Codice Software </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IBM Rational Team Concert">Rational Team Concert</a> </p> </th> 
+         <td> <p> <a href="Rational Software">IBM Rational</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 0.2% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="AIX">AIX</a>, <a href="Solaris (operating system)">Solaris</a>, <a href="HP UX">HP UX</a>, <a href="i5/OS">i5/OS</a>, <a href="OS/390">OS/390</a>, <a href="z/OS">z/OS</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SCM Anywhere">SCM Anywhere</a> </p> </th> 
+         <td> <p> <a href="Dynamsoft">Dynamsoft</a> Corporation </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or Lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> Single user free; $299 per user, bulk discount available </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Sourceanywhere">Sourceanywhere</a> Standalone </p> </th> 
+         <td> <p> <a href="Dynamsoft">Dynamsoft</a> Corporation </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or Lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="Linux">Linux</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> Single user free; $299 per user, bulk discount available </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="StarTeam">StarTeam</a> </p> </th> 
+         <td> <p> <a href="Borland">Borland</a> (<a href="Micro Focus International">Micro Focus</a>) </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 1.6% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> and Cross-platform via Java based client </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> $7500 per concurrent, $2500 per fixed user. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Subversion (software)">Subversion (SVN)</a> </p> </th> 
+         <td> <p> Apache Software Foundation<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 33.4% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Merge or lock<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Surround SCM">Surround SCM</a> </p> </th> 
+         <td> <p> <a href="Seapine Software">Seapine Software</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> Quoted on an individual basis. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVK">SVK</a> </p> </th> 
+         <td> <p> <a href="http://bestpractical.com/">Best Practical</a> </p> </td> 
+         <td> <p> maintenance through 2010, no new features<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a>, decentralized </p> </td> 
+         <td> <p> Merge </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="OS X">OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual Studio Team Foundation Server">Team Foundation Server</a> (TFS) </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 8.5% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> Server: <a href="Microsoft Windows">Windows</a> Server 2003 or later, Windows 7 or 8 (for Express edition only); Clients: <a href="Microsoft Windows">Windows</a> and Web included </p> </td> 
+         <td> <p> <span class="unknown-node">{{Partial|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Telelogic Synergy">Synergy</a> </p> </th> 
+         <td> <p> <a href="Rational Software">IBM Rational</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 0.5% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> and <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a>, <a href="Unix-like">Unix-like</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> Contact IBM Rational<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vault (revision control system)">Vault</a> </p> </th> 
+         <td> <p> <a href="http://www.sourcegear.com">SourceGear LLC</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 1.1% </p> </td> 
+         <td> <p> <a href="Client?server">Client?server</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> $300 per user </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Veracity (software)">Veracity</a> </p> </th> 
+         <td> <p> <a href="http://www.sourcegear.com">SourceGear LLC</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Linux">Linux</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vesta (Software configuration management)">Vesta</a> </p> </th> 
+         <td> <p> Kenneth Schalk; Tim Mann,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Distributed revision control">Distributed</a> NFS-protocol-emulation choice to optionally confederate <a href="Client?server">clients</a> and/or <a href="Client?server">servers</a> </p> </td> 
+         <td> <p> lock on branch; merge branch-to-branch </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <a href="Tru64">Tru64</a>, <a href="Linux">Linux</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual SourceSafe">Visual SourceSafe</a> (VSS) </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> serious bug fixes only </p> </td> 
+         <td> <p> 12.5% </p> </td> 
+         <td> <p> Shared Folder </p> </td> 
+         <td> <p> Merge or lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> ~$500 per license or single license included with each MSDN subscription. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="PVCS">PVCS</a> </p> </th> 
+         <td> <p> <a href="Serena Software">Serena Software</a> </p> </td> 
+         <td> <p> actively developed </p> </td> 
+         <td> <p> 1.7% </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> Lock </p> </td> 
+         <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+         <td> <p> Windows, Unix-like </p> </td> 
+         <td> <p> <span class="unknown-node">{{nonfree}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Software </p> </th> 
+         <th> <p> Maintainer </p> </th> 
+         <th> <p> Development status </p> </th> 
+         <th> <p> Market share </p> </th> 
+         <th> <p> <a href="#Repository model">Repository model</a> </p> </th> 
+         <th> <p> <a href="#Concurrency model">Concurrency model</a> </p> </th> 
+         <th> <p> <a href="Software license">License</a> </p> </th> 
+         <th> <p> Platforms supported </p> </th> 
+         <th> <p> Cost </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Technical information </h2> 
+     <div class="section-body"> 
+      <p> <b>Table explanation</b> </p> 
+      <ul> 
+       <li> <i>Software</i>: The name of the application that is described.</li> 
+       <li> <i>Programming language</i>: The coding language in which the application is being developed</li> 
+       <li> <i>Storage Method</i>: Describes the form in which files are stored in the repository. A <i>snapshot</i> indicates that a committed file(s) is stored in its entirety?usually compressed. A <i><a href="changeset">changeset</a></i>, in this context, indicates that a committed file(s) is stored in the form of a difference between either the previous version or the next.</li> 
+       <li> <i>Scope of change</i>: Describes whether changes are recorded for individual <i>files</i> or for entire directory <i>trees</i>.</li> 
+       <li> <i><span id="Revision IDs">Revision IDs</span></i>: are used internally to identify specific versions of files in the repository. Systems may use <i><a href="pseudorandomness">pseudorandom</a></i> identifiers, content hashes of revisions, or filenames with sequential version numbers (<i>namespace</i>). With Integrated Difference, revisions are based on the Changesets themselves, which can describe changes to more than one file.</li> 
+       <li> <i>Network protocols</i>: lists the <a href="protocol (computing)">protocols</a> used for synchronization of changes.</li> 
+       <li> <i>Source code size</i>: Gives the size of the source code in megabytes.</li> 
+      </ul> 
+      <table class="wikitable sortable" style="font-size: 80%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Software </p> </th> 
+         <th> <p> <a href="Programming language">Programming language</a> </p> </th> 
+         <th> <p> Storage method </p> </th> 
+         <th> <p> Scope of change </p> </th> 
+         <th> <p> <a href="#Revision IDs">Revision IDs</a> </p> </th> 
+         <th> <p> <a href="Protocol (computing)">Network protocols</a> </p> </th> 
+         <th> <p> Source code size </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AccuRev SCM">AccuRev SCM</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a>, <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> custom </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bazaar (software)">Bazaar</a> </p> </th> 
+         <td> <p> <a href="Python (programming language)">Python</a>, <a href="Pyrex (programming language)">Pyrex</a>, <a href="C (programming language)">C</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Snapshot </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> Pseudorandom </p> </td> 
+         <td> <p> <a href="Hypertext Transfer Protocol">HTTP</a>, <a href="SSH file transfer protocol">SFTP</a>, <a href="File Transfer Protocol">FTP</a>, custom, custom over <a href="Secure Shell">ssh</a>, custom over <a href="Hypertext Transfer Protocol">HTTP</a>, email bundles,<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> WebDAV (with plugin) </p> </td> 
+         <td> <p> 4.1 MB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BitKeeper">BitKeeper</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> Changeset keys, numbers </p> </td> 
+         <td> <p> BK protocol, <a href="Remote Shell">rsh</a>, <a href="secure shell">ssh</a>, <a href="Hypertext Transfer Protocol">HTTP</a>, email </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CA Software Change Manager">CA Software Change Manager</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="C++">C++</a>, <a href="Java (programming language)">Java</a>, HTML </p> </td> 
+         <td> <p> Changeset and Snapshot </p> </td> 
+         <td> <p> File and Tree<span class="unknown-node">{{citation needed|...}}</span> </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> TCP/IP, <a href="Hypertext Transfer Protocol">HTTP</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ClearCase">ClearCase</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="Java (programming language)">Java</a>, <a href="Perl">Perl</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> File </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> <a href="Hypertext Transfer Protocol">HTTP</a>, custom (CCFS), custom (<a href="MultiVersion File System">MVFS</a> filesystem driver) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Code Co-op">Code Co-op</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> User ID-Ordinal </p> </td> 
+         <td> <p> e-mail (<a href="Messaging Application Programming Interface">MAPI</a>, <a href="SMTP">SMTP</a>/<a href="POP3">POP3</a>, <a href="Gmail">Gmail</a>), <a href="Local area network">LAN</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Codeville">Codeville</a> </p> </th> 
+         <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Concurrent Versions System">CVS</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> File </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> pserver, <a href="Secure Shell">ssh</a> </p> </td> 
+         <td> <p> 3.3 MB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CVSNT">CVSNT</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> File and Tree<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> sspi, sserver, gserver, pserver, custom over <a href="Secure Shell">ssh</a> </p> </td> 
+         <td> <p> 55MB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="darcs">darcs</a> </p> </th> 
+         <td> <p> <a href="Haskell (programming language)">Haskell</a> </p> </td> 
+         <td> <p> Changeset (Patch) </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> n/a </p> </td> 
+         <td> <p> <a href="Hypertext Transfer Protocol">HTTP</a>, custom over <a href="secure shell">ssh</a>, email </p> </td> 
+         <td> <p> 1.7 MB </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Fossil (software)">Fossil</a> </p> </td> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> Snapshot </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> <a href="SHA-1">SHA-1</a> hashes </p> </td> 
+         <td> <p> <a href="Hypertext Transfer Protocol">HTTP</a> </p> </td> 
+         <td> <p> 7.2 MB<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Git (software)">Git</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="shell script">shell scripts</a>, <a href="Perl">Perl</a> </p> </td> 
+         <td> <p> Snapshot </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> <a href="SHA-1">SHA-1</a> hashes </p> </td> 
+         <td> <p> Git Server Protocol<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> over TCP or <a href="secure shell">ssh</a>, <a href="rsync">rsync</a>, <a href="Hypertext Transfer Protocol">HTTP</a>/<a href="HTTP Secure">HTTPS</a>, email, bundles </p> </td> 
+         <td> <p> 10.2 MB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU arch">GNU arch</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="shell script">shell scripts</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> <a href="WebDAV">WebDAV</a>, <a href="Hypertext Transfer Protocol">HTTP</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IC Manage">IC Manage</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a>, <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> custom </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LibreSource">LibreSource Synchronizer</a> </p> </th> 
+         <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> Timestamps </p> </td> 
+         <td> <p> HTTP, File-System </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mercurial">Mercurial</a> </p> </th> 
+         <td> <p> <a href="Python (programming language)">Python</a>, <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> Numbers,<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <a href="SHA-1">SHA-1</a> hashes </p> </td> 
+         <td> <p> <a href="Hypertext Transfer Protocol">HTTP</a>, custom over <a href="secure shell">ssh</a>, email bundles (with standard plugin) </p> </td> 
+         <td> <p> 1.2 MB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MKS Integrity">MKS Integrity</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> File </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> HTTP, custom </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Monotone (software)">Monotone</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> Hybrid<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> <a href="SHA-1">SHA-1</a> hashes </p> </td> 
+         <td> <p> custom (<i>netsync</i>), custom over <a href="Secure Shell">ssh</a>, file system </p> </td> 
+         <td> <p> 4.4 MB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perforce">Perforce</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a>, <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> custom </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IBM Rational Team Concert">Rational Team Concert</a> </p> </th> 
+         <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> <a href="Representational State Transfer">REST</a> services over <a href="Hypertext Transfer Protocol">HTTP</a>/<a href="HTTP Secure">HTTPS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SCM Anywhere">SCM Anywhere</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a>, <a href="Java (programming language)">Java</a>, <a href="C Sharp (programming language)">C#</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> File and Tree </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> SOAP over HTTP or HTTPS </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Sourceanywhere">Sourceanywhere</a> Standalone </p> </th> 
+         <td> <p> <a href="C++">C++</a>, <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> File and Tree </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> TCP/IP </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="StarTeam">StarTeam</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a>, <a href="C (programming language)">C</a>, <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> Snapshot </p> </td> 
+         <td> <p> File and Tree </p> </td> 
+         <td> <p> <a href="MD5">MD5</a> hashes </p> </td> 
+         <td> <p> custom, TCP/IP </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Subversion (software)">Subversion</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> Changeset and Snapshot </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> custom (<i>svn</i>), custom (<i>svn</i>) over <a href="Secure Shell">ssh</a>, <a href="Hypertext Transfer Protocol">HTTP</a> and SSL (using <a href="WebDAV">WebDAV</a>) </p> </td> 
+         <td> <p> 5.2 MB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Surround SCM">Surround SCM</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> File and Tree </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> TCP/IP </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVK">SVK</a> </p> </th> 
+         <td> <p> <a href="Perl">Perl</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Telelogic Synergy">Synergy</a> </p> </th> 
+         <td> <p> <a href="Java (programming language)">Java</a> </p> </td> 
+         <td> <p> Changeset (text), Snapshot(binary) </p> </td> 
+         <td> <p> File </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> <a href="Hypertext Transfer Protocol">HTTP</a>, custom over <a href="Secure Shell">ssh</a>, custom </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual Studio Team Foundation Server">Team Foundation Server</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a> and <a href="C Sharp (programming language)">C#</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> File and Tree </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> SOAP over HTTP or HTTPS </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vault (revision control system)">Vault</a> </p> </th> 
+         <td> <p> <a href="C Sharp (programming language)">C#</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <a href="HTTP">HTTP</a>, <a href="HTTPS">HTTPS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Veracity (software)">Veracity</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a>, <a href="JavaScript">JavaScript</a> </p> </td> 
+         <td> <p> Changeset </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> Numbers, <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <a href="SHA-1">SHA-1</a>, <a href="SHA-2">SHA-2</a> and <a href="Skein (hash function)">Skein</a> hashes. </p> </td> 
+         <td> <p> <a href="Hypertext Transfer Protocol">HTTP</a> </p> </td> 
+         <td> <p> 52 MB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vesta (Software configuration management)">Vesta</a> </p> </th> 
+         <td> <p> <a href="C++">C++</a> </p> </td> 
+         <td> <p> Snapshot </p> </td> 
+         <td> <p> Tree </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <a href="Network File System">NFS</a> </p> </td> 
+         <td> <p> 15.8 MB </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual SourceSafe">Visual SourceSafe</a> </p> </th> 
+         <td> <p> <a href="C (programming language)">C</a> </p> </td> 
+         <td> <p> Snapshot </p> </td> 
+         <td> <p> File </p> </td> 
+         <td> <p> Numbers </p> </td> 
+         <td> <p> <a href="Server Message Block">SMB</a>, <a href="Distributed Component Object Model">DCOM</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Software </p> </th> 
+         <th> <p> <a href="Programming language">Programming language</a> </p> </th> 
+         <th> <p> Storage method </p> </th> 
+         <th> <p> Scope of change </p> </th> 
+         <th> <p> Revision IDs </p> </th> 
+         <th> <p> Network protocols </p> </th> 
+         <th> <p> Source code size </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Features </h2> 
+     <div class="section-body"> 
+      <p> <b>Table explanation</b> </p> 
+      <ul> 
+       <li> <i>Software</i>: The name of the application that is described.</li> 
+       <li> <i><a href="Atomic commit">Atomic commits</a></i>: refers to a guarantee that all changes are made, or that no change at all will be made.</li> 
+       <li> <i>File renames</i>: describes whether a system allows files to be renamed while retaining their version history.</li> 
+       <li> <i>Merge file renames</i>: describes whether a system can merge changes made to a file on one branch into the same file that has been renamed on another branch (or vice versa). If the same file has been renamed on both branches then there is a rename conflict that the user must resolve.</li> 
+       <li> <i><a href="Symbolic link">Symbolic links</a></i>: describes whether a system allows revision control of symbolic links as with regular files. Versioning symbolic links is considered by some people a feature and some people a security breach (e.g., a symbolic link to /etc/passwd). Symbolic links are only supported on select platforms, depending on the software.</li> 
+       <li> <i>Pre/post event hooks</i>: indicates the capability to trigger commands before or after an action, such as a commit, takes place.</li> 
+       <li> <i>Signed revisions</i>: refers to integrated digital signing of revisions, in a format such as <a href="OpenPGP">OpenPGP</a>.</li> 
+       <li> <i>Merge tracking</i>: describes whether a system remembers what changes have been merged between which branches and only merges the changes that are missing when merging one branch into another.</li> 
+       <li> <i><a href="End of line">End of line</a> conversions</i>: describes whether a system can adapt the end of line characters for text files such that they match the end of line style for the operating system under which it is used. The granularity of control varies. Subversion, for example, can be configured to handle EOLs differently according to the file type, whereas Perforce converts all text files according a single, per-client setting.</li> 
+       <li> <i><a href="revision tag">Tags</a></i>: indicates if meaningful names can be given to specific revisions, regardless of whether these names are called tags or labels.</li> 
+       <li> <i>International Support</i>: indicates if the software has support for multiple language environments and operating system</li> 
+       <li> <i>Unicode filename support</i>: indicates if the software has support for interoperations under <a href="file system">file systems</a> using different <a href="character encoding">character encodings</a>.</li> 
+       <li> <i>Supports large repos</i>: Can the system handle repositories of around a gigabyte or larger effectively?</li> 
+      </ul> 
+      <table class="wikitable sortable" style="font-size: 80%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Software </p> </th> 
+         <th> <p> <a href="Atomic commit">Atomic commits</a> </p> </th> 
+         <th> <p> File renames </p> </th> 
+         <th> <p> Merge file renames </p> </th> 
+         <th> <p> <a href="Symbolic link">Symbolic links</a> </p> </th> 
+         <th> <p> Pre/post-event hooks </p> </th> 
+         <th> <p> <a href="Digital signature">Signed</a> revisions </p> </th> 
+         <th> <p> Merge tracking </p> </th> 
+         <th> <p> <a href="End of line">End of line</a> conversions </p> </th> 
+         <th> <p> <a href="revision tag">Tags</a> </p> </th> 
+         <th> <p> International Support </p> </th> 
+         <th> <p> Unicode filename support </p> </th> 
+         <th> <p> Supports large repos </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AccuRev SCM">AccuRev SCM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{N/A}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bazaar (software)">Bazaar</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BitKeeper">BitKeeper</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CA Software Change Manager">CA Software Change Manager</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ClearCase">ClearCase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Code Co-op">Code Co-op</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Codeville">Codeville</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Concurrent Versions System">CVS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CVSNT">CVSNT</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="darcs">darcs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{N/A}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Fossil (software)">Fossil</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Git (software)">Git</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU arch">GNU arch</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IC Manage">IC Manage</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MKS Integrity">MKS Integrity</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LibreSource">LibreSource Synchronizer</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mercurial">Mercurial</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Monotone (software)">Monotone</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>, mandatory </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perforce">Perforce</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IBM Rational Team Concert">Rational Team Concert</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="StarTeam">StarTeam</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Subversion (software)">Subversion</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span>.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Surround SCM">Surround SCM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVK">SVK</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Telelogic Synergy">Synergy</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual Studio Team Foundation Server">Team Foundation Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vault (revision control system)">Vault</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Veracity (software)">Veracity</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vesta (Software configuration management)">Vesta</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual SourceSafe">Visual SourceSafe</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Software </p> </th> 
+         <th> <p> <a href="Atomic commit">Atomic commits</a> </p> </th> 
+         <th> <p> File renames </p> </th> 
+         <th> <p> Merge file renames </p> </th> 
+         <th> <p> <a href="Symbolic link">Symbolic links</a> </p> </th> 
+         <th> <p> Pre/post-event hooks </p> </th> 
+         <th> <p> <a href="Digital signature">Signed</a> revisions </p> </th> 
+         <th> <p> Merge tracking </p> </th> 
+         <th> <p> <a href="End of line">End of line</a> conversions </p> </th> 
+         <th> <p> <a href="revision tag">Tags</a> </p> </th> 
+         <th> <p> International Support </p> </th> 
+         <th> <p> Unicode filename support </p> </th> 
+         <th> <p> Supports large repos </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Advanced features </h2> 
+     <div class="section-body"> 
+      <p> <b>Table explanation</b> </p> 
+      <ul> 
+       <li> <i>keyword expansion</i>: Supports automatic expansion of keywords such as file revision number.</li> 
+       <li> <i>interactive commits</i>: Interactive commits allow the user to cherrypick the patch-hunks that become part of a commit (leaving unselected changes as changes in the working copy), instead of having only a file-level granularity.</li> 
+       <li> <i>external references</i>: embedding of foreign repositories in the source tree</li> 
+       <li> <i>partial checkout/clone</i>: Ability to check out or clone only a specified subdirectory from a repository.</li> 
+       <li> <i>permissions</i>: Tracks file permission bits in the revision history.</li> 
+       <li> <i>timestamp preservation</i>: Overwrites the <i>last modified</i> filesystem attribute with the commit time upon checkout.</li> 
+       <li> <i>custom automatic merge tool</i>: Automatic merging can be attempted by any tool of the user's choice (hopefully configurable on a per-file basis)</li> 
+       <li> <i>supported formats</i>: either read/write support or read-only (conversion, potentially repeated)</li> 
+       <li> <i>shared build cache of derived objects</i>: the ability to wink-in derived-objects that were built by other confederated clients that share exactly the same dependencies instead of rebuilding them locally</li> 
+      </ul> 
+      <table class="wikitable sortable" style="font-size: 80%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> software </p> </th> 
+         <th> <p> keyword expansion </p> </th> 
+         <th> <p> interactive commits </p> </th> 
+         <th> <p> external references </p> </th> 
+         <th> <p> partial checkout/clone </p> </th> 
+         <th> <p> permissions </p> </th> 
+         <th> <p> timestamp preservation </p> </th> 
+         <th> <p> custom automatic merge tool </p> </th> 
+         <th> <p> supported formats </p> </th> 
+         <th> <p> shared build cache of derived objects </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AccuRev SCM">AccuRev SCM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> git (bi-dir)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bazaar (software)">Bazaar</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> bzr, subversion,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> git,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> hg,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> any that has a fastexporter </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BitKeeper">BitKeeper</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unknown}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unknown}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unknown}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> bitkeeper </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CA Software Change Manager">CA Software Change Manager</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> CA Software Change Manager </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ClearCase">ClearCase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> ClearCase </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Concurrent Versions System">CVS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> cvs </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CVSNT">CVSNT</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> cvs </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="darcs">darcs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> darcs </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Fossil (software)">Fossil</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> fossil (uses sqlite), any that has a fastexporter<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Git (software)">Git</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> git, cvs, subversion, hg, any that has a fastexporter </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mercurial">Mercurial</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> hg, subversion,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> git,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> any other format supported by the Convert extension<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IBM Rational Team Concert">Rational Team Concert</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Surround SCM">Surround SCM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Surround </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVK">SVK</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> subversion </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Subversion (Software)">Subversion</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> subversion </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Veracity (software)">Veracity</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> git, cvs, subversion, hg, any that has a fastexporter </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vesta (Software configuration management)">Vesta</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> via SDL </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Vesta </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> software </p> </th> 
+         <th> <p> keyword expansion </p> </th> 
+         <th> <p> interactive commits </p> </th> 
+         <th> <p> external references </p> </th> 
+         <th> <p> partial checkout/clone </p> </th> 
+         <th> <p> permissions </p> </th> 
+         <th> <p> timestamp preservation </p> </th> 
+         <th> <p> custom automatic merge tool </p> </th> 
+         <th> <p> supported formats </p> </th> 
+         <th> <p> shared build cache of derived objects </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Basic commands </h2> 
+     <div class="section-body"> 
+      <p> <b>Table explanation</b> </p> 
+      <ul> 
+       <li> Commands in green rectangles that are not surrounded by [square brackets] are at an interactive command-line prompt. Text in [square brackets] is an explanation of where to find equivalent functionality.</li> 
+       <li> <i>repository init</i>: Create a new empty repository (i.e., version control database)</li> 
+       <li> <i>clone</i>: Create an identical instance of a repository (in a safe transaction)</li> 
+       <li> <i>pull</i>: Download revisions from a remote repository to a local repository</li> 
+       <li> <i>push</i>: Upload revisions from a local repository to a remote repository</li> 
+       <li> <i>local branches</i>: Create a local branch that does not exist in the original remote repository</li> 
+       <li> <i>checkout</i>: Create a local working copy from a (remote) repository</li> 
+       <li> <i>update</i>: Update the files in a working copy with the latest version from a repository</li> 
+       <li> <i>lock</i>: Lock files in a repository from being changed by other users</li> 
+       <li> <i>add</i>: Mark specified files to be added to repository at next commit</li> 
+       <li> <i>remove</i>: Mark specified files to be removed at next commit (note: keeps cohesive revision history of before and at the remove.)</li> 
+       <li> <i>move</i>: Mark specified files to be moved to a new location at next commit</li> 
+       <li> <i>copy</i>: Mark specified files to be copied at next commit</li> 
+       <li> <i>merge</i>: Apply the differences between two sources to a working copy path</li> 
+       <li> <i>commit</i>: Record changes in the repository</li> 
+       <li> <i>revert</i>: Restore working copy file from repository</li> 
+       <li> <i>generate bundle file</i>: Create a file that contains a compressed set of changes to a given repository</li> 
+       <li> <i>rebase</i>: Forward-port local commits to the updated upstream head</li> 
+      </ul> 
+      <table class="wikitable sortable" style="font-size: 80%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> software </p> </th> 
+         <th> <p> repository init </p> </th> 
+         <th> <p> clone </p> </th> 
+         <th> <p> pull </p> </th> 
+         <th> <p> push </p> </th> 
+         <th> <p> local branches </p> </th> 
+         <th> <p> checkout </p> </th> 
+         <th> <p> update </p> </th> 
+         <th> <p> lock </p> </th> 
+         <th> <p> add </p> </th> 
+         <th> <p> remove </p> </th> 
+         <th> <p> move </p> </th> 
+         <th> <p> copy </p> </th> 
+         <th> <p> merge </p> </th> 
+         <th> <p> commit </p> </th> 
+         <th> <p> revert </p> </th> 
+         <th> <p> generate bundle file </p> </th> 
+         <th> <p> rebase </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AccuRev SCM">AccuRev SCM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bazaar (software)">Bazaar</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ClearCase">ClearCase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Concurrent Versions System">CVS</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CVSNT">CVSNT</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="darcs">darcs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{coming soon}}</span><span class="unknown-node">{{update after|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Fossil (software)">Fossil</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Git (software)">Git</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mercurial (software)">Mercurial</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Monotone (software)">Monotone</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perforce">Perforce</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVK">SVK</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Subversion (software)">Subversion</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Surround SCM">Surround SCM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Veracity (software)">Veracity</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vesta (Software configuration management)">Vesta</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual SourceSafe">Visual SourceSafe</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> software </p> </th> 
+         <th> <p> repository init </p> </th> 
+         <th> <p> clone </p> </th> 
+         <th> <p> pull </p> </th> 
+         <th> <p> push </p> </th> 
+         <th> <p> local branches </p> </th> 
+         <th> <p> checkout </p> </th> 
+         <th> <p> update </p> </th> 
+         <th> <p> lock </p> </th> 
+         <th> <p> add </p> </th> 
+         <th> <p> remove </p> </th> 
+         <th> <p> move </p> </th> 
+         <th> <p> copy </p> </th> 
+         <th> <p> merge </p> </th> 
+         <th> <p> commit </p> </th> 
+         <th> <p> revert </p> </th> 
+         <th> <p> generate bundle file </p> </th> 
+         <th> <p> rebase </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Advanced commands </h2> 
+     <div class="section-body"> 
+      <p> <b>Table explanation</b> </p> 
+      <ul> 
+       <li> Commands in green rectangles that are not surrounded by [square brackets] are at an interactive command-line prompt. Text in [square brackets] is an explanation of where to find equivalent functionality.</li> 
+       <li> <i>command aliases</i>: create custom aliases for specific commands or combination thereof</li> 
+       <li> <i>lock/unlock</i>: exclusively lock a file to prevent others from editing it</li> 
+       <li> <i>shelve/unshelve</i>: temporarily set aside part or all of the changes in the working directory</li> 
+       <li> <i>rollback</i>: remove a patch/revision from history</li> 
+       <li> <i>cherry-picking</i>: move only some revisions from a branch to another one (instead of merging the branches)</li> 
+       <li> <i>bisect</i>: binary search of source history for a change that introduced or fixed a regression</li> 
+       <li> <i> incoming/outgoing</i>: query the differences between the local repository and a remote one (the patches that would be fetched/sent on a pull/push)</li> 
+       <li> <i>grep</i>: search repository for lines matching a pattern</li> 
+       <li> <i>record</i>: include only some changes to a file in a commit and not others</li> 
+      </ul> 
+      <table class="wikitable sortable" style="font-size: 80%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Software </p> </th> 
+         <th> <p> command aliases </p> </th> 
+         <th> <p> lock/unlock </p> </th> 
+         <th> <p> shelve/unshelve </p> </th> 
+         <th> <p> rollback </p> </th> 
+         <th> <p> cherry-picking </p> </th> 
+         <th> <p> bisect </p> </th> 
+         <th> <p> incoming/outgoing </p> </th> 
+         <th> <p> grep </p> </th> 
+         <th> <p> record </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AccuRev SCM">AccuRev SCM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bazaar (software)">Bazaar</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CVSNT">CVSNT</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Darcs">Darcs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Fossil (software)">Fossil</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Git (software)">Git</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mercurial (software)">Mercurial</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Monotone (software)">Monotone</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perforce">Perforce</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVK">SVK</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Subversion (software)">Subversion</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Surround SCM">Surround SCM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Team Foundation Server">Team Foundation Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Veracity (software)">Veracity</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Software </p> </th> 
+         <th> <p> command aliases </p> </th> 
+         <th> <p> lock/unlock </p> </th> 
+         <th> <p> shelve (stash)/unshelve </p> </th> 
+         <th> <p> rollback </p> </th> 
+         <th> <p> cherry-picking </p> </th> 
+         <th> <p> bisect </p> </th> 
+         <th> <p> incoming/outgoing </p> </th> 
+         <th> <p> grep </p> </th> 
+         <th> <p> record </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> User interfaces </h2> 
+     <div class="section-body"> 
+      <p> <b>Table explanation</b> </p> 
+      <ul> 
+       <li> <i>Software</i>: The name of the application that is described.</li> 
+       <li> <i>Web Interface</i>: Describes whether the software application contains a web interface. A web interface could allow the software to post diagnostics data to a website, or could even allow remote control of the software application.</li> 
+       <li> <i>GUIs</i>: A GUI is a graphical user interface. If a software product features a GUI its functionality can be accessed through application windows as opposed to accessing functionality based upon typing commands at the command prompt such as a DOS interface.</li> 
+       <li> <i>Plug-ins</i>: functionality is available through an Integrated Development Environment. Minimum functionality should be to list the revision state of a file and check in/check out files.</li> 
+      </ul> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Software </p> </th> 
+         <th> <p> Web interfaces </p> </th> 
+         <th> <p> Stand-alone <a href="Graphical user interface">GUIs</a> </p> </th> 
+         <th> <p> Integration and/or Plug-ins for <a href="Integrated development environment">IDEs</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AccuRev SCM">AccuRev SCM</a> </p> </th> 
+         <td> <p> Yes </p> </td> 
+         <td> <p> <a href="Microsoft Windows">Windows (incl. explorer integration)</a>, <a href="Linux">Linux</a>, <a href="Unix">Unix</a>, <a href="OS X">OS X</a>, <a href="BeOS">BeOS</a> available </p> </td> 
+         <td> <p> <a href="IntelliJ IDEA">IntelliJ IDEA</a>, <a href="Eclipse (software)">Eclipse</a>, <a href="Microsoft Visual Studio">Visual Studio</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bazaar (software)">Bazaar</a> </p> </th> 
+         <td> <p> can use a plain webserver, <a href="https://launchpad.net/bzr-webserve">webserve</a>, <a href="http://www.launchpad.net">Launchpad</a>, <a href="http://www.lag.net/loggerhead">loggerhead</a> or <a href="http://launchpad.net/trac-bzr">Trac</a> </p> </td> 
+         <td> <p> <a href="http://bazaar-vcs.org/Olive">Olive</a>, <a href="http://bazaar-vcs.org/bzr-gtk">bzr-gtk</a> (<a href="GTK+">GTK+</a>), <a href="http://doc.bazaar.canonical.com/explorer/en/">Bazaar Explorer</a> (<a href="Qt (toolkit)">Qt</a>), <a href="http://bazaar-vcs.org/QBzr">QBzr</a> (<a href="Qt (toolkit)">Qt</a>), <a href="TortoiseBzr">TortoiseBzr</a> (Windows) </p> </td> 
+         <td> <p> Eclipse (<a href="http://bazaar-vcs.org/BzrEclipse">BzrEclipse</a>, <a href="http://bazaar-vcs.org/QBzrEclipse">QBzrEclipse</a>), Visual Studio (<a href="http://launchpad.net/bzr-visualstudio">bzr-visualstudio</a>), TextMate (<a href="http://bazaar-vcs.org/TextMateBundle">TextMateBundle</a>), <a href="ActiveState Komodo">Komodo IDE</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CA Software Change Manager">CA Software Change Manager</a> </p> </th> 
+         <td> <p> included </p> </td> 
+         <td> <p> Eclipse-based GUI </p> </td> 
+         <td> <p> <a href="Eclipse (software)">Eclipse</a>, MS Visual Studio </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ClearCase">ClearCase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> included, Clearcase Web Interface </p> </td> 
+         <td> <p> older: MS Windows native, Motif-based GUI for <a href="Unix-like">Unix-like</a> systems, <a href="Time Sharing Option">TSO</a> client for <a href="z/OS">z/OS</a>. </p> </td> 
+         <td> <p> <a href="Emacs">Emacs</a>, Eclipse ( <a href="http://www.ibm.com/developerworks/rational/library/content/03July/2500/2834/ClearCase/clearcase_plugins.html">IBM Proprietary</a>, <a href="http://eclipse-ccase.sourceforge.net/">Eclipse-CCase</a> ), Visual Studio (IBM proprietary), <a href="KDevelop">KDevelop</a> (standard?), IntelliJ IDEA (<a href="http://www.jetbrains.com/idea/features/version_control.html#Rational_ClearCase_support">standard in Ultimate Edition</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Code Co-op">Code Co-op</a> </p> </th> 
+         <td> <p> Not necessary since entire project is replicated locally </p> </td> 
+         <td> <p> Windows </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Concurrent Versions System">CVS</a> </p> </th> 
+         <td> <p> <a href="http://www.freebsd.org/projects/cvsweb.html">cvsweb</a>, <a href="ViewVC">ViewVC</a>, <a href="CodeBeamer (software)">codeBeamer</a>, others </p> </td> 
+         <td> <p> <a href="TortoiseCVS">TortoiseCVS</a>, TkCVS (<a href="Tcl">Tcl</a>/<a href="Tk (computing)">Tk</a>), (Windows Explorer), <a href="WinCVS">WinCVS</a>, OS X, <a href="GTK+">GTK</a>, Qt available </p> </td> 
+         <td> <p> <a href="Eclipse (software)">Eclipse</a> (Team), KDevelop (standard), IntelliJ IDEA (<a href="http://www.jetbrains.com/idea/features/version_control.html#CVS_Integration">standard in Community and Ultimate Editions</a>), <a href="Emacs">Emacs</a> (standard <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html">VC</a>), <a href="ActiveState Komodo">Komodo IDE</a>, <a href="BBEdit">BBEdit</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CVSNT">CVSNT</a> </p> </th> 
+         <td> <p> <a href="http://www.freebsd.org/projects/cvsweb.html">cvsweb</a>, <a href="ViewVC">ViewVC</a>, others </p> </td> 
+         <td> <p> Windows, OS X, <a href="OS/400">OS/400</a>, <a href="GTK+">GTK</a>, Qt available </p> </td> 
+         <td> <p> All those that support CVS, plus commercial plugins for SCCI, Bugzilla, Build </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="darcs">darcs</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> <tt>darcs.cgi</tt> included; <a href="http://blitiri.com.ar/p/darcsweb/">darcsweb</a>, <a href="Trac">Trac</a> </p> </td> 
+         <td> <p> under development; <a href="TortoiseDarcs">TortoiseDarcs</a> (Windows Explorer), OS X (alpha), </p> </td> 
+         <td> <p> <a href="Eclipse (software)">Eclipse</a> (<a href="http://eclipsedarcs.org/">eclipsedarcs</a>), <a href="Emacs">Emacs</a> (<a href="http://www.pps.jussieu.fr/~jch/software/repos/vc-darcs/">vc-darcs.el</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Git (software)">Git</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> Gitweb, wit, cgit, <a href="GitHub">GitHub</a>, <a href="gitorious">gitorious</a>, <a href="Trac">Trac</a>, <a href="CodeBeamer (software)">codeBeamer</a>, <a href="Bitbucket">Bitbucket</a>, <a href="http://www.atlassian.com/software/stash">Stash</a> </p> </td> 
+         <td> <p> gitk, git-gui (<a href="Tcl">Tcl</a>/<a href="Tk (computing)">Tk</a>), tig, <a href="http://gitboxapp.com/">Gitbox</a> (OS X), <a href="TortoiseGit">TortoiseGit</a>, qgit, <a href="http://trac.novowork.com/gitg/">gitg</a> (GNOME/GTK), (h)gct (Qt), git-cola (Qt), <a href="http://code.google.com/p/gitextensions/">Git Extensions</a> (Windows Explorer), <a href="http://www.giteyeapp.com/">GitEye</a>, <a href="http://www.syntevo.com/smartgithg/index.html">SmartGit/Hg</a>, <a href="http://www.git-tower.com/">Tower</a>, <a href="http://www.sourcetreeapp.com/">SourceTree</a> (OS X), <a href="http://www.sproutmacapp.com">Sprout</a> (OS X), <a href="http://www.gitx.org/">GitX</a> (OS X) </p> </td> 
+         <td> <p> Aptana 3 Beta (<a href="http://www.aptana.com/products/studio3/">Aptana Studio 3 with Git Integration</a>); Eclipse (<a href="http://freshmeat.net/projects/jgit">JGit/EGit</a>); Netbeans (<a href="http://code.google.com/p/nbgit/">NbGit</a>); <a href="KDevelop">KDevelop</a>; Visual Studio (<a href="http://code.google.com/p/gitextensions/">Git Extensions</a>); <a href="Emacs">Emacs</a> (<a href="http://www.emacswiki.org/cgi-bin/wiki/Git">extension</a> for standard VC); TextMate (<a href="https://github.com/jcf/git-tmbundle">Git TextMate Bundle</a>); Vim (VCSCommand plugin and fugitive plugin); IntelliJ IDEA &gt;8.1 (<a href="http://www.jetbrains.com/idea/features/version_control.html#Git_support">standard in Community and Ultimate Editions</a>); <a href="ActiveState Komodo">Komodo IDE</a>; <a href="Anjuta">Anjuta</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU arch">GNU arch</a> </p> </th> 
+         <td> <p> <a href="http://migo.sixbit.org/software/archzoom/">ArchZoom</a> </p> </td> 
+         <td> <p> <a href="http://www.nongnu.org/archway/">ArchWay</a> (<a href="GTK+">GTK2</a>), <a href="http://www.univ-paris12.fr/lacl/pommereau/tla/">TlaLog</a> </p> </td> 
+         <td> <p> <a href="Emacs">Emacs</a> (standard <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html">VC</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IC Manage">IC Manage</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> included </p> </td> 
+         <td> <p> Windows, Linux, Unix, OS X </p> </td> 
+         <td> <p> Emacs, Cadence Design Framework, Synopsys Custom Designer </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MKS Integrity">MKS Integrity</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> Yes </p> </td> 
+         <td> <p> Windows, Linux, Unix, Solaris, AIX, </p> </td> 
+         <td> <p> Eclipse, Microsoft Visual Studio, Perforce and others. Also provides support for the industry standard Source Code Control (SCC) interface<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LibreSource">LibreSource Synchronizer</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> LibreSource </p> </td> 
+         <td> <p> Windows, Linux, Unix, OS X available<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mercurial">Mercurial</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> included,<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> <a href="Bitbucket">Bitbucket</a>, <a href="Trac">Trac</a>, <a href="CodeBeamer (software)">codeBeamer</a> </p> </td> 
+         <td> <p> Hgk (Tcl/Tk), (h)gct (Qt), <a href="http://tortoisehg.org">TortoiseHg</a> (Windows Explorer, Nautilus), <a href="http://jasonfharris.com/machg/">MacHg</a>, MacMercurial, <a href="http://bitbucket.org/snej/murky/wiki/Home">Murky</a>, <a href="http://www.sourcetreeapp.com/">SourceTree</a> (OS X), TortoiseHg, <a href="http://www.syntevo.com/smartgithg/index.html">SmartGit/Hg</a> </p> </td> 
+         <td> <p> IntelliJ IDEA (<a href="http://www.bitbucket.org/willemv/hg4idea">hg4idea 3:rd party plugin</a>), Eclipse (<a href="http://www.vectrace.com/mercurialeclipse/">Mercurial Eclipse</a>), NetBeans (<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span>), Visual Studio 2008 (<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span>), <a href="Emacs">Emacs</a>, Vim (VCSCommand plugin), <a href="ActiveState Komodo">Komodo IDE</a>, <a href="Eric Python IDE">Eric Python IDE</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Monotone (software)">Monotone</a> </p> </th> 
+         <td> <p> <a href="http://grahame.angrygoats.net/viewmtn.shtml">ViewMTN</a>, <a href="http://tracmtn.1erlei.de">TracMonotone</a>, </p> </td> 
+         <td> <p> <a href="http://oandrieu.nerim.net/monotone-viz">Monotone-Viz</a> (<a href="GTK+">GTK+</a>), <a href="http://guitone.thomaskeller.biz">Guitone</a> (<a href="Qt toolkit">Qt</a>), <a href="http://www.coosoft.plus.com/software.html">Monotone Browser</a> (<a href="GTK+">GTK+</a>, <a href="Perl">Perl</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perforce">Perforce</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> included, P4Web, P4FTP </p> </td> 
+         <td> <p> Windows, Linux, Unix, OS X, <a href="BeOS">BeOS</a> available </p> </td> 
+         <td> <p> Eclipse, Visual Studio (P4SCC), KDevelop (standard?), IntelliJ IDEA (<a href="http://www.jetbrains.com/idea/features/version_control.html#Perforce_Integration">standard in Ultimate Edition</a>), <a href="ActiveState Komodo">Komodo IDE</a>, <a href="BBEdit">BBEdit</a>, <a href="Emacs">Emacs</a> (<a href="http://p4el.sourceforge.net/">p4.el</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IBM Rational Team Concert">Rational Team Concert</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> Yes </p> </td> 
+         <td> <p> Eclipse-based GUI </p> </td> 
+         <td> <p> Eclipse integration; MS Visual Studio integration(Limited) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="StarTeam">StarTeam</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> included </p> </td> 
+         <td> <p> Windows, <a href="Java (programming language)">Java</a>, Eclipse, Visual Studio, BDS2006 integration, plus Java command-line </p> </td> 
+         <td> <p> IntelliJ IDEA (<a href="http://www.jetbrains.com/idea/features/version_control.html#StarTeam_Integration">standard in Ultimate Edition</a>), Visual Studio, JBuilder, Eclipse </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Subversion (software)">Subversion</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> Apache 2 module included, <a href="http://www.websvn.info/">WebSVN</a>, <a href="http://viewsvn.berlios.de/">ViewSVN</a>, <a href="ViewVC">ViewVC</a>, <a href="Trac">Trac</a>, <a href="SharpForge">SharpForge</a>, <a href="http://www.sventon.org/">sventon</a>, <a href="CodeBeamer (software)">codeBeamer</a> </p> </td> 
+         <td> <p> Java, KDESVN, OS X<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> (including <a href="http://scplugin.tigris.org/">Finder integration</a>), Nautilus, Qt, <a href="RabbitVCS">RabbitVCS</a>, <a href="RapidSVN">RapidSVN</a>, <a href="http://www.sourcetreeapp.com/">SourceTree</a> (OS X), <a href="TortoiseSVN">TortoiseSVN</a> (Windows Explorer) </p> </td> 
+         <td> <p> <a href="Anjuta">Anjuta</a>, <a href="BBEdit">BBEdit</a>, Eclipse (<a href="http://subclipse.tigris.org/">Subclipse</a>, <a href="http://www.eclipse.org/subversive/">Subversive</a>), <a href="Emacs">Emacs</a> (standard <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html">VC</a>), IntelliJ IDEA (<a href="http://www.jetbrains.com/idea/features/version_control.html#Subversion_Client_and_Integration">standard in Community and Ultimate Editions</a>), KDevelop (standard), <a href="ActiveState Komodo">Komodo IDE</a>, <a href="MonoDevelop">MonoDevelop</a> (standard), Netbeans, <a href="RabbitVCS">RabbitVCS</a> (for GEdit), <a href="TextMate">TextMate</a> (<a href="http://ciaranwal.sh/2007/10/10/svn-plug-in-for-textmate">SVNMate plugin</a>), Visual Studio (<a href="AnkhSVN">AnkhSVN</a>, <a href="VisualSVN">VisualSVN</a>). See also <a href="Comparison of Subversion clients">Comparison of Subversion clients</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Surround SCM">Surround SCM</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> Windows, OS X, Linux </p> </td> 
+         <td> <p> <a href="Dreamweaver">Dreamweaver</a>, <a href="Eclipse">Eclipse</a>, <a href="IntelliJ IDEA">IntelliJ IDEA</a>, <a href="JBuilder">JBuilder</a>, <a href="JDeveloper">JDeveloper</a>, <a href="KDevelop">KDevelop</a>, <a href="NetBeans">NetBeans</a>, <a href="Powerbuilder">Powerbuilder</a>, <a href="Visual Studio">Visual Studio</a>, <a href="WebStorm">WebStorm</a>, <a href="XCode">XCode</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Telelogic Synergy">Synergy</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> via Telelogic Change interface </p> </td> 
+         <td> <p> Windows (incl. explorer integration), Linux, Unix </p> </td> 
+         <td> <p> Eclipse (Telelogic proprietary), Visual Studio (Telelogic proprietary), IntelliJ IDEA (Telelogic proprietary) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual Studio Team Foundation Server">Team Foundation Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> included (Sharepoint Server used for web services) </p> </td> 
+         <td> <p> Windows included; OS X, Unix available </p> </td> 
+         <td> <p> Visual Studio. Java client for Eclipse IDE and IntelliJ IDEA (<a href="http://www.jetbrains.com/idea/features/version_control.html#Team_Foundation_Server_integration">standard in Ultimate Edition</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vault (revision control system)">Vault</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> included </p> </td> 
+         <td> <p> Windows, Unix-like, OS X </p> </td> 
+         <td> <p> Visual Studio 2003 and higher, Eclipse 3.2 and higher </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Veracity (software)">Veracity</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> included </p> </td> 
+         <td> <p> Tortoise interface for Windows </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vesta (Software configuration management)">Vesta</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes2}}</span> VestaWeb </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual SourceSafe">Visual SourceSafe</a> </p> </th> 
+         <td> <p> none included; <a href="http://www.componentworkshop.com/Default.aspx">SSWI</a>, <a href="http://www.sourceremoting.com/vssr_overview.htm">VSS Remoting</a> </p> </td> 
+         <td> <p> Windows included; Linux, OS X and Solaris using <a href="http://www.sourcegear.com/sos/">SourceOffSite</a>; any Java VM using <a href="Sourceanywhere">Sourceanywhere</a> for VSS </p> </td> 
+         <td> <p> Visual Studio, IntelliJ IDEA (<a href="http://www.jetbrains.com/idea/features/version_control.html#Visual_SourceSafe_Integration">standard in Ultimate Edition</a>) </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Software </p> </th> 
+         <th> <p> Web interfaces </p> </th> 
+         <th> <p> Stand-alone <a href="Graphical user interface">GUIs</a> </p> </th> 
+         <th> <p> Integration and/or plug-ins for <a href="Integrated development environment">IDEs</a> </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> History and adoption </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{cleanup|...}}</span> <b>Table explanation</b> </p> 
+      <ul> 
+       <li> <i>Software</i>: The name of the application that is described.</li> 
+       <li> <i>Notable users</i>: is a list of well known projects using the software as their <i>primary</i> revision control system, excluding the software itself, followed by a link to a full list if available.</li> 
+       <li> <i>History</i>: briefly describes the software's origins and development.</li> 
+      </ul> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Software </p> </th> 
+         <th> <p> History </p> </th> 
+         <th> <p> Notable users </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AccuRev SCM">AccuRev SCM</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2002</span> First publicly released in 2002 </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="American Airlines">American Airlines</a>, <a href="Ford Motor Company">Ford</a>, <a href="Lockheed Martin">Lockheed Martin</a>, <a href="Orbitz">Orbitz</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Xerox">Xerox</a>, <a href="McAfee">McAfee</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Polycom">Polycom</a>, <a href="SanDisk">SanDisk</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Siemens">Siemens</a>, <a href="Sony">Sony</a>, <a href="Symantec">Symantec</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Thomson Financial">Thomson Financial</a>, <a href="Verizon Wireless">Verizon Wireless</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> and many others </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bazaar (vcs)">Bazaar</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Loosely related to <a href="Baz (software)">baz</a>. Sponsored by <a href="Canonical Ltd.">Canonical Ltd.</a>. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="Ubuntu (operating system)">Ubuntu</a>, <a href="Launchpad (website)">Launchpad</a>, <a href="KatchTV">KatchTV</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="MySQL">MySQL</a>, <a href="GRUB2">GRUB2</a>, <a href="Bugzilla">Bugzilla</a>, <a href="GNU Emacs">GNU Emacs</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="BitKeeper">BitKeeper</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Influenced by <a href="Sun WorkShop TeamWare">Sun WorkShop TeamWare</a> </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Linux Kernel (2002?2005) and many companies<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CA Software Change Manager">CA Software Change Manager</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Original company founded in 1977; CA SCM (then called CCC/Harvest) first released in 1995. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> CA does not disclose customer lists without the companies' permission. CA SCM is used by companies with global development teams including 13 of the Fortune 100. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="ClearCase">ClearCase</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1990</span> Developed beginning in 1990 by Atria Software, following concepts developed by <a href="Apollo Computer">Apollo Computer</a> in DSEE during the 1980s. The most recent version is 7.1.1, released in Dec 2009. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="IBM">IBM</a>, <a href="Alcatel-Lucent">Alcatel-Lucent</a>, <a href="Cisco">Cisco</a>, <a href="Motorola">Motorola</a>, <a href="Siemens">Siemens</a>, <a href="Ericsson">Ericsson</a>, <a href="Nokia">Nokia</a>, <a href="Society for Worldwide Interbank Financial Telecommunication">Society for Worldwide Interbank Financial Telecommunication</a> and other large organizations worldwide<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Code Co-op">Code Co-op</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1997</span> The first distributed VCS, demoed in 1997,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> released soon after. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Clients include: Logitech, HP, Ericsson<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Concurrent Versions System">CVS</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1986</span> First publicly released July 3, 1986; based on <a href="Revision Control System">RCS</a> </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> thousands of organizations worldwide<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="CVSNT">CVSNT</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1998</span> First publicly released 1998; based on <a href="Concurrent Versions System">CVS</a>. Started by <a href="Concurrent Versions System">CVS</a> developers with the goal adding support for a wider range of development methods and processes. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Primarily professionals (not hobbyists), e.g.: AnandTech,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Wachovia,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Wells Fargo,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Goldman Sachs <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="darcs">darcs</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2003</span> First announced on April 9, 2003 </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="Glasgow Haskell Compiler">GHC</a>, <a href="Mnet (Computer program)">Mnet</a>, <a href="xmonad">xmonad</a>, <a href="http://wiki.darcs.net/DarcsWiki/ProjectsUsingDarcs">Projects Using Darcs</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Fossil (software)">Fossil</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2007</span> Fossil and SQLite have used Fossil since 21 July 2007. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="SQLite">SQLite</a>, <a href="Fossil (software)">Fossil</a>, <a href="Tcl">Tcl/Tk Project</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Git (software)">Git</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2005</span> Started by <a href="Linus Torvalds">Linus Torvalds</a> in April 2005, following the <a href="BitKeeper">BitKeeper</a> controversy.<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="Linux kernel">Linux kernel</a>, <a href="Android (operating system)">Android</a>, <a href="GNOME">GNOME</a>, <a href="KDE">KDE</a>, <a href="Perl">Perl 5</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="X.Org Server">X.Org</a>, <a href="Cairo (graphics)">Cairo</a>, <a href="Qt Development Frameworks">Qt Development Frameworks</a>, <a href="Samba software">Samba</a>, <a href="OpenEmbedded">OpenEmbedded</a>, <a href="Ruby (programming language)">Ruby</a>, <a href="Ruby on Rails">Ruby on Rails</a>, <a href="Wine (software)">Wine</a>, <a href="Fluxbox">Fluxbox</a>, <a href="Openbox">Openbox</a>, <a href="Compiz Fusion">Compiz Fusion</a>, <a href="XCB">XCB</a>, <a href="ELinks">ELinks</a>, <a href="XMMS2">XMMS2</a>, <a href="e2fsprogs">e2fsprogs</a>, <a href="GNU Core Utilities">GNU Core Utilities</a>, <a href="DokuWiki">DokuWiki</a>, <a href="Drupal">Drupal</a>, <a href="MediaWiki">MediaWiki</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Mono (software)">Mono</a>, <a href="ASP.NET MVC">ASP.NET MVC</a>, <a href="ADO.NET Entity Framework">ADO.NET Entity Framework</a>, <a href="NuGet">NuGet</a>, <a href="jQuery">jQuery</a> and many of its plugins, <a href="OpenCV">OpenCV</a>, <a href="OpenOffice.org">OpenOffice.org</a> (Also see <a href="https://git.wiki.kernel.org/index.php/GitProjects">list of Git projects</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU arch">GNU arch</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2001</span> Started by Tom Lord in 2001, it later became part of the <a href="GNU">GNU</a> project. Lord resigned as maintainer in August 2005. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> available for <a href="GNU Savannah">GNU Savannah</a> and <a href="Gna.org">Gna.org</a> projects </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IC Manage">IC Manage</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2003</span> Developed by IC Manage, Inc which was founded in 2003 by Shiv Sikand and Dean Drako. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> many organizations worldwide<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MKS Integrity">MKS Integrity</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2003</span> Originally developed by MKS Software. Purchased by PTC in May 2011<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Many global engineering and IT organizations<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="LibreSource">LibreSource Synchronizer</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2005</span> First publicly released on June 13, 2005 </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Most of the LibreSource Community </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mercurial">Mercurial</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2005</span> Started April 6, 2005 by Matt Mackall, following the <a href="BitKeeper">BitKeeper</a> controversy.<span class="unknown-node">&lt;ref .../&gt;</span> First released on April 19, 2005 </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="Mozilla">Mozilla</a>, <a href="NetBeans">NetBeans</a>, <a href="Xine">Xine</a>, <a href="Xen">Xen</a>, <a href="OpenJDK">OpenJDK</a>, <a href="OpenSolaris">OpenSolaris</a>, <a href="wmii">wmii</a>, <a href="MoinMoin">MoinMoin</a>, <a href="Linux-HA">Linux-HA</a>, <a href="Pidgin (instant messaging client)">Pidgin</a>, <a href="Python (programming language)">Python</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> (Also see <a href="http://www.selenic.com/mercurial/wiki/index.cgi/ProjectsUsingMercurial">list of projects using Mercurial</a>) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Monotone (software)">Monotone</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2003</span> First released in April 2003 </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="CTWM">CTWM</a>, <a href="Xaraya">Xaraya</a>, <a href="I2P">I2P</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Perforce">Perforce</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1993</span> Developed by Perforce Software, Inc which was founded in 1995 by Christopher Seiwald. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> many organizations worldwide,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="FreeBSD">FreeBSD</a>,<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> <a href="Google">Google</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IBM Rational Team Concert">Rational Team Concert</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2008</span> Version 1.0 released on June, 2008 </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> IBM </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Revision Control System">Revision Control System</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1985</span> July 1985 </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> RCS is generally (but not always) superseded by other systems such as <a href="Concurrent Versions System">CVS</a>, which began as a wrapper on top of RCS. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Source Code Control System">Source Code Control System</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1972</span>Started by <a href="Marc Rochkind">Marc Rochkind</a> in 1972 (binary history files, written in Snobol on IBM-370<span class="unknown-node">{{citation needed|...}}</span>), SCCSv4 with text history files was published February 18, 1977.<span class="unknown-node">{{citation needed|...}}</span> The same history file format is still used in SCCSv5.<span class="unknown-node">{{or|...}}</span> </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> as the <a href="POSIX">POSIX</a> source-control tool, SCCS is widely available on <a href="UNIX">UNIX</a> platforms, but not included in many Linux distributions. <a href="Sun WorkShop TeamWare">Sun WorkShop TeamWare</a> uses SCCS files. </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="StarTeam">StarTeam</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1995</span> Version 1.0 1995;<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> Developed by StarBase software, acquired by Borland(which was acquired by Micro Focus). </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Borland, BT, Cintas, EDS, Kaiser Permanente, Met Office, Quest Software, Raymond James, Siemens, and many more globally distributed companies<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Subversion (software)">Subversion</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2000</span> Started in 2000 by <a href="Concurrent Versions System">CVS</a> developers with goal of replacing CVS </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="Apache Software Foundation">ASF</a>, <a href="SourceForge">SourceForge</a>, <a href="FreeBSD">FreeBSD</a>, <a href="Google Code">Google Code</a>, <a href="KDE">KDE</a> (-2011), <a href="GNU Compiler Collection">GCC</a>, <a href="PuTTY">PuTTY</a>, <a href="Zope">Zope</a>, <a href="Xiph.Org Foundation">Xiph</a>, <a href="GNU Privacy Guard">GnuPG</a>, <a href="Common Unix Printing System">CUPS</a>, <a href="Wireshark">Wireshark</a>, <a href="TWiki">TWiki</a>, <a href="Django (web framework)">Django</a>, <a href="WebKit">WebKit</a>, available on <a href="CodePlex">CodePlex</a>, and many organizations worldwide<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SVK">SVK</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2003</span> Authored by <a href="Chia-liang Kao">Chia-liang Kao</a> with <a href="Audrey Tang">Audrey Tang</a>. First version was on November 19, 2003. 1.00 on May 9, 2005. 2.0.0 on Dec 28th, 2006. SVK became a product of <a href="Best Practical">Best Practical</a> on June 5, 2006. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="Request Tracker">Request Tracker</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Telelogic Synergy">Synergy</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1988</span> Developed beginning in 1988 by Caseware, as AmplifyControl. The company was renamed Continuus in 1994, where the product became better known as Continuus/CM. Continuus was acquired by Telelogic in 1999 shortly after going public; the product was renamed Telelogic Synergy. IBM acquired Telelogic in 2008 for integration into their Rational tool suite. The product is now known as IBM Rational Synergy. </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <a href="General Motors">General Motors</a>, <a href="BMW">BMW</a>, <a href="Chrysler">Chrysler</a>, <a href="Nokia">Nokia</a>, <a href="Philips">Philips</a>, <a href="Raytheon">Raytheon</a>, <a href="Morgan Stanley">Morgan Stanley</a>, <a href="Friends Provident">Friends Provident</a>, <a href="Boeing">Boeing</a>, <a href="Lockheed Martin">Lockheed Martin</a>, <a href="Siemens">Siemens</a> and other small, medium and large organizations worldwide<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual Studio Team Foundation Server">Team Foundation Server</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2006</span> First publicly released on March, 2006 </p> </td> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> Available on <a href="CodePlex">CodePlex</a>, Microsoft itself and other large organizations worldwide<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vault (revision control system)">Vault</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">2003</span> First publicly released in February, 2003 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Vesta (Software configuration management)">Vesta</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1991 </span> First publicly released under the LGPL in 2001 </p> </td> 
+         <td> <p> DEC Alpha team, Compaq Alpha team, Intel microprocessor development </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Visual SourceSafe">Visual SourceSafe</a> </p> </th> 
+         <td style="text-align: left; padding-left: 0.5em"> <p> <span style="display:none;">1995</span> originally created by a company called One Tree Software, version 3.1. Company was bought by Microsoft which released version 4.0 of VSS around 1995 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> Software </p> </th> 
+         <th> <p> History </p> </th> 
+         <th> <p> Notable users </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="List of revision control software">List of revision control software</a></li> 
+       <li> <a href="Comparison of free software hosting facilities">Comparison of free software hosting facilities</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Notes </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist|...}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> External links </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{External links|...}}</span> </p> 
+      <ul> 
+       <li> <a href="http://code.google.com/p/support/wiki/DVCSAnalysis">Comparison between Git and Mercurial</a> by Google (summer 2008)</li> 
+       <li> <a href="http://www.dwheeler.com/essays/scm.html">Comments on Open Source Software / Free Software SCM systems</a> by <a href="David A. Wheeler">David A. Wheeler</a></li> 
+       <li> <a href="http://www.relisoft.com/co_op/vcs_compare.html">Comparison of commercial Version Control Systems</a> from the creators of Code Co-op</li> 
+       <li> <a href="http://better-scm.berlios.de/comparison/comparison.html">Version Control System Comparison</a> from better-scm.berlios.de</li> 
+       <li> <a href="http://opensolaris.org/os/community/tools/scm/">Evaluation of distributed source code management solutions for OpenSolaris</a> by Sun</li> 
+       <li> <a href="http://www.softeng.rl.ac.uk/media/uploads/publications/2010/03/cvs-svn.pdf">Comparison of CVS and Subversion</a></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Revision control software}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Revision Control Software}}</span> <a href="Category:Revision control systems">*</a> <a href="Category:Software comparisons">Revision control software</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,988 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of assemblers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of assemblers</h1> 
+   <div class="article-content"> 
+    <p> This is a list of assemblers: <a href="computer program">computer programs</a> that translate (&quot;assemble&quot;) <a href="assembly language">assembly language</a> <a href="source code">source code</a> into binary programs. </p> 
+    <div class="section"> 
+     <h2>x86 assemblers</h2> 
+     <div class="section-body"> 
+      <p> These are the <a href="x86 assembly language">x86 Assemblers</a> for <a href="Intel Corporation">Intel</a> <a href="X86">80x86 architecture</a> microprocessors </p> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center"> 
+       <tbody>
+        <tr>
+         <th> <p> Assembler </p> </th> 
+         <th> <p> <a href="Operating system">OS</a> </p> </th> 
+         <th> <p> <a href="Open source">Open source</a> </p> </th> 
+         <th> <p> <a href="Software license">License</a> </p> </th> 
+         <th> <p> <a href="x86-64">x86-64</a> </p> </th> 
+         <th> <p> Active Development </p> </th> 
+        </tr>
+        <tr> 
+         <th> <p> <a href="A86 (software)">A86/A386</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="DOS">DOS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Amsterdam Compiler Kit">ACK</a> </p> </th> 
+         <td> <p> <a href="Linux">Linux</a>, <a href="Minix">Minix</a>, <a href="Unix-like">Unix-like</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> 1985-<span class="unknown-node">{{?}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Arrowsoft Assembler">Arrowsoft Assembler</a> </p> </th> 
+         <td> <p> <a href="DOS">DOS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IBM">IBM</a> ALP </p> </th> 
+         <td> <p> <a href="OS/2">OS/2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="AT&amp;T">AT&amp;T</a> </p> </th> 
+         <td> <p> <a href="Unix System V">Unix System V</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Bruce D. Evans">Bruce D. Evans</a>' <a href="as86">as86</a> </p> </th> 
+         <td> <p> <a href="Minix">Minix</a> 1.x, 16-bit part in <a href="Linux">Linux</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Digital Research">Digital Research</a> ASM86 </p> </th> 
+         <td> <p> <a href="CP/M-86">CP/M-86</a>, <a href="DOS">DOS</a>, <a href="Intel">Intel</a>'s <a href="ISIS (operating system)">ISIS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.develsoftware.com/downloads/6-assembler-x86-64">DevelSoftware Assembler</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="Linux">Linux</a>, <a href="Unix-like">Unix-like</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="FASM">FASM</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="DOS">DOS</a>, <a href="Linux">Linux</a>, <a href="Unix-like">Unix-like</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU Assembler">GAS</a> </p> </th> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a>, <a href="DOS">DOS</a>, <a href="OS/2">OS/2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GoAsm">GoAsm</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="High Level Assembly">HLA</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="Linux">Linux</a>, <a href="FreeBSD">FreeBSD</a>, <a href="Mac OS X">Mac OS X</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Open Watcom Assembler">JWASM</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="DOS">DOS</a>, <a href="Linux">Linux</a>, <a href="FreeBSD">FreeBSD</a>, <a href="OS/2">OS/2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://web.archive.org/web/20090104203629/http://lzasm.hotbox.ru/">LZASM</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="DOS">DOS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Macro Assembler">MASM</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="DOS">DOS</a>, <a href="OS/2">OS/2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Mical a86 </p> </th> 
+         <td> <p> <a href="Unix">Unix</a>, <a href="DOS">DOS</a>, <a href="PC/IX">PC/IX</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Netwide Assembler">NASM</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="Linux">Linux</a>, <a href="Mac OS X">Mac OS X</a>, <a href="DOS">DOS</a>, <a href="OS/2">OS/2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Tim Paterson">Tim Paterson</a>'s ASM </p> </th> 
+         <td> <p> <a href="86-DOS">86-DOS</a>, <a href="DOS">DOS</a> <a href="DEBUG">DEBUG</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Pelles C">POASM</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="Windows Mobile">Windows Mobile</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <b>RosAsm</b> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SLR's OPTASM">SLR's OPTASM</a> </p> </th> 
+         <td> <p> <a href="DOS">DOS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Turbo Assembler">TASM</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="DOS">DOS</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span><span class="unknown-node">{{ref|...}}</span><span class="unknown-node">{{ref|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Open Watcom Assembler">WASM</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="DOS">DOS</a>, <a href="OS/2">OS/2</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Tiny C Compiler">TCCASM</a> </p> </th> 
+         <td> <p> <a href="Unix-like">Unix-like</a>, <a href="Microsoft Windows">Windows</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Xenix">Xenix</a> </p> </th> 
+         <td> <p> <a href="Xenix">Xenix</a> 2.3 and 3.0 (before 1985) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Yasm">Yasm</a> </p> </th> 
+         <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="DOS">DOS</a>, <a href="Linux">Linux</a>, <a href="Unix-like">Unix-like</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <ol> 
+       <li> <span class="unknown-node">{{Note|...}}</span> Part of the <a href="Minix 3">Minix 3</a> source tree, but <a href="https://gforge.cs.vu.nl/gf/project/minix/scmsvn/?action=browse&amp;path=%2Ftrunk%2Fbigports%2Fackpack%2F">without obvious development activity</a>. The full source history is <a href="http://tack.cvs.sourceforge.net/viewvc/tack/Ack/mach/i86/as/">available</a>.</li> 
+       <li> <span class="unknown-node">{{Note|...}}</span> Developed by <a href="Interactive Systems Corporation">Interactive</a> in 1986 when they ported <a href="UNIX System V">System V</a> to Intel iAPX286 and 80386 architectures. Archetypical of <a href="X86_assembly_language#Syntax">ATT syntax</a> because it was used as reference for GAS. Still used for <a href="SCO Group">The SCO Group</a>'s products, <a href="Unixware">Unixware</a> and <a href="OpenServer">OpenServer</a>.</li> 
+       <li> <span class="unknown-node">{{Note|...}}</span> <a href="http://www.debath.co.uk/dev86/">Home site</a> does not appear active any more. Also offered as part of <a href="FreeBSD Ports">FreeBSD Ports</a>, in <a href="http://www.freebsdsoftware.org/devel/bcc.html">bcc-1995.03.12</a>.</li> 
+       <li> <span class="unknown-node">{{Note|...}}</span> Active and supported, but not advertised.</li> 
+       <li> <span class="unknown-node">{{Note|...}}</span> <a href="http://ftp.gcu-squad.org/tuhs/Applications/Portable_CC/8086.zip">Developed in 1982</a> at <a href="MIT">MIT</a> as a cross-assembler, it was picked up by <a href="Interactive Systems Corporation">Interactive</a> in 1983 when they developed PC/IX under IBM contract. The syntax was <a href="http://minix1.woodhull.com/pub/info/pc-ix-assem.txt">later used</a> as base for ACK assembler, to be used in <a href="Minix">Minix</a> 1.x toolchain.</li> 
+       <li> <span class="unknown-node">{{Note|...}}</span> <a href="http://web.archive.org/web/20041127230513/http://www.rosasm.org/">RosAsm project on WebArchive.org.</a></li> 
+       <li> <span class="unknown-node">{{Note|...}}</span> Part of the <a href="C++Builder">C++Builder</a> Tool Chain, but not sold as a stand-alone product, or marketed since the CodeGear spin-off; <a href="http://web.archive.org/web/20100822224449/http://info.borland.com/borlandcpp/cppcomp/tasmfact.html">Borland was still selling it until then</a>. Version 5.0, the last, is dated 1996.</li> 
+       <li> <span class="unknown-node">{{Note|...}}</span> Turbo Assembler was developed as &quot;Turbo Editasm&quot; by Uriah Barnett from Speedware Inc (Sacramento, CA) between 1984 and 1987. It was later sold to (or marketed by) Borland as their Turbo Assembler.</li> 
+      </ol> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Multiple target assemblers </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="GNU Assembler">GNU Assembler</a> (gas): GPL: many target instruction sets including <a href="ARM architecture">ARM architecture</a>, <a href="Atmel AVR">Atmel AVR</a>, <a href="x86">x86</a>, <a href="Freescale 68HC11">Freescale 68HC11</a>, <a href="Freescale ColdFire">Freescale v4e</a>, <a href="M68k">Motorola 68k</a>, <a href="TI MSP430">TI MSP430</a>, <a href="Zilog Z80">Zilog Z80</a>, <a href="PowerPC">PowerPC</a>, IBM <a href="System z">System z</a></li> 
+      </ul> 
+      <ul> 
+       <li>ASxxxx Cross Assembler (part of the <a href="Small Device C Compiler">Small Device C Compiler</a> project): GPL: several target instruction sets including <a href="Intel 8051">Intel 8051</a>, <a href="Zilog Z80">Zilog Z80</a>, <a href="Freescale 68HC08">Freescale 68HC08</a>, <a href="PIC microcontroller">PIC microcontroller</a></li> 
+      </ul> 
+      <ul> 
+       <li><a href="Vasm">Vasm</a> portable and retargetable assembler: Target instruction sets including <a href="Motorola 68000 family">680x0</a>, Coldfire, <a href="PowerPC">PowerPC</a>, C16x/ST10, <a href="6502">6502</a>, <a href="Zilog Z80">Zilog Z80</a>.</li> 
+      </ul> 
+      <ul> 
+       <li>The <a href="Amsterdam Compiler Kit">Amsterdam Compiler Kit</a> (ACK) targets <a href="http://tack.cvs.sourceforge.net/viewvc/tack/Ack/mach/">many</a> architectures of the 1980s, including <a href="MOS Technology 6502">6502</a>, <a href="Motorola 6800">6800</a>, <a href="Motorola 68000 family">680x0</a>, <a href="ARM architecture">ARM</a>, <a href="x86">x86</a>, <a href="Zilog Z80">Zilog Z80</a> and <a href="Zilog Z8000">Z8000</a>.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Other assemblers</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>680x0 assemblers</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center"> 
+         <tbody>
+          <tr>
+           <th> <p> Assembler </p> </th> 
+           <th> <p> <a href="Software license">License</a> </p> </th> 
+           <th> <p> <a href="Instruction set">Instruction set</a> </p> </th> 
+           <th> <p> Host <a href="Computing platform">platform</a> </p> </th> 
+          </tr>
+          <tr> 
+           <th> <p> <a href="GFA-Assembler">GFA-Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Atari ST">Atari ST</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GST Macro Assembler">GST Macro Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Atari ST">Atari ST</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Digital Research Assembler">Digital Research Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Atari ST">Atari ST</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Metacomco Macro Assembler">Metacomco Macro Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Amiga">Commodore Amiga</a>, <a href="Atari ST">Atari ST</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Seka Assembler">Seka Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Amiga">Commodore Amiga</a>, <a href="Atari ST">Atari ST</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="HiSoft DevPac Assembler">HiSoft DevPac Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Amiga">Commodore Amiga</a>, <a href="Atari ST">Atari ST</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ASM-One Macro Assembler">ASM-One Macro Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Amiga">Commodore Amiga</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="A68K">A68K</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Amiga">Commodore Amiga</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="PhxAss">PhxAss</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Amiga">Commodore Amiga</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Optimierender Makro-Assembler">OMA</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Amiga">Commodore Amiga</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MaxonASM">MaxonASM</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Amiga">Commodore Amiga</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Mac Assembler">Mac Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Apple Macintosh">Apple Macintosh</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MPW Assembler">MPW Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Apple Macintosh">Apple Macintosh</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Fantasm (assembler)">Fantasm</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Motorola 68000 family">Motorola 680x0</a> </p> </td> 
+           <td> <p> <a href="Apple Macintosh">Apple Macintosh</a> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Power Architecture assemblers</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center"> 
+         <tbody>
+          <tr>
+           <th> <p> Assembler </p> </th> 
+           <th> <p> <a href="Software license">License</a> </p> </th> 
+           <th> <p> <a href="Instruction set">Instruction set</a> </p> </th> 
+           <th> <p> Host <a href="Computing platform">platform</a> </p> </th> 
+          </tr>
+          <tr> 
+           <th> <p> <a href="StormPowerASM">StormPowerASM</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="PowerPC">PowerPC</a> </p> </td> 
+           <td> <p> <a href="Amiga">PowerPC Amiga</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Power Fantasm">Power Fantasm</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="PowerPC">PowerPC</a> </p> </td> 
+           <td> <p> <a href="Apple Power Macintosh">Apple Power Macintosh</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MPW Power Assembler">MPW Power Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="PowerPC">PowerPC</a> </p> </td> 
+           <td> <p> <a href="Apple Power Macintosh">Apple Power Macintosh</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> IBM AIX assembler </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="IBM POWER Instruction Set Architecture">POWER</a> </p> </td> 
+           <td> <p> <a href="IBM AIX">IBM AIX</a> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>IBM mainframe assemblers</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center"> 
+         <tbody>
+          <tr>
+           <th> <p> Assembler </p> </th> 
+           <th> <p> <a href="Software license">License</a> </p> </th> 
+           <th> <p> <a href="Instruction set">Instruction set</a> </p> </th> 
+           <th> <p> Host <a href="Computing platform">platform</a> </p> </th> 
+          </tr>
+          <tr> 
+           <th> <p> <a href="IBM Basic assembly language">BAL</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="IBM System/360">IBM System/360</a> </p> </td> 
+           <td> <p> <a href="IBM Basic Programming Support">IBM BPS/360</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> IBM Assembler XF </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="IBM System/370">IBM System/370</a> </p> </td> 
+           <td> <p> <a href="IBM System/370">IBM System/370</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://www.dignus.com">Dignus</a> Systems/ASM </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="z/Architecture">z/Architecture</a> </p> </td> 
+           <td> <p> numerous </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="IBM High-Level Assembler">HLASM</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="z/Architecture">z/Architecture</a> </p> </td> 
+           <td> <p> <a href="z/Architecture">z/Architecture</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="PL360">PL360</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="IBM System/360">IBM System/360</a> </p> </td> 
+           <td> <p> <a href="IBM System/360">IBM System/360</a> </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>ARM assemblers</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center"> 
+         <tbody>
+          <tr>
+           <th> <p> Assembler </p> </th> 
+           <th> <p> <a href="Software license">License</a> </p> </th> 
+           <th> <p> <a href="Instruction set">Instruction set</a> </p> </th> 
+           <th> <p> Host <a href="Computing platform">platform</a> </p> </th> 
+          </tr>
+          <tr> 
+           <th> <p> <a href="Archimedes Assembler">Archimedes Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="ARM architecture">ARM</a> </p> </td> 
+           <td> <p> <a href="Acorn Archimedes">Acorn Archimedes</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> ARM, inc. <a href="armasm">armasm</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="ARM architecture">ARM</a> </p> </td> 
+           <td> <p> Linux, Windows </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> Microsoft <a href="armasm">armasm</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="ARM architecture">ARM</a> </p> </td> 
+           <td> <p> <a href="Visual Studio 2005#Visual_Studio_2005">Visual Studio 2005</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://www.hh.se/download/18.4cad802d1363ad97dad8000999/EWARM_AssemblerReference.pdf">IAR ARM Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="ARM architecture">ARM</a> </p> </td> 
+           <td> <p> Windows </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://arm.flatassembler.net/">FASMARM</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="ARM architecture">ARM</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>6502 assemblers</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center"> 
+         <tbody>
+          <tr>
+           <th> <p> Assembler </p> </th> 
+           <th> <p> <a href="Software license">License</a> </p> </th> 
+           <th> <p> <a href="Instruction set">Instruction set</a> </p> </th> 
+           <th> <p> Host <a href="Computing platform">platform</a> </p> </th> 
+          </tr>
+          <tr> 
+           <th> <p> <a href="http://sourceforge.net/projects/tass64/develop">64tass</a> </p> </th> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a>, <a href="WDC 65C02">WDC 65C02</a>, <a href="WDC 65816/65802">WDC 65816/65802</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://www.esw-heim.tu-clausthal.de/~marco/smorbrod/acme/">ACME</a> </p> </th> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a>, <a href="WDC 65C02">WDC 65C02</a>, <a href="WDC 65816/65802">WDC 65816/65802</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://home.comcast.net/~olimar/NES/">ASM6</a> </p> </th> 
+           <td> <p> Public domain </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://atari.miribilist.com/atasm/">ATASM</a> </p> </th> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Atari Assembler Editor">Atari Assembler Editor</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a> </p> </td> 
+           <td> <p> <a href="Atari 8-bit family">Atari 8-bit family</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://www.cc65.org/doc/ca65.html">CA65</a> </p> </th> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a>, <a href="WDC 65C02">WDC 65C02</a>, <a href="WDC 65816/65802">WDC 65816/65802</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://dasm-dillon.sourceforge.net/">dasm</a> </p> </th> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a>, others </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://developer.berlios.de/projects/rrtools/">dreamass</a> </p> </th> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a>, <a href="WDC 65816/65802">WDC 65816/65802</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="French Silk (assembler)">French Silk</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a> </p> </td> 
+           <td> <p> <a href="Commodore 64">Commodore 64</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://www.theweb.dk/KickAssembler/">Kick Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://commodoreserver.com/Downloads.asp">C64List</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a> </p> </td> 
+           <td> <p> Commodore 64 </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Lazer's Interactive Symbolic Assembler">Lisa</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a> </p> </td> 
+           <td> <p> <a href="Apple II series">Apple II series</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MAC/65">MAC/65</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a> </p> </td> 
+           <td> <p> <a href="Atari 8-bit family">Atari 8-bit family</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://www.villehelin.com/wla.html">WLA DX</a> </p> </th> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a>, others </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://www.floodgap.com/retrotech/xa/">XA65</a> </p> </th> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a>, others </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://www.atari.org.pl/x-asm/">XASM</a> </p> </th> 
+           <td> <p> Public domain </p> </td> 
+           <td> <p> <a href="MOS Technology 6502">MOS Technology 6502</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>Other architectures</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center"> 
+         <tbody>
+          <tr>
+           <th> <p> Assembler </p> </th> 
+           <th> <p> <a href="Software license">License</a> </p> </th> 
+           <th> <p> <a href="Instruction set">Instruction set</a> </p> </th> 
+           <th> <p> Host <a href="Computing platform">platform</a> </p> </th> 
+          </tr>
+          <tr> 
+           <th> <p> ALM (Assembly Language for <a href="Multics">Multics</a>) </p> </th> 
+           <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+           <td> <p> <a href="GE-645">GE-645</a><br /><a href="Honeywell 6180">Honeywell 6180</a> </p> </td> 
+           <td> <p> <a href="GE-645">GE-645</a><br /><a href="Honeywell 6180">Honeywell 6180</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Babbage (programming language)">Babbage</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="GEC 4000 series">GEC 4000 series</a> </p> </td> 
+           <td> <p> <a href="GEC 4000 series">GEC 4000 series</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="COMPASS">COMPASS</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="Control Data Corporation">CDC mainframe</a> </p> </td> 
+           <td> <p> <a href="Control Data Corporation">CDC mainframe</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MACRO-10">MACRO-10</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="PDP-10">PDP-10</a> </p> </td> 
+           <td> <p> <a href="PDP-10">PDP-10</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MACRO-11">MACRO-11</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <a href="PDP-11">PDP-11</a> </p> </td> 
+           <td> <p> <a href="PDP-11">PDP-11</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MACRO-32">MACRO-32</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <a href="VAX">VAX</a> </p> </td> 
+           <td> <p> <a href="VAX">VAX</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Pasmo">PASMO</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+           <td> <p> <a href="Zilog Z80">Zilog Z80</a> </p> </td> 
+           <td> <p> numerous </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://busy.speccy.cz/tvorba/mrs.htm">MRS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+           <td> <p> <a href="Zilog Z80">Zilog Z80</a>, <a href="Intel 8080">8080</a> </p> </td> 
+           <td> <p> <a href="ZX Spectrum">ZX Spectrum</a>, <a href="PMD 85">PMD-85</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="http://plit.de/asem-51/">ASEM-51</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="Intel 8051">8051</a> </p> </td> 
+           <td> <p> <a href="Embedded Systems">Embedded Systems</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GPUTILS">GPASM</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+           <td> <p> <a href="PIC microcontroller">PIC microcontroller</a> </p> </td> 
+           <td> <p> many </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ID3E">ID3E</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{nonfree|...}}</span> </p> </td> 
+           <td> <p> <a href="SC123">SC123</a> </p> </td> 
+           <td> <p> <a href="SC123 emulator">SC123 emulator</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MIPS_architecture#MIPS_assembly_language">MIPS</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="MIPS architecture">MIPS architecture</a> </p> </td> 
+           <td> <p> <a href="MIPS architecture">MIPS architecture</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SOAP">SOAP</a><br />(Symbolic Optimal Assembly Program) </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="IBM 650">IBM 650</a> </p> </td> 
+           <td> <p> <a href="IBM 650">IBM 650</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MPW IIgs Assembler">MPW IIgs Assembler</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+           <td> <p> <a href="WDC_65816/65802">WD 65C816</a> </p> </td> 
+           <td> <p> <a href="Apple IIgs">Apple IIgs</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="MetaSymbol">MetaSymbol</a> </p> </th> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="Sigma">SDS/XDS Sigma systems</a> </p> </td> 
+           <td> <p> <a href="Sigma">SDS/XDS Sigma systems</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Autocoder">Autocoder</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> IBM <a href="IBM 700/7000 series#Commercial architecture (702/705/7080)">705</a>, <a href="IBM 1401">14xx</a>, <a href="IBM 1410">1410</a>, <a href="IBM 7010">7010</a>, <a href="IBM 7070">7070</a>, <a href="IBM 7072">7072</a>, <a href="IBM 7074">7074</a>, <a href="IBM 7080">7080</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="FORTRAN Assembly Program#FORTRAN_assembly_program">FAP</a><br />(Fortran Assembly Program) </p> </th> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> IBM <a href="IBM 709">709</a>, <a href="IBM 7040">704x</a>, <a href="IBM 7090">709x</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="IBM 7090/94 IBSYS">MAP</a><br />(Macro Assembly Program) </p> </th> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> IBM <a href="IBM 709">709</a>, <a href="IBM 7040">704x</a>, <a href="IBM 7090">709x</a> </p> </td> 
+           <td> <p> various </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Symbolic Programming System">Symbolic Programming System</a> (SPS)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> IBM <a href="IBM 1401">14xx</a>, <a href="IBM 1620">1620</a>, <a href="IBM 1710">1710</a> </p> </td> 
+           <td> <p> IBM 1401, 1440, 1460, 1620, 1710 </p> </td> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes and references</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{X86 assembly topics}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Assemblers}}</span> <a href="Category:Assemblers">*Assembler</a> <a href="Category:Lists of software">Assemblers</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,790 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of scorewriters</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of scorewriters</h1> 
+   <div class="article-content"> 
+    <p> This is a comparison of <b><a href="Scorewriter">music notation programs</a></b>. </p> 
+    <div class="section"> 
+     <h2> General information </h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 90%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th rowspan="1"> <p> Name </p> </th> 
+         <th rowspan="1"> <p> Developer(s) </p> </th> 
+         <th rowspan="1"> <p> Latest stable release </p> </th> 
+         <th rowspan="1"> <p> License </p> </th> 
+         <th colspan="1"> <p> Import formats </p> </th> 
+         <th colspan="1"> <p> Sound support </p> </th> 
+         <th colspan="1"> <p> Export formats </p> </th> 
+         <th rowspan="1"> <p> Guitar <a href="tablature">tablature</a> </p> </th> 
+         <th rowspan="1"> <p> <a href="WYSIWYG">WYSIWYG</a> Editor </p> </th> 
+         <th rowspan="1"> <p> Cost (<a href="United States dollar">USD</a>) </p> </th> 
+         <th rowspan="1"> <p> Operating System Support </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://sourceforge.net/apps/mediawiki/canorus/index.php?title=Main_Page">Canorus</a> </p> </th> 
+         <td> <p> Reinhard Katzmann, Matev? Jekovec, Georg Rudolph </p> </td> 
+         <td> <p> 0.7.R1002 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> CanorusML, mxml </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, ly </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Linux </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.nch.com.au/notation/index.html">Crescendo</a> </p> </th> 
+         <td> <p> <a href="NCH Software">NCH Software</a> </p> </td> 
+         <td> <p> .97 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> mxml </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> pdf (free version exports scores only as image files <a href="BMP file format">.bmp</a>, <a href="JPEG">.jpg</a>, <a href="Portable Network Graphics">.png</a>) </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Denemo">Denemo</a> </p> </th> 
+         <td> <p> Jeremiah Benham, Nils Gey, Richard Shann </p> </td> 
+         <td> <p> 0.9.0 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> denemo, xml, mxml </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, ly, png </p> </td> 
+         <td> <p> when exported to Lilypond </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Linux, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Frescobaldi (software)">Frescobaldi</a> </p> </th> 
+         <td> <p> Wilbert Berendsen </p> </td> 
+         <td> <p> 2.0.4 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, ly </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Linux, Windows<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Impro-Visor">Impro-Visor</a> </p> </th> 
+         <td> <p> Bob Keller </p> </td> 
+         <td> <p> 5.16 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> ls </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, ls, mid, mxml </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Linux, Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.laborejo.org">Laborejo</a> </p> </th> 
+         <td> <p> Nils Gey </p> </td> 
+         <td> <p> 0.6 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> lbjm, lbj </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, ly, mid </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Linux </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="GNU LilyPond">Lilypond</a> </p> </th> 
+         <td> <p> Han-Wen Nienhuys, Jan Nieuwenhuizen </p> </td> 
+         <td> <p> 2.16.2 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> ly </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, ps, png, svg </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MusEdit">MusEdit</a> </p> </th> 
+         <td> <p> Doug Rogers, Yowza Software </p> </td> 
+         <td> <p> 4.0.3 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> ascii, midi, mxml </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> med, abc, midi, mxml, png, bmp </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MuseScore">MuseScore</a> </p> </th> 
+         <td> <p> Werner Schweer </p> </td> 
+         <td> <p> 1.3 </p> </td> 
+         <td> <p> GPL v2 </p> </td> 
+         <td> <p> mscz, mscx, xml, mxl, md, bww, ove, mgu, sgu, cap, kar </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, png, ps, svg, ly, midi, wav, flac, ogg </p> </td> 
+         <td> <p> <span class="unknown-node">{{No |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Linux, Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Musink">Musink</a> </p> </th> 
+         <td> <p> Lee Reid </p> </td> 
+         <td> <p> 1.1.0.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> musink musTemplateExp </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, png, xps, MIDI </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MusiXTeX">MusiXTeX</a> </p> </th> 
+         <td> <p> Daniel Taupin, Ross Mitchell, Andreas Egler </p> </td> 
+         <td> <p> 1.15 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> <span class="unknown-node">{{tex}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> dvi, ps, pdf </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Linux, Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NoteEdit">NoteEdit</a> </p> </th> 
+         <td> <p> J&ouml;rg Anders </p> </td> 
+         <td> <p> 2.8.1 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> midi, mxml, tex, abc </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> ps, ly </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Linux </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Power Tab Editor">Power Tab Editor</a> </p> </th> 
+         <td> <p> Brad Larsen </p> </td> 
+         <td> <p> 1.7.0.80 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> ptb, midi </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> ptb, midi, ascii, html, bmp </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.columbussoft.de/primus-free.php?lang=en">PriMus Free</a> </p> </th> 
+         <td> <p> Christof Schardt </p> </td> 
+         <td> <p> 1.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> midi, mxml, capella, son, emil, gtp, gp3, gp4, gp5, gp6, ptb </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> midi, mxml, emil </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Rosegarden">Rosegarden</a> </p> </th> 
+         <td> <p> Chris Cannam, Richard Bown, Guillaume Laurent </p> </td> 
+         <td> <p> 11.11 </p> </td> 
+         <td> <p> GPL </p> </td> 
+         <td> <p> midi, mxml </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> ly </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Linux </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TuxGuitar">TuxGuitar</a> </p> </th> 
+         <td> <p> Julian Gabriel Casadesus </p> </td> 
+         <td> <p> 1.2 </p> </td> 
+         <td> <p> LGPL </p> </td> 
+         <td> <p> tg, ly, xml, midi, gtp, gp3, gp4, gp5, gp6, ptb, tef, </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> tg, pdf, gp3, gp4, gp5, midi, ly, ascii </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+         <td> <p> Cross-platform </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Capella (notation program)">Capella</a> </p> </th> 
+         <td> <p> Capella-software AG </p> </td> 
+         <td> <p> 7.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> cap, mxml, midi, txt </p> </td> 
+         <td> <p> midi, <a href="Virtual Studio Technology">vst</a> </p> </td> 
+         <td> <p> capx, cap, mxml, midi, bmp, jpeg, tiff, png, tga, pcx, html </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Capella (notation program)">Capella Start</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> Capella-software AG </p> </td> 
+         <td> <p> 7.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> capx, cap, mxml,<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> midi,<span class="unknown-node">&lt;ref .../&gt;</span> txt </p> </td> 
+         <td> <p> midi, <a href="Virtual Studio Technology">vst</a> </p> </td> 
+         <td> <p> capx, cap, midi<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Encore (software)">Encore</a> </p> </th> 
+         <td> <p> <a href="GVOX">GVOX</a> </p> </td> 
+         <td> <p> 5.0.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> enc, mus, mto, rhp, mxl </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, midi, mff, mts </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Finale (software)">Finale</a> </p> </th> 
+         <td> <p> MakeMusic </p> </td> 
+         <td> <p> 2012 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> mus, mxml, midi, tiff, jpeg, png, eps, pdf, bmp, gif, pict<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> midi, <a href="Virtual Studio Technology">vst</a>, <a href="Audio Units">au</a>,<span class="unknown-node">&lt;ref .../&gt;</span> Garritan library </p> </td> 
+         <td> <p> midi, wav, mp3, aiff, pdf, tiff, jpeg, png, eps, bmp, gif, pict<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Guitar Pro">Guitar Pro</a> </p> </th> 
+         <td> <p> Arobas Music </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> gpx, gp3, gp4, gp5, ascii, mxl, midi </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> png, pdf, ascii, midi, wav, gpx, gp5 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Linux, Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.music-notation-software.com/">Maestro Notation for MS Word</a> </p> </th> 
+         <td> <p> Maestro Music Software </p> </td> 
+         <td> <p> 5.600 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> doc, sfd, musicxml, midi, kar, jpg, tiff, png, bmp </p> </td> 
+         <td> <p> midi, sf2 </p> </td> 
+         <td> <p> doc, pdf, sfd, musicxml, midi, kar, jpg, tiff, png, bmp, </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.musicaleditor.com/">MagicScore Maestro</a> </p> </th> 
+         <td> <p> Maestro Music Software </p> </td> 
+         <td> <p> 7.746 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> sfd, musicxml, midi, kar, wav, mp3, jpg, tiff, png, bmp </p> </td> 
+         <td> <p> midi, sf2 </p> </td> 
+         <td> <p> pdf, sfd, musicxml, midi, kar, wav, mp3, jpg, tiff, png, bmp, </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.myriad-online.com/en/products/harmony.htm">Harmony Assistant</a> </p> </th> 
+         <td> <p> Myriad Software </p> </td> 
+         <td> <p> 9.6.2g </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> myr, midi, kar, cmf, mus, etf, enc, rhp, mus, nwc, gtp, gp3, gp4, tef, sty, mod, s3m, mxml, xmz, mxl, abc, tab, wav, aif, aiff, mp3, ogg, pcm, raw, brt, wma,<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> mov,<span class="unknown-node">&lt;ref .../&gt;</span> mpeg<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, myr, midi, kar, cmf, mxml, xmz, mxl, abc, tab, wav, aif, aiff, mp3, ogg, mov,<span class="unknown-node">&lt;ref .../&gt;</span> mpeg<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Linux, Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.myriad-online.com/en/products/melody.htm">Melody Assistant</a> </p> </th> 
+         <td> <p> Myriad Software </p> </td> 
+         <td> <p> 7.6.2m </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> myr, midi, kar, cmf, mod, s3m, mxml, xmz, mxl, abc, tab, wav, aif, aiff, mp3, ogg, pcm, raw, brt </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf, myr, midi, kar, cmf, abc, tab, wav, aif, aiff, mp3, ogg </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Linux, Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mozart the music processor">Mozart</a> </p> </th> 
+         <td> <p> David Webber </p> </td> 
+         <td> <p> 11 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> mz, mxml </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> bmp, emf, gif, jpg, pbm, png </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mus2">Mus2</a> </p> </th> 
+         <td> <p> Utku Uzmen (Data-Soft Ltd.) </p> </td> 
+         <td> <p> 2.0.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> mus2 </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> bmp, jpeg, pdf, png, svg, aiff, midi, wav </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MusiCAD">MusiCAD</a> </p> </th> 
+         <td> <p> Musys Software </p> </td> 
+         <td> <p> 3.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> ascii, abc, midi </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MusicEase">MusicEase</a> </p> </th> 
+         <td> <p> MusicEase Software </p> </td> 
+         <td> <p> 8.5 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> mxml, midi, mez, abc, sw </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> midi, pdf </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.gvox.com/mtd.php">Musictime Deluxe</a> </p> </th> 
+         <td> <p> <a href="GVOX">GVOX</a> </p> </td> 
+         <td> <p> 4.0.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> mtp, midi </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> mtp, midi </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="NoteWorthy Composer">NoteWorthy Composer</a> </p> </th> 
+         <td> <p> NoteWorthy Software </p> </td> 
+         <td> <p> 2.5 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> nwc, midi, kar </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> nwctxt, midi </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Notion (software)">Notion</a> </p> </th> 
+         <td> <p> NOTION Music </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> mxl, mxml, midi </p> </td> 
+         <td> <p> midi, <a href="Virtual Studio Technology">vst</a> </p> </td> 
+         <td> <p> mxml, wav, midi, </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows, iOS (iPad)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Overture (software)">Overture</a> </p> </th> 
+         <td> <p> Geniesoft </p> </td> 
+         <td> <p> 4.1.5 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> ove, scw, mxml, midi, enc </p> </td> 
+         <td> <p> midi, <a href="Virtual Studio Technology">vst</a> </p> </td> 
+         <td> <p> ove, midi, wav </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://www.columbussoft.de/?lang=en">PriMus</a> </p> </th> 
+         <td> <p> Christof Schardt </p> </td> 
+         <td> <p> 1.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> midi, mxml, capella, son, emil, gtp, gp3, gp4, gp5, gp6, ptb </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> midi, mxml, emil, html, bmp, png, tiff, jpg </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Windows, Mac </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="http://sonicscores.com/products/scorewriter/index.htm">Score Writer</a> </p> </th> 
+         <td> <p> Geniesoft </p> </td> 
+         <td> <p> 4.1.5 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> mxml, midi </p> </td> 
+         <td> <p> midi, <a href="Virtual Studio Technology">vst</a> </p> </td> 
+         <td> <p> midi, wav </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Sibelius (software)">Sibelius</a> </p> </th> 
+         <td> <p> Sibelius Software </p> </td> 
+         <td> <p> 7.1.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> sib, mxml, midi, bmp, gif, jpg, png, tiff, svg </p> </td> 
+         <td> <p> midi, <a href="Virtual Studio Technology">vst</a>, <a href="Audio Units">au</a>,<span class="unknown-node">&lt;ref .../&gt;</span> Avid library </p> </td> 
+         <td> <p> sib, mxml, midi, pdf, eps, png, svg </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows, <a href="RISC OS">RISC OS</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SmartScore">SmartScore Pro</a> </p> </th> 
+         <td> <p> Musitek Corporation </p> </td> 
+         <td> <p> 10.2.6 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+         <td> <p> mxl </p> </td> 
+         <td> <p> midi </p> </td> 
+         <td> <p> pdf </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+         <td> <p> Mac, Windows </p> </td> 
+        </tr> 
+        <tr> 
+         <th rowspan="1"> <p> Name </p> </th> 
+         <th rowspan="1"> <p> Developer(s) </p> </th> 
+         <th rowspan="1"> <p> Latest stable release </p> </th> 
+         <th rowspan="1"> <p> License </p> </th> 
+         <th colspan="1"> <p> Import formats </p> </th> 
+         <th colspan="1"> <p> Sound support </p> </th> 
+         <th colspan="1"> <p> Export formats </p> </th> 
+         <th rowspan="1"> <p> Guitar <a href="tablature">tablature</a> </p> </th> 
+         <th rowspan="1"> <p> <a href="WYSIWYG">WYSIWYG</a> Editor </p> </th> 
+         <th rowspan="1"> <p> Cost (<a href="United States dollar">USD</a>) </p> </th> 
+         <th rowspan="1"> <p> Operating System Support </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="List of MIDI editors and sequencers">List of MIDI editors and sequencers</a></li> 
+       <li> <a href="List of guitar tablature software">List of guitar tablature software</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://www.makemusic.com/musicxml/community/software">Music Notation Software with MusicXML Features</a>, Import and Export</li> 
+       <li><a href="http://www.musiksoftware.net/notationsprogramme.html">Overview of Scorewriters</a>, in German </li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Scorewriters}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Scorewriters}}</span> <a href="Category:Software comparisons">Category:Software comparisons</a> <a href="Category:Scorewriters">Category:Scorewriters</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

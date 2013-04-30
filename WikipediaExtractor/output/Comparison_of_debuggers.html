@@ -1,0 +1,368 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of debuggers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of debuggers</h1> 
+   <div class="article-content"> 
+    <p> This is a list of <a href="Debugger">Debuggers</a>: <a href="computer program">computer programs</a> that are used to test and <a href="debug">debug</a> other programs. </p> 
+    <table class="wikitable sortable" style="font-size: 85%; text-align: center"> 
+     <tbody>
+      <tr>
+       <th> <p> Name </p> </th> 
+       <th> <p> Description </p> </th> 
+       <th> <p> <a href="Programming language">Language</a> </p> </th> 
+       <th> <p> <a href="Operating system">OS</a> </p> </th> 
+       <th> <p> <a href="Software license">License</a> </p> </th> 
+       <th> <p> most recent release </p> </th> 
+      </tr>
+      <tr> 
+       <th> <p> <a href="GNU Debugger">GDB</a> </p> </th> 
+       <td> <p> <a href="GNU">GNU</a> Debugger </p> </td> 
+       <td> <p> any compiled to <a href="Machine code">Machine code</a> </p> </td> 
+       <td> <p> any </p> </td> 
+       <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+       <td> <p> 7.5.1, Nov 2012 </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Intel Debugger">IDB</a> </p> </th> 
+       <td> <p> <a href="Intel">Intel</a> Debugger </p> </td> 
+       <td> <p> any compiled to <a href="Machine code">Machine code</a> </p> </td> 
+       <td> <p> <a href="Microsoft Windows">Windows</a>, <a href="Linux">Linux</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{proprietary}}</span> </p> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="LLDB (debugger)">LLDB</a> </p> </th> 
+       <td> <p> <a href="LLVM">LLVM</a> Debugger </p> </td> 
+       <td> <p> any compiled to <a href="Machine code">Machine code</a> </p> </td> 
+       <td> <p> any </p> </td> 
+       <td> <p> <a href="BSD_licenses">BSD-Style</a> </p> </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> pdb </p> </th> 
+       <td> <p> Python debugger </p> </td> 
+       <td> <p> <a href="Python (programming language)">Python</a> </p> </td> 
+       <td> <p> any </p> </td> 
+       <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+       <td> <p> 3.2.2, Sept 2011 </p> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <div class="section"> 
+     <h2>Many more to be sorted</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Example farm|...}}</span> <span class="unknown-node">{{External links|...}}</span> </p> 
+      <ul> 
+       <li><a href="Allinea Distributed Debugging Tool">Allinea DDT</a></li> 
+       <li>AppPuncher Debugger ? for debugging <a href="Rich Internet Applications">Rich Internet Applications</a></li> 
+       <li><a href="AQtime">AQtime</a> ? profiler and memory/resource debugger for Windows</li> 
+       <li><a href="Arm_architecture#ARM_licensees "> ARM Development Studio 5 (DS-5)</a></li> 
+       <li><a href="CA/EZTEST">CA/EZTEST</a> ? was a <a href="CICS">CICS</a> interactive test/debug software package</li> 
+       <li><a href="CodeView">CodeView</a> ? was a debugger for the DOS platform</li> 
+       <li><a href="dbg">DBG</a> ? a PHP Debugger and Profiler</li> 
+       <li><a href="dbx debugger">dbx</a> ? a proprietary source-level debugger for Pascal/Fortran/C/C++ on UNIX platforms</li> 
+       <li><a href="debug (command)">DEBUG</a> ? the built-in debugger of DOS and Microsoft Windows</li> 
+       <li><a href="Opera Dragonfly">Opera Dragonfly</a> ? JavaScript and HTML DOM debugger</li> 
+       <li><a href="Dynamic debugging technique">Dynamic debugging technique</a> (DDT), and its octal counterpart <a href="Octal Debugging Technique">Octal Debugging Technique</a></li> 
+       <li><a href="edb">edb</a> ? a disassembly-based debugger for linux (GUI) <a href="http://www.codef00.com/projects#Debugger">1</a></li> 
+       <li><a href="Embedded System Debug Plug-in for Eclipse">Embedded System Debug Plug-in for Eclipse</a></li> 
+       <li><a href="FusionDebug">FusionDebug</a> ? interactive debugger for Adobe ColdFusion and Railo CFML Engine</li> 
+       <li><a href="Insight Debugger">Insight</a> ? a real-mode debugger for DOS</li> 
+       <li><a href="Insure++">Parasoft Insure++</a> ? a multi-platform memory debugger</li> 
+       <li>iSYSTEM ? <a href="in-circuit debugger">in-circuit debugger</a> for <a href="embedded system">embedded systems</a></li> 
+       <li><a href="Interactive Disassembler">Interactive Disassembler</a> (IDA Pro)</li> 
+       <li><a href="Java Platform Debugger Architecture">Java Platform Debugger Architecture</a></li> 
+       <li><a href="Jinx Debugger">Jinx</a> ? a whole-system debugger for <a href="Unusual_software_bug#Heisenbug">heisenbugs</a>. It works transparently as a device driver.</li> 
+       <li><a href="JSwat">JSwat</a> ? open-source Java debugger</li> 
+       <li><a href="MacsBug">MacsBug</a> ? a debugger for ancient MacOS releases</li> 
+       <li><a href="Modular Debugger">Modular Debugger</a> a C/C++ source level debugger for Solaris and derivates <a href="http://src.illumos.org/source/xref/illumos-gate/usr/src/cmd/mdb/common/mdb/">2</a></li> 
+       <li><a href="OLIVER (CICS interactive test/debug)">OLIVER (CICS interactive test/debug)</a> - a GUI equipped <a href="Instruction Set Simulator"><i>instruction set simulator</i> (ISS)</a></li> 
+       <li><a href="OllyDbg">OllyDbg</a> ? a disassembly-based debugger for WIN32 (GUI)</li> 
+       <li><a href="Omniscient Debugger">Omniscient Debugger</a> ? Forward and backward debugger for Java</li> 
+       <li>pgdbg ? parallel graphical symbolic debugger for C/C++/Fortran on Linux/Windows/Mac developed by <a href="The Portland Group">The Portland Group</a></li> 
+       <li><a href="IBM Rational Purify">IBM Rational Purify</a> ? multi-platform memory debugger</li> 
+       <li>RealView Debugger ? Commercial debugger produced for and designed by <a href="ARM Limited">ARM</a></li> 
+       <li><a href="sdb (debugger)">sdb</a> ? a symbolic debugger for C programs for ancient UNIX platforms</li> 
+       <li><a href="SIMMON">SIMMON</a> (Simulation Monitor)</li> 
+       <li><a href="SIMON (Batch Interactive test/debug)">SIMON (Batch Interactive test/debug)</a> ? a GUI equipped <a href="Instruction Set Simulator"><i>instruction set simulator</i> (ISS)</a> for batch</li> 
+       <li><a href="SoftICE">SoftICE</a> ? kernel mode debugger for Windows</li> 
+       <li>TimeMachine ? Forward and backward debugger designed by <a href="Green Hills Software">Green Hills Software</a></li> 
+       <li><a href="TotalView">TotalView</a> ? proprietary multi-platform debugger for C/C++ and Fortran</li> 
+       <li><a href="Lauterbach (company)">Lauterbach</a> <a href="TRACE32">TRACE32</a> ? <a href="in-circuit debugger">in-circuit debugger</a> for <a href="embedded System">embedded Systems</a></li> 
+       <li><a href="Turbo Debugger">Turbo Debugger</a> Pascal/C/assembly debugger for DOS</li> 
+       <li><a href="Ups (debugger)">Ups</a> ? C, Fortran source level debugger</li> 
+       <li><a href="Valgrind">Valgrind</a> ? Memory Debugger and Profiler</li> 
+       <li><a href="VB Watch">VB Watch Debugger</a> ? debugger for Visual Basic 6.0</li> 
+       <li><a href="Microsoft Visual Studio Debugger">Microsoft Visual Studio Debugger</a> ? debugger for .NET and native Windows applications</li> 
+       <li><a href="WinDbg">WinDbg</a> ? multipurpose debugger for Windows</li> 
+       <li><a href="Xdebug">Xdebug</a> ? PHP debugger and profiler</li> 
+       <li><a href="ZeroBugs">ZeroBugs</a> ? C/C++ debugger for Linux (GUI) <a href="http://www.zerobugs.org">3</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>List of debugger front-ends</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> Many <a href="Eclipse (software)">Eclipse</a> perspectives, e.g. the Java Development Tools (JDT) <a href="http://www.eclipse.org/jdt/index.php">4</a>, provide a debugger front-end.</li> 
+       <li> <a href="Data Display Debugger">DDD</a> is the standard front-end from the <a href="GNU Project">GNU Project</a>. It is a complex tool that works with most common debuggers (GDB, jdb, Python debugger, Perl debugger, Tcl, and others) natively or with some external programs (for PHP).</li> 
+       <li> <a href="GDB">GDB</a> (the GNU debugger) GUI 
+        <ul> 
+         <li> <a href="Affinic Debugger GUI">Affinic Debugger GUI</a> ? A GDB Frontend on Linux/Windows/OSX/Cygwin.</li> 
+         <li> <a href="Emacs">Emacs</a> ? Emacs editor with built-in support for the GNU Debugger acts as the frontend.</li> 
+         <li> <a href="KDbg">KDbg</a> ? Part of the KDE development tools.</li> 
+         <li> <a href="Nemiver">Nemiver</a> ? A GDB frontend that integrates well in the <a href="GNOME">GNOME</a> desktop environment.</li> 
+         <li> <a href="xxgdb">xxgdb</a> ? X-window frontend for GDB and <a href="dbx debugger">dbx debugger</a>.</li> 
+         <li> <a href="Qt Creator#Debuggers">Qt Creator</a> ? multi-platform frontend for GDB and CDB (<a href="http://doc.qt.nokia.com/qtcreator-2.2/creator-debugging-example.html">debugging example</a>).</li> 
+         <li> <a href="http://cgdb.sourceforge.net/">cgdb</a> ? ncurses terminal program that mimics <a href="Vim (text editor)">vim</a> key mapping.</li> 
+         <li> <a href="http://ccdebug.sourceforge.net/">ccdebug</a>? A graphical GDB frontend using the <a href="Qt toolkit">Qt toolkit</a>.</li> 
+         <li> <a href="Padb">Padb</a> ? has a parallel front-end to GDB allowing it to target parallel applications.</li> 
+         <li> <a href="Allinea Distributed Debugging Tool">Allinea's DDT</a> ? a parallel and distributed front-end to a modified version of GDB.</li> 
+         <li> <a href="Xcode">Xcode</a> ? contains a GDB front-end as well.</li> 
+         <li> <a href="SlickEdit">SlickEdit</a> ? contains a GDB front-end as well.</li> 
+         <li> <a href="Eclipse (software)">Eclipse</a> C/C++ Development Tools (CDT) <a href="http://www.eclipse.org/cdt/">5</a> ? includes visual debugging tools based on GDB.</li> 
+        </ul> </li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Debuggers}}</span> <a href="Category:Debuggers">*Debugger</a> <a href="Category:Lists of software">Debuggers</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

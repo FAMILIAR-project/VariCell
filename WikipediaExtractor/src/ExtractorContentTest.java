@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,33 +16,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
-import org.prop4j.And;
-import org.prop4j.Literal;
-import org.prop4j.Node;
-import org.prop4j.Or;
 import org.sweble.wikitext.engine.CompilerException;
 import org.sweble.wikitext.lazy.LinkTargetException;
 
-import com.google.common.collect.Sets;
-
-import de.ovgu.featureide.fm.core.editing.NodeCreator;
-
-import fr.unice.polytech.modalis.familiar.operations.CNFtoExpression;
-import fr.unice.polytech.modalis.familiar.operations.ExpressionUtility;
 import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDDSPLOT;
-import fr.unice.polytech.modalis.familiar.operations.FMLMergerDisjunctiveSAT;
-import fr.unice.polytech.modalis.familiar.operations.ImplicationGraphUtil;
 import fr.unice.polytech.modalis.familiar.operations.Mode;
-import fr.unice.polytech.modalis.familiar.operations.SATDisjunctiveFormula;
-import fr.unice.polytech.modalis.familiar.operations.featureide.SATFMLFormula;
-import fr.unice.polytech.modalis.familiar.parser.ConvertAnalyzer;
-import fr.unice.polytech.modalis.familiar.parser.FMBuilder;
 import fr.unice.polytech.modalis.familiar.test.FMLTest;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariableBDDFormula;
-import fr.unice.polytech.modalis.familiar.variable.Variable;
-import fr.unice.polytech.modalis.familiar.variable.featureide.FeatureModelVariableSATFormula;
-import gsd.graph.ImplicationGraph;
 
 
 public class ExtractorContentTest extends FMLTest {
@@ -62,7 +45,7 @@ public class ExtractorContentTest extends FMLTest {
 			content.append("" + hText + " ; " + URL_BASE_NAME + hURL + "\n");
 		}
 		
-		FileUtils.writeStringToFile(new File ("comparisonsData.csv"), content.toString());
+		//FileUtils.writeStringToFile(new File ("comparisonsData.csv"), content.toString());
 			
 	}
 
@@ -90,6 +73,179 @@ public class ExtractorContentTest extends FMLTest {
 		if (urlNext != null) {
 			_collectAllComparisonOf(urlNext.attr("href"), hrefs) ; 
 		}
+		
+	}
+	
+	@Test
+	public void testStatistics() throws Exception {
+		
+		
+		
+		List<Element> hrefs = new ArrayList<Element>() ; 
+		_collectAllComparisonOf("/w/index.php?title=Special%3APrefixIndex&prefix=Comparison&namespace=0&hideredirects=1",  hrefs);
+
+		Set<String> excludePCMs = new HashSet<String>(Arrays.asList(new String[] {
+				// not relevant (and actually it does not parse)
+				"Comparison_between_Esperanto_and_Ido", 
+				"Comparison_between_Esperanto_and_Interlingua", 
+				"Comparison_between_Esperanto_and_Novial", 
+				"Comparison_between_Ido_and_Interlingua",
+				"Comparison_between_Ido_and_Novial", 
+				"Comparison_between_U.S._states_and_countries_by_GDP_(PPP)",
+				"Comparison_of_ALGOL_68_and_C%2B%2B",
+				"Comparison_of_Afrikaans_and_Dutch",
+				"Comparison_of_Asian_national_space_programs",
+				"Comparison_of_Axis_%26_Allies_games",
+				
+				"Comparison_of_C_Sharp_and_Visual_Basic_.NET", // no table !
+				"Comparison_of_Chernobyl_and_other_radioactivity_releases", // no table !
+				
+				"Comparison_of_Home_Owners%27_and_Civic_Associations", // no table !
+				
+				"Comparison_of_IOC,_FIFA,_and_ISO_3166_country_codes", // limited interest
+				
+				"Comparison_of_Java_and_C%2B%2B", // limited interest (rather a qualitative comparison, based on natural language)
+				
+				"Comparison_of_MD_and_DO_in_the_United_States", // no table and interest ! 
+				
+				"Comparison_of_Norwegian_Bokm%C3%A5l_and_Standard_Danish", // limited interest
+				
+				"Comparison_of_Portuguese_and_Spanish", // limited interest (pattern: comparison of "languages" being Esperanto, Norwe., Spanish, etc.)
+				
+				"Comparison_of_privilege_authorization_features", // no table  (rather a qualitative comparison, based on natural language)
+				
+				"Comparison_of_the_Hare_and_Droop_quotas", // limited interest
+				
+				"Comparison_of_the_imperial_and_US_customary_measurement_systems", // out of the scope  
+				
+				
+				// due to the current status of the parser
+				// FIXME
+				"Comparison_of_Android_e-book_reader_software",
+				"Comparison_of_Exchange_ActiveSync_clients",
+				"Comparison_of_Linux_distributions",
+				"Comparison_of_Symbian_devices",
+				"Comparison_of_browser_synchronizers",
+				"Comparison_of_business_integration_software",
+				"Comparison_of_consumer_brain%E2%80%93computer_interfaces",
+				"Comparison_of_domestic_robots",
+				"Comparison_of_e-book_formats",
+				"Comparison_of_e-book_readers",
+				"Comparison_of_file_hosting_services",
+				"Comparison_of_layout_engines_(Cascading_Style_Sheets)",
+				"Comparison_of_layout_engines_(MathML)",
+				"Comparison_of_machine_translation_applications",
+				"Comparison_of_mobile_operating_systems",
+				"Comparison_of_network_diagram_software",
+				"Comparison_of_numerical_analysis_software",
+				"Comparison_of_statistics_journals",
+				"Comparison_of_text_editors",
+				"Comparison_of_web_server_software",
+				
+				// limited interest IMO 
+				"Comparison_of_United_States_presidential_candidates,_2008",
+				"Comparison_of_World_War_I_tanks",
+				"Comparison_of_programming_languages_(object-oriented_programming)",
+				"Comparison_of_programming_languages_(string_functions)",
+				
+				
+				
+		}));
+	
+		int j = 0 ; // j-th comparison 
+		int nRelevant = 0 ; 
+		for (Element href : hrefs) {
+			String hURL = href.attr("href") ;
+			int n = "/wiki/".length() ; 
+			String wikiPageName = hURL.substring(n);
+			System.err.println("(" + j++ + ") " + wikiPageName);
+			
+			if (excludePCMs.contains(wikiPageName)) {
+				System.err.println("Ignoring");
+				continue ; 
+			}
+			
+			
+			PCMStatistic stat = computeStatistic (wikiPageName);
+			
+			// we exploit here the stats by printing 
+			
+			int nTable = stat.getNumbersOfTables() ; 
+			System.err.println("numbers of tables:" + nTable);
+			
+			if (nTable > 0)
+				nRelevant++ ; 
+			
+			Collection<CatalogStat> catalogStats = stat.getCatalogStats() ;
+			int i = 1 ;
+			for (CatalogStat catalogStat : catalogStats) {
+				System.err.println("table(" + i + ")");
+				System.err.println("#headers=" + catalogStat.getNumbersOfHeaders());
+				System.err.println("#products=" + catalogStat.getNumbersOfProduct());
+			}
+			System.err.println("\n\n\n"); 
+			
+		}
+		
+		System.err.println("number of relevant PCMs: " + nRelevant);
+		
+		
+	//	String wikiPageName = "Comparison_of_Java_virtual_machines"; 
+		
+		
+		
+		
+	
+		
+	}
+	
+
+	private PCMStatistic computeStatistic (String wikiPageName) throws Exception {
+		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
+		
+		String content = wikipediaExtractor.getContent(wikiPageName) ;
+		
+		assertNotNull(content);
+		FileUtils.writeStringToFile(new File("output/" + wikiPageName + ".wikipedia"), content);
+		//System.err.println("content = " + content);
+		
+		WikiTabularExtractor wikiTabExtractor = new WikiTabularExtractor() ;
+		
+		//content = "'''Video converters''' are [[computer program]]s" ; 
+		String htmlContent = wikiTabExtractor.run(content, "" + wikiPageName);
+		
+		assertNotNull(htmlContent);
+		
+		//Document doc = Jsoup.connect("http://en.wikipedia.org/w/index.php?title=" + wikiPageName).get();
+		Document doc = Jsoup.parse(htmlContent);
+		FileUtils.writeStringToFile(new File("output/" + wikiPageName + ".html"), doc.toString());
+
+		//Element docContentEntryPoint = doc ; // doc.getElementsByClass("article-content").first(); 
+		//Elements sections = docContentEntryPoint.getElementsByClass("section") ; 
+		// FIXME what about no section ?
+		//treatSection(doc.body());
+		
+		Elements tabs = doc.select("table"); 
+		
+		List<Catalog> catalogs = new ArrayList<Catalog>();
+		for (Element section : tabs) {
+			treatTable (section, catalogs);
+		}
+
+		Collection<CatalogStat> catalogStats = new ArrayList<CatalogStat>() ; 
+		for (Catalog catalog : catalogs) {
+			int nHeaders = catalog.getHeaders().size() ; 
+			int nProduct = catalog.size() ; 
+			catalogStats.add(new CatalogStat(nHeaders, nProduct));
+			
+		}
+		
+		int nTable = catalogs.size() ; 
+		
+		return new PCMStatistic( 
+				nTable,	
+				catalogStats
+				);
 		
 	}
 
@@ -292,7 +448,7 @@ public class ExtractorContentTest extends FMLTest {
 						toRemove.add(p);
 					}
 				}
-				if (!toRemove.isEmpty())
+				if (!toRemove.isEmpty() && !catalog.isEmpty())
 					catalog.removeAll(toRemove);
 			}
 			

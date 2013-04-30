@@ -1,0 +1,594 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of linear algebra libraries</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of linear algebra libraries</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{unreferenced|...}}</span> The following tables provide a comparison of <b><a href="linear algebra">linear algebra</a> <a href="Library (computing)">software libraries</a></b>, either specialized or general purpose libraries with significant linear algebra coverage. </p> 
+    <div class="section"> 
+     <h2> Dense linear algebra </h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3> General information </h3> 
+       <div class="section-body"> 
+        <pre>
+</pre>
+        <p> ? </p>
+        <table class="wikitable sortable" style="font-size: smaller; text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> Creator </p> </th> 
+           <th> <p> Language </p> </th> 
+           <th> <p> First public release </p> </th> 
+           <th> <p> Latest stable version </p> </th> 
+           <th> <p> Cost (<a href="United States dollar">USD</a>) </p> </th> 
+           <th> <p> License </p> </th> 
+           <th> <p> Notes </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ALGLIB">ALGLIB</a> </p> </th> 
+           <td> <p> Sergey Bochkanov </p> </td> 
+           <td> <p> C++, C#, FreePascal, VBA </p> </td> 
+           <td> <p> 2006 </p> </td> 
+           <td> <p> 2.6.0 / 06.2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> GPL </p> </td> 
+           <td> <p> General purpose numerical analysis library. Uses automatic code generation to support several programming languages. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Automatically Tuned Linear Algebra Software">ATLAS</a> </p> </th> 
+           <td> <p> R. Clint Whaley et al. </p> </td> 
+           <td> <p> C </p> </td> 
+           <td> <p> 2001 </p> </td> 
+           <td> <p> 3.8.3 / 02.2009 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> BSD </p> </td> 
+           <td> <p> Automatically tuned implementation of BLAS. Also includes LU and Cholesky decompositions. </p> </td> 
+          </tr> 
+          <tr>   
+           <th> <p> <a href="https://rtmath.net/products/finmath/">FinMath</a> </p> </th> 
+           <td> <p> <a href="https://rtmath.net/">RTMath</a> </p> </td> 
+           <td> <p> C / C# </p> </td> 
+           <td> <p> October 2011 </p> </td> 
+           <td> <p> 1.4.28.00 / 03.2013 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> General purpose numerical library for <a href=".NET Framework">.NET</a>. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Scientific Library">GNU Scientific Library</a> </p> </th> 
+           <td> <p> GNU Project </p> </td> 
+           <td> <p> C </p> </td> 
+           <td> <p> 1996 </p> </td> 
+           <td> <p> 1.14 / 03.2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+           <td> <p> General purpose numerical analysis library. Includes some support for linear algebra. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="IMSL Numerical Libraries">IMSL Numerical Libraries</a> </p> </th> 
+           <td> <p> Rogue Wave Software </p> </td> 
+           <td> <p> C, Java, C#, Fortran, Python </p> </td> 
+           <td> <p> 1970 </p> </td> 
+           <td> <p> many components </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> General purpose numerical analysis library. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="LAPACK">LAPACK</a> </p> </th> 
+           <td> </td> 
+           <td> <p> Fortran </p> </td> 
+           <td> <p> 1992 </p> </td> 
+           <td> <p> 3.4.0 / 11.2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="BSD licenses">3-clause BSD</a> </p> </td> 
+           <td> <p> Numerical linear algebra library with long history </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Math Kernel Library">MKL</a> </p> </th> 
+           <td> <p> Intel </p> </td> 
+           <td> <p> C++, Fortran </p> </td> 
+           <td> <p> 2003 </p> </td> 
+           <td> <p> 10.3 update 8 / 2011 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> Numerical analysis library optimized for Intel CPU's </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NAG Numerical Library">NAG Numerical Library</a> </p> </th> 
+           <td> <p> <a href="Numerical Algorithms Group">The Numerical Algorithms Group</a> </p> </td> 
+           <td> <p> C, Fortran </p> </td> 
+           <td> <p> 1971 </p> </td> 
+           <td> <p> many components </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> General purpose numerical analysis library. </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NMath">NMath</a> </p> </th> 
+           <td> <p> <a href="CenterSpace Software">CenterSpace Software</a> </p> </td> 
+           <td> <p> C# </p> </td> 
+           <td> <p> 2003 </p> </td> 
+           <td> <p> 4.0 / November 2009 </p> </td> 
+           <td> <p> <span class="unknown-node">{{nonfree}}</span> </p> </td> 
+           <td> <p> Proprietary </p> </td> 
+           <td> <p> Math and statistical libraries for the <a href=".NET Framework">.NET Framework</a> </p> </td> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SciPy">SciPy</a> </p> </th> 
+           <td> <p> <a href="Enthought">Enthought</a> </p> </td> 
+           <td> <p> Python </p> </td> 
+           <td> </td> 
+           <td> <p> 0.8.0 / 2010 </p> </td> 
+           <td> <p> <span class="unknown-node">{{free}}</span> </p> </td> 
+           <td> <p> <a href="BSD licenses">BSD</a> </p> </td> 
+           <td> <p> based on Python </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Matrix types and operations </h3> 
+       <div class="section-body"> 
+        <p> Matrix types (special types like bidiagonal/tridiagonal are not listed): </p> 
+        <ul> 
+         <li> <i>Real</i> - general (nonsymmetric) real</li> 
+         <li> <i>Complex</i> - general (nonsymmetric) complex</li> 
+         <li> <i>SPD</i> - symmetric positive definite (real)</li> 
+         <li> <i>HPD</i> - Hermitian positive definite (complex)</li> 
+         <li> <i>SY</i> - symmetric (real)</li> 
+         <li> <i>HE</i> - Hermitian (complex)</li> 
+         <li> <i>BND</i> - band</li> 
+        </ul> 
+        <p> Operations: </p> 
+        <ul> 
+         <li> <i>TF</i> - triangular factorizations (LU, Cholesky)</li> 
+         <li> <i>OF</i> - orthogonal factorizations (QR, QL, generalized factorizations)</li> 
+         <li> <i>EVD</i> - eigenproblems</li> 
+         <li> <i>SVD</i> - singular value decomposition</li> 
+         <li> <i>GEVD</i> - generalized EVD</li> 
+         <li> <i>GSVD</i> - generalized SVD</li> 
+        </ul> 
+        <table class="wikitable sortable" style="text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width: 12em"> </th> 
+           <th> <p> Real </p> </th> 
+           <th> <p> Complex </p> </th> 
+           <th> <p> SPD </p> </th> 
+           <th> <p> HPD </p> </th> 
+           <th> <p> SY </p> </th> 
+           <th> <p> HE </p> </th> 
+           <th> <p> BND </p> </th> 
+           <th> <p> TF </p> </th> 
+           <th> <p> OF </p> </th> 
+           <th> <p> EVD </p> </th> 
+           <th> <p> SVD </p> </th> 
+           <th> <p> GEVD </p> </th> 
+           <th> <p> GSVD </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ALGLIB">ALGLIB</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Automatically Tuned Linear Algebra Software">ATLAS</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="GNU Scientific Library">GNU Scientific Library</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="https://rtmath.net/products/finmath/">FinMath</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="ILNumerics.Net">ILNumerics.Net</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="IMSL Numerical Libraries">IMSL Numerical Libraries</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="LAPACK">LAPACK</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="Math Kernel Library">MKL</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NAG Numerical Library">NAG Numerical Library</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="NMath">NMath</a> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+          </tr> 
+          <tr> 
+           <th> <p> <a href="SciPy">SciPy</a> (Python packages) </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{yes}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+           <th> <p> <span class="unknown-node">{{no}}</span> </p> </th> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <a href="Category:Numerical software"> </a> </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

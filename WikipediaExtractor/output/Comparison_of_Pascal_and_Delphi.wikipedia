@@ -1,0 +1,108 @@
+{{ProgLangCompare}}
+Devised by [[Niklaus Wirth]] in the late 1960s and early 1970s, [[Pascal (programming language)|Pascal]] is a [[programming language]]. Originally produced by [[Borland]] Software Corporation, [[Embarcadero Delphi]] is composed of an IDE, set of standard libraries, and a Pascal-based language commonly called either [[Object Pascal]], Delphi Pascal, or simply 'Delphi' (Embarcadero's current documentation refers to it as 'the Delphi language (Object Pascal)'<ref>http://docwiki.embarcadero.com/RADStudio/XE2/en/Delphi_Reference</ref>). Since first released, it has become the most popular commercial Pascal implementation.
+
+While developing Pascal, Wirth employed a [[Bootstrapping_(compilers)|bootstrapping]] procedure in which each newer version of the Pascal compiler was written and compiled with its predecessor. Thus, the 'P2' compiler was written in the dialect compilable by 'P1', 'P3' in turn was written in 'P2' and so on, all the way till 'P5'. The 'P5' compiler implemented Pascal in its final state as defined by Wirth, and subsequently became standardised as 'ISO 7185 Pascal'.
+
+The Borland dialect, like the popular [[UCSD Pascal]] before it, took the 'P4' version of the language as its basis, rather than Wirth's final revision. After much evolution independent of Standard Pascal, the Borland variant became the basis for Delphi. This page goes over the differences between Delphi and Standard Pascal. It does '''not''' go into Delphi-specific extensions to the language, which are numerous and still increasing.
+
+== Differences between Standard Pascal and Delphi ==
+
+1. The way procedures and functions can be passed as parameters differs: Delphi requires explicit procedural types to be declared where Standard Pascal does not.
+
+2. Delphi does not support so called 'intraprocedural gotos', in which [[goto]] statements may reference targets outside the current procedure/function body.
+
+3. Standard Pascal has file 'buffer variables', together with 'get' and 'put' standard procedures that operate on them. Neither are supported in Delphi.
+
+4. Given a variant record in Standard Pascal, the size of a particular variant can be specified. Delphi does not support this form of 'sized' dynamic variable allocation:
+
+<source lang="pascal">
+new(p, t) //where t is a variant record tag type; does not compile in Delphi
+</source>
+
+5. The functions 'pack' and 'unpack' are not implemented in Delphi.
+
+6. The Delphi compiler does not treat { and (*, } and *) as synonyms like Standard Pascal requires. In other words,
+
+<source lang="pascal">
+{ comment *)
+</source>
+
+is not valid in Delphi. Instead, Delphi uses the scheme of allowing the different comment types to indicate nested comments.
+
+7. Delphi does not replace eoln with space as the Pascal standard requires. When reading through the end of a line, the eoln character is supposed to be replaced with a space in ISO 7185. Instead, reading through eoln in Delphi gives the character code for carriage return (13), followed by line feed (10).
+
+8. Numbers and booleans are not printed out in their 'default' field widths by Delphi's version of the Write and WriteLn standard procedures, being instead printed in the minimum amount of space. For example, in Delphi,
+
+<source lang="pascal">
+write(5);
+write(55);
+</source>
+
+is equivalent to:
+
+<source lang="pascal">
+write(5:1);
+write(55:2);
+</source>
+
+However, Standard Pascal requires it to be equivalent to the following (TotalWidth is implementation-defined):
+
+<source lang="pascal">
+write(5:TotalWidth);
+write(55:TotalWidth);
+</source>
+
+Similarly, for booleans,
+
+<source lang="pascal">
+write(false);
+write(true);
+</source>
+
+is equivalent to
+
+<source lang="pascal">
+write('false':5);
+write('true':4);
+</source>
+
+in Delphi, but
+
+<source lang="pascal">
+write('false':TotalWidth);
+write('true':TotalWidth);
+</source>
+
+in ISO 7185.
+
+9. Temporary files are not supported by Delphi using traditional Pascal I/O - executing Reset() or Rewrite() results in an error, where under Standard Pascal it opens a temporary file that exists for the duration of the program before being automatically deleted.
+
+10. Notwithstanding the fact Delphi still allows using much of the traditional Pascal RTL, Delphi-specific library functionality is generally implemented in ordinary Delphi code that uses, rather than adds to, compiler-provided intrinsics. This philosophy contrasts to Standard Pascal, whose RTL must be provided by the compiler. For example, in Standard Pascal, the 'file' type is an intrinsic type - sort of like a record, but another compiler-defined type alongside records. In contrast, the TFileStream class in Delphi is an ordinary Delphi class written in ordinary Delphi code. Similarly, the Read, ReadLn, Write and WriteLn standard procedures have signatures that are not themselves legal Pascal signatures. While Delphi still implements them, only vary rarely do Delphi-specific RTL routines require similarly special handling: rather, the language was evolved to include features such as 'open arrays', default parameters and procedural overloading that can be used by user-written routines too.
+
+== References ==
+
+<references />
+
+== See also ==
+
+* [[Delphi programming language]]
+* [[Comparison of Pascal and C]]
+* [[Pascal (programming language)]]
+
+== Further reading ==
+* Kathleen Jansen and [[Niklaus Wirth]]: ''PASCAL - User Manual and Report.'' Springer-Verlag, 1974, 1985, 1991, ISBN 0-387-97649-3, ISBN 0-387-90144-2, and ISBN 3-540-90144-2 [http://www.cs.inf.ethz.ch/~wirth/books/Pascal/]
+* Niklaus Wirth: ''The Programming Language Pascal.'' Acta Informatica, 1, (Jun 1971) 35-63
+* ISO/IEC 7185: ''Programming Languages - PASCAL.'' [http://www.moorecad.com/standardpascal/]
+* Doug Cooper: ''Standard Pascal: User Reference Manual.'' W. W. Norton & Company, 1983, ISBN 0-393-30121-4, ISBN 978-0-393-30121-2
+* Pascal standards documents [http://www.standardpascal.org/standards.html]
+
+== External links ==
+
+* The standard, ISO 7185 Pascal web site [http://www.moorecad.com/standardpascal/]
+
+[[Category:Pascal programming language family]]
+[[Category:Borland]]
+[[Category:Programming language comparisons]]
+
+
+{{Pascal programming language family}}

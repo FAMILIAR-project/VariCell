@@ -1,0 +1,1331 @@
+{{ProgLangCompare}}
+
+==Language support==
+{{Expand section|date=January 2007}}
+
+The following is a comparison of [[associative array]]s (also "mapping", "hash", and "dictionary") in various programming languages.
+
+===Awk===
+[[Awk]] has built-in, language-level support for associative arrays.
+
+For example:
+
+<source lang=Text>
+phonebook["Sally Smart"] = "555-9999"
+phonebook["John Doe"] = "555-1212"
+phonebook["J. Random Hacker"] = "555-1337"
+</source>
+
+You can also loop through an associated array as follows:
+
+<source lang=Text>
+for (name in phonebook) {
+	print name, " ", phonebook[name]
+}
+</source>
+
+You can also check if an element is in the associative array, and delete elements from an associative array.
+
+Multi-dimensional associative arrays can be simulated in standard Awk using concatenation and e.g. SUBSEP:
+
+<source lang=Text>
+{ # for every input line
+	multi[$1 SUBSEP $2]++;
+}
+#
+END {
+	for (x in multi) {
+		split(x, arr, SUBSEP);
+		print arr[1], arr[2], multi[x];
+	}
+}
+</source>
+
+=== C ===
+There is no standard implementation of an associative array in C, but a 3rd party library with BSD license is available [http://www.cl.cam.ac.uk/~cwc22/hashtable/ here]{{Dead link|date=October 2011}} . [[POSIX]] 1003.1-2001 describes the functions <code>hcreate()</code>, <code>hdestroy()</code> and <code>hsearch()</code>.
+
+Another 3rd party library, [http://uthash.sourceforge.net/ uthash], also creates associative arrays from C structures. A structure represents a value, and one of the structure fields acts as the key.
+
+Finally, the [[Glib]] library also supports associative arrays, along with many other advanced data types and is the recommended implementation of the GNU Project.[https://developer.gnome.org/glib/stable/glib-Hash-Tables.html]
+
+Similar to [[Glib]], [[Apple Inc.|Apple]]'s cross-platform [[Core Foundation]] framework provides several basic data types. In particular, there are reference counted CFDictionary and CFMutableDictionary.
+
+===C#===
+<source lang=CSharp>
+Hashtable ht = new Hashtable();
+ht.Add("testKey", "AssociatedData");
+MessageBox.Show((string) ht["testKey"]);
+</source>
+
+<source lang=CSharp>
+Dictionary<int, string> dic = new Dictionary<int, string>();
+dic.Add(7, "Bond");
+MessageBox.Show(dic[7]);
+</source>
+
+In the above sample the <code>Hashtable</code> class is only capable of associating a <code>String</code> key with a value of <code>Object</code> type. Because in .NET all types (except [[Pointer (computer programming)|pointer]]s) ultimately derive from <code>Object</code>, anything can be put into a <code>Hashtable</code>, even data of different types. This could lead to errors if consuming code expects data to be of a singular type. In the above code casting is required to convert the Object variables back to their original type. Additionally, casting value-types (structures such as integers) to <code>Object</code> to put into the <code>Hashtable</code> and casting them back requires boxing/unboxing which incurs both a slight performance penalty and pollutes the heap with garbage. This changes in C# 2.0 with generic hashtables called dictionaries. There are significant performance and reliability gains to these strongly typed collections because they do not require boxing/unboxing or explicit type casts and introduce compile-time type checks. C# 3.0 adds a shorthand notation for the dictionary initialization:
+
+<source lang=CSharp>
+Dictionary<int, string> = new Dictionary<int, string> {
+    { 7, "Bond" }
+};
+</source>
+
+===C++===
+[[C++]] also has a form of associative array called [[map (C++)|<code>std::map</code>]] (see [[Standard Template Library#Containers]]). One could create a map with the same information as above using C++ with the following code:
+
+<source lang=Cpp>
+#include <map>
+#include <string>
+ 
+int main() {
+	std::map<std::string, std::string> phone_book;
+	phone_book["Sally Smart"] = "555-9999";
+	phone_book["John Doe"] = "555-1212";
+	phone_book["J. Random Hacker"] = "553-1337";
+	return 0;
+}
+</source>
+
+You can iterate through the list with the following code:
+
+<source lang=Cpp>
+std::map<std::string, std::string>::iterator curr,end;
+for(curr = phone_book.begin(), end = phone_book.end();  curr != end;  curr++)
+	std::cout <<  curr->first << " = " << curr->second << std::endl;
+</source>
+
+In C++, the <code>std::map</code> class is [[Generic programming#Templates in C.2B.2B|templated]] which allows the [[data type]]s of keys and values to be different for different <code>map</code> instances. For a given instance of the <code>map</code> class the keys must be of the same base type. The same must be true for all of the values. Although <code>std::map</code> is typically implemented using a [[self-balancing binary search tree]], C++'s [[Technical Report 1]] (TR1) defines a second map called <code>[[std::tr1::unordered map]]</code> with the algorithmic characteristics of a hash table. This is a common vendor extension to the STL as well, usually called <code>hash_map</code>, being available from such implementations as SGI and STLPort.
+
+===ColdFusion===
+You can use a [[ColdFusion]] structure to perform as an associative array. Here is a sample in ColdFusion:
+
+<source lang=CFM>
+<cfscript>
+	phoneBook = StructNew();
+	phoneBook["Sally Smart"] = "555-9999";
+	phoneBook["John Doe"] = "555-1212";
+	phoneBook["J. Random Hacker"] = "555-1337";	
+	phoneBook[sName] = "555-4321";
+	phoneBook.UnknownComic = "???";
+</cfscript>
+
+<cfoutput>
+<!-- will output 3 question marks below: -->
+
+	#phoneBook["UnknownComic"]#
+
+<!-- will dump the structure: --->
+
+       <cfdump var = "#phonebook#" />
+
+</cfoutput>
+
+</source>
+
+=== D ===
+[[D programming language|D]] offers direct support for associative arrays
+in the core language ? they are implemented as a chaining hash table with binary trees.<ref>{{Cite web|url=http://digitalmars.com/d/2.0/hash-map.html |title=Associative Arrays |accessdate=2011-02-01 |work= |date= }}</ref> The equivalent example would be:
+
+<source lang=D>
+int main() {
+	string[ string ] phone_book;
+	phone_book["Sally Smart"] = "555-9999";
+	phone_book["John Doe"] = "555-1212";
+	phone_book["J. Random Hacker"] = "553-1337";
+	return 0;
+}
+</source>
+
+Keys and values can be any types, but all the keys in an associative array
+must be of the same type, and the same for values.
+
+You can also loop through all properties and associated values, i.e. as follows:
+
+<source lang=D>
+foreach (key, value; phone_book) {
+        writeln("Number for " ~ key ~ ": " ~ value );
+}
+</source>
+
+A property can be removed as follows:
+
+<source lang=D>
+phone_book.remove("Sally Smart");
+</source>
+
+===Delphi===
+Versions of [[Borland Delphi|Delphi]] prior to 2009 do not offer direct support for associative arrays. However, you can simulate associative arrays using TStrings object. Here's an example:
+
+<source lang=Delphi>
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  DataField: TStrings;
+  i: Integer;
+begin
+  DataField := TStringList.Create;
+
+  DataField.Values['Sally Smart'] := '555-9999';
+  DataField.Values['John Doe'] := '555-1212';
+  DataField.Values['J. Random Hacker'] := '553-1337';
+
+  // access an entry and display it in a message box
+  ShowMessage(DataField.Values['Sally Smart']);
+
+  // loop through the associative array 
+  for i := 0 to DataField.Count - 1 do
+  begin
+    ShowMessage('Number for ' + DataField.Names[i] + ': ' + DataField.ValueFromIndex[i]);
+  end;
+
+  DataField.Free;
+end;
+</source>
+Delphi 2009 introduced support for generics as well as several standard generic containers, including TDictionary.
+<source lang=Delphi>
+uses
+  SysUtils,
+  Generics.Collections;
+
+var
+  PhoneBook: TDictionary<string, string>;
+  Entry: TPair<string, string>;
+
+begin
+  PhoneBook := TDictionary<string, string>.Create;
+  PhoneBook.Add('Sally Smart', '555-9999');
+  PhoneBook.Add('John Doe', '555-1212');
+  PhoneBook.Add('J. Random Hacker', '553-1337');
+
+  for Entry in PhoneBook do
+    Writeln(Format('Number for %s: %s',[Entry.Key, Entry.Value]));
+end.
+</source>
+
+===Erlang===
+Erlang offers many approaches to represent mappings, two of the most common in the standard library are keylists and dictionaries.
+
+Keylists are lists of tuples, where the first element of each tuple is a key, and the second is a value. Functions for operating on keylists are provided in the <code>lists</code> module.
+
+<source lang=Erlang>
+PhoneBook = [{"Sally Smart", "555-9999"},
+             {"John Doe", "555-1212"},
+             {"J. Random Hacker", "553-1337"}].
+</source>
+
+Accessing an element of the keylist can be done with the <code>lists:keyfind/3</code> function:
+
+<source lang=Erlang>
+{_, Phone} = lists:keyfind("Sally Smart", 1, PhoneBook),
+io:format("Phone number: ~s~n", [Phone]).
+</source>
+
+Dictionaries are implemented in the <code>dict</code> of the standard library. A new dictionary is created using the <code>dict:new/0</code> function and new key/value pairs are stored using the <code>dict:store/3</code> function:
+
+<source lang=Erlang>
+PhoneBook1 = dict:new(),
+PhoneBook2 = dict:store("Sally Smith", "555-9999", Dict1),
+PhoneBook3 = dict:store("John Doe", "555-1212", Dict2),
+PhoneBook = dict:store("J. Random Hacker", "553-1337", Dict3).
+</source>
+
+Such a serial initialization would be more idiomatically represented in Erlang with the appropriate function:
+
+<source lang=Erlang>
+PhoneBook = dict:from_list([{"Sally Smith", "555-9999"}, {"John Doe", "555-1212"},
+                       {"J. Random Hacker", "553-1337"}]).
+</source>
+
+The dictionary can be accessed using the <code>dict:find/2</code> function:
+
+<source lang=Erlang>
+{ok, Phone} = dict:find("Sally Smith", PhoneBook),
+io:format("Phone: ~s~n", [Phone]).
+</source>
+
+In both cases, any Erlang term can be used as the key. Variations include the <code>orddict</code> module, implementing ordered dictionaries, and <code>gb_trees</code>, implementing general balanced trees.
+
+===FoxPro===
+[[Visual FoxPro]] implements mapping with the Collection Class.
+
+<pre>
+mapping = NEWOBJECT("Collection")
+mapping.Add("Daffodils", "flower2") && Add(object, key) ? key must be character
+index   = mapping.GetKey("flower2") && returns the index value 1
+object  = mapping("flower2")        && returns "Daffodils" (retrieve by key)
+object  = mapping(1)                && returns "Daffodils" (retrieve by index)
+</pre>
+
+GetKey returns 0 if the key is not found.
+
+See Collection in FoxPro Help for all the details.
+
+===Go===
+[[Go (programming language)|Go]] has built-in, language-level support for associative arrays, called ''maps''. A map's key type may only be a boolean, numeric, string, array, struct, pointer, interface, or channel type. A map type is written like this: <tt>map[keytype]valuetype</tt>.
+
+Adding elements one at a time:
+<source lang=Go>
+phone_book := make(map[string] string) // make an empty map
+phone_book["Sally Smart"] = "555-9999"
+phone_book["John Doe"] = "555-1212"
+phone_book["J. Random Hacker"] = "553-1337"
+</source>
+
+A map literal:
+<source lang=Go>
+phone_book := map[string] string {
+	"Sally Smart": "555-9999",
+	"John Doe": "555-1212",
+	"J. Random Hacker": "553-1337",
+}
+</source>
+
+Iterating over a map:
+<source lang=Go>
+// over both keys and values
+for key, value := range phone_book {
+	fmt.Printf("Number for %s: %s\n", key, value)
+}
+
+// over just keys
+for key := range phone_book {
+	fmt.Printf("Name: %s\n", key)
+}
+</source>
+
+===Haskell===
+The [[Haskell (programming language)|Haskell]] programming language's report only provides one kind of associative container: a list of pairs:
+
+<source lang="haskell">
+m = [("Sally Smart", "555-9999"), ("John Doe", "555-1212"), ("J. Random Hacker", "553-1337")]
+
+main = print (lookup "John Doe" m)
+</source>
+output:
+ Just "555-1212"
+
+Note that the lookup function returns a "Maybe" value, which is "Nothing" if not found, or "Just ''result''" when found.
+
+[[Glasgow Haskell Compiler|GHC]], the most commonly used implementation of Haskell, provides two more types of associative containers. Other implementations might also provide these.
+
+One is polymorphic functional maps (represented as immutable balanced binary trees):
+
+<source lang="haskell">
+import qualified Data.Map as M
+
+m = M.insert "Sally Smart" "555-9999" M.empty
+m' = M.insert "John Doe" "555-1212" m
+m'' = M.insert "J. Random Hacker" "553-1337" m'
+
+main = print (M.lookup "John Doe" m'' :: Maybe String)
+</source>
+output:
+ Just "555-1212"
+
+A specialized version for integer keys also exists as Data.IntMap.
+
+Finally, a polymorphic hash table:
+
+<source lang="haskell">
+import qualified Data.HashTable as H
+
+main = do m <- H.new (==) H.hashString
+          H.insert m "Sally Smart" "555-9999"
+          H.insert m "John Doe" "555-1212"
+          H.insert m "J. Random Hacker" "553-1337"
+          foo <- H.lookup m "John Doe"
+          print foo
+</source>
+output:
+ Just "555-1212"
+
+Lists of pairs and functional maps both provide a purely functional interface, which is more idiomatic in Haskell. In contrast, hash tables provide an imperative interface in the IO monad.
+
+===Java===
+In [[Java (programming language)|Java]] associative arrays are implemented as "maps"; they are part of the [[Java collections framework]]. Since [[Java Platform, Standard Edition|J2SE]] 5.0 and the introduction of [[generic programming|generics]] into Java, collections can have a type specified; for example, an associative array mapping strings to strings might be specified as follows:
+
+<source lang=Java>
+Map<String, String> phoneBook = new HashMap<String, String>();
+phoneBook.put("Sally Smart", "555-9999");
+phoneBook.put("John Doe", "555-1212");
+phoneBook.put("J. Random Hacker", "555-1337");
+</source>
+
+The {{Javadoc:SE|java/util|Map|get(java.lang.Object)|name=get}} method is used to access a key; for example, the value of the expression <code>phoneBook.get("Sally Smart")</code> is <code>"555-9999"</code>.
+
+This code above uses a hash map to store the associative array, by calling the constructor of the {{Javadoc:SE|java/util|HashMap}} class; however, since the code only uses methods common to the interface {{Javadoc:SE|java/util|Map}}, one could also use a self-balancing binary tree by calling the constructor of the {{Javadoc:SE|java/util|TreeMap}} class (which implements the subinterface {{Javadoc:SE|java/util|SortedMap}}), without changing the definition of the <code>phoneBook</code> variable or the rest of the code, or use a number of other underlying data structures that implement the <code>Map</code> interface.
+
+The hash function in Java, used by HashMap and HashSet, is provided by the method {{Javadoc:SE|java/lang|Object|hashCode()}}. Since every class in Java [[Inheritance (computer science)|inherits]] from {{Javadoc:SE|java/lang|Object}}, every object has a hash function. A class can [[Method overriding (programming)|override]] the default implementation of <code>hashCode()</code> to provide a custom hash function based on the properties of the object.
+
+The <code>Object</code> class also contains the method {{Javadoc:SE|name=equals(Object)|java/lang|Object|equals(java.lang.Object)}} that tests the object for equality with another object. Hashed data structures in Java rely on objects maintaining the following contract between their <code>hashCode()</code> and <code>equals()</code> methods:
+
+For two objects ''a'' and ''b'',
+<source lang=Java>
+a.equals(b) == b.equals(a)
+if a.equals(b), then a.hashCode() == b.hashCode()
+</source>
+
+In order to maintain this contract, a class that overrides <code>equals()</code> must also override <code>hashCode()</code>, and maybe vice versa, so that <code>hashCode()</code> is based on the same properties (or a subset of the properties) as <code>equals()</code>.
+
+A further contract that hashed data structures has with the object is that the results of the <code>hashCode()</code> and <code>equals()</code> methods will not change once the object has been inserted into the map. For this reason, it is generally a good practice to base the hash function on [[Immutable object|immutable]] properties of the object.
+
+Analogously, TreeMap, and other sorted data structures, requires that an ordering be defined on the data type. Either the data type must already have defined its own ordering, by implementing the {{Javadoc:SE|java/lang|Comparable}} interface; or a custom {{Javadoc:SE|java/util|Comparator}} must be provided at the time the map is constructed. As with HashMap above, the relative ordering of keys in a TreeMap should not change once they have been inserted into the map.
+
+===JavaScript===
+JavaScript (and its standardized version: [[ECMAScript]]) is a [[Prototype-based programming|prototype-based]] [[Object-oriented programming|object-oriented]] language. In JavaScript an object is a mapping from property names to values?that is, an associative array with one caveat: since property names are strings, only string and (coerced) integer keys are allowed. Other than that difference, objects also include one feature unrelated to associative arrays: a prototype link to the object they inherit from. Doing a lookup for a property will forward the lookup to the prototype if the object does not define the property itself.
+
+An object literal is written as <code>{ property1 : value1, property2 : value2, ... }</code>. For example:
+
+<source lang=JavaScript>
+var myObject = {
+	"Sally Smart"      : "555-9999",
+	"John Doe"         : "555-1212",
+	"J. Random Hacker" : "553-1337"
+};
+</source>
+
+If the property name is a valid identifier, the quotes can be omitted, e.g.:
+
+<source lang=JavaScript>
+var myOtherObject = { foo : 42, bar : false }
+</source>
+
+Lookup is written using property access notation, either square brackets, which always works, or dot notation, which only works for identifier keys:
+
+<source lang=JavaScript>
+myObject["John Doe"]
+myOtherObject.foo
+</source>
+
+You can also loop through all enumerable properties and associated values as follows:
+
+<source lang=JavaScript>
+for(var property in myObject) {
+	var value = myObject[property];
+	alert("myObject[" + property + "] = " + value);
+}
+</source>
+
+A property can be removed as follows:
+
+<source lang=JavaScript>
+delete myObject["Sally Smart"];
+</source>
+
+As mentioned before, properties are strings. However, since every native object and primitive can be implicitly converted to a string, you can do:
+
+<source lang=JavaScript>
+myObject[1]                                             // key is "1"; note that myObject[1] == myObject['1']
+myObject[['a','b']]                                     // key is "a,b"
+myObject[{toString:function(){return 'hello world';}}] // key is "hello world"
+</source>
+
+Any object, including built-in objects such as Array, can be dynamically extended with new properties. For example:
+
+<source lang=JavaScript>
+Array.prototype.removeAllObjects = function () {
+	/* ... */
+}
+</source>
+
+In modern JavaScript it's considered bad form to use the Array type as an associative array. Consensus is that the Object type is best for this purpose. The reasoning behind this is that if Array is extended via prototype and Object is kept pristine, 'for(in)' loops will work as expected on associative 'arrays'. This issue has been drawn into focus by the popularity of JavaScript frameworks that make heavy and sometimes indiscriminate use of prototype to extend JavaScript's inbuilt types.
+
+See [http://blog.metawrap.com/blog/June6thIsJavaScriptArrayAndObjectprototypeAwarenessDay.aspx JavaScript Array And Object Prototype Awareness Day] for more information on the issue.
+
+===KornShell 93 (and compliant shells: ksh93, zsh, bash4...)===
+<!-- Tested in ksh93 r -->
+
+Definition:
+
+ typeset -A phonebook; # ksh93
+ declare -A phonebook; # bash4
+ phonebook=(["Sally Smart"]="555-9999" ["John Doe"]="555-1212" ["[[J. Random Hacker]]"]="555-1337");
+
+Dereference:
+
+ ${phonebook["John Doe"]};
+
+===Lisp===
+[[Lisp programming language|Lisp]] was originally conceived as a "LISt Processing" language, and one of its most important data types is the linked list, which can be treated as an association list ("alist").
+
+<source lang=Lisp>
+'(("Sally Smart" . "555-9999")
+  ("John Doe" . "555-1212")
+  ("J. Random Hacker" . "553-1337"))
+</source>
+
+The syntax <code>(x . y)</code> is used to indicate a [[cons|<code>cons</code>ed]] pair. Keys and values need not be the same type within an alist. Lisp and Scheme provide operators such as <code>assoc</code> to manipulate alists in ways similar to associative arrays.
+
+Because of their linear nature, alists are used for relatively small sets of data. [[Common Lisp]] also supports a [[hash table]] data type, and for [[Scheme (programming language)|Scheme]] they are implemented in [[Scheme Requests for Implementation|SRFI]] 69. Hash tables have greater overhead than alists, but provide much faster access when there are many elements.
+
+It is easy to construct composite abstract data types in Lisp, using structures and/or the object-oriented programming features, in conjunction with lists, arrays, and hash tables.
+
+===LPC===
+[[LPC (programming language)|LPC]] implements associative arrays as a fundamental type known as either map or mapping, depending on the driver. The keys and values can be of any type. A mapping literal is written as <code>([ key_1 : value_1, key_2 : value_2 ])</code>. Procedural use looks like:
+
+<source lang=C>
+mapping phone_book = ([]);
+phone_book["Sally Smart"] = "555-9999";
+phone_book["John Doe"] = "555-1212";
+phone_book["J. Random Hacker"] = "555-1337";
+</source>
+
+Mappings are accessed for reading using the indexing operator in the same way as they are for writing, as shown above. So phone_book["Sally Smart"] would return the string "555-9999", and phone_book["John Smith"] would return 0. Testing for presence is done using the function member(), e.g. <code>if(member(phone_book, "John Smith")) write("John Smith is listed.\n");</code>
+
+Deletion is accomplished using a function called either m_delete() or map_delete(), depending on the driver, used like: <code>m_delete(phone_book, "Sally Smart");</code>
+
+LPC drivers of the "Amylaar" family implement multivalued mappings using a secondary, numeric index. (Drivers of the MudOS family do not support multivalued mappings.) Example syntax:
+
+<source lang=C>
+mapping phone_book = ([:2]);
+phone_book["Sally Smart", 0] = "555-9999";
+phone_book["Sally Smart", 1] = "99 Sharp Way";
+phone_book["John Doe", 0] = "555-1212";
+phone_book["John Doe", 1] = "3 Nigma Drive";
+phone_book["J. Random Hacker", 0] = "555-1337";
+phone_book["J. Random Hacker", 1] = "77 Massachusetts Avenue";
+</source>
+
+LPC drivers modern enough to support a foreach() construct allow iteration over their mapping types using it.
+
+===Lua===
+In [[Lua programming language|Lua]], table is a fundamental type that can be used either as array (numerical index, fast) or as associative array.
+The keys and values can be of any type, except nil. The following focuses on non-numerical indexes.
+
+A table literal is written as <code>{ value, key = value, [index] = value, ["non id string"] = value }</code>. For example:
+
+<source lang=Lua>
+phone_book = {
+	["Sally Smart"] = "555-9999", 
+	["John Doe"] = "555-1212", 
+	["J. Random Hacker"] = "553-1337", -- Trailing comma is OK
+}
+
+aTable = {
+	-- Table as value
+	subTable = { 5, 7.5, k = true }, -- key is "subTable"
+	-- Function as value
+	['John Doe'] = function (age) if age < 18 then return "Young" else return "Old!" end end,
+	-- Table and function (and other types) can also be used as keys
+}
+</source>
+
+If the key is a valid identifier (not a keyword), the quotes can be omitted. They are case sensitive.
+
+Lookup is written using either square brackets, which always works, or dot notation, which only works for identifier keys:
+
+<source lang=Lua>
+print(aTable["John Doe"](45))
+x = aTable.subTable.k
+</source>
+
+You can also loop through all keys and associated values with iterators or for loops:
+
+<source lang=Lua>
+simple = { [true] = 1, [false] = 0, [3.14] = math.pi, x = 'x', ["!"] = 42 }
+function FormatElement(key, value)
+	return "[" .. tostring(key) .. "] = " .. value .. ", "
+end
+-- Iterate on all keys
+table.foreach(simple, function (k, v) io.write(FormatElement(k, v)) end)
+print""
+for k, v in pairs(simple) do io.write(FormatElement(k, v)) end
+print""
+k= nil
+repeat
+	k, v = next(simple, k)
+	if k ~= nil then io.write(FormatElement(k, v)) end
+until k == nil
+print""
+</source>
+
+An entry can be removed by setting it to nil:
+
+<source lang=Lua>
+simple.x = nil
+</source>
+
+Likewise, you can overwrite values or add them:
+
+<source lang=Lua>
+simple['%'] = "percent"
+simple['!'] = 111
+</source>
+
+===MUMPS===
+In [[MUMPS]] every array is an associative array. The built-in, language-level, direct support for associative arrays
+applies to private, process-specific arrays stored in memory called "locals" as well as to the permanent, shared arrays stored on disk which are available concurrently by multiple jobs. The name for globals is preceded by the circumflex "^" to distinguish it from local variable names.
+
+ SET ^phonebook("Sally Smart")="555-9999"      ;; storing permanent data
+ SET phonebook("John Doe")="555-1212"          ;; storing temporary data
+ SET phonebook("J. Random Hacker")="553-1337"  ;;storing temporary data
+ MERGE ^phonebook=phonebook                    ;;copying temporary data into permanent data
+
+To access the value of an element, simply requires using the name with the subscript:
+
+ WRITE "Phone Number :",^phonebook("Sally Smart"),!
+
+You can also loop through an associated array as follows:
+
+ SET NAME=""
+ FOR  S NAME=$ORDER(^phonebook(NAME)) QUIT:NAME=""  WRITE NAME,"  Phone Number :",^phonebook(NAME),!
+
+===Objective-C (Cocoa/GNUstep)===
+[[Cocoa (API)]] and [[GNUstep]] handle associative arrays using <code>NSMutableDictionary</code> (a mutable version of <code>NSDictionary</code>) class cluster. This class allows assignments between any two objects to be made. A copy of the key object is made before it is inserted into <code>NSMutableDictionary</code>, therefore the keys must conform to the <code>NSCopying</code> protocol. When being inserted to a dictionary, the value object receives a retain message to increase its reference count. The value object will receive the release message when it will be deleted from the dictionary (both explicitly or by adding to the dictionary a different object with the same key).
+
+<source lang=ObjC>
+NSMutableDictionary *aDictionary = [[NSMutableDictionary alloc] init];
+[aDictionary setObject:@"555-9999" forKey:@"Sally Smart"]; 
+[aDictionary setObject:@"555-1212" forKey:@"John Doe"]; 
+[aDictionary setObject:@"553-1337" forKey:@"Random Hacker"]; 
+</source>
+
+To access assigned objects this command may be used:
+
+<source lang=ObjC>
+id anObject = [aDictionary objectForKey:@"Sally Smart"];
+</source>
+
+All keys or values can be simply enumerated using <code>NSEnumerator</code>
+
+<source lang=ObjC>
+NSEnumerator *keyEnumerator = [aDictionary keyEnumerator];
+id key;
+while ((key = [keyEnumerator nextObject]))
+{
+  // ... process it here ...
+}
+</source>
+
+On Mac OS X 10.5+ and iPhone OS, dictionary keys can also be enumerated more concisely using this [http://developer.apple.com/documentation/Cocoa/Reference/NSFastEnumeration_protocol/ NSFastEnumeration] construct:
+
+<source lang=ObjC>
+for (id key in aDictionary) {
+  // ... process it here ...
+}
+</source>
+
+What is even more practical, structured data graphs may be easily created using [[Cocoa (API)|Cocoa]], especially <code>NSDictionary</code> (<code>NSMutableDictionary</code>). This can be illustrated with this compact example:
+
+<source lang=ObjC>
+NSDictionary *aDictionary =
+       [NSDictionary dictionaryWithObjectsAndKeys:
+                           [NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"555-9999", @"Sally Smart",
+                                   @"555-1212", @"John Doe",
+                                   nil], @"students",
+                           [NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"553-1337", @"Random Hacker",
+                                   nil], @"hackers",
+                           nil];
+</source>
+
+And relevant fields can be quickly accessed using key paths:
+
+<source lang=ObjC>
+id anObject = [aDictionary valueForKeyPath:@"students.Sally Smart"];
+</source>
+
+===OCaml===
+The [[OCaml]] programming language provides three different associative containers. The simplest is a list of pairs:
+
+<source lang=OCaml>
+# let m = [
+	"Sally Smart", "555-9999";
+	"John Doe", "555-1212";
+	"J. Random Hacker", "553-1337"];;
+val m : (string * string) list = [
+	("Sally Smart", "555-9999");
+	("John Doe", "555-1212");
+	("J. Random Hacker", "553-1337")
+]
+# List.assoc "John Doe" m;;
+- : string = "555-1212"
+</source>
+
+The second is a polymorphic hash table:
+
+<source lang=OCaml>
+# let m = Hashtbl.create 3;;
+val m : ('_a, '_b) Hashtbl.t = <abstr>
+# Hashtbl.add m "Sally Smart" "555-9999";
+  Hashtbl.add m "John Doe" "555-1212";
+  Hashtbl.add m "J. Random Hacker" "553-1337";;
+- : unit = ()
+# Hashtbl.find m "John Doe";;
+- : string = "555-1212"
+</source>
+
+The code above uses OCaml's default hash function <code>Hashtbl.hash</code>, which is defined automatically for all types. If you wanted to use your own hash function, you can use the functor interface <code>Hashtbl.Make</code> to create a module, like with <code>Map</code> below.
+
+Finally, functional maps (represented as immutable balanced binary trees):
+
+<source lang=OCaml>
+# module StringMap = Map.Make(String);;
+...
+# let m = StringMap.add "Sally Smart" "555-9999" StringMap.empty
+  let m = StringMap.add "John Doe" "555-1212" m
+  let m = StringMap.add "J. Random Hacker" "553-1337" m;;
+val m : string StringMap.t = <abstr>
+# StringMap.find "John Doe" m;;
+ - : string = "555-1212"
+</source>
+
+Note that in order to use <code>Map</code>, you have to provide the functor <code>Map.Make</code> with a module which defines the key type and the comparison function. The third-party library ExtLib provides a polymorphic version of functional maps, called [http://ocaml-extlib.googlecode.com/svn/doc/apiref/PMap.html PMap], where you provide the comparison function when creating the map.
+
+Lists of pairs and functional maps both provide a purely functional interface. In contrast, hash tables provide an imperative interface. For many operations, hash tables are significantly faster than lists of pairs and functional maps.
+
+===Optimj===
+{{Refimprove section|date=February 2011}}
+The [[OptimJ]] programming language is an extension of Java 5. As java, Optimj provides maps. But, OptimJ also provides true associative arrays: java arrays are indexed with 0-based integers; associative arrays are indexed with any collection of keys.
+
+<source lang=Java>
+String[String] phoneBook = {
+"Sally Smart"      -> "555-9999",
+"John Doe"         -> "555-1212",
+"J. Random Hacker" -> "553-1337"
+};
+
+// String[String] is not a java type but an optimj type:
+// associative array of strings indexed by strings.
+
+// iterate over the values
+for(String number : phoneBook) {
+System.out.println(number);
+}
+
+// The previous statement prints:  "555-9999" "555-1212" "553-1337"
+
+// iterate over the keys
+for(String name : phoneBook.keys) {
+System.out.println(name + " -> " + phoneBook[name]);
+}
+// phoneBook[name] access a value by a key (it looks like java array access)
+// i.e. phoneBook["John Doe"] returns "555-1212"
+
+</source>
+
+Of course, it is possible to define multi-dimensional arrays, to mix java array and associative arrays, to mix maps and associative arrays.
+
+<source lang=Java>
+ int[String][][double] a;
+ java.util.Map<String[Object], Integer> b;
+</source>
+
+===Perl===
+[[Perl]] has built-in, language-level support for associative arrays. Modern Perl vernacular refers to associative arrays as ''hashes''; the term ''associative array'' is found in older documentation, but is considered somewhat archaic. Perl hashes are flat: keys are strings and values are scalars. However, values may be [[reference (computer science)|references]] to arrays or other hashes, and the standard Perl module Tie::RefHash enables hashes to be used with reference keys.
+
+A hash variable is marked by a <code>%</code> [[sigil (computer programming)|sigil]], to distinguish it from scalar, array and other data types. A hash literal is a key-value list, with the preferred form using Perl's <code>=&gt;</code> token, which is mostly semantically identical to the comma and makes the key-value association clearer:
+
+<source lang=Perl>
+%phone_book = (
+	'Sally Smart' => '555-9999',
+	'John Doe' => '555-1212',
+	'J. Random Hacker' => '553-1337',
+);
+</source>
+
+Accessing a hash element uses the syntax <code>$hash_name{$key}</code> ? the key is surrounded by ''curly braces'' and the hash name is prefixed by a <code>$</code>, indicating that the hash element itself is a ''scalar'' value, even though it is part of a hash. The value of <code>$phone_book{'John Doe'}</code> is <code>'555-1212'</code>. The <code>%</code> sigil is only used when referring to the hash as a whole, such as when asking for <code>keys %phone_book</code>.
+
+The list of keys and values can be extracted using the built-in functions <code>keys</code> and <code>values</code>, respectively. So, for example, to print all the keys of a hash:
+
+<source lang=Perl>
+foreach $name (keys %phone_book) {
+	print $name, "\n";
+}
+</source>
+
+One can iterate through (key, value) pairs using the <code>each</code> function:
+
+<source lang=Perl>
+while (($name, $number) = each %phone_book) {
+	print 'Number for ', $name, ': ', $number, "\n";
+}
+</source>
+
+A hash ''reference'', which is a scalar value that points to a hash, is specified in literal form using curly braces as delimiters, with syntax otherwise similar to specifying a hash literal:
+
+<source lang=Perl>
+$phone_book = {
+	'Sally Smart' => '555-9999',
+	'John Doe' => '555-1212',
+	'J. Random Hacker' => '553-1337',
+};
+</source>
+
+Values in a hash reference are accessed using the dereferencing operator:
+
+<source lang=Perl>
+print $phone_book->{'Sally Smart'};
+</source>
+
+When the hash contained in the hash reference needs to be referred to as a whole, as with the <code>keys</code> function, the syntax is as follows:
+
+<source lang=Perl>
+foreach $name (keys %{$phone_book}) {
+	print 'Number for ', $name, ': ', $phone_book->{$name}, "\n";
+}
+</source>
+
+=== PHP ===<!-- This section is linked from [[PHP]] -->
+[[PHP]]'s built-in array type is in reality an associative array. Even when using numerical indexes, PHP internally stores it as an associative array.<ref>About the implementation of [http://se.php.net/manual/en/language.types.array.php Arrays] in PHP</ref> This is why one in PHP can have non-consecutive numerically indexed arrays. The keys have to be integer or string (floating point numbers are truncated to integer), while values can be of arbitrary types, including other arrays and objects. The arrays are heterogeneous; a single array can have keys of different types. PHP's associative arrays can be used to represent trees, lists, stacks, queues and other common data structures not built into PHP.
+
+An associative array can be declared using the following syntax:
+
+<source lang=PHP>
+$phonebook                     = array();
+$phonebook['Sally Smart']      = '555-9999';
+$phonebook['John Doe']         = '555-1212';
+$phonebook['J. Random Hacker'] = '555-1337';
+
+// or
+
+$phonebook = array(
+    'Sally Smart'      => '555-9999',
+    'John Doe'         => '555-1212',
+    'J. Random Hacker' => '555-1337',
+);
+
+// or
+
+$phonebook['contacts']['Sally Smart']['number']      = '555-9999';
+$phonebook['contacts']['John Doe']['number']         = '555-1212';
+$phonebook['contacts']['J. Random Hacker']['number'] = '555-1337';
+</source>
+
+PHP can loop through an associative array as follows:
+
+<source lang=PHP>
+foreach($phonebook as $name => $number) {
+    echo 'Number for ', $name, ': ', $number, "\n";
+}
+
+// For the last array example it is used like this
+foreach($phonebook['contacts'] as $name => $num) {
+   echo 'Name: ', $name, ', number: ', $num['number'], "\n";
+}
+</source>
+
+PHP has an [http://php.net/array extensive set of functions] to operate on arrays.
+
+If you want an associative array that can use objects as keys instead of strings and integers, you can use the [http://php.net/SplObjectStorage SplObjectStorage] class from the Standard PHP Library (SPL).
+
+===Pike===
+[[Pike (programming language)|Pike]] has built-in support for Associative Arrays, which are referred to as mappings. Mappings are created as follows:
+
+<source lang=Pike>
+mapping(string:string) phonebook = ([
+	"Sally Smart":"555-9999",
+	"John Doe":"555-1212",
+	"J. Random Hacker":"555-1337"
+]);
+</source>
+
+Accessing and testing for presence in mappings is done using the indexing operator. So <code>phonebook["Sally Smart"]</code> would return the string <code>"555-9999"</code>, and <code>phonebook["John Smith"]</code> would return 0.
+
+Iterating through a mapping can be done using either foreach:
+
+<source lang=Text>
+foreach(phonebook; string key; string value) {
+	write("%s:%s\n", key, value);
+}
+</source>
+
+Or using an iterator object:
+
+<source lang=Text>
+Mapping.Iterator i = get_iterator(phonebook);
+while (i->index()) {
+	write("%s:%s\n", i->index(), i->value());
+	i->next();
+}
+</source>
+
+Elements of a mapping can be removed using m_delete, which returns the value of the removed index:
+
+<source lang=Text>
+string sallys_number = m_delete(phonebook, "Sally Smart");
+</source>
+
+===PostScript===
+In [[PostScript]], associative arrays are called dictionaries. In Level 1 PostScript they must be created explicitly, but Level 2 introduced direct declaration using the double-brace syntax:
+
+<code>
+  % Level 1 declaration
+  3 dict dup begin
+    /red   (rouge) def
+    /green (vert)  def
+    /blue  (bleu)  def
+  end
+
+  % Level 2 declaration
+  <<
+    /red   (rot)
+    /green (gruen)
+    /blue  (blau)
+  >>
+
+  % Both methods leave the dictionary on the operand stack</code>
+
+Dictionaries can be accessed directly using '''get''' or implicitly by placing the dictionary on the dictionary stack using '''begin''':
+
+<code>
+  % With the previous two dictionaries still on the operand stack
+  /red get print    % outputs 'rot'
+
+  begin
+  green print       % outputs 'vert'
+  end</code>
+
+Dictionary contents can be iterated through using '''forall''', though not in any particular order:
+
+<code>
+  % Level 2 example
+  <<
+    /This  1
+    /That  2
+    /Other 3
+  >> {exch =print ( is ) print ==} forall</code>
+May well output:
+<code>
+  That is 2
+  This is 1
+  Other is 3</code>
+
+Dictionaries can be augmented (up to their defined size only in Level 1) or altered using '''put''', and entries can be removed using '''undef''':
+<code>
+  % define a dictionary for easy reuse:
+  /MyDict <<
+    /rouge (red)
+    /vert (gruen)
+  >> def
+
+  % add to it
+  MyDict /bleu (blue) put
+
+  % change it
+  MyDict /vert (green) put
+
+  % remove something
+  MyDict /rouge undef</code>
+
+===Python===
+In [[Python (programming language)|Python]], associative arrays are called ''[[Python syntax and semantics#Collection types|dictionaries]]''. Dictionary literals are marked with curly braces:
+
+<source lang=Python>
+phonebook = {
+	'Sally Smart' : '555-9999', 
+	'John Doe' : '555-1212', 
+	'J. Random Hacker' : '553-1337'
+}
+</source>
+
+To access an entry in Python simply use the array indexing operator. For example, the expression <code>phonebook['Sally Smart']</code> would return <code>'555-9999'</code>.
+
+An example loop [[iterator#Python|iterating]] through all the keys of the dictionary:
+
+<source lang=Python>
+for key in phonebook:
+	print key, phonebook[key]
+</source>
+
+Iterating through (key, value) tuples:
+
+<source lang=Python>
+for key, value in phonebook.items():
+	print key, value
+</source>
+
+Dictionaries can also be constructed with the <code>dict</code> builtin, which is most commonly found inside list comprehensions and generator expressions, and it takes a key-value list:
+
+<source lang=Python>
+dict((key, value) for key, value in phonebook.items() if 'J' in key)
+</source>
+
+Dictionary keys can be individually deleted using the del statement. The corresponding value can be returned before the key-value pair are deleted using the pop method of dict types:
+
+<source lang=Python>
+del phonebook['John Doe']
+val = phonebook.pop('Sally Smart')
+assert phonebook.keys() == ['J. Random Hacker'] # Only one key left
+</source>
+
+Python 3.0 also supports dictionary comprehensions, a compact syntax for generating a dictionary from any iterator:
+<source lang=Python>
+square_dict={i:i*i for i in range(5)}
+assert square_dict == {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+</source>
+
+===REXX===
+In [[REXX]], associative arrays are called ''Stem variables'' or ''Compound variables''.
+
+<source lang=REXX>
+KEY = 'Sally Smart'
+PHONEBOOK.KEY = '555-9999'
+KEY = 'John Doe'
+PHONEBOOK.KEY = '555-1212'
+KEY = 'J. Ramdon Hacker'
+PHONEBOOK.KEY = '553-1337'
+</source>
+
+Stem variables with numeric keys typically start at 1 and go up from there. The 0 key stem variable
+is used (by convention) as the count of items in the whole stem.
+
+<source lang=REXX>
+NAME.1 = 'Sally Smart'
+NAME.2 = 'John Doe'
+NAME.3 = 'J. Random Hacker'
+NAME.0 = 3
+</source>
+
+[[REXX]] has no easy way of automatically accessing the keys for a stem variable and typically the
+keys are stored in a separate associative array with numeric keys.
+
+=== Ruby ===<!-- This section is linked from [[
+Constructing and using a [[hash table
+Ruby (programming language)]] -->
+
+In [[Ruby programming language|Ruby]] a [[hash table|hash]] is used as follows:
+
+<source lang=Ruby>
+phonebook = {
+	'Sally Smart' => '555-9999', 
+	'John Doe' => '555-1212', 
+	'J. Random Hacker' => '553-1337'
+}
+
+phonebook['John Doe']; #produces this -> '555-1212'
+</source>
+
+Ruby supports hash looping and iteration with the following syntax:
+
+<source lang=Ruby>
+### iterate over keys and values
+phonebook.each {|key, value| puts key + " => " + value}
+
+### iterate keys only
+phonebook.each_key {|key| puts key}
+
+### iterate values only
+phonebook.each_value {|value| puts value}
+</source>
+
+===S-Lang===
+[[S-Lang (programming language)|S-Lang]] has an associative array type.
+
+For example:
+
+<source lang=C>
+phonebook = Assoc_Type[];
+phonebook["Sally Smart"] = "555-9999"
+phonebook["John Doe"] = "555-1212"
+phonebook["J. Random Hacker"] = "555-1337"
+</source>
+
+You can also loop through an associated array in a number of ways.
+Here is one
+
+<source lang=C>
+foreach name (phonebook) {
+	vmessage ("%s %s", name, phonebook[name];
+}
+</source>
+
+To print a sorted-list, it is better to take advantage of S-lang's strong
+support for standard arrays:
+
+<source lang=C>
+keys = assoc_get_keys(phonebook);
+i = array_sort(keys);
+vals = assoc_get_values(phonebook);
+array_map (Void_Type, &vmessage, "%s %s", keys[i], vals[i]);
+</source>
+
+===Scala===
+[[Scala (programming language)|Scala]] provides an immutable Map class as part of the scala.collection framework:
+
+<source lang=Scala>
+val phonebook = Map("Sally Smart" -> "555-9999",
+  "John Doe" -> "555-1212",
+  "J. Random Hacker" -> "553-1337")
+</source>
+
+Scala's [[type inference]] will work out that this is a <code>Map[String, String]</code>. To access the array:
+
+<source lang=Scala>
+phonebook.get("Sally Smart")
+</source>
+
+This returns an Option type, Scala's equivalent of a [[Monad_(functional_programming)#The Maybe_monad|the Maybe monad]] in Haskell.
+
+===Smalltalk===
+In [[Smalltalk]] a dictionary is used:
+
+<source lang=Smalltalk>
+phonebook := Dictionary new.
+phonebook at: 'Sally Smart' put: '555-9999'.
+phonebook at: 'John Doe' put: '555-1212'.
+phonebook at: 'J. Random Hacker' put: '553-1337'.
+</source>
+
+To access an entry the message <code>#at:</code> is sent to the dictionary object.
+
+<source lang=Smalltalk>
+phonebook at: 'Sally Smart'
+</source>
+
+gives
+
+<source lang=Text>
+ '555-9999'
+</source>
+Dictionary hashes/compares based on equality and holds 
+[[Garbage collection (computer science)#Strong and Weak references|strong references]] to both key and value. Variants exist which hash/compare on identity (IdentityDictionary) or keep [[Garbage collection (computer science)#Strong and Weak references|weak references]] (WeakKeyDictionary / WeakValueDictionary).
+
+===SNOBOL===
+[[SNOBOL]] is one of the first (if not the first) programming languages to use associative arrays.
+Associative arrays in [[SNOBOL]] are called Tables.
+
+<source lang=Text>
+PHONEBOOK = TABLE()
+PHONEBOOK['Sally Smart'] = '555-9999'
+PHONEBOOK['John Doe'] = '555-1212'
+PHONEBOOK['J. Random Hacker'] = '553-1337'
+</source>
+
+===Standard ML===
+The SML'97 standard of the [[Standard ML]] programming language does not provide any associative containers. However, various implementations of Standard ML do provide associative containers.
+
+The library of the popular [[Standard ML of New Jersey]] implementation provides a signature (kind of like an "interface"), <code>ORD_MAP</code>, which defines a common interface for ordered functional (immutable) associative arrays. There are several general functors, <code>BinaryMapFn</code>, <code>ListMapFn</code>, <code>RedBlackMapFn</code>, and <code>SplayMapFn</code>, that allow you to create the corresponding type of ordered map (the types are a [[self-balancing binary search tree]], sorted [[association list]], [[red-black tree]], and [[splay tree]], respectively) using a user-provided structure to describe the key type and comparator. The functor returns a structure that follows the <code>ORD_MAP</code> interface. In addition, there are two pre-defined modules for associative arrays with integer keys: <code>IntBinaryMap</code> and <code>IntListMap</code>.
+
+<pre>
+- structure StringMap = BinaryMapFn (struct
+                                       type ord_key = string
+                                       val compare = String.compare
+                                     end);
+structure StringMap : ORD_MAP
+
+- val m = StringMap.insert (StringMap.empty, "Sally Smart", "555-9999")
+  val m = StringMap.insert (m, "John Doe", "555-1212")
+  val m = StringMap.insert (m, "J. Random Hacker", "553-1337");
+val m =
+  T
+    {cnt=3,key="John Doe",
+     left=T {cnt=1,key="J. Random Hacker",left=E,right=E,value="553-1337"},
+     right=T {cnt=1,key="Sally Smart",left=E,right=E,value="555-9999"},
+     value="555-1212"} : string StringMap.map
+- StringMap.find (m, "John Doe");
+val it = SOME "555-1212" : string option
+</pre>
+
+SML/NJ also provides a polymorphic hash table:
+
+<pre>
+- exception NotFound;
+exception NotFound
+- val m : (string, string) HashTable.hash_table = HashTable.mkTable (HashString.hashString, op=) (3, NotFound);
+val m =
+  HT
+    {eq_pred=fn,hash_fn=fn,n_items=ref 0,not_found=NotFound(-),
+     table=ref [|NIL,NIL,NIL,NIL,NIL,NIL,NIL,NIL,NIL,NIL,NIL,NIL,...|]}
+  : (string,string) HashTable.hash_table
+- HashTable.insert m ("Sally Smart", "555-9999");
+val it = () : unit
+- HashTable.insert m ("John Doe", "555-1212");
+val it = () : unit
+- HashTable.insert m ("J. Random Hacker", "553-1337");
+val it = () : unit
+HashTable.find m "John Doe"; (* returns NONE if not found *)
+val it = SOME "555-1212" : string option
+- HashTable.lookup m "John Doe"; (* raises the exception if not found *)
+val it = "555-1212" : string
+</pre>
+
+Monomorphic hash tables are also supported using the <code>HashTableFn</code> functor.
+
+Another Standard ML implementation, [[Moscow ML]], also provides some associative containers. First, it provides polymorphic hash tables in the <code>Polyhash</code> structure. Also, some functional maps from the SML/NJ library above are available as <code>Binarymap</code>, <code>Splaymap</code>, and <code>Intmap</code> structures.
+
+===Tcl===
+In [[Tcl]] every array is an associative array. As of Tcl 8.5, there is also the '''dict''' command that operates on dictionary ''values''; arrays are always ''variables''.
+
+<source lang=Tcl>
+set "phonebook(Sally Smart)" 555-9999
+set john "John Doe"
+set phonebook($john) 555-1212
+set "phonebook(J. Random Hacker)" 553-1337
+</source>
+
+The first argument of the <code>set</code> command has to be enclosed by double quotes when it contains an explicit space (even if the space is enclosed in an array parenthesis), because space is used to separate arguments in Tcl. This is not an issue with spaces inserted by substitution however, as the space in <tt>$john</tt>.
+
+Alternatively, several array elements can be set in a single command by providing their mappings as a dictionary (keys braced because they contain whitespace):
+
+<source lang=Tcl>
+array set phonebook {
+	{Sally Smart} 555-9999
+	{John Doe} 555-1212
+	{J. Random Hacker} 553-1337
+}
+</source>
+
+To access one array entry and put it on standard output
+
+<source lang=Tcl>
+puts "$phonebook(Sally Smart)"
+</source>
+
+The result is here
+
+<source lang=Text>
+555-9999
+</source>
+
+To retrieve the entire array as a dictionary:
+
+<source lang=Tcl>
+array get phonebook
+</source>
+
+The result can be (order of keys is unspecified):
+
+<source lang=Tcl>
+{Sally Smart} 555-9999 {J. Random Hacker} 553-1337 {John Doe} 555-1212
+</source>
+
+===Visual Basic===
+There is no standard implementation common to all dialects. [[Visual Basic]] can use the Dictionary class from the [[Windows Scripting Host|Microsoft Scripting Runtime]] (which is shipped with Visual Basic 6):
+
+<source lang=VB>
+' Requires a reference to SCRRUN.DLL in Project Properties
+Dim phoneBook As New Dictionary
+phoneBook.Add "Sally Smart", "555-9999"
+phoneBook.Item("John Doe") = "555-1212"
+phoneBook("J. Random Hacker") = "553-1337"
+For Each name In phoneBook
+	MsgBox name & " = " & phoneBook(name)
+Next
+</source>
+
+[[Visual Basic .NET]] relies on the collection classes provided by [[.NET Framework]]:
+
+<source lang=VBNet>
+Dim phoneBook As New System.Collections.Generic.Dictionary(Of String, String)
+phoneBook("Sally Smart") = "555-9999"
+phoneBook("John Doe") = "555-1212"
+phoneBook("J. Random Hacker") = "553-1337"
+For Each entry As KeyValuePair(Of String, String) In phoneBook
+	MessageBox.Show(entry.Key & " = " & entry.Value)
+Next
+</source>
+
+===Windows PowerShell===
+Unlike many other [[command line interpreter]]s, [[Windows PowerShell|PowerShell]] has built-in, language-level support for defining associative arrays.
+
+For example:
+
+<source lang=PowerShell>
+$phonebook = @{
+        'Sally Smart' = '555-9999';
+	'John Doe' = '555-1212'; 
+	'J. Random Hacker' = '553-1337'
+}
+</source>
+
+Like in JavaScript, if the property name is a valid identifier, the quotes can be omitted, e.g.:
+
+<source lang=PowerShell>
+$myOtherObject = @{ foo = 42; bar = $false }
+</source>
+
+Entries can be separated by either a semicolon or a newline, e.g.:
+
+<source lang=Text>
+$myOtherObject = @{ foo = 42
+                    bar = $false ;
+                    zaz = 3
+}
+</source>
+
+Keys and values can be any [[.NET Framework|.NET]] object type, e.g.:
+
+<source lang=PowerShell>
+$now = [DateTime]::Now
+$tomorrow = $now.AddDays(1)
+$ProcessDeletionSchedule = @{ 
+        (Get-Process notepad) = $now 
+        (Get-Process calc) = $tomorrow
+}
+</source>
+
+It is also possible to create an empty associative array and add single entries or even other associative arrays to it later on.
+
+<source lang=PowerShell>
+$phonebook = @{}
+$phonebook += @{ 'Sally Smart' = '555-9999' }
+$phonebook += @{ 'John Doe' = '555-1212'; 'J. Random Hacker' = '553-1337' }
+</source>
+
+New entries can also be added by using the array index operator, the property operator or the <code>Add()</code> method of the underlying .NET object:
+
+<source lang=PowerShell>
+$phonebook = @{}
+$phonebook['Sally Smart'] = '555-9999'
+$phonebook.'John Doe' = '555-1212'
+$phonebook.Add('J. Random Hacker', '553-1337')
+</source>
+
+To dereference assigned objects the array index operator, the property operator or the parameterized property <code>Item()</code> of the .NET object can be used:
+
+<source lang=PowerShell>
+$phonebook['Sally Smart'] 
+$phonebook.'John Doe'
+$phonebook.Item('J. Random Hacker')
+</source>
+
+You can loop through an associative array as follows:
+
+<source lang=PowerShell>
+$phonebook.Keys | foreach { "Number for {0}: {1}" -f $_,$phonebook.$_ }
+</source>
+
+An entry can be removed using the <code>Remove()</code> method of the underlying .NET object:
+
+<source lang=PowerShell>
+$phonebook.Remove('Sally Smart')
+</source>
+
+Hash tables can be added, e.g.:
+
+<source lang=PowerShell>
+$hash1 = @{ a=1; b=2 }
+$hash2 = @{ c=3; d=4 }
+$hash3 = $hash1 + $hash2
+</source>
+
+==Data serialization formats support==
+{{Expand section|date=September 2010}}
+
+Many data serialization formats also support associative arrays (see [[Comparison of data serialization formats#Syntax comparison of human-readable formats|this table]])
+
+===JSON===
+Keys can only be strings
+<source lang=JavaScript>
+{
+    "Sally Smart": "555-9999",
+    "John Doe": "555-1212",
+    "J. Random Hacker": "555-1337"
+}
+</source>
+
+===YAML===
+
+<source lang=YAML>
+Sally Smart: 555-9999
+John Doe: 555-1212
+J. Random Hacker: 555-1337
+</source>
+
+==References==
+{{Reflist|2}}
+
+{{DEFAULTSORT:Comparison Of Programming Languages (Mapping)}}
+[[Category:Associative arrays]]

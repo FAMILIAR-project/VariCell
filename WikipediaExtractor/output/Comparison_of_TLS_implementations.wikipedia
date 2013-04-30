@@ -1,0 +1,2455 @@
+The [[Transport Layer Security]] (TLS) protocol provides the ability to secure communications across networks. This '''comparison of TLS implementations''' compares several of the most notable [[software library|libraries]]. There are several TLS implementations which are [[free and open source software]].
+
+All comparison categories use the stable version of each implementation listed in the overview section. The comparison is limited to features that directly relate to the TLS protocol.
+
+== Overview ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! Developed By
+! Open Source
+! Software License
+! Copyright Owner
+! Latest Stable Version
+! Release Date
+! Origin
+! Website
+|-
+|-
+| axTLS
+| Cameron Rich|Cameron Rich
+| {{yes}}
+| {{free|BSD style licensing}}
+| Cameron Rich|Cameron Rich
+| 1.4.9
+| 2013-01-07
+| Australia
+| http://axtls.sourceforge.net/
+|-
+|-
+| [[cryptlib]]
+| [[Peter Gutmann (computer scientist)|Peter Gutmann]]
+| {{yes}}
+| {{free|[[Sleepycat License]]}} and commercial license
+| [[Peter Gutmann (computer scientist)|Peter Gutmann]]
+| 3.4.1
+| 2011-07-07
+| NZ
+| http://www.cs.auckland.ac.nz/~pgut001/cryptlib/
+|-
+|-
+| [[CyaSSL]]
+| wolfSSL
+| {{yes}}
+| {{free|[[GPLv2]]}} and commercial license
+| yassl.com
+| 2.6.0
+| 2013-04-15
+| US
+| http://www.yassl.com
+|-
+|-
+| [[GnuTLS]]
+| [[GnuTLS|GnuTLS project]]
+| {{yes}}
+| {{free|[[LGPL]]}}
+| [http://www.fsf.org/ Free Software Foundation]
+| 3.1.3
+| 2012-10-13
+| EU (Greece and Sweden)
+| http://www.gnutls.org/
+|-
+|-
+| hs-tls
+| Vincent Hanquez|Vincent Hanquez
+| {{yes}}
+| {{free|BSD style licensing}}
+| Vincent Hanquez|Vincent Hanquez
+| 1.0.1
+| 2012-10-30
+| EU
+| http://github.com/vincenthz/hs-tls http://hackage.haskell.org/package/tls
+|-
+|-
+| [[MatrixSSL]]
+| PeerSec Networks
+| {{no}}
+| {{proprietary}}
+| [http://www.peersec.com/ PeerSec Networks]
+| 3.4.1
+| 2013-02-06
+| US
+| http://www.matrixssl.org
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+| PeerSec Networks
+| {{yes}}
+| {{free|[[GPLv2]]}}
+| [http://www.peersec.com/ PeerSec Networks]
+| 3.4.1
+| 2013-02-06
+| US
+| http://www.matrixssl.org
+|-
+|-
+| [[Network Security Services|NSS]]
+| 
+| {{yes}}
+| {{free|Mozilla Public License}}
+| NSS contributors
+| 3.14<ref name=NSS-3.14></ref>
+| 2012-10-22
+| US
+| http://www.mozilla.org/projects/security/pki/nss/
+|-
+|-
+| [[OpenSSL]]
+| [[OpenSSL|OpenSSL project]]
+| {{yes}}
+| {{free|[[OpenSSL_license#Licensing|OpenSSL / SSLeay dual-license]]}}
+| Eric Young, Tim Hudson, Sun, OpenSSL project, and others
+| 1.0.1e
+| 2013-02-11
+| Australia/EU
+| http://openssl.org/
+|-
+|-
+| [[PolarSSL]]
+| Offspark
+| {{yes}}
+| {{free|[[GPLv2]]}} and commercial license
+| Brainspark B.V. (brainspark.nl)
+| 1.2.5
+| 2013-02-02
+| EU (Netherlands)
+| http://polarssl.org
+|-
+|-
+| [[SChannel]]
+| [[Microsoft]]
+| {{no}}
+| {{proprietary}}
+| Microsoft Inc.
+| Windows 7
+| 2009-10-22
+| US
+| http://microsoft.com
+|-
+|-
+| Secure Transport
+| [[Apple Inc.]]
+| {{Yes}}
+| {{free|[[Apple Public Source License|APSL 2.0]]}}
+| Apple Inc.
+| 55003 ([[Mac OS X]] 10.7.3)
+| 2012-02-01
+| US
+| Source: [http://www.opensource.apple.com/source/libsecurity_ssl/ http://www.opensource.apple.com/]
+Documentation: [http://developer.apple.com/documentation/security/Reference/secureTransportRef/ http://developer.apple.com/]
+|-
+|-
+| Security Builder SSL-C
+| Certicom
+| {{no}}
+| {{proprietary}}
+| Certicom Corp., A Subsidiary of Research In Motion
+| 5.5.1
+| 2011-02-28
+| Canada
+| http://www.certicom.com
+|-
+|-
+| [[JSSE]]
+| [[Oracle Corporation|Oracle]]
+| {{Yes}}
+| {{free|[[GPLv2]]}} and commercial license
+| Oracle
+| JDK 6, JDK 7
+| 2011-02-03 (ea snapshot release)
+| US
+| http://openjdk.java.net/ http://www.java.net/  http://www.java.com/
+|-
+|-class="sortbottom"
+! Implementation
+! Developed By
+! Open Source
+! Software License
+! Copyright Owner
+! Latest Stable Version
+! Release Date
+! Origin
+! Website
+|}
+
+== Protocol Support ==
+Several versions of the TLS protocol exist. SSL 2.0 is a deprecated protocol, vulnerable to several attacks. SSL 3.0 and TLS 1.0 are its successors without any major known vulnerabilities. TLS 1.1 fixes all the known issues in TLS 1.0, and TLS 1.2 is the latest published version, introducing new features. [[Datagram Transport Layer Security]] (DTLS or Datagram TLS) 1.0 is a modification of TLS 1.1 for a packet-oriented transport layer, where packet loss and packet reordering have to be tolerated.
+
+Note that there are known vulnerabilities in SSL 2.0, SSL 3.0 and TLS 1.0<ref name=attacks>{{cite web | title = Bard attack | id = {{citeseerx|10.1.1.61.5887}} }}</ref> protocols.
+
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! [[Transport Layer Security|SSL 2.0]]<ref name=sslv2>[http://www.gnutls.org/manual/html_node/On-SSL-2-and-older-protocols.html SSLv2 is insecure]</ref>
+! [[Transport Layer Security|SSL 3.0]]<ref>RFC 6101</ref>
+! [[Transport Layer Security|TLS 1.0]]<ref>RFC 2246</ref>
+! [[Transport Layer Security|TLS 1.1]]<ref>RFC 4346</ref>
+! [[Transport Layer Security|TLS 1.2]]<ref name=tls/>
+! [[Datagram Transport Layer Security|DTLS 1.0]]<ref>RFC 4347</ref>
+! [[Datagram Transport Layer Security|DTLS 1.2]]<ref>RFC 6347</ref>
+|-
+| axTLS
+| {{no}}<ref name=v2clienthello>SSLv2 client hello is supported</ref>
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[GnuTLS]]
+| {{no}}<ref name=v2clienthello/>
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| hs-tls
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{no}}<ref name=v2clienthello>SSLv2 client hello is supported</ref>
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+| {{no}}<ref name=v2clienthello>SSLv2 client hello is supported</ref>
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{yes|Disabled by default}}
+| {{yes}}
+| {{yes}}
+| {{yes|Disabled by default}}<ref name=NSS-3.14>{{cite web|url=https://developer.mozilla.org/en-US/docs/NSS/NSS_3.14_release_notes|work=Mozilla Developer Network|title=NSS 3.14 release notes|publisher=Mozilla|accessdate=2012-10-27}}</ref>
+| {{no}}
+| {{beta}}<ref name=NSS-3.14></ref>
+| {{no}}
+|-
+|-
+| [[OpenSSL]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}<ref name=tlsv11>initial support in version 1.0.1 [http://www.openssl.org/news/changelog.html www.openssl.org/news/changelog.html]</ref>
+| {{yes}}<ref name=tlsv11 />
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[PolarSSL]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[SChannel]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}<ref name=MS2574819>{{cite web|title=An update is available that adds support for DTLS in Windows 7 SP1 and Windows Server 2008 R2 SP1|url=http://support.microsoft.com/kb/2574819/en-us|publisher=Microsoft|accessdate=13 November 2012}}</ref> 
+| {{yes}}<ref name=MS2574819 />
+|-
+|-
+| Secure Transport
+| {{yes|Disabled by default}}{{cref2|group=protocolsupportsecuretransport|a}}
+| {{yes}}
+| {{yes}}
+| {{yes}}{{cref2|group=protocolsupportsecuretransport|a}}
+| {{yes}}{{cref2|group=protocolsupportsecuretransport|a}}
+| {{yes}}{{cref2|group=protocolsupportsecuretransport|a}}
+| {{no}}
+|-
+|-
+| Security Builder SSL-C
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[JSSE]]
+| {{no}}<ref name=v2clienthello/>
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-class="sortbottom"
+! Implementation
+! [[Transport Layer Security|SSL 2.0]]
+! [[Transport Layer Security|SSL 3.0]]
+! [[Transport Layer Security|TLS 1.0]]
+! [[Transport Layer Security|TLS 1.1]]
+! [[Transport Layer Security|TLS 1.2]]
+! [[Datagram Transport Layer Security|DTLS 1.0]]
+! [[Datagram Transport Layer Security|DTLS 1.2]]
+|}
+{{cnote2 begin | liststyle=lower-alpha}}
+{{cnote2 | group=protocolsupportsecuretransport | a | Secure Transport: SSL 2.0 is disabled by default. TLS 1.1, 1.2 and DTLS are available on iOS 5.0 and later.<ref>{{cite web|url=http://developer.apple.com/library/ios/technotes/tn2287/|work=iOS Developer Library|title=Technical Note TN2287: iOS 5 and TLS 1.2 Interoperability Issues|publisher=Apple Inc.|accessdate=2012-05-03}}</ref>}}
+{{cnote2 end}}
+
+== CipherSuite Profiles ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! [[Transport Layer Security|TLS 1.2]] [[NSA Suite B Cryptography|Suite B]]
+|-
+| [[axTLS]]
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+| {{yes}}
+|-
+|-
+| [[CyaSSL]]
+| {{yes}}
+|-
+|-
+| [[GnuTLS]]
+| {{yes}}
+|-
+|-
+| hs-tls
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{yes}}
+|-
+|-
+| [[OpenSSL]]
+| {{no}}
+|-
+|-
+| [[PolarSSL]]
+| {{no}}
+|-
+|-
+| [[SChannel]]
+| {{no}}
+|-
+|-
+| Secure Transport
+| unknown
+|-
+|-
+| Security Builder SSL-C
+| {{yes}}
+|-
+|-
+| [[JSSE]]
+| {{no}}
+|-
+|-class="sortbottom"
+! Implementation
+! [[Transport Layer Security|TLS 1.2]] [[NSA Suite B Cryptography|Suite B]]
+|}
+
+== Certifications ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! Certified version
+! [[FIPS 140-2]]
+! [[Common Criteria]]
+|-
+|-
+| axTLS
+|
+|
+|
+|-
+|-
+| [[cryptlib]]
+|
+|
+|
+|-
+|-
+| [[CyaSSL]]
+|
+|
+|
+|-
+|-
+| [[GnuTLS]]
+|
+|
+|
+|-
+|-
+| hs-tls
+|
+|
+|
+|-
+|-
+| [[MatrixSSL]]
+|
+| {{yes|Level 1}}
+|
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+|
+| {{no}}
+|
+|-
+|-
+| [[Network Security Services|NSS]]
+|
+|
+|
+|-
+|-
+| [[OpenSSL]]
+|
+|
+|
+|-
+|-
+| [[PolarSSL]]
+|
+|
+|
+|-
+|-
+| [[SChannel]]
+|
+|
+|
+|-
+|-
+| Secure Transport
+|
+|
+|
+|-
+|-
+| Security Builder SSL-C
+|
+| {{yes|Level 1}}
+|
+|-
+|-
+| [[JSSE]]
+|
+|
+|
+|-
+|-class="sortbottom"
+! Implementation
+! Certified version
+! [[FIPS 140-2]]
+! Common Criteria
+|}
+
+== Key Exchange Algorithms (Certificate-only) ==
+This section lists the certificate verification functionality available in the various implementations.
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! RSA<ref name=tls>RFC 5246</ref>
+! RSA-EXPORT<ref name=tls>RFC 5246</ref>
+! DHE-RSA<ref name=tls>RFC 5246</ref>
+! DHE-DSS<ref name=tls>RFC 5246</ref>
+! ECDH-ECDSA<ref name=ecc>RFC 4492</ref>
+! ECDHE-ECDSA<ref name=ecc>RFC 4492</ref>
+! ECDH-RSA<ref name=ecc>RFC 4492</ref>
+! ECDHE-RSA<ref name=ecc>RFC 4492</ref>
+! VKO GOST R 34.10-2001<ref name=gostlink/><ref name=vko_gost>RFC 4357</ref>
+|-
+| [[axTLS]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[GnuTLS]]
+| {{yes}}
+| {{yes|Disabled by default}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| hs-tls
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{yes}}
+| {{yes|Disabled by default}}
+| {{partial}}<ref name=client_side>Client side only</ref>
+| {{partial}}<ref name=client_side/>
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[OpenSSL]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}} 
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[PolarSSL]]
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[SChannel]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}<ref name=extensions>Extensions to support this functionality might be available.</ref>
+|-
+|-
+| Security Builder SSL-C
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[JSSE]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}<ref name=extensions/>
+|-
+|-class="sortbottom"
+! Implementation
+! RSA
+! RSA EXPORT
+! DHE-RSA
+! DHE-DSS
+! ECDH-ECDSA
+! ECDHE-ECDSA
+! ECDH-RSA
+! ECDHE-RSA
+! VKO GOST R 34.10-2001
+|}
+
+== Certificate Verification Methods ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! Application-defined
+! PKIX path validation<ref name=tls>RFC 5280</ref>
+! [[Revocation_list|CRL]]<ref>RFC 3280</ref>
+! [[Online_Certificate_Status_Protocol|OCSP]]<ref>RFC 2560</ref>
+! DANE (DNSSEC)<ref name=tls>RFC 6698</ref>
+! Trust on First Use (TOFU)
+|-
+| [[axTLS]]
+|
+| {{yes}}
+|
+|
+| {{no}}
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+|
+| {{yes}}
+|
+|
+| {{no}}
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[GnuTLS]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[hs-tls]]
+| {{yes}}
+| {{yes}}
+|
+|
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{yes}}
+| {{yes}}
+|
+|
+| {{no}}
+| {{no}}
+|-
+|-
+| [[OpenSSL]]
+|
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[PolarSSL]]
+|
+| {{yes}}
+|
+|
+| {{no}}
+| {{no}}
+|-
+|-
+| [[SChannel]]
+|
+| {{yes}}
+|
+|
+| {{no}}
+| {{no}}
+|-
+|-
+| Security Builder SSL-C
+|
+| {{yes}}
+|
+|
+| {{no}}
+| {{no}}
+|-
+|-
+| [[JSSE]]
+|
+| {{yes}}
+|
+|
+| {{no}}
+| {{no}}
+|-
+|-class="sortbottom"
+! Implementation
+! Application-defined
+! PKIX
+! CRL
+! OCSP
+! DANE
+! TOFU
+|}
+
+== Key Exchange Algorithms (Alternative key-exchanges) ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! DH-ANON<ref name=tls>RFC 5246</ref>
+! SRP<ref name=srp>RFC 5054</ref>
+! SRP-DSS<ref name=srp/>
+! SRP-RSA<ref name=srp/>
+! PSK-RSA<ref name=psk>RFC 4279</ref>
+! PSK<ref name=psk/>
+! DHE-PSK<ref name=psk/>
+! ECDHE-PSK<ref name=ecdhepsk>RFC 5489</ref>
+! ECDH-ANON<ref name=ecc>RFC 4492</ref>
+|-
+| [[axTLS]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[GnuTLS]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[hs-tls]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[OpenSSL]]
+| {{yes}} 
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+|-
+|-
+| [[PolarSSL]]
+| {{no}} 
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[SChannel]]
+| {{no}} 
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| Security Builder SSL-C
+| {{yes}} 
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[JSSE]]
+| {{yes}} 
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-class="sortbottom"
+! Implementation
+! DH-ANON
+! SRP
+! SRP-DSS
+! SRP-RSA
+! PSK-RSA
+! PSK
+! DHE-PSK
+! ECDHE-PSK
+! ECDH-ANON
+|}
+
+== Encryption Algorithms ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! AES-CBC
+! AES-GCM<ref name=aes-gcm>RFC 5288</ref>
+! AES-CCM<ref name=aes-ccm>[http://tools.ietf.org/html/draft-mcgrew-tls-aes-ccm-03]</ref>
+! 3DES-CBC
+! DES-CBC (Insecure)
+! RC4-128
+! RC4-40 (Insecure)
+! CAMELLIA-CBC<ref name=camellia-cbc>RFC 5932</ref>
+! GOST28147-89<ref name=gostlink>[http://tools.ietf.org/html/draft-chudov-cryptopro-cptls-04 draft-chudov-cryptopro-cptls-04]</ref>
+|-
+| [[axTLS]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[GnuTLS]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes|Disabled by default}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[hs-tls]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| MatrixSSL-open
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes|Disabled by default}}
+| {{yes}}
+| {{yes|Disabled by default}}
+| {{yes|Disabled by default}}
+| {{no}}
+|-
+|-
+| [[OpenSSL]]
+| {{yes}}
+| {{yes}} <ref name=tlsv11 />
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[PolarSSL]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes|Disabled by default}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[SChannel]]
+| {{yes}}
+| {{Partial}}<ref name=schannel-aes-gcm>Support is erratic, in many cases SChannel will simply drop the connection if a suite with this algorithm is specified.</ref>
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}<ref name=extensions/>
+|-
+|-
+| Security Builder SSL-C
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[JSSE]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}<ref name=extensions/>
+|-
+|-class="sortbottom"
+! Implementation
+! AES-CBC
+! AES-GCM
+! AES-CCM
+! 3DES-CBC
+! DES-CBC
+! RC4-128
+! RC4-40
+! CAMELLIA-CBC
+! GOST28147-89
+|}
+
+== Supported elliptic curves ==
+This section lists the supported elliptic curves by each implementation.
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! Arbitrary curves
+! Arbitrary char2 curves
+! sect163k1 (1)
+! sect163r1 (2)
+! sect163r2 (3)
+! sect193r1 (4)
+! sect193r2 (5)
+! sect233k1 (6)
+! sect233r1 (7)
+! sect239k1 (8)
+! sect283k1 (9)
+! sect283r1 (10)
+! sect409k1 (11)
+! sect409r1 (12)
+! sect571k1 (13)
+! sect571r1 (14)
+|-
+| [[CyaSSL]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[GnuTLS]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[OpenSSL]]
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-class="sortbottom"
+! Implementation
+! Arbitrary curves
+! Arbitrary char2 curves
+! sect163k1
+! sect163r1
+! sect163r2
+! sect193r1
+! sect193r2
+! sect233k1
+! sect233r1
+! sect239k1
+! sect283k1
+! sect283r1
+! sect409k1
+! sect409r1
+! sect571k1
+! sect571r1
+|}
+
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! secp160k1 (15)
+! secp160r1 (16)
+! secp160r2 (17)
+! secp192k1 (18)
+! secp192r1 prime192v1 (19)
+! secp224k1 (20)
+! secp224r1 (21)
+! secp256k1 (22)
+! secp256r1 prime256v1 (23)
+! secp384r1 (24)
+! secp521r1 (25)
+|-
+| [[CyaSSL]]
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[GnuTLS]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[MatrixSSL]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[OpenSSL]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-class="sortbottom"
+! Implementation
+! secp160k1
+! secp160r1
+! secp160r2
+! secp192k1
+! secp192r1 prime192v1
+! secp224k1
+! secp224r1
+! secp256k1
+! secp256r1 prime256v1
+! secp384r1
+! secp521r1
+|}
+
+== Assisted cryptography ==
+This section lists the ability of an implementation to take advantage of CPU instruction sets that optimize encryption, or utilize system specific devices that allow access to underlying cryptographic hardware for acceleration or for data separation.
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! [http://home.gna.org/cryptodev-linux/ /dev/crypto]
+! [[PKCS11|PKCS #11 device]]
+! [[Cryptographic Service Provider|Windows CSP]]
+! [[AES instruction set|Intel AES-NI]]
+! [[VIA PadLock]]
+! [http://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man3/Common%20Crypto.3cc.html CommonCrypto]
+! [[OpenSSL|OpenSSL Engine]]
+! [http://www.cavium.com/processor_security.html Cavium NITROX]
+! [http://www.st.com/internet/mcu/subclass/1520.jsp STM32F2/F4]
+|-
+| [[axTLS]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| {{no}}
+| {{no}}
+| {{partial}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[GnuTLS]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[hs-tls]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{no}}
+| {{yes}}<ref>Normally NSS's libssl performs all operations via the PKCS#11 interface, either to hardware or software tokens</ref>
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[OpenSSL]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[PolarSSL]]
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[SChannel]]
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| Security Builder SSL-C
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [http://developer.apple.com/library/mac/#documentation/security/Conceptual/cryptoservices/Introduction/Introduction.html Secure Transport]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[JSSE]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-class="sortbottom"
+! Implementation
+! /dev/crypto
+! PKCS #11 device
+! Windows CSP
+! Intel AES-NI
+! VIA PadLock
+! CommonCrypto
+! OpenSSL Engine
+! Cavium NITROX
+! STM32F2/F4
+|}
+
+== MAC Functions ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! AEAD
+! HMAC-MD5
+! HMAC-SHA-1
+! HMAC-SHA-256
+! GOST28147-89-MAC<ref name=gostlink/>
+! GOST 34.11-94<ref name=gostlink/>
+|-
+| [[axTLS]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[GnuTLS]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[hs-tls]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| MatrixSSL-open
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[OpenSSL]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+|-
+| [[PolarSSL]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[SChannel]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}<ref name=extensions/>
+| {{no}}<ref name=extensions/>
+|-
+|-
+| Security Builder SSL-C
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[JSSE]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}<ref name=extensions/>
+| {{no}}<ref name=extensions/>
+|-
+|-class="sortbottom"
+! Implementation
+! AEAD
+! HMAC-MD5
+! HMAC-SHA-1
+! HMAC-SHA-256
+! GOST28147-89-MAC
+! GOST 34.11-94
+|}
+
+== Compression ==
+Note the [[CRIME_(security_exploit)]] takes advantage of TLS compression, so conservative implementations do not enable compression at the TLS level. [[HTTP_compression]] is unrelated and unaffected by this exploit.
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! DEFLATE<ref name=tls-comp>RFC 3749</ref>
+|-
+| [[axTLS]]
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| {{yes}}
+|-
+|-
+| [[GnuTLS]]
+| {{yes|Disabled by default}}
+|-
+|-
+| [[MatrixSSL]]
+| {{yes|Disabled by default}}
+|-
+|-
+| MatrixSSL-open
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{yes|Disabled by default}}
+|-
+|-
+| [[OpenSSL]]
+| {{yes}}
+|-
+|-
+| [[PolarSSL]]
+| {{yes}}
+|-
+|-
+| [[SChannel]]
+| {{no}}
+|-
+|-
+| Security Builder SSL-C
+| {{yes}}
+|-
+|-
+| [[JSSE]]
+| {{no}}
+|-
+|-class="sortbottom"
+! Implementation
+! DEFLATE
+|}
+
+== Cryptographic module/token support ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! [[Trusted Platform Module|TPM]] support
+! Hardware token support
+! Objects identified via
+|-
+| [[axTLS]]
+| {{no}}
+| {{no}}
+| 
+|-
+|-
+| [[cryptlib]]
+| {{no}}
+| {{yes|[[PKCS11]]}}
+| User-defined label
+|-
+|-
+| [[CyaSSL]]
+| {{no}}
+| {{no}}
+| 
+|-
+|-
+| [[GnuTLS]]
+| {{yes}}
+| {{yes|[[PKCS11]]}}
+| PKCS #11 URLs<ref name=pkcs11urls>[http://tools.ietf.org/html/draft-pechanec-pkcs11uri-03 PKCS #11 URLs is a way to refer to objects stored in PKCS #11 tokens]</ref>
+|-
+|-
+| [[MatrixSSL]]
+| {{no}}
+| {{yes|[[PKCS11]]}}
+| 
+|-
+|-
+| MatrixSSL-open
+| {{no}}
+| {{no}}
+| 
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{no}}
+| {{yes|[[PKCS11]]}}
+|
+|-
+|-
+| [[OpenSSL]]
+| {{yes}}
+| {{yes|[[PKCS11]] (via external module)}}
+| Custom method
+|-
+|-
+| [[PolarSSL]]
+| {{no}}
+| {{yes|[[PKCS11]] (via libpkcs11-helper) or standard hooks}}
+| 
+|-
+|-
+| [[SChannel]]
+| {{no}}
+| {{yes|[[Microsoft CryptoAPI]]}}
+| UUID, User-defined label
+|-
+|-
+| Security Builder SSL-C
+| {{no}}
+| {{yes|[[PKCS11]] (via external module)}}
+| 
+|-
+|-
+| [[JSSE]]
+| {{no}}
+| {{yes|[[PKCS11]] [[Java Cryptography Architecture]]/<br/>[[Java Cryptography Extension]]}}
+| 
+|-
+|-class="sortbottom"
+! Implementation
+! TPM support
+! Hardware token support
+! Objects identified via
+|}
+
+== Extensions ==
+In this section the extensions each implementation supports are listed. Note that the Secure Renegotiation extension is critical for HTTPS client security. TLS clients not implementing it are vulnerable to attacks, irrespective of whether the client implements TLS renegotiation.
+
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! Secure<br/>Renegotiation<ref name=renegotiation>RFC 5746</ref>
+! Server Name<br/>Indication<ref name=tlsexts>RFC 6066</ref>
+! [[OCSP_stapling|Certificate Status<br/>Request]]<ref name=tlsexts>RFC 6066</ref>
+! OpenPGP<ref name=openpgp>RFC 6091</ref>
+! Supplemental<br/>Data<ref name=supdata>RFC 4680</ref>
+! Session<br/>Ticket<ref name=exporter>RFC 5077</ref>
+! Keying Material<br/>Exporter<ref name=sticket>RFC 5705</ref>
+! Maximum<br/>Fragment Length<ref name=tlsexts>RFC 6066</ref>
+! Truncated<br/>HMAC<ref name=tlsexts>RFC 6066</ref>
+|-
+| [[axTLS]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[cryptlib]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}<ref name=cryptlib-maxfrag>Present but disabled by default due to lack of use by any implementation.</ref>
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[GnuTLS]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[hs-tls]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| MatrixSSL-open
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}<ref name=nss_patch>[https://bugzilla.mozilla.org/show_bug.cgi?id=507359 Patch is available]</ref>
+| {{no}}
+| {{no}}
+|-
+|-
+| [[OpenSSL]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}?
+| {{yes}}
+| {{yes}}?
+| {{no}}
+| {{no}}
+|-
+|-
+| [[PolarSSL]]
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| [[SChannel]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-
+| Security Builder SSL-C
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{no}}
+|-
+|-
+| [[JSSE]]
+| {{yes}}
+| {{partial}}<ref name=client_side/>
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+|-
+|-class="sortbottom"
+! Implementation
+! Secure<br/>Renegotiation
+! Server Name<br/>Indication
+! Certificate Status<br/>Request
+! OpenPGP 
+! Supplemental<br/>Data 
+! Session<br/>Ticket 
+! Keying Material<br/>Exporter 
+! Maximum<br/>Fragment Length 
+! Truncated<br/>HMAC 
+|}
+
+== Code Size and Dependencies ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! data-sort-type="number" | Code size
+! Dependencies
+! Optional<br/>dependencies
+|-
+| [[axTLS]]
+| 12 kLoc
+| libc
+|
+|-
+|-
+| [[CyaSSL]]
+| 48 kLoc
+| libc
+| zlib (compression)
+|-
+|-
+| [[GnuTLS]]
+| 138 kLoc
+| libc<br/>nettle or gcrypt
+| zlib (compression)<br/>p11-kit (PKCS #11)
+|-
+|-
+| [[hs-tls]]
+| 5 kLoc
+| Haskell
+|
+|-
+|-
+| [[MatrixSSL]]
+| 22 kLoc
+| none
+| zlib (compression)
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+| 18 kLoc
+| libc or newlib
+|
+|-
+|-
+| [[Network Security Services|NSS]]
+| 400 kLoc
+| libc<br/>libnspr4<br/>libsoftokn3<br/>libplc4<br/>libplds4
+| zlib (compression)
+|-
+|-
+| [[OpenSSL]]
+| 159 kLoc
+| libc
+| zlib (compression)<br/>
+|-
+|-
+| [[PolarSSL]]
+| 14 kLOC
+| libc
+| libpkcs11-helper (PKCS #11)<br/>zlib (compression)
+|-
+|-
+| [[JSSE]]
+| 37 kLoc<br/>
+(Framework and Oracle provider)
+| Java
+|
+|-
+|-class="sortbottom"
+! Implementation
+! Code size
+! Dependencies
+! Optional<br/>dependencies
+|}
+
+== Development Environment ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! Namespace
+! Build Tools
+! API Manual
+! Crypto Back-end
+! OpenSSL Compatibility Layer
+|-
+| [[axTLS]]
+| SSL_CTX, SSL
+| Makefile, mconf
+| API Reference (HTML)
+| Included (monolithic)
+| {{yes}} (limited)
+|-
+|-
+| [[cryptlib]]
+| crypt*
+| makefile, MSVC project workspaces
+| Programmers reference manual (PDF), architecture design manual (PDF)
+| Included (monolithic)
+| {{no}}
+|-
+|-
+| [[CyaSSL]]
+| CyaSSL_*<br/>
+SSL_*
+| Autoconf, automake, libtool, MSVC project workspaces, XCode projects, CodeWarrior projects
+| Manual and API Reference (HTML, PDF)
+| Included (monolithic)
+| {{yes}} (about 10% of API)
+|-
+|-
+| [[GnuTLS]]
+| gnutls_*
+| Autoconf, automake, libtool
+| Manual and API reference (HTML, PDF)
+| External, libnettle
+| {{yes}} (limited)
+|-
+|-
+| [[hs-tls]]
+| Network.TLS.*
+| Cabal
+| API reference (HTML)
+| External, cryptohash, cryptocipher
+| {{no}}
+|-
+|-
+| [[MatrixSSL]]
+| matrixSsl_*<br/>
+ps*
+| Makefile, MSVC project workspaces, Xcode projects for Mac OS X and iOS
+| API Reference (PDF), Integration Guide
+| Included (pluggable)
+| {{yes}} (Subset: SSL_read, SSL_write, etc.)
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+| matrixSsl_*<br/>
+ps*
+| Makefile, MSVC project workspaces, XCode projects
+| API Reference (PDF), Integration Guide
+| Included (pluggable)
+| {{no}}
+|-
+|-
+| [[Network Security Services|NSS]]
+| CERT_*<br/>
+SEC_*<br/>
+SECKEY_*<br/>
+NSS_*<br/>
+PK11_*<br/>
+SSL_*<br/>
+...
+| Makefile
+| Manual (HTML)
+| Included, PKCS#11 based<ref name=nsscrypto>On the fly replaceable/augmentable.</ref>
+| {{yes}} (separate package called nss_compat_ossl<ref name=nsscapatossl>http://fedoraproject.org/wiki/Nss_compat_ossl</ref>)
+|-
+|-
+| [[OpenSSL]]
+| SSL_*<br/>
+SHA1_*<br/>
+MD5_*<br/>
+EVP_*<br/>
+...
+| Makefile
+| Man pages
+| Included (monolithic)
+| Not Applicable
+|-
+|-
+| [[PolarSSL]]
+| ssl_*<br/>
+sha1_*<br/>
+md5_*<br/>
+x509parse_*<br/>
+...
+| Makefile, [[CMake]], MSVC project workspaces
+| API Reference + High Level and Module Level Documentation (HTML)
+| Included (monolithic)
+| {{no}}
+|-
+|-
+| Security Builder SSL-C
+| ssl_*
+| makefile
+| Programmers reference manual (PDF), User Guide (PDF)
+| Included (monolithic)
+| {{no}}
+|-
+|-
+| [[JSSE]]
+| javax.net.ssl
+| Makefile
+| API Reference (HTML) +
+{{Javadoc:SE-guide|security/jsse/JSSERefGuide.html|JSSE Reference Guide}}
+| [[Java Cryptography Architecture]]/<br/>[[Java Cryptography Extension]]
+|
+|-
+|-class="sortbottom"
+! Implementation
+! Namespace
+! Build Tools
+! API Manual
+! Crypto Back-end
+! OpenSSL Compatibility Layer
+|}
+
+== Portability Concerns ==
+{| class="wikitable sortable" style="text-align: left; font-size: smaller"
+|-
+! Implementation
+! Platform Requirements
+! Network Requirements
+! Thread Safety
+! Random Seed
+! Able to Cross-Compile
+! No OS (Bare Metal)
+! Supported Operating Systems
+|-
+| [[axTLS]]
+| C89
+| none
+| POSIX threads (optional)
+| /dev/urandom or platform dependent.
+| {{yes}}
+|
+| Generally any POSIX or Windows based platforms.
+|-
+|-
+| [[cryptlib]]
+| C89
+| POSIX send() and recv(). API to supply your own replacement
+| Thread-safe.
+| Platform-dependent, including hardware sources
+| {{yes}}
+|
+| AMX, BeOS, ChorusOS, DOS, eCOS, FreeRTOS/OpenRTOS, uItron, MVS, OS/2, PalmOS, QNX Neutrino, RTEMS, Tandem NonStop, ThreadX, uC/OS II, Unix (AIX, FreeBSD, HPUX, Linux, OS X, Solaris, etc.), VDK, VM/CMS, VxWorks, Win16, Win32, Win64, WinCE/PocketPC/etc, XMK
+|-
+|-
+| [[CyaSSL]]
+| C89
+| POSIX send() and recv(). API to supply your own replacement.
+| Thread-safe, needs mutex hooks if PThreads or WinThreads not available, can be turned off
+| Random seed set through CTaoCrypt
+| {{yes}}
+| {{yes}}
+| Win32/64, Linux, Mac OS X, Solaris, ThreadX, VxWorks, FreeBSD, NetBSD, OpenBSD, embedded Linux, Haiku, OpenWRT, iPhone (iOS), Android, Nintendo Wii and Gamecube through DevKitPro, QNX, MontaVista, OpenCL, NonStop, TRON/ITRON/?ITRON, Micrium's ?C OS, FreeRTOS, SafeRTOS, Freescale MQX, Nucleus, TinyOS
+|-
+|-
+| [[GnuTLS]]
+| C89
+| POSIX send() and recv(). API to supply your own replacement.
+| Thread-safe, needs custom mutex hooks if neither POSIX nor Windows threads are available.
+| platform dependent
+| {{yes}}
+|
+| Generally any POSIX platforms or Windows, commonly tested platforms include GNU/Linux, Win32/64, Mac OS X, Solaris, OpenWRT, FreeBSD, NetBSD, OpenBSD.
+|-
+|-
+| [[hs-tls]]
+| Haskell
+| Haskell network library.
+| Thread-safe.
+| platform dependent
+| {{no}}
+|
+| Generally any POSIX or Windows based platforms.
+|-
+|-
+| [[MatrixSSL]]
+| C89
+| none
+| Thread-safe
+| platform dependent
+| {{yes}}
+| {{yes}}
+| All
+|-
+|-
+| [[MatrixSSL|MatrixSSL-open]]
+| C89
+| none
+| Thread-safe
+| platform dependent
+| {{yes}}
+| {{yes}}
+| All
+|-
+|-
+| [[Network Security Services|NSS]]
+| C89, NSPR<ref name=nspr>[http://www.mozilla.org/projects/nspr/ Netscape Portable Runtime (NSPR)]</ref>
+| NSPR<ref name=nspr /> PR_Send() and PR_Recv(). API to supply your own replacement.
+| Thread-safe
+| Platform dependent<ref name=nssplatformdep>For Unix/Linux it uses /dev/urandom if available, for Windows it uses CAPI. For all platforms it gets data from clock, and tries to open system files. NSS has a set of platform dependent functions is uses to determine randomness.</ref>
+| {{yes}} (but cumbersome)
+|
+| AIX, Android, FreeBSD, NetBSD, OpenBSD, BeOS, HP-UX, IRIX, Linux, Mac OS X, OS/2, Solaris, OpenVMS, Amiga DE, Windows, WinCE, Sony PlayStation
+|-
+|-
+| [[OpenSSL]]
+| C89?
+| ?
+| Needs mutex callbacks
+| Set through native API
+|
+|
+| Unix, DOS (with djgpp), Windows, OpenVMS, MacOS, NetWare
+|-
+|-
+| [[PolarSSL]]
+| C89
+| POSIX read() and write(). API to supply your own replacement.
+| Thread-safe
+| Random seed set through HAVEGE random engine
+| {{yes}}
+|
+| Known to work on: Win32/64, Linux, Mac OS X, Solaris, FreeBSD, NetBSD, OpenBSD, OpenWRT, iPhone (iOS), Xbox
+|-
+|-
+| Security Builder SSL-C
+| C89
+| Must write your own application callbacks for socket I/O
+| Thread-safe under certain documented conditions
+| platform dependent
+| {{yes}}
+|
+| 
+|-
+|-
+| [[JSSE]]
+| Java
+| Java SE network components
+| Thread-safe
+| Depends on java.security.SecureRandom
+| {{yes}}
+|
+| Java based, platform-independent
+|-
+|-class="sortbottom"
+! Implementation
+! Platform Requirements
+! Network Requirements
+! Thread Safety
+! Random Seed
+! Able to Cross-Compile
+! No OS (Bare Metal)
+! Supported Operating Systems
+|}
+
+==See also==
+* [[ZRTP]]
+* [[SCTP]] ? with DTLS support
+* [[DCCP]] ? with DTLS support
+* [[SRTP]] ? with DTLS support (DTLS-SRTP) and Secure Real-Time Transport Control Protocol (SRTCP)
+
+== References ==
+{{Reflist|30em}}
+
+{{DEFAULTSORT:Comparison Of Tls Implementations}}
+[[Category:Cryptographic software]]
+[[Category:Software comparisons|TLS Implementations]]

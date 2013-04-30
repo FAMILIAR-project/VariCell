@@ -1,0 +1,415 @@
+The following tables compare general and technical information for a number of [[cryptographic hash function]]s.<ref>See the individual functions' articles for further information. This article is not all-inclusive or necessarily up-to-date.</ref>
+
+== General information ==
+Basic general information about the [[cryptographic hash function]]s: year, designer, references, etc. 
+{| class="wikitable sortable" style="text-align: center"
+|-
+! Function
+! Year<ref group="gi">It refers to the first official description of the algorithm, not designed date.</ref>
+! Designer
+! Derived from
+! Reference
+|-
+| [[HAVAL]]
+| 1992
+| [[Yuliang Zheng]]<br />[[Josef Pieprzyk]]<br />[[Jennifer Seberry]]
+|
+| [http://labs.calyptix.com/haval.php Website]
+|-
+| [[MD2 (cryptography)|MD2]]
+| 1989
+| rowspan="4"|[[Ronald Rivest]]
+| 
+| RFC 1319
+|-
+| [[MD4]]
+| 1990
+| 
+| RFC 1320
+|-
+| [[MD5]]
+| 1992
+| [[MD4]]<br />RFC 1321 page 1
+| RFC 1321
+|-
+| [[MD6]]
+| 2008
+|
+| [http://groups.csail.mit.edu/cis/md6/submitted-2008-10-27/Supporting_Documentation/md6_report.pdf md6_report.pdf]
+|-
+| [[RIPEMD]]
+| 1990
+| The RIPE Consortium [http://homes.esat.kuleuven.be/~bosselae/ripemd160.html#What]
+| [[MD4]]
+|
+|-
+| [[RIPEMD-128]]<br />[[RIPEMD-256]]<br />[[RIPEMD-160]]<br />[[RIPEMD-320]]
+| 1996
+| [[Hans Dobbertin]]<br />[[Antoon Bosselaers]]<br />[[Bart Preneel]]
+| [[RIPEMD]][http://homes.esat.kuleuven.be/~bosselae/ripemd160.html#What]
+| [http://homes.esat.kuleuven.be/~bosselae/ripemd160.html Website]
+|-
+| [[SHA-0]]
+| 1993
+| rowspan="4"|[[National Security Agency|NSA]]
+|
+| [http://w2.eff.org/Privacy/Digital_signature/?f=fips_sha_shs.info.txt SHA-0]
+|-
+| [[SHA-1]]
+| 1995
+| [[SHA-0]]
+| rowspan="3"|[http://csrc.nist.gov/publications/fips/fips180-3/fips180-3_final.pdf FIPS 180--3]
+|-
+| [[SHA-256]]<br />[[SHA-512]]<br />[[SHA-384]]
+| 2002
+| rowspan="2"|
+|-
+| [[SHA-224]]
+| 2004
+|-
+| [[GOST (hash function)|GOST R 34.11-94]]
+| 1994
+| [[FAPSI]] and VNIIstandart
+| [[GOST (block cipher)|GOST 28147-89]]
+| RFC 5831, RFC 4357
+|-
+| [[Tiger (cryptography)|Tiger]]
+| 1995
+| [[Ross J. Anderson|Ross Anderson]]<br />[[Eli Biham]]
+|
+| [http://www.cs.technion.ac.il/~biham/Reports/Tiger/ Website]
+|-
+| [[Whirlpool (cryptography)|Whirlpool]]
+| 2004
+| [[Vincent Rijmen]]<br />[[Paulo S. L. M. Barreto|Paulo Barreto]]
+|
+| [http://www.larc.usp.br/~pbarreto/WhirlpoolPage.html Website]
+|}
+
+=== Notes ===
+<references group="gi" />
+
+== Compression function ==
+The following tables compare technical information for [[One-way compression function|compression function]]s of [[cryptographic hash function]]s. The information comes from the specifications, please refer to them for more details. 
+{| class="wikitable" style="text-align: center"
+|-
+! rowspan="2" | Function
+! colspan="6" | Size ([[bit]]s)<ref group="cf">The omitted multiplicands are word sizes.</ref>
+! rowspan="2" | Words ? <br />Passes = <br />Rounds<ref group="cf">Some authors interchange passes and rounds.</ref>
+! rowspan="2" | Operations<ref group="cf">A: addition, subtraction; B: [[bitwise operation]]; L: [[lookup table]]; S: [[Bitwise_operations#Bit_shifts|shift, rotation]].</ref>
+! rowspan="2" | [[Endianness|Endian]]<ref group="cf">It refers to ''byte'' endianness only. If the operations consist of bitwise operations and lookup tables only, the endianness is irrelevant.</ref>
+! rowspan="2" | Specification
+|-
+! [[Word (data type)|Word]]
+! [[Cryptographic hash function|Digest]]
+! [[Merkle?Damg?rd construction|Chaining <br />values]]<ref group="cf">The size of message digest equals to the size of chaining values usually. In truncated versions of certain cryptographic hash functions such as SHA-384, the former is less than the latter.</ref>
+! Computation<br />values<ref group="cf">The size of chaining values equals to the size of computation values usually. In certain cryptographic hash functions such as RIPEMD-160, the former is less than the latter because RIPEMD-160 use two sets of parallel computaion values and then combine into a single set of chaining values.</ref>
+! [[Merkle?Damg?rd construction|Block]]
+! [[Merkle?Damg?rd construction#Security characteristics|Length]]<br /><ref group="cf">The maximum input size = 2<sup>length size</sup> ? 1 [[bit]]s. For example, the maximum input size of SHA-1 = 2<sup>64</sup> ? 1 bits.</ref>
+|-
+|                [[HAVAL|HAVAL-3-128]]
+| rowspan="15" | 32
+|                {{nowrap|?4 {{=}} 128}}
+| colspan="2" rowspan="15" | {{nowrap|?8 {{=}} 256}}
+| rowspan="15" | {{nowrap|?32 {{=}} 1,024}}
+| rowspan="15" | 64
+| rowspan="5"  | {{nowrap|32 ? 3 {{=}} 96}}
+| rowspan="15" | A B S
+| rowspan="15" | Little
+| rowspan="15" | [http://labs.calyptix.com/files/haval-paper.pdf HAVAL]
+|-
+| [[HAVAL|HAVAL-3-160]]
+| {{nowrap|?5 {{=}} 160}}
+|-
+| [[HAVAL|HAVAL-3-192]]
+| {{nowrap|?6 {{=}} 192}}
+|-
+| [[HAVAL|HAVAL-3-224]]
+| {{nowrap|?7 {{=}} 224}}
+|-
+| [[HAVAL|HAVAL-3-256]]
+| {{nowrap|?8 {{=}} 256}}
+|-
+| [[HAVAL|HAVAL-4-128]]
+| {{nowrap|?4 {{=}} 128}}
+| rowspan="5" | {{nowrap|32 ? 4 {{=}} 128}}
+|-
+| [[HAVAL|HAVAL-4-160]]
+| {{nowrap|?5 {{=}} 160}}
+|-
+| [[HAVAL|HAVAL-4-192]]
+| {{nowrap|?6 {{=}} 192}}
+|-
+| [[HAVAL|HAVAL-4-224]]
+| {{nowrap|?7 {{=}} 224}}
+|-
+| [[HAVAL|HAVAL-4-256]]
+| {{nowrap|?8 {{=}} 256}}
+|-
+| [[HAVAL|HAVAL-5-128]]
+| {{nowrap|?4 {{=}} 128}}
+| rowspan="5" | {{nowrap|32 ? 5 {{=}} 160}}
+|-
+| [[HAVAL|HAVAL-5-160]]
+| {{nowrap|?5 {{=}} 160}}
+|-
+| [[HAVAL|HAVAL-5-192]]
+| {{nowrap|?6 {{=}} 192}}
+|-
+| [[HAVAL|HAVAL-5-224]]
+| {{nowrap|?7 {{=}} 224}}
+|-
+| [[HAVAL|HAVAL-5-256]]
+| {{nowrap|?8 {{=}} 256}}
+|-
+| [[MD2 (cryptography)|MD2]]
+| 8
+| {{nowrap|?16 {{=}} 128}}
+| {{nowrap|?32 {{=}} 256}}
+| {{nowrap|?48 {{=}} 384}}
+| {{nowrap|?16 {{=}} 128}}
+| None
+| {{nowrap|48 ? 18 {{=}} 864}}
+| B
+| N/A
+| RFC 1319
+|-
+| [[MD4]]
+| rowspan="2" | 32
+| colspan="3" rowspan="2"| {{nowrap|?4 {{=}} 128}}
+| rowspan="2" | {{nowrap|?16 {{=}} 512}}
+| rowspan="2" | 64
+|               {{nowrap|16 ? 3 {{=}} 48}}
+| rowspan="2" | A B S
+| rowspan="2" | Little
+| RFC 1320
+|-
+| [[MD5]]
+| {{nowrap|16 ? 4 {{=}} 64}}
+| RFC 1321
+|-
+| [[RIPEMD]]
+| rowspan="5" | 32
+| colspan="2" rowspan="2" | {{nowrap|?4 {{=}} 128}}
+| rowspan="3" | {{nowrap|?8 {{=}} 256}}
+| rowspan="5" | {{nowrap|?16 {{=}} 512}}
+| rowspan="5" | 64
+| {{nowrap|16 ? 3 {{=}} 48}}
+| rowspan="5" | A B S
+| rowspan="5" | Little
+|
+|-
+| [[RIPEMD-128]]
+| rowspan="2" | {{nowrap|16 ? 4 {{=}} 64}}
+| rowspan="4" | [http://www.esat.kuleuven.ac.be/~cosicart/pdf/AB-9601/AB-9601.pdf RIPEMD-160]
+|-
+| [[RIPEMD-256]]
+| colspan="2" | {{nowrap|?8 {{=}} 256}}
+|-
+| [[RIPEMD-160]]
+| colspan="2" | {{nowrap|?5 {{=}} 160}}
+| rowspan="2" | {{nowrap|?10 {{=}} 320}}
+| rowspan="2" | {{nowrap|16 ? 5 {{=}} 80}}
+|-
+| [[RIPEMD-320]]
+| colspan="2" | {{nowrap|?10 {{=}} 320}}
+|-
+| [[SHA-0]]
+| rowspan="4" | 32
+| colspan="3" rowspan="2" | {{nowrap|?5 {{=}} 160}}
+| rowspan="4" | {{nowrap|?16 {{=}} 512}}
+| rowspan="4" | 64
+| rowspan="2" | {{nowrap|16 ? 5 {{=}} 80}}
+| rowspan="6" | A B S
+| rowspan="6" | Big
+|-
+| [[SHA-1]]
+| rowspan="5" | [http://csrc.nist.gov/publications/fips/fips180-3/fips180-3_final.pdf FIPS 180--3]
+|-
+| [[SHA-256]]
+| {{nowrap|?8 {{=}} 256}}
+| colspan="2" rowspan="2" | {{nowrap|?8 {{=}} 256}}
+| rowspan="2" | {{nowrap|16 ? 4 {{=}} 64}}
+|-
+| [[SHA-224]]
+| {{nowrap|?7 {{=}} 224}}
+|-
+| [[SHA-512]]
+| rowspan="2" | 64
+| {{nowrap|?8 {{=}} 512}}
+| colspan="2" rowspan="2" | {{nowrap|?8 {{=}} 512}}
+| rowspan="2" | {{nowrap|?16 {{=}} 1024}}
+| rowspan="2" | 128
+| rowspan="2" | {{nowrap|16 ? 5 {{=}} 80}}
+|-
+| [[SHA-384]]
+| {{nowrap|?6 {{=}} 384}}
+|-
+| [[GOST (hash function)|GOST R 34.11-94]]
+| 32
+| colspan="3" | {{nowrap|?8 {{=}} 256}}
+| {{nowrap|?8 {{=}} 256}}
+| 32
+| 4
+| A B L S
+| Little
+| RFC 5831
+|-
+| [[Tiger (cryptography)|Tiger-192]]
+| rowspan="3" | 64
+| {{nowrap|?3 {{=}} 192}}
+| colspan="2" rowspan="3" | {{nowrap|?3 {{=}} 192}}
+| rowspan="3" | {{nowrap|?8 {{=}} 512}}
+| rowspan="3" | 64
+| rowspan="3" | {{nowrap|8 ? 3 {{=}} 24}}
+| rowspan="3" | A B L S
+| rowspan="3" | Little
+| rowspan="3" | [http://www.cs.technion.ac.il/~biham/Reports/Tiger/tiger/node3.html#SECTION00030000000000000000 Tiger]
+|-
+| [[Tiger (cryptography)|Tiger-160]]
+| ?2.5=160
+|-
+| [[Tiger (cryptography)|Tiger-128]]
+| {{nowrap|?2 {{=}} 128}}
+|}
+
+=== Notes ===
+<references group="cf" />
+
+== Cryptanalysis ==
+The following tables compare [[cryptanalysis]] status of [[cryptographic hash function]]s. This table is probably out of date.
+{| class="wikitable" style="text-align: center"
+|-
+! rowspan="2"|Function
+! rowspan="2"|Digest <br />size
+! rowspan="2"|Rounds
+! colspan="3"|Best known attacks <br />(complexity:rounds)<ref group="c">When omitted, rounds are full number.</ref>
+|-
+! [[Birthday attack|Collision]]
+! [[Preimage attack|Second<br />preimage]]
+! [[Preimage attack|Preimage]]
+|-
+| [[RIPEMD]]
+| 128
+| 48
+| [http://www.springerlink.com/content/n5vrtdha97a2udkx/ 2<sup>18</sup>]
+|
+|
+|-
+| [[RIPEMD|RIPEMD-160]]
+| 160
+| 80
+| 
+|
+|
+|-
+| [[RIPEMD|RIPEMD-160-Reduced]]
+| 160
+| 80
+| [http://www.springerlink.com/content/3540l03h1w31n6w7 2<sup>51</sup>:48]
+|
+|
+|-
+| [[MD2 (cryptography)|MD2]]
+| 128
+| 864
+| [http://www.springerlink.com/content/n5vrtdha97a2udkx/ 2<sup>63.3</sup>]
+|
+| [http://eprint.iacr.org/2008/089.pdf 2<sup>73</sup>]
+|-
+| [[MD4]]
+| 128
+| 48
+| [http://www.springerlink.com/content/v6526284mu858v37/ 3]
+| [http://eprint.iacr.org/2010/016.pdf 2<sup>64</sup>]
+| [http://eprint.iacr.org/2010/016.pdf 2<sup>78.4</sup>]
+|-
+| [[MD5]]
+| 128
+| 64
+| [http://eprint.iacr.org/2009/223.pdf 2<sup>20.96</sup>]
+|
+| [http://springerlink.com/content/d7pm142n58853467/ 2<sup>123.4</sup>]
+|-
+| [[SHA-0]]
+| 160
+| 80
+| [http://www.springerlink.com/content/3810jp9730369045/ 2<sup>33.6</sup>]
+|
+|
+|-
+| [[SHA-1]]
+| 160
+| 80
+| [http://eprint.iacr.org/2008/469.pdf 2<sup>51</sup>]
+|
+|
+|-
+| [[SHA-256]]
+| 256
+| 64
+| 
+|
+| 
+|-
+| [[SHA-256-Reduced]]
+| 256
+| 64
+| [http://eprint.iacr.org/2008/270.pdf 2<sup>28.5</sup>:24]
+|
+| [http://eprint.iacr.org/2010/016.pdf 2<sup>248.4</sup>:42]
+|-
+| [[SHA-512]]
+| 512
+| 80
+| 
+|
+| 
+|-
+| [[SHA-512-Reduced]]
+| 512
+| 80
+| [http://eprint.iacr.org/2008/270.pdf 2<sup>32.5</sup>:24]
+|
+| [http://eprint.iacr.org/2010/016.pdf 2<sup>494.6</sup>:42]
+|-
+| [[GOST (hash function)|GOST]]
+| 256
+| 256
+| [http://www.springerlink.com/content/2514122231284103/ 2<sup>105</sup>]
+| [http://www.springerlink.com/content/2514122231284103/ 2<sup>192</sup>]
+| [http://www.springerlink.com/content/2514122231284103/ 2<sup>192</sup>]
+|-
+| [[Tiger (cryptography)|Tiger]]
+| 192
+| 24
+| [http://www.springerlink.com/content/u762587644802p38/ 2<sup>62</sup>:19]
+|
+| [http://eprint.iacr.org/2010/016.pdf 2<sup>184.3</sup>]
+|}
+
+=== Notes ===
+<references group="c" />
+
+== See also ==
+*[[List of hash functions]]
+*[[Word (data type)]]
+
+==Notes==
+<references/>
+
+==References==
+{{Reflist}}
+
+== External links ==
+# [http://www.larc.usp.br/~pbarreto/hflounge.html The Hash Function Lounge] - A list of hash functions and known attacks, by Paulo Barreto
+# [http://ehash.iaik.tugraz.at/wiki/The_eHash_Main_Page The eHash Main Page] - A wiki for cryptographic hash functions
+# [http://csrc.nist.gov/groups/ST/hash/sha-3/index.html The NIST Hash Competition Main Page] - The competition to become SHA-3
+
+{{Cryptography navbox | hash}}
+
+[[Category:Cryptography]]
+[[Category:Cryptographic primitives]]
+[[Category:Cryptographic hash functions| ]]
+[[Category:Hashing]]
+[[Category:Cryptography lists and comparisons|Hash functions]]

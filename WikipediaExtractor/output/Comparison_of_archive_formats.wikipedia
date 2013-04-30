@@ -1,0 +1,746 @@
+{{Expert-subject|Computing|date=September 2008}}
+
+There are many popular computer data '''[[archive format]]s''' for creating and maintaining [[archive file]]s.  The tables below '''compare many popular archive formats'''.
+
+==Features==
+The table compares various features column-by-column in the table below:
+
+===Purpose===
+The earliest use of archive formats was for backup, mobility, and [[archiving]].
+Improved versions of archive formats added the ability to [[data compression|compress]] the data to consume less storage space and network bandwidth.  There are multiple compression algorithms available to statistically compress data.  Some kinds of data can be highly compressed and some kinds of data do not benefit from compression.
+Currently, archive formats are also used to [[package (package management system)|package]] software files for distribution, installation, and execution.
+
+===Filename extension===
+The [[DOS]] and [[Microsoft Windows|Windows]] operating systems required filenames to include a three-character extension to identify the file type and use. Filename extensions must be unique for each type of file. Many [[operating systems]] identify a file's type from its contents without the need for an extension in its name. However, the use of three-character extensions has been embraced as a useful and efficient shorthand for identifying file types?both for computer software, and for humans.
+
+===Integrity check===
+Archive files are often stored on [[magnetic media]], which is subject to [[computer data storage|data storage]] errors. Early [[Magnetic tape data storage|tape media]] had a higher rate of errors than is expected for magnetic media today. Many archive formats contain extra data embedded in the files in order to detect data storage or transmission errors, and the software used to read the archive files contain [[logic]] to detect errors.
+
+===Recovery record===
+Many archive formats contain redundant data embedded in the files in order to detect data storage or transmission errors, and the software used to read the archive files contain logic to detect and correct errors.
+
+===Encryption===
+In order to protect the data being stored or transferred from being read if intercepted, many archive formats include the capability to encrypt the data.  There are multiple mathematical algorithms available to encrypt data.
+
+==Comparison==
+<!-- 
+BEFORE ADDING A FORMAT:
+Make sure that it has a page on Wikipedia and something is known about it!
+-->
+{| class="wikitable sortable" style="width: auto; text-align: center; font-size: smaller; table-layout: fixed;"
+! Format 
+! Filename extension 
+! Created by 
+! Introduced in 
+! Based on 
+! Integrity check 
+! Recovery record 
+! Encryption supported 
+! [[Unicode]] filenames 
+! Modification date resolution 
+|-
+! colspan="10" style="background-color: #eeeeff" | Archiving only
+|-
+! [[Ar (Unix)|Archive]] (ar)
+| .a
+| [[CSRG]]
+| 0000 {{?}} <!-- *portable* ar format first appeared in BSD, and was later adopted by SysV -->
+| Original
+| {{no}}
+| {{no}}
+| {{no}}
+| {{no}}
+| 1 s
+|-
+! [[cpio]]
+| .cpio
+| [[Bell Labs]]
+| 1983 [[UNIX System V|Unix System V]]
+| {{?}} <!-- Probably Original -->
+| {{partial}}, select formats only
+| {{no}}
+| {{no}}
+| {{no}}
+| 1 s
+|-
+! [[shar|Shell Archive]] (shar and makeself)
+| .shar, .run
+| {{?}}
+| 1994 [[4.4BSD]]
+| Original
+| {{yes}}, commonly MD5
+| {{partial}} <!-- sh scripts can do about anything -->
+| {{partial}} <!-- it is just that it is not always implemented -->
+| {{partial}}
+| arbitrary (typically 1 s)
+|-
+! [[Tar (file format)|Tape Archive]] (tar)
+| .tar
+| [[Bell Labs]]
+| 1975 [[Version 6 Unix]]
+| {{?}} <!-- Probably Original -->
+| {{partial}}, metadata only. Full integrity providable by filters such as gzip.
+| {{no}}
+| {{no}}
+| {{optional}}{{ref|1|1}}
+| 1 s
+|-
+! Extended TAR format (pax)
+| .tar
+| [[OpenGroup]]
+| 2001
+| Sun proposal + TAR
+| metadata
+| {{no}}
+| {{no}}
+| {{yes}}
+| arbitrary (typically 1 ns)
+|-
+! [[BagIt]]
+| -
+| [[The Library of Congress]]
+| 2007
+| file system
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+<!-- removed, see talk |-
+! colspan="10" style="background-color: #eeeeff" | Compression only
+| ?
+|-
+! [[bzip2]]
+| .bz2
+| [[Julian Seward]]
+| [[1996]]
+| [[Burrows-Wheeler transform]]
+| {{yes}}
+| {{?}}
+| {{no}}
+| {{?}}
+|-
+! [[compress]]
+| .Z
+| {{?}}
+| ([[1986]]) [[4.3BSD]]
+| [[LZW]]
+| {{?}}
+| {{?}}
+| {{no}}
+| {{?}}
+|-
+! [[Gzip|GNU Zip]] (gzip)
+| .gz
+| Jean-Loup&nbsp;Gailly and Mark&nbsp;Adler
+| [[1992]]
+| [[DEFLATE (algorithm)|DEFLATE]]
+| {{yes}}
+| {{?}}
+| {{no}}
+| {{?}}
+|-
+! [[LZMA]]
+| .lzma
+| Igor Pavlov
+| [[2001]]
+| [[LZ77]] and [[LZW]]
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+|-
+! [[LZO]]
+| ?
+| Markus Oberhumer
+| [[1996]]
+| [[LZW]]
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+|-
+! [[rzip]]
+| ?
+| [[Andrew Tridgell]]
+| [[1999]]
+| [[bzip2]]
+| {{?}}
+| {{?}}
+| {{?}}
+| ? -->
+|-
+! colspan="10" style="background-color: #eeeeff" | Archiving and Compression
+|-
+! [[7z]]
+| .7z
+| Igor Pavlov
+| 2000
+| [[Lempel-Ziv-Markov algorithm|LZMA]] 
+| {{yes}}
+| {{no}}
+| {{yes}}, AES
+| {{yes}}
+| 1 ms (maybe better?)
+|-
+! [[ACE (file format)|ACE]]
+| .ace
+| Marcel Lemke
+| 0000 {{?}}
+| {{?}} <!-- Probably Original -->
+| {{yes}}
+| {{yes}}
+| {{yes}}, Blowfish
+| {{yes}}
+| {{?}}
+|-
+! AFA
+| .afa
+| Vicente S?nchez-Alarcos
+| 2009
+| Original
+| {{yes}}
+| {{yes}}
+| {{yes}}, AES and CAST
+| {{yes}}
+| {{?}}
+|-
+! [[ARC (file format)|ARC]]
+| .arc
+| Thom Henderson (SEA)
+| 1985
+| {{?}} <!-- Probably Original -->
+| {{yes|CRC16}}
+| {{no}}
+| {{bad|weak XOR only}}
+| {{no}}
+| 2s
+|-
+! [[ARJ]]
+| .arj
+| Robert Jung
+| 1991
+| [[AR001]] and [[AR002]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{no}}
+| {{?}}
+|-
+! [[Cabinet (file format)|Cabinet]]
+| .cab
+| [[Microsoft]]
+| 1992 [[Windows 3.1]]
+| [[DEFLATE (algorithm)|DEFLATE]]
+| {{optional}} PKCS7 [[Authenticode]] signature
+| {{no}}
+| {{optional}} (with SDK)
+| {{yes}}
+| 2?s
+|-
+! [[CFS (Compact File Set file format)|Compact File Set]]
+| .cfs
+| Joe Lowe (Pismo Technic Inc.)
+| 2008, April 1
+| ZIP/LZMA 
+| {{yes}}
+| {{?}}
+| {{yes}}
+| {{yes}}
+| {{?}}
+|-
+! [[Compact Pro]]
+| .cpt
+| Bill Goodman
+| 1990, May 5 (as "Compactor")
+| Original
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{?}}
+| {{?}}
+|-
+! [[DAR (Disk Archiver)|Disk Archive]] (DAR)
+| .dar
+| Denis Corbin
+| 2002
+| Original
+| {{yes}}
+| {{yes}}{{ref|2|2}}
+| {{yes}}
+| {{yes}}
+| 1 s
+|-
+! [[DGCA (Computing)|DGCA]]
+| .dgc
+| Shin-ichi Tsuruta
+| 2001
+| [[GCA (file format)|GCA]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{?}}
+|-
+! [[FreeArc]]
+| .arc
+| Bulat Ziganshin
+| 2006
+| [[LZMA]], [[PPMD]], [[TTA (codec)|TTA]]
+| {{yes}}
+| {{yes}}
+| {{yes}}, AES, Blowfish, Twofish and Serpent
+| {{yes}}
+| {{?}}
+|-
+! [[LHA (file format)|LHA]] (also LZH)
+| .lzh, .lha
+| Haruyasu Yoshizaki
+| 1988
+| [[Frozen (file format)|Frozen]]
+| Only on recent LHA releases
+| {{no}}
+| {{No}}
+| {{no}}
+| 1?2 s
+|-
+! [[LZX (algorithm)#Amiga LZX|LZX]] <!-- Watch for anchor name changes -->
+| .lzx
+| [[Jonathan Forbes (programmer)|Jonathan Forbes]] and Tomi&nbsp;Poutanen
+| 1995
+| [[LZ77]]
+| Only on recent LZX releases
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+|-
+! [[Sparc]]
+| .arc
+| David Pilling
+| 1989
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+|-
+! [[WinMount format]] 
+| .mou
+| ?
+| 2007
+| ?
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{?}}
+|-
+! [[.dmg|Macintosh Disk Image]]
+| .dmg
+| [[Apple Computer]]
+| 1991 [[System 7 (Macintosh)|Macintosh System 7]]
+| Original
+| {{yes}}
+| {{?}}
+| {{yes}}
+| {{?}}
+| {{?}}
+|-
+! [[PartImage|Partition Image]] (PartImage)
+| ?
+| Fran?ois&nbsp;Dupoux and Franck&nbsp;Ladurelle
+| 2000 <!-- Date of registration of Sourceforge project -->
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+|-
+! [[PAQ]] (Several formats)
+| ?
+| Matt Mahoney
+| 2002&ndash;2006
+| Original
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+|-
+! [[PeaZip#Native_archive_format|PEA]]
+| .pea
+| Giorgio Tani
+| 2006
+| Original, Deflate based compression
+| {{yes}} Adler32, CRC32, CRC64, MD5, SHA1, RIPEMD-160, SHA256, SHA512, Whirlpool
+| {{no}}
+| {{yes}} Authenticated Encryption, AES128 and AES256 in EAX mode
+| {{yes}} system dependent
+| {{yes}} arbitrary
+|-
+! PIM
+| .pim
+| Ilia Muraviev
+| 2004&ndash;2008
+| Original
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+|-
+! [[Quadruple D]]
+| .qda
+| Taku Hayase (aka sandman)
+| 1997 <!-- According to date on website -->
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+| {{?}}
+|-
+! [[RAR (file format)|RAR]]
+| .rar
+| Eugene Roshal
+| 1993 <!-- According to copyright info -->
+| Original
+| {{yes}}
+| {{yes}}
+| {{yes}}, AES
+| {{yes}}
+| 2 [[Second|s]], 1 [[Second|s]], 6.5536 [[Millisecond|ms]], 25.6 [[Microsecond|?s]] or 100 [[Nanosecond|ns]] {{ref|3|3}}
+|-
+! [[WinRK|RK]]
+| .rk
+| M Software, Ltd.
+| 2004
+| Original
+| {{yes}}
+| {{no}}
+| {{yes}}, AES, Square, Twofish
+| {{yes}}
+| 1?s
+|-
+! [[StuffIt]] (also SIT)
+| .sit
+| Raymond Lau
+| 1987
+| {{?}}
+| {{?}}
+| {{?}}
+| {{yes}}
+| {{?}}
+| {{?}}
+|-
+! [[StuffIt X]] (also SITx)
+| .sitx
+| Aladdin/[[Allume Systems]]
+| 2002
+| {{?}}
+| {{?}}
+| {{optional}}
+| {{yes}}, RC4,Blowfish,AES,DES
+| {{yes}}
+| {{?}}
+|-
+! UltraCompressor II
+| .uc .uc0 .uc2 .ucn .ur2 .ue2
+| Nico de Vries<!--http://www.nicodevries.com/nico/professional.php -->
+| 1992?1996
+| [[LZ77]] and [[Huffman coding]]
+| {{yes}}
+| {{yes}}
+| {{yes}}, triple DES
+| {{?}}
+| ?
+|-
+! [[Windows Imaging Format|Windows Image]]
+| .wim
+| [[Microsoft]]
+| 0000 {{?}}
+| Original
+| {{Optional}}
+| {{?}}
+| {{no}}
+| {{yes}}
+| {{?}}
+|-
+! [[ZIP (file format)|ZIP]] (also PKZIP)
+| .zip
+| [[Phil Katz]]
+| 1989
+| [[DEFLATE (algorithm)|DEFLATE]]
+| {{yes}}
+| {{no}}
+| {{yes}}, AES
+| {{yes}}
+| 1 s
+|-
+! [[ZPAQ]]
+| .zpaq
+| [[Matt Mahoney]]
+| 2009
+| [[PAQ]]
+| {{yes}}, SHA-1
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{?}}
+|-
+! colspan="10" style="background-color: #eeeeff" | Software Packaging and Distribution
+|-
+! [[Deb (file format)|Debian package]] (deb)
+| .deb
+| [[Debian]]
+| 1994 [[Debian]] 0.91 <!-- Correct version? -->
+| [[Ar (Unix)|ar]], [[Tar (file format)|tar]], and [[gzip]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| 1?s
+|-
+! [[Installer (Mac OS X)|Macintosh Installer]]
+|.pkg, .mpkg (metapackage)
+| [[NeXT]]
+| 1989 [[NeXTSTEP]] 1.0 <!-- Correct version? -->
+| [[Pax (Unix)|pax]] and [[gzip]] <!-- The payload file in any .pkg is always called Archive.pax.gz -->
+| {{yes}}
+| {{?}}
+| {{?}}
+| {{yes}}
+| {{?}}
+|-
+! [[RPM Package Manager]] (RPM)
+| .rpm
+| [[Red Hat]]
+| 1995 [[Red Hat Linux]] 1.0 <!-- Version of RHL -->
+| [[cpio]] and [[gzip]]
+| {{yes}}
+| {{?}}
+| {{?}}
+| {{?}}
+| 1?s
+|-
+! [[Slackware]] Package
+| .tgz
+| [[Patrick Volkerding]]
+| 1993 [[Slackware]] 1.0 <!-- Version of Slackware -->
+| [[Tar (file format)|tar]] and [[gzip]]
+| {{yes}}
+| {{no}}
+| {{no}}
+| {{?}}
+| {{?}}
+|-
+! [[Windows Installer]] (also MSI)
+| .msi
+| [[Microsoft]]
+| 2000 [[Windows 2000]]
+| OLE Structured Storage, [[Cabinet (file format)|Cabinet]] and [[SQL]]
+| {{optional}} PKCS7 [[Authenticode]] Signature
+| {{no}}
+| {{no}}
+| {{no}}
+| 2?s
+|-
+! [[JAR (file format)|Java Archive]] (JAR{{ref|4|4}})
+| .jar
+| [[Sun Microsystems]]
+| 1997 [[JDK]] 1.1
+| [[PKZIP]]
+| {{yes}}
+| {{?}}
+| {{?}}
+| {{yes}}
+| {{?}}
+|-
+! [[Google Chrome]] [[Chrome Web Store|extension]] package
+| .crx
+| [[Google]]
+| 9 September, 2009 (Chrome 4.0)
+| [[.zip|Zip]]
+| {{?}}
+| {{yes}}<ref>http://support.google.com/chrome/bin/answer.py?hl=en&answer=1181035&topic=1693469&ctx=topic</ref>
+| {{?}}
+| {{?}}
+| {{?}}
+|}
+
+<!--
+Future expansion
+
+== Features ==
+
+{| class="wikitable"
+|-
+! Archive format
+! Built-in compression
+! Self-extracting
+! Stores directories
+! Stores [[POSIX attributes]] ([[UID]], [[GID]], permissions)
+! Stores [[Access Control List|ACL]]s
+|-
+! [[cpio]]
+| {{no}}{{ref|1|1}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{?}}
+|-
+! [[Tar (file format)|tar]]
+| {{no}}{{ref|1|1}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+! [[DAR (Disk Archiver) | dar]]
+| {{no}}{{ref|3|3}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+! [[ar (Unix)|ar]]
+| {{no}}
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{no}}
+|-
+! [[Pax (program)|pax]]
+| {{no}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+! [[dump (program)|dump]]
+| {{no}}{{ref|1|1}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+! [[shar]]
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{?}}
+|-
+! [[makeself]]
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+| {{yes}}
+|-
+! [[zip (file format)|zip]]
+| {{yes}}
+| {{yes}}{{ref|2|2}}
+| {{yes}}
+| {{no}}
+| {{?}}
+|-
+! [[RAR (file format)|rar]]
+| {{yes}}
+| {{yes}}{{ref|2|2}}
+| {{yes}}
+| {{no}}
+| {{?}}
+|-
+! [[ACE (file format)|ace]]
+| {{yes}}
+| {{?}}
+| {{yes}}
+| {{no}}
+| {{?}}
+|-
+! [[arj]]
+| {{yes}}
+| {{yes}}{{ref|2|2}}
+| {{yes}}
+| {{no}}
+| {{no}}
+|-
+! [[zoo (file format)|zoo]]
+| {{yes}}
+| {{?}}
+| {{yes}}
+| {{no}}
+| {{?}}
+|-
+! [[ISO 9660]] (CD-ROM)
+| {{no}}{{ref|1|1}}
+| {{no}}
+| {{yes}}
+| {{yes}} (with Rock Ridge extension)
+| {{no}}
+|-
+! [[cabinet (file format)|cab]]
+| {{yes}}
+| {{yes}}{{ref|2|2}}
+| [[DEFLATE (algorithm)|DEFLATE]]
+| {{?}}
+| {{no}}
+| {{?}}
+|-
+! [[RPM Package Manager|rpm]]
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{?}}
+|-
+! [[Deb (file format)|deb]]
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{?}}
+|-
+! [[7z]]
+| {{yes}}
+| {{no}}
+| {{yes}}
+| {{yes}}
+| {{?}}
+|-
+! Archive format
+! Built-in compression
+! Self-extracting
+! Stores directories
+! Stores [[POSIX attributes]] ([[UID]], [[GID]], permissions)
+! Stores [[Access Control List|ACL]]s
+|}
+
+=== Notes ===
+{{note|1|1}} Compression is not a built-in feature of the formats, however, the resulting archive can be compressed with any algorithm of choice. Several implementations include functionality to do this automatically<br/>
+{{note|2|2}} That is, most implementations can optionally produce a self-extracting executable<br/>
+{{note|3|3}} Per-file compression with [[gzip]] or [[bzip2]] (as opposed to compressing the whole archive). An individual can choose not to compress already compressed filenames based on their suffix as well.
+-->
+=== Notes ===
+{{note|1|1}} While the original [[tar (file format)|tar]] format uses the [[ASCII]] character encoding, current implementations use the [[UTF-8]] (Unicode) encoding, which is backwards compatible with ASCII.<br/>
+{{note|2|2}} Supports the external Parchive program (par2).</br/>
+{{note|3|3}} From 3.20 release RAR can store modification, creation and last access time with the precision up to 0.0000001 second (= 0.1 ?s). [http://www.win-rar.com/index.php?id=24&kb_article_id=85] [http://www.winrar-tr.com/WinRAR/Help/ENG/html/HELPSwTS.htm]</br/>
+{{note|4|4}} There is also [[JAR (software)|JAR]] the archiver by Robert K. Jung.
+
+== References==
+{{reflist}}
+== See also ==
+*[[List of archive formats]]
+*[[Comparison of file archivers]]
+*[[Comparison of file systems]]
+*[[List of file systems]]
+
+{{Archive formats}}
+
+{{DEFAULTSORT:Comparison Of Archive Formats}}
+[[Category:Archive formats|*]]
+[[Category:Software comparisons|Archive formats]]

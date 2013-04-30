@@ -1,0 +1,65 @@
+{{Unreferenced|date=December 2009}}
+'''Synchronous''' and '''asynchronous transmissions''' are two different methods of [[data transmission|transmission]] [[Synchronization#Communication|synchronization]]. Synchronous transmissions are synchronized by an external clock, while asynchronous transmissions are synchronized by special signals along the transmission medium.
+
+==The need for synchronization==
+Whenever an [[electronic device]] transmits digital (and sometimes analogue) data to another electronic device, there must be a certain rhythm established between the two devices, i.e., the receiving device must have some way of knowing, within the context of the fluctuating signal that it's receiving, where each unit of data begins and where it ends.
+
+For example, a [[television transmitter]] produces a continuous stream of data in which each horizontal line of image must be distinguishable from the preceding and succeeding lines, so that a TV will be able to distinguish between them upon reception.
+
+Or, a [[serial cable|serial]] data signal between two PCs must have individual bits and bytes that the receiving PC can 
+distinguish. If it doesn't, then the receiving PC can't tell where one byte or bit ends and the next one begins.
+
+So the signal must be synchronized in a way that the receiver can distinguish the bits and bytes as the transmitter intends them to be distinguished.
+
+==Methods of synchronization==
+There are two ways to synchronize the two ends of the communication.
+
+The synchronous signalling methods use 2 different signals.
+A pulse on one signal indicates when another bit of information is ready on the other signal.
+
+The asynchronous signalling methods use only 1 signal.
+The receiver uses transitions on that signal to figure out the transmitter bit rate ("[[autobaud]]") and timing, and set a local clock to the proper timing, typically using a [[phase-locked loop]] (PLL) to synchronize with the transmission rate.
+A pulse from the local clock indicates when another bit is ready.
+
+===Data/strobe synchronous transmission===
+In synchronous transmission, the stream of data to be transferred is encoded as fluctuating voltages in one wire, and a periodic pulse of voltage is put on another wire (often called the "clock" or "strobe") that tells the receiver "here's where one bit/byte ends and the next one begins".
+
+Practically all [[parallel communications]] protocols use such synchronous transmission. For example, in a computer, address information is transmitted synchronously?the address bits over the [[address bus]], and the read strobe in the [[control bus]].
+
+[[Image:EmbeddedSynchronousSignalling.png|thumb|350px|Single-wire synchronous signalling]]
+Synchronization can also be embedded into a signal on a single wire. In [[differential Manchester encoding]], used on broadcast quality video tape systems{{Citation needed|date=May 2008}}, each transition from a low to high or high to low represents a logical zero. A logical one is indicated when there are two transitions in the same time frame as a zero. Another example is the [[Manchester code]] where a transition from low to high indicates a one and a transition from high to low indicates a zero. When there are successive ones or zeros, an opposite transition is required on the edge of the time frame to prepare for the next transition.
+
+===Asynchronous transmission===
+{{Main|Asynchronous communication}} In one form of asynchronous transmission, there is only one wire/signal carrying the transmission. The transmitter sends a stream of data and periodically inserts a certain signal element into the stream which can be "seen" and distinguished by the receiver as a sync signal.
+That sync signal might be a single pulse (a "start bit" in [[asynchronous serial communication#Asynchronous start/stop operation|asynchronous start/stop communication]]), or it may be a more complicated [[syncword]] or [[self-synchronizing code]] such as [[HDLC]] or [[8B/10B encoding]].
+
+Other forms of asynchronous communication use two wires for each data bit (dual-rail encoding) or one wire for each data bit and a separate timing wire (bundled data). Both of these require a separate acknowledge wire.
+
+Obviously, the term "asynchronous" is misleading in its literal interpretation considering that the resynchronization problem can be easily rectified...
+
+==Advantages and disadvantages==
+{| class="wikitable"
+|-
+! 
+
+! ''Advantages''
+! Disadvantages
+|-
+| Asynchronous transmission
+|
+* Simple, doesn't require synchronization of both communication sides
+* Cheap, timing is not as critical as for synchronous transmission, therefore hardware can be made cheaper
+* Set-up is faster than other transmissions, so well suited for applications where messages are generated at irregular intervals, for example data entry from the keyboard and the speed depends on different applications.
+| 
+* Large relative overhead, a high proportion of the transmitted bits are uniquely for control purposes and thus carry no useful information
+|-
+| Synchronous transmission
+|
+* Lower overhead and thus, greater throughput
+|
+* Slightly more complex
+* Hardware is more expensive
+|}
+
+{{DEFAULTSORT:Comparison Of Synchronous And Asynchronous Signalling}}
+[[Category:Computing comparisons|Synchronous and asynchronous signalling]]

@@ -1,0 +1,547 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of instant messaging protocols</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of instant messaging protocols</h1> 
+   <div class="article-content"> 
+    <p> Basic general information about the protocols: creator, version, amongst others. </p> 
+    <table class="wikitable sortable" style="width: auto; text-align: center; font-size: smaller"> 
+     <tbody>
+      <tr>
+       <th> <p> <a href="Communications protocol">Protocol</a> </p> </th> 
+       <th> <p> Creator </p> </th> 
+       <th> <p> First public release date </p> </th> 
+       <th> <p> License </p> </th> 
+       <th> <p> Identity (not inc. alias) </p> </th> 
+       <th> <p> Asynchronous message relaying </p> </th> 
+       <th> <p> <a href="Transport Layer Security">Transport Layer Security</a> </p> </th> 
+       <th> <p> Unlimited number of contacts </p> </th> 
+       <th> <p> Bulletins to all contacts </p> </th> 
+       <th> <p> One-to-many routing <sup id="fn_4_back"><a href="#fn 4">4</a></sup> </p> </th> 
+       <th> <p> <a href="Messaging spam">Spam</a> protection </p> </th> 
+       <th> <p> Group, channel or conference support </p> </th> 
+       <th> <p> Audio/VoIP support </p> </th> 
+       <th> <p> Webcam/Video </p> </th> 
+       <th> <p> Batch file sharing </p> </th> 
+       <th> <p> Media synchronisation </p> </th> 
+      </tr>
+      <tr> 
+       <th> <p> <a href="Gadu-Gadu">Gadu-Gadu</a> </p> </th> 
+       <td> <p> GG Network </p> </td> 
+       <td> <p> 2000 Jul 17 </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+       <td> <p> Unique number<br />e.g. 12345678<br /> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> <sup id="fn_5_back"><a href="#fn 5">5</a></sup> (simple) </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Internet Relay Chat">IRC</a> </p> </th> 
+       <td> <p> <a href="Jarkko Oikarinen">Jarkko Oikarinen</a> </p> </td> 
+       <td> <p> 1988 Aug </p> </td> 
+       <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+       <td> <p> <a href="Nickname">Nickname</a>!<a href="User (computing)">Username</a>@<a href="hostname">hostname</a><br />(or &quot;hostmask&quot;)<br />e.g. user!~usr@a.b.com<sup id="fn_1_back"><a href="#fn 1">1</a></sup> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span>, but via a memo system that differs from the main system </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span><sup id="fn_3_back"><a href="#fn 3">3</a></sup> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> Medium </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> (everyone, multiple simultaneous, any size) </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Windows Messenger service">Windows Messenger service</a> </p> </th> 
+       <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+       <td> <p> 1990 </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> (Discontinued) </p> </td> 
+       <td> <p> NetBIOS </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Microsoft Notification Protocol">MSNP</a> (<a href="Windows Live Messenger">Windows Live Messenger</a>, etc.) </p> </th> 
+       <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+       <td> <p> 1999 Jul </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+       <td> <p> <a href="Email address">Email address</a> (<a href="Microsoft account">Microsoft account</a>) </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> Only for certified robots </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> (<a href="Mumble (software)">Mumble</a>) </p> </th> 
+       <td> <p> Thorvald Natvig </p> </td> 
+       <td> <p> 1999 Jul </p> </td> 
+       <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> Only for certified robots </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="OSCAR protocol">OSCAR</a> (<a href="AOL Instant Messenger">AIM</a>, <a href="ICQ">ICQ</a>) </p> </th> 
+       <td> <p> <a href="AOL">AOL</a> </p> </td> 
+       <td> <p> 1997 </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+       <td> <p> <a href="User (computing)">Username</a>, Email Address or <a href="ICQ#UIN">UIN</a><br />e.g. 12345678 </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> (Aim Pro, Aim Lite) </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> (Multiple, simultaneous) </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Rendezvous protocol">RVP</a> (<a href="Windows Messenger">Windows Messenger</a>, etc.) </p> </th> 
+       <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+       <td> <p> 1997 Mar </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> (Discontinued) </p> </td> 
+       <td> <p> <a href="Windows Active Directory Login">Windows Active Directory Login</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span>ne </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Session Initiation Protocol">SIP</a>/<a href="SIMPLE">SIMPLE</a> </p> </th> 
+       <td> <p> <a href="Internet Engineering Task Force">IETF</a> </p> </td> 
+       <td> <p> 2002 Dec </p> </td> 
+       <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+       <td> <p> user@hostname </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> Medium </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Steam (software)">Steam Friends</a> </p> </th> 
+       <td> <p> <a href="Valve Corporation">Valve Corporation</a> </p> </td> 
+       <td> <p> 2003 Sep 12 </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+       <td> <p> SteamID/Username or Unique Number </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Skype protocol">Skype</a> </p> </th> 
+       <td> <p> <a href="Skype">Skype</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+       <td> <p> <a href="User (computing)">Username</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="TOC protocol">TOC2</a> </p> </th> 
+       <td> <p> <a href="AOL">AOL</a> </p> </td> 
+       <td> <p> 2005 Sep </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> (Discontinued) </p> </td> 
+       <td> <p> <a href="User (computing)">Username</a> or <a href="ICQ#UIN">UIN</a><br />e.g. 12345678 </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> paying members only </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Extensible Messaging and Presence Protocol">XMPP</a>/<a href="Jingle (protocol)">Jingle</a> (<a href="Google Talk">Google Talk</a>) </p> </th> 
+       <td> <p> <a href="Jeremie Miller">Jeremie Miller</a>, standardized via <a href="Internet Engineering Task Force">IETF</a> </p> </td> 
+       <td> <p> 1999 Jan </p> </td> 
+       <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+       <td> <p> <a href="Extensible Messaging and Presence Protocol">Jabber ID</a> (JID)<br />e.g. usr@a.b.c/home<sup id="fn_2_back"><a href="#fn 2">2</a></sup> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <a href="http://xmpp.org/rfcs/rfc6121.html#blocking">Several</a> <a href="http://xmpp.org/extensions/xep-0159.html">Standardized</a> <a href="http://xmpp.org/extensions/xep-0161.html">Types</a> </p> </td> 
+       <td> <p> Optional </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Yahoo! Messenger Protocol">YMSG</a> (<a href="Yahoo! Messenger">Yahoo! Messenger</a>) </p> </th> 
+       <td> <p> <a href="Yahoo!">Yahoo!</a> </p> </td> 
+       <td> <p> 1998, March 9 </p> </td> 
+       <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+       <td> <p> <a href="User (computing)">Username</a> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <th> <p> <a href="Zephyr (protocol)">Zephyr Notification Service</a> </p> </th> 
+       <td> <p> <a href="Project Athena">MIT</a> </p> </td> 
+       <td> <p> 1987 </p> </td> 
+       <td> <p> <span class="unknown-node">{{free|...}}</span> </p> </td> 
+       <td> <p> <a href="Kerberos (protocol)">Kerberos</a> principal<br />e.g. user@ATHENA.MIT.EDU </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+       <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+      </tr> 
+     </tbody>
+    </table> 
+    <p> <cite id="fn_1"><a href="#fn 1 back">Note 1:</a></cite> In <tt>~usr@a.b.com</tt>, the <tt>a.b.com</tt> part is known as the &quot;hostmask&quot; and can either be the server being connected from or a &quot;cloak&quot; granted by the server administrator; a more realistic example is <tt>~myname@myisp.example.com</tt>. The tilde generally indicates that the username provided by the IRC client on signon was not verified with the <a href="ident protocol">ident</a> service. </p> 
+    <p> <cite id="fn_2"><a href="#fn 2 back">Note 2:</a></cite> In <tt>usr@a.b.c/home</tt>, the <tt>home</tt> part is a &quot;resource&quot;, which distinguishes the same user when logged in from multiple locations, possibly simultaneously; a more realistic example is <tt>user@xmppserver.example.com/home</tt> </p> 
+    <p> <cite id="fn_3"><a href="#fn 3 back">Note 3:</a></cite> Scalability issue: The protocol gets increasingly inefficient with the number of contacts.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> 
+    <p> <cite id="fn_4"><a href="#fn 4 back">Note 4:</a></cite> <a href="One-to-one (communication)">One-to-many</a>/<a href="many-to-many">many-to-many</a> communications primarily comprise <a href="presence information">presence information</a>, <a href="Publish?subscribe pattern">publish/subscribe</a> and <a href="chat room">groupchat</a> distribution. Some technologies have the ability to distribute data by <a href="multicast">multicast</a>, avoiding bottlenecks on the sending side caused by the number of recipients. Efficient distribution of presence is currently however a technological scalability issue for both XMPP and SIP/SIMPLE. </p> 
+    <p> <cite id="fn_5"><a href="#fn 5 back">Note 5:</a></cite> There have been reports from users that the antispam filter is used to censor links to other IM programs and some websites. </p> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Comparison of instant messaging clients">Comparison of instant messaging clients</a></li> 
+       <li><a href="Comparison of Internet Relay Chat clients">Comparison of Internet Relay Chat clients</a></li> 
+       <li><a href="Comparison of LAN messengers">Comparison of LAN messengers</a></li> 
+       <li><a href="LAN messenger">LAN messenger</a></li> 
+       <li><a href="Windows Messenger service">Windows Messenger service</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{Instant messaging}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Instant Messaging Protocols}}</span> <a href="Category:Instant messaging">Category:Instant messaging</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

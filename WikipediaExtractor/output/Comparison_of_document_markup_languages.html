@@ -1,0 +1,651 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of document markup languages</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of document markup languages</h1> 
+   <div class="article-content"> 
+    <p> The following tables compare general and technical information for a number of <a href="document markup language">document markup languages</a>. Please see the individual markup languages' articles for further information. </p> 
+    <div class="section"> 
+     <h2>General information</h2> 
+     <div class="section-body"> 
+      <p> Basic general information about the markup languages: creator, version, etc. </p> 
+      <table class="wikitable sortable" border="1" cellpadding="1" cellspacing="0" style="font-size: 85%; border: gray solid 1px; border-collapse: collapse; text-align: center; width: 100%;"> 
+       <tbody>
+        <tr style="background: #ececec"> 
+         <th style="width:15em"> <p> <a href="Markup language">Language</a> </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> First public release date </p> </th> 
+         <th> <p> Editor </p> </th> 
+         <th> <p> <a href="File viewer">Viewer</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Computable Document Format">Computable Document Format</a> </p> </th> 
+         <td> <p> <a href="Wolfram Research">Wolfram Research</a> </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td> <p> <a href="Mathematica">Mathematica</a> </p> </td> 
+         <td> <p> <a href="CDF Player">CDF Player</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Darwin Information Typing Architecture">Darwin Information Typing Architecture (DITA)</a> </p> </th> 
+         <td> <p> IBM, <a href="OASIS (organization)">OASIS</a> </p> </td> 
+         <td> <p> 2005 </p> </td> 
+         <td> <p> <a href="Text editor">Text</a>/<a href="XML editor">XML editor</a> </p> </td> 
+         <td> <p> Output to <a href="HTML">HTML</a>, <a href="Portable Document Format">PDF</a>, <a href="Microsoft Compiled HTML Help">CHM</a>, <a href="javadoc">javadoc</a>, others. </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="DocBook">DocBook</a> </p> </th> 
+         <td> <p> <a href="http://docbook.org/oasis/intro.html">The Davenport Group</a>, <a href="OASIS (organization)">OASIS</a> </p> </td> 
+         <td> <p> 1992 </p> </td> 
+         <td> <p> <a href="XML editor">XML editor</a> </p> </td> 
+         <td> <p> Output to <a href="HTML">HTML</a>, <a href="Portable Document Format">PDF</a>, <a href="Microsoft Compiled HTML Help">CHM</a>, <a href="javadoc">javadoc</a>, others. </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Encoded Archival Description">Encoded Archival Description (EAD)</a> </p> </th> 
+         <td> <p> <a href="http://www.loc.gov/ead/eaddev.html">Berkeley Project</a> </p> </td> 
+         <td> <p> 1998 </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a> </p> </td> 
+         <td> <p> <a href="Web browser">Web browser</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="XHTML">Extensible HyperText Markup Language (XHTML)</a> </p> </th> 
+         <td> <p> <a href="W3C">W3C</a> </p> </td> 
+         <td> <p> 2000 (January 26) </p> </td> 
+         <td> <p> <a href="Text editor">Text</a>/<a href="XML editor">XML editor</a>, <a href="HTML editor">HTML editor</a> </p> </td> 
+         <td> <p> <a href="Web browser">Web browser</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="HTML">HyperText Markup Language (HTML)</a> </p> </th> 
+         <td> <p> <a href="Tim Berners-Lee">Tim Berners-Lee</a> </p> </td> 
+         <td> <p> 1993 </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a>, <a href="HTML editor">HTML editor</a> </p> </td> 
+         <td> <p> <a href="Web browser">Web browser</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="GNU_LilyPond">LilyPond</a> </p> </th> 
+         <td> <p> <a href="Han-Wen Nienhuys">Han-Wen Nienhuys</a>, <a href="Jan Nieuwenhuizen">Jan Nieuwenhuizen</a> </p> </td> 
+         <td> <p> 1996 </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a>, <a href="Scorewriter">Scorewriter</a> </p> </td> 
+         <td> <p> Output to <a href="DVI file format">DVI</a>, <a href="Portable Document Format">PDF</a>, <a href="PostScript">PostScript</a>, <a href="Portable_Network_Graphics">PNG</a>, others. </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Maker Interchange Format">Maker Interchange Format (MIF)</a> </p> </th> 
+         <td> <p> <a href="Frame Technology">Frame Technology</a> acquired by <a href="Adobe Systems">Adobe Systems</a> in 1995 </p> </td> 
+         <td> <p> 1986 </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a>, <a href="FrameMaker">FrameMaker</a> </p> </td> 
+         <td> <p> <a href="FrameMaker">FrameMaker</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Markdown">Markdown</a> </p> </th> 
+         <td> <p> <a href="John Gruber">John Gruber</a> and <a href="Aaron Swartz">Aaron Swartz</a> </p> </td> 
+         <td> <p> 2004 </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a>, <a href="E-mail client">E-mail client</a> </p> </td> 
+         <td> <p> <a href="Web browser">Web browser</a> (<a href="XHTML">XHTML</a> or <a href="HTML">HTML</a> output), preview in <a href="http://www.jpfleury.net/en/software/gedit-markdown.php">gedit-markdown-plugin</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="MathML">Math Markup Language (MathML)</a> </p> </th> 
+         <td> <p> <a href="W3C">W3C</a> </p> </td> 
+         <td> <p> 1999 (July) </p> </td> 
+         <td> <p> <a href="Text editor">Text</a>/<a href="XML editor">XML editor</a>, <a href="TeX">TeX</a> converter </p> </td> 
+         <td> <p> <a href="Web browser">Web browser</a>, <a href="Word processor">Word processor</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="MusicXML">Music Extensible Markup Language (MusicXML)</a> </p> </th> 
+         <td> <p> Recordare </p> </td> 
+         <td> <p> 2002 </p> </td> 
+         <td> <p> <a href="Scorewriter">Scorewriter</a> </p> </td> 
+         <td> <p> <a href="Scorewriter">Scorewriter</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Office Open XML">Office Open XML (OOXML)</a> </p> </th> 
+         <td> <p> <a href="Ecma International">Ecma International</a>, <a href="International Organisation for Standardisation">ISO</a>/<a href="International Electrotechnical Commission">IEC</a> </p> </td> 
+         <td> <p> 2006 </p> </td> 
+         <td> <p> <a href="Office suite">Office suite</a> </p> </td> 
+         <td> <p> <a href="Office suite">Office suite</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="OpenDocument">OpenDocument Format (ODF)</a> </p> </th> 
+         <td> <p> <a href="OASIS (organization)">OASIS</a>, <a href="International Organisation for Standardisation">ISO</a>/<a href="International Electrotechnical Commission">IEC</a> </p> </td> 
+         <td> <p> 2005 </p> </td> 
+         <td> <p> <a href="Office suite">Office suite</a> </p> </td> 
+         <td> <p> <a href="Office suite">Office suite</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="OMDoc">Open Mathematical Documents (OMDoc)</a> </p> </th> 
+         <td> <p> <a href="Michael Kohlhase">Michael Kohlhase</a> </p> </td> 
+         <td> <p> 2000 </p> </td> 
+         <td> <p> <a href="Text editor">Text</a>/<a href="XML editor">XML editor</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Output to <a href="XHTML">XHTML</a>+<a href="MathML">MathML</a>, <a href="TeX">TeX</a>, others. </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="reStructuredText">reStructuredText</a> </p> </th> 
+         <td> <p> <a href="David_Goodger">David_Goodger</a> </p> </td> 
+         <td> <p> 2001<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a> </p> </td> 
+         <td> <p> Output to <a href="HTML">HTML</a>, <a href="LaTeX">LaTeX</a>, <a href="Portable Document Format">PDF</a>, <a href="Man_page">Unix man pages</a>, <a href="OpenDocument">ODT</a>, <a href="S5_(file_format)">S5 (HTML Slide Shows)</a>, <a href="XML">XML</a>, others. </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Rich Text Format">Rich Text Format (RTF)</a> </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> 1987 </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a>, <a href="Word processor">Word processor</a> </p> </td> 
+         <td> <p> <a href="Word processor">Word processor</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Scalable Vector Graphics">Scalable Vector Graphics (SVG)</a> </p> </th> 
+         <td> <p> <a href="W3C">W3C</a> </p> </td> 
+         <td> <p> 2004 </p> </td> 
+         <td> <p> <a href="List of vector graphics editors">Vector graphics editor</a> </p> </td> 
+         <td> <p> <a href="Web browser">Web browser</a>, etc. </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="SCRIPT (markup)">Script</a> </p> </th> 
+         <td> <p> <a href="IBM">IBM</a> </p> </td> 
+         <td> <p> 1968 </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a> </p> </td> 
+         <td> <p> GDDM, <a href="IBM Advanced Function Printing (AFP)">AFP</a> viewer </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="TeX">TeX</a> </p> </th> 
+         <td> <p> <a href="Donald Knuth">Donald Knuth</a> </p> </td> 
+         <td> <p> 1978 </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a> </p> </td> 
+         <td> <p> <a href="DVI file format">DVI</a> or <a href="Portable Document Format">Portable Document Format (PDF)</a> converter </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Text Encoding Initiative">Text Encoding Initiative (TEI)</a> </p> </th> 
+         <td> <p> <a href="http://www.tei-c.org/">Text Encoding Initiative Consortium</a> </p> </td> 
+         <td> <p> 1990 </p> </td> 
+         <td> <p> <a href="Text editor">Text</a>/<a href="XML editor">XML editor</a> </p> </td> 
+         <td> <p> <a href="Web Browser">Web Browser</a> (using <a href="XHTML">XHTML</a>), <a href="Portable Document Format">PDF</a>, <a href="Word Processor">Word Processor</a> (using <a href="OpenDocument">ODF</a>) or <a href="EPUB">EPUB</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="troff">troff (typesetter runoff)</a>, <a href="Groff (software)">groff (GNU runoff)</a> </p> </th> 
+         <td> <p> <a href="Joe Ossanna">Joe Ossanna</a> </p> </td> 
+         <td> <p> 1973 </p> </td> 
+         <td> <p> <a href="Text editor">Text editor</a> </p> </td> 
+         <td> <p> groffer, or output to <a href="PostScript">PostScript</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Wireless Markup Language">Wireless Markup Language (WML)</a> </p> </th> 
+         <td> <p> <a href="WAP Forum">WAP Forum</a> </p> </td> 
+         <td> <p> 1999 </p> </td> 
+         <td> <p> <a href="Text editor">Text</a>/<a href="XML editor">XML editor</a> </p> </td> 
+         <td> <p> <a href="Microbrowser">Microbrowser</a> </p> </td> 
+        </tr> 
+        <tr style="background: #ececec" class="sortbottom"> 
+         <th> <p> <a href="Markup language">Language</a> </p> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> First public release date </p> </th> 
+         <th> <p> Editor </p> </th> 
+         <th> <p> <a href="File viewer">Viewer</a> </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Characteristics</h2> 
+     <div class="section-body"> 
+      <p> Some characteristics of the markup languages. </p> 
+      <table class="wikitable sortable" border="1" cellpadding="1" cellspacing="0" style="font-size: 85%; border: gray solid 1px; border-collapse: collapse; text-align: center; width: 100%; table-layout: fixed;"> 
+       <tbody>
+        <tr style="background: #ececec"> 
+         <th style="width:15em;"> <p> Language </p> </th> 
+         <th> <p> Major purpose </p> </th> 
+         <th> <p> Based on </p> </th> 
+         <th> <p> Markup type </p> </th> 
+         <th> <p> Structural markup </p> </th> 
+         <th> <p> Presentational markup<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Computable Document Format">Computable Document Format</a> </p> </th> 
+         <td> <p> Interactive technical documents </p> </td> 
+         <td> <p> Functional expressions </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Darwin Information Typing Architecture">Darwin Information Typing Architecture (DITA)</a> </p> </th> 
+         <td> <p> <a href="Wiktionary:Technical">Technical</a> documents </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="DocBook">DocBook</a> </p> </th> 
+         <td> <p> <a href="Wiktionary:Technical">Technical</a> documents </p> </td> 
+         <td> <p> <a href="Standard Generalized Markup Language">SGML</a> / <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Encoded Archival Description">Encoded Archival Description (EAD)</a> </p> </th> 
+         <td> <p> <a href="Finding aid">Finding aids</a> </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="XHTML">Extensible HyperText Markup Language (XHTML)</a> </p> </th> 
+         <td> <p> <a href="Hypertext">Hypertext</a> documents </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="HTML">HyperText Markup Language (HTML)</a> </p> </th> 
+         <td> <p> <a href="Hypertext">Hypertext</a> documents </p> </td> 
+         <td> <p> <a href="Standard Generalized Markup Language">SGML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Maker Interchange Format">Maker Interchange Format (MIF)</a> </p> </th> 
+         <td> <p> <a href="Wiktionary:Technical">Technical</a> documents </p> </td> 
+         <td> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Markdown">Markdown</a> </p> </th> 
+         <td> <p> <a href="Wiktionary:Format">Formatted</a> <a href="Wiktionary:Technical">Technical</a> documents, <a href="Hypertext">Hypertext</a> documents, <a href="E-mail">E-mail</a> </p> </td> 
+         <td> <p> Text E-mail conventions </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="MathML">Math Markup Language (MathML)</a> </p> </th> 
+         <td> <p> <a href="Mathematics">Mathematical</a> documents </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="MusicXML">Music Extensible Markup Language (MusicXML)</a> </p> </th> 
+         <td> <p> <a href="Music notation">Music notation</a> </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Office Open XML">Office Open XML (OOXML)</a> </p> </th> 
+         <td> <p> Multi-purpose </p> </td> 
+         <td> <p> <a href="XML">XML</a> / <a href="ZIP (file format)">ZIP</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="OpenDocument">OpenDocument Format (ODF)</a> </p> </th> 
+         <td> <p> Multi-purpose </p> </td> 
+         <td> <p> <a href="XML">XML</a> / <a href="ZIP (file format)">ZIP</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="OMDoc">Open Mathematical Document (OMDoc)</a> </p> </th> 
+         <td> <p> <a href="Mathematics">Mathematical</a> documents </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="reStructuredText">reStructuredText</a> </p> </th> 
+         <td> <p> <a href="Wiktionary:Technical">Technical</a> and Multi-purpose documents<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Structured Text and Setext </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Rich Text Format">Rich Text Format (RTF)</a> </p> </th> 
+         <td> <p> <a href="Wiktionary:Format">Formatted</a> documents </p> </td> 
+         <td> <p> <a href="TeX">TeX</a> </p> </td> 
+         <td> <p> Pattern parsing </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Scalable Vector Graphics">Scalable Vector Graphics (SVG)</a> </p> </th> 
+         <td> <p> 2D <a href="Vector graphics">Vector graphics</a> </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="SCRIPT (markup)">Script</a> </p> </th> 
+         <td> <p> Multi-purpose </p> </td> 
+         <td> <p> <a href="RUNOFF">RUNOFF</a> </p> </td> 
+         <td> <p> Control code </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="TeX">TeX</a> </p> </th> 
+         <td> <p> <a href="Academia">Academic</a> documents </p> </td> 
+         <td> </td> 
+         <td> <p> Control code </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Text Encoding Initiative">Text Encoding Initiative (TEI)</a> </p> </th> 
+         <td> <p> <a href="Academia">Academic</a>, <a href="Linguistics">linguistic</a>, <a href="Literature">literary</a> and <a href="Wiktionary:Technical">technical</a> documents </p> </td> 
+         <td> <p> <a href="Standard Generalized Markup Language">SGML</a> / <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="troff">troff (typesetter runoff)</a>, <a href="groff (software)">groff (GNU runoff)</a> </p> </th> 
+         <td> <p> <a href="Wiktionary:Technical">Technical</a> documents </p> </td> 
+         <td> <p> <a href="RUNOFF">RUNOFF</a> </p> </td> 
+         <td> <p> Control code </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left; background: #ececec;"> <p> <a href="Wireless Markup Language">Wireless Markup Language (WML)</a> </p> </th> 
+         <td> <p> <a href="Hypertext">Hypertext</a> documents </p> </td> 
+         <td> <p> <a href="XML">XML</a> </p> </td> 
+         <td> <p> Tag </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr style="background: #ececec" class="sortbottom"> 
+         <th> <p> Language </p> </th> 
+         <th> <p> Major purpose </p> </th> 
+         <th> <p> Based on </p> </th> 
+         <th> <p> Markup type </p> </th> 
+         <th> <p> Structural markup </p> </th> 
+         <th> <p> Presentational markup </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>See also</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="List of document markup languages">List of document markup languages</a></li> 
+       <li> <a href="Comparison of Office Open XML and OpenDocument">Comparison of Office Open XML and OpenDocument</a></li> 
+       <li> <a href="Comparison of OpenXPS and PDF">Comparison of OpenXPS and PDF</a></li> 
+       <li> <a href="Comparison of e-book formats">Comparison of e-book formats</a></li> 
+       <li> <a href="Comparison of data serialization formats">Comparison of data serialization formats</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links</h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://www.elkera.com/cms/articles/technical_papers/comparison_of_xml_schema_for_narrative_documents/">Comparison of XML schema for narrative documents (biased towards author's BNML schema and associated tools)</a></li> 
+       <li> <a href="http://www.myiframes.com/archives/52">Comparison of Static FBML and iFrames as markup language for Facebook</a></li> 
+      </ul> 
+      <p> <a href="Category:Markup language comparisons">Document markup languages</a> <a href="Category:Markup languages">*Comparison of document markup languages</a> </p> 
+      <p> <span class="unknown-node">{{HTML editors}}</span> <span class="unknown-node">{{Ebooks}}</span> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

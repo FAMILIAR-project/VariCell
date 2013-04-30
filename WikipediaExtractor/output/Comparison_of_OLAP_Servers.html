@@ -1,0 +1,1016 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of OLAP Servers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of OLAP Servers</h1> 
+   <div class="article-content"> 
+    <p> The following tables compare general and technical information for a number of <a href="online analytical processing">online analytical processing</a> (OLAP) servers. Please see the individual products articles for further inforation. </p> 
+    <div class="section"> 
+     <h2>General information</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 100%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> OLAP Server </p> </th> 
+         <th> <p> Company </p> </th> 
+         <th> <p> Website </p> </th> 
+         <th> <p> Latest stable version </p> </th> 
+         <th> <p> <a href="Software license">Software license</a> </p> </th> 
+         <th> <p> License Pricing </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Essbase">Essbase</a> </p> </th> 
+         <td> <p> <a href="Oracle Corporation">Oracle</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 11.1.2.1 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="http://www.oracle.com/us/corporate/pricing/index.htm">1</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="icCube">icCube</a> </p> </th> 
+         <td> <p> <a href="MISConsulting SA">MISConsulting SA</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3.0.3 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> community/enterprise </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Analysis Services">Microsoft Analysis Services</a> </p> </th> 
+         <td> <p> <a href="Microsoft">Microsoft</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2012 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="http://www.microsoft.com/sqlserver/2008/en/us/pricing.aspx">2</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> MicroStrategy Intelligence Server </p> </th> 
+         <td> <p> <a href="MicroStrategy">MicroStrategy</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 9 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mondrian OLAP server">Mondrian OLAP server</a> </p> </th> 
+         <td> <p> <a href="Pentaho">Pentaho</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3.4.0 </p> </td> 
+         <td> <p> <a href="Eclipse Public License">EPL</a> </p> </td> 
+         <td> <p> free </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle OLAP">Oracle Database OLAP Option</a> </p> </th> 
+         <td> <p> <a href="Oracle Corporation">Oracle</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 11g R2 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> <a href="http://www.oracle.com/us/corporate/pricing/index.htm">3</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Palo (OLAP database)">Palo</a> </p> </th> 
+         <td> <p> <a href="Jedox">Jedox</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3.2 SR3 </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> v2 or <a href="EULA">EULA</a> </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAS System">SAS OLAP Server</a> </p> </th> 
+         <td> <p> <a href="SAS Institute">SAS Institute</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 9.3 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAP NetWeaver Business Intelligence">SAP NetWeaver BW</a> </p> </th> 
+         <td> <p> <a href="SAP AG">SAP</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 7.20 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TM1">TM1</a> </p> </th> 
+         <td> <p> <a href="IBM">IBM</a> </p> </td> 
+         <td> <p> <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 10.1.1 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+         <td> <p> - </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Data storage modes</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 100%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> OLAP Server </p> </th> 
+         <th> <p> <a href="MOLAP">MOLAP</a> </p> </th> 
+         <th> <p> <a href="ROLAP">ROLAP</a> </p> </th> 
+         <th> <p> <a href="HOLAP">HOLAP</a> </p> </th> 
+         <th> <p> Offline </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Essbase">Essbase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="icCube">icCube</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes |...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Analysis Services">Microsoft Analysis Services</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MicroStrategy">MicroStrategy Intelligence Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mondrian OLAP server">Mondrian OLAP server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle OLAP">Oracle Database OLAP Option</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Palo (OLAP database)">Palo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAS System">SAS OLAP Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TM1">IBM TM1</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IBM Cognos">IBM Cognos</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAP NetWeaver Business Intelligence">SAP NetWeaver BW</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>APIs and query languages</h2> 
+     <div class="section-body"> 
+      <p> APIs and query languages OLAP servers support. </p> 
+      <table class="wikitable sortable" style="font-size: 100%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> OLAP Server </p> </th> 
+         <th> <p> <a href="XML for Analysis">XML for Analysis</a> </p> </th> 
+         <th> <p> <a href="OLE DB for OLAP">OLE DB for OLAP</a> </p> </th> 
+         <th> <p> <a href="Multidimensional Expressions">MDX</a> </p> </th> 
+         <th> <p> <a href="Stored procedures">Stored procedures</a> </p> </th> 
+         <th> <p> Custom functions </p> </th> 
+         <th> <p> <a href="SQL">SQL</a> </p> </th> 
+         <th> <p> <a href="LINQ">LINQ</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> Visualization </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Essbase">Essbase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="icCube">icCube</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Analysis Services">Microsoft Analysis Services</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MicroStrategy">MicroStrategy Intelligence Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mondrian OLAP server">Mondrian OLAP server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Palo (OLAP database)">Palo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle OLAP">Oracle Database OLAP Option</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAS System">SAS OLAP Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAP NetWeaver Business Intelligence">SAP NetWeaver BW</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TM1">TM1</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>OLAP features</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 100%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> OLAP Server </p> </th> 
+         <th> <p> Parent-child hierarchies </p> </th> 
+         <th> <p> Multiple time hierarchies </p> </th> 
+         <th> <p> Semi-additive measures </p> </th> 
+         <th> <p> Write-back </p> </th> 
+         <th> <p> Measure Groups </p> </th> 
+         <th> <p> Partitioning </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Essbase">Essbase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="icCube">icCube</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2 |...}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Analysis Services">Microsoft Analysis Services</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MicroStrategy">MicroStrategy Intelligence Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mondrian OLAP server">Mondrian OLAP server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes2 |...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle OLAP">Oracle Database OLAP Option</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Palo (OLAP database)">Palo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TM1">TM1</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="IBM Cognos">IBM Cognos</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAS OLAP Server">SAS OLAP Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAP NetWeaver Business Intelligence">SAP NetWeaver BW</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>System limits</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 100%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> OLAP Server </p> </th> 
+         <th> <p> # cubes </p> </th> 
+         <th> <p> # measures </p> </th> 
+         <th> <p> # dimensions </p> </th> 
+         <th> <p> # hierarchies in dimension </p> </th> 
+         <th> <p> # levels in hierarchy </p> </th> 
+         <th> <p> # dimension members </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Essbase">Essbase</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 256 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 20,000,000 (ASO), 1,000,000 (BSO) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="icCube">icCube</a> </p> </th> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Analysis Services">Microsoft Analysis Services</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+         <td> <p> 2,147,483,647 </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MicroStrategy">MicroStrategy Intelligence Server</a> </p> </th> 
+         <td> <p> Unrestricted (1) </p> </td> 
+         <td> <p> Unrestricted (1) </p> </td> 
+         <td> <p> Unrestricted (1) </p> </td> 
+         <td> <p> Unrestricted (1) </p> </td> 
+         <td> <p> Unrestricted (1) </p> </td> 
+         <td> <p> Unrestricted (1) </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAS System">SAS OLAP Server</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> Unrestricted (1) </p> </td> 
+         <td> <p> 1024 </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 19 </p> </td> 
+         <td> <p> 4,294,967,296 </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> (1) please update as 'unrestricted', is just not possible </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Security</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 100%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th rowspan="2"> <p> OLAP Server </p> </th> 
+         <th rowspan="2"> <p> Authentication </p> </th> 
+         <th rowspan="2"> <p> Network encryption </p> </th> 
+         <th rowspan="2"> <p> On-the-Fly (1) </p> </th> 
+         <th colspan="3"> <p> Data access </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> Cell security </p> </th> 
+         <th> <p> Dimension security </p> </th> 
+         <th> <p> Visual totals </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Essbase">Essbase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="icCube">icCube</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Analysis Services">Microsoft Analysis Services</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MicroStrategy">MicroStrategy Intelligence Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle OLAP">Oracle Database OLAP Option</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Palo (OLAP database)">Palo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAS System">SAS OLAP Server</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> (1) On-the-Fly : The ability to define authentication dynamically via programmatic interfaces. New users do not require restarting the server or redefining the security. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Operating systems</h2> 
+     <div class="section-body"> 
+      <p> The OLAP servers can run on the following <a href="operating system">operating systems</a>: </p> 
+      <table class="wikitable sortable" style="font-size: 100%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> OLAP Server </p> </th> 
+         <th> <p> Windows </p> </th> 
+         <th> <p> Linux </p> </th> 
+         <th> <p> UNIX </p> </th> 
+         <th> <p> z/OS </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Essbase">Essbase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="icCube">icCube</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Analysis Services">Microsoft Analysis Services</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MicroStrategy">MicroStrategy Intelligence Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mondrian OLAP server">Mondrian OLAP server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle OLAP">Oracle Database OLAP Option</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Palo (OLAP database)">Palo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAS System">SAS OLAP Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAP NetWeaver Business Intelligence">SAP NetWeaver BW</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TM1">TM1</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <cite id="os_java">Note (1):</cite>The server availability depends on <a href="JVM">Java Virtual Machine</a> not on the <a href="operating system">operating system</a><span class="unknown-node">&lt;/cite&gt;</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Support information</h2> 
+     <div class="section-body"> 
+      <table class="wikitable sortable" style="font-size: 100%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> OLAP Server </p> </th> 
+         <th> <p> Issue Tracking System </p> </th> 
+         <th> <p> Forum/Blog </p> </th> 
+         <th> <p> Roadmap </p> </th> 
+         <th> <p> Source code </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Essbase">Essbase</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <a href="http://forums.oracle.com/forums/main.jspa?categoryID=84">4</a> </p> </td> 
+         <td> <p> <a href="http://communities.ioug.org/Portals/2/Oracle_Essbase_Roadmap_Sep_09.pdf">5</a> </p> </td> 
+         <td> <p> Closed </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="icCube">icCube</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes |...}}</span> </p> </td> 
+         <td> <p> <a href="http://www.iccube.com/support/forum">6</a> </p> </td> 
+         <td> <p> <a href="http://www.iccube.com/support/qa/roadmap">7</a> </p> </td> 
+         <td> <p> Open </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Microsoft Analysis Services">Microsoft Analysis Services</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <a href="http://social.msdn.microsoft.com/Forums/en-US/sqlanalysisservices/threads">8</a> </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> Closed </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="MicroStrategy">MicroStrategy Intelligence Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes |...}}</span> </p> </td> 
+         <td> <p> <a href="https://resource.microstrategy.com/Forum/">9</a> </p> </td> 
+         <td> <p> - </p> </td> 
+         <td> <p> Closed </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Mondrian OLAP server">Mondrian OLAP server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <a href="http://forums.pentaho.org/forumdisplay.php?f=79">10</a> </p> </td> 
+         <td> <p> <a href="http://mondrian.pentaho.org/documentation/roadmap.php">11</a> </p> </td> 
+         <td> <p> Open </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Oracle OLAP">Oracle Database OLAP Option</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <a href="http://forums.oracle.com/forums/main.jspa?categoryID=84">12</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Closed </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="Palo (OLAP database)">Palo</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <a href="http://www.jedox.com/community/palo-forum/board.php?boardid=9">13</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Open </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAS System">SAS OLAP Server</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Closed </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="SAP NetWeaver Business Intelligence">SAP NetWeaver BW</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes |...}}</span> </p> </td> 
+         <td> <p> <a href="http://forums.sdn.sap.com/index.jspa">14</a> </p> </td> 
+         <td> <p> <a href="http://esworkplace.sap.com/socoview(bD1lbiZjPTAwMSZkPW1pbg==)/render.asp?id=2270EAD629814D05A7ECECECECC8D002&amp;fragID=&amp;packageid=DEE98D07DF9FA9F1B3C7001A64D3F462">15</a> </p> </td> 
+         <td> <p> Closed </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> <a href="TM1">TM1</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes |...}}</span> </p> </td> 
+         <td> <p> <a href="http://forums.olapforums.com/">16</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Closed </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>References</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{Data warehouse}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of Olap Servers}}</span> <a href="Category:Online analytical processing"> </a> <a href="Category:Software comparisons">OLAP Servers</a> <a href="Category:Data management">Category:Data management</a> <a href="Category:Data warehousing products">Category:Data warehousing products</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

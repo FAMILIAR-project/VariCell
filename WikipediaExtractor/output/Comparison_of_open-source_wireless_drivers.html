@@ -1,0 +1,2583 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of open-source wireless drivers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of open-source wireless drivers</h1> 
+   <div class="article-content"> 
+    <p> <a href="Wireless network">Wireless network</a> cards for computers require control software to make them function (<a href="Device drivers">Device drivers</a>). This is a list of the status of some <a href="open source">open-source</a> drivers for <a href="802.11">802.11</a> wireless network cards. </p> 
+    <div class="section"> 
+     <h2>Linux</h2> 
+     <div class="section-body"> 
+      <p> <i>Also see <a href="http://linuxwireless.org/en/users/Drivers">linuxwireless.org</a></i> </p> 
+      <div class="section"> 
+       <h3>Status</h3> 
+       <div class="section-body"> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: 99%;"> 
+         <tbody>
+          <tr> 
+           <th> <p> Driver </p> </th> 
+           <th> <p> Chipsets </p> </th> 
+           <th> <p> Integration in mainline </p> </th> 
+           <th> <p> Non-free firmware required<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+           <th> <p> License </p> </th> 
+           <th> <p> Development </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://acx100.sourceforge.net/">acx100</a> </p> </td> 
+           <td> <p> <a href="Texas Instruments">Texas Instruments</a> ACX100, ACX111, TNETW1450 </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+           <td> <p> Dual <a href="BSD">BSD</a>/<a href="Mozilla Public License">MPL</a> </p> </td> 
+           <td style="background: black; color: white; "> <p> Reverse engineered </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://airo-linux.sourceforge.net/">airo</a> </p> </td> 
+           <td> <p> <a href="Cisco Systems">Cisco Systems</a> Aironet 4500/4800 and 340/350 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://wireless.kernel.org/en/users/Drivers/ar9170">ar9170</a> </p> </td> 
+           <td> <p> Atheros AR9170 (802.11n USB) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 2.6.30) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Atheros supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://wireless.kernel.org/en/users/Drivers/carl9170">carl9170</a> </p> </td> 
+           <td> <p> Atheros AR9170 (802.11n USB) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 3.0.0) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/ath5k">ath5k</a> </p> </td> 
+           <td> <p> <a href="Atheros">Atheros</a> AR2413, AR2414, AR2417, AR2425, AR5210, AR5211, AR5212, AR5213, AR5413, AR5414, AR5423, AR5424 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 2.6.25) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> Dual <a href="GPL">GPL</a>/<a href="BSD">BSD</a> </p> </td> 
+           <td style="background: black; color: white; "> <p> Reverse engineered </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/ath9k">ath9k</a> </p> </td> 
+           <td> <p> <a href="Atheros">Atheros</a> chips with <a href="802.11n">802.11n</a> support </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 2.6.27) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <a href="ISC license">ISC</a> </p> </td> 
+           <td> <p> Written by Atheros </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://madwifi-project.org/">MadWifi</a> </p> </td> 
+           <td> <p> <a href="Atheros">Atheros</a> AR5210, AR5211, AR5212, RF5111, RF5112, RF2413, RF5413 </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> Dual <a href="GPL">GPL</a>/<a href="BSD">BSD</a> with proprietary <a href="Hardware abstraction layer">HAL</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> Atheros supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> atmel </p> </td> 
+           <td> <p> <a href="Atmel">Atmel</a> at76c50x </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td style="background: yellow;"> <p> Depends on the model </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/b43">b43</a> </p> </td> 
+           <td> <p> Some <a href="Broadcom">Broadcom</a> 43xx </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 2.6.24) </p> </td> 
+           <td style="background: yellow;"> <p> Experimental OSS firmware<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td style="background: black; color: white; "> <p> Reverse engineered </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://bcm43xx.berlios.de/">bcm43xx</a> </p> </td> 
+           <td> <p> Some <a href="Broadcom">Broadcom</a> 43xx </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> (removed in 2.6.26) </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td style="background: black; color: white; "> <p> Reverse engineered </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/brcm80211">brcmfmac</a> </p> </td> 
+           <td> <p> <a href="Broadcom">Broadcom</a> 4329, 4330, 4334, 43235, 43236, 43238 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Broadcom supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/brcm80211">brcmsmac</a> </p> </td> 
+           <td> <p> <a href="Broadcom">Broadcom</a> 4313, 43224, 43225 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Broadcom supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="HostAP">HostAP</a> </p> </td> 
+           <td> <p> <a href="Intersil">Intersil</a> <a href="PRISM (chipset)">PRISM</a>-II, PRISM-2.5, PRISM 3 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td style="background: yellow;"> <p> Depends on the model<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/Orinoco.html">orinoco</a> </p> </td> 
+           <td> <p> <a href="Lucent">Lucent</a> Hermes (WaveLAN/ <a href="ORiNOCO">ORiNOCO</a>); <a href="Intersil">Intersil</a> <a href="PRISM (chipset)">PRISM</a>-II, PRISM-2.5; <a href="Symbol Technologies">Symbol</a> Spectrum24 802.11B </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td style="background: yellow;"> <p> Required for WPA support<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://ipw2100.sourceforge.net/">ipw2100</a> </p> </td> 
+           <td> <p> <a href="Intel PRO/Wireless">Intel PRO/Wireless</a> 2100 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Intel supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://ipw2200.sourceforge.net/">ipw2200</a> </p> </td> 
+           <td> <p> <a href="Intel PRO/Wireless">Intel PRO/Wireless</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> 2200BG/2915ABG </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Intel supported<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://ipw3945.sourceforge.net/">ipw3945</a> </p> </td> 
+           <td> <p> <a href="Intel">Intel</a> PRO/Wireless 3945ABG </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> with proprietary binary regulatory daemon </p> </td> 
+           <td> <p> Intel supported. Obsoleted by iwlwifi. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://intellinuxwireless.org/index.php?p=iwlwifi">iwlwifi</a> </p> </td> 
+           <td> <p> <a href="Intel">Intel</a> PRO/Wireless 3945ABG, 4965AGN </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 2.6.24) </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Intel supported. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://intellinuxwireless.org/index.php?p=iwlagn">iwlagn</a> </p> </td> 
+           <td> <p> <a href="Intel">Intel</a> PRO/Wireless 4965AGN, 5100BG, 5350AGN, 6000AGN </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 2.6.27) </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Intel supported. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/libertas">libertas</a> </p> </td> 
+           <td> <p> <a href="Marvell Technology Group">Marvell</a> <a href="http://wiki.laptop.org/go/88W8388">88W8388</a>, 88W8686 SDIO </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> prism54 </p> </td> 
+           <td> <p> <a href="Intersil">Intersil</a> ISL38xx <a href="FullMAC">FullMAC</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Reverse engineered. Obsoleted by p54. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> islsm </p> </td> 
+           <td> <p> <a href="Intersil">Intersil</a> ISL38xx <a href="SoftMAC">SoftMAC</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Reverse engineered. Obsoleted by p54. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/p54">p54</a> </p> </td> 
+           <td> <p> <a href="Intersil">Intersil</a> ISL38xx <a href="SoftMAC">SoftMAC</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 2.6.24)<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td style="background: black; color: white; "> <p> Reverse engineered </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/rndis_wlan">rndis_wlan</a> </p> </td> 
+           <td> <p> <a href="Broadcom">Broadcom</a> 4320 USB <a href="FullMAC">FullMAC</a>/<a href="RNDIS">RNDIS</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rt2x00.serialmonkey.com">rt2x00</a> </p> </td> 
+           <td> <p> Most <a href="Ralink">Ralink</a> chipsets, experimental support for RT2870 (USB), 2860 and 3090 (both PCI) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 2.6.24) </p> </td> 
+           <td style="background: yellow;"> <p> Depends on the model<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> From partial documentation and GPL drivers by Ralink </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rt2x00.serialmonkey.com">rt2400</a> </p> </td> 
+           <td> <p> <a href="Ralink">Ralink</a> RT2400 </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Ralink supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rt2x00.serialmonkey.com">rt2500</a> </p> </td> 
+           <td> <p> <a href="Ralink">Ralink</a> RT2500 (PCI) </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Ralink supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rt2x00.serialmonkey.com">rt2570</a> </p> </td> 
+           <td> <p> <a href="Ralink">Ralink</a> RT2500USB (RT2570) </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Ralink supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rt2x00.serialmonkey.com">rt61</a> </p> </td> 
+           <td> <p> <a href="Ralink">Ralink</a> RT2600 (RT2661), RT2501 (non-USB, RT2561) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> <span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Ralink supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rt2x00.serialmonkey.com">rt73</a> </p> </td> 
+           <td> <p> <a href="Ralink">Ralink</a> RT2501USB (RT2571W)<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> <span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+           <td> <p> GPL </p> </td> 
+           <td> <p> Ralink supported </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rtl8180-sa2400.sourceforge.net/">rtl8180-sa2400</a> </p> </td> 
+           <td> <p> Some <a href="Realtek">Realtek</a> RTL818x </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Realtek supported. Obsoleted by rtl-wifi project. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://sourceforge.net/projects/rtl-wifi/">rtl-wifi</a> (link OK) <a href="http://rtl-wifi.sourceforge.net/">rtl-wifi</a> (link broken) </p> </td> 
+           <td> <p> <a href="Realtek">Realtek</a> RTL8180, RTL8185, RTL8187, RTL8187B </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> Forked from rtl8180-sa2400 project. </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linux-lc100020.sourceforge.net/">zd1201</a> </p> </td> 
+           <td> <p> ZyDAS ZD1201 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://zd1211.wiki.sourceforge.net/VendorDriver">zd1211</a> </p> </td> 
+           <td> <p> ZyDAS ZD1211/ZD1211B </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> written by ZyDAS </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.linuxwireless.org/en/users/Drivers/zd1211rw">zd1211rw</a> </p> </td> 
+           <td> <p> ZyDAS ZD1211/ZD1211B, Atheros AR5007UG </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 2.6.18) </p> </td> 
+           <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+           <td> <p> <a href="GPL">GPL</a> </p> </td> 
+           <td> <p> ZyDAS supported </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Driver capabilities </h3> 
+       <div class="section-body"> 
+        <p> <i>Also see <a href="http://linuxwireless.org/en/users/Drivers">linuxwireless.org</a></i> </p> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: 99%;"> 
+         <tbody>
+          <tr> 
+           <th> <p> Driver </p> </th> 
+           <th> <p> <a href="802.11">802.11</a> </p> </th> 
+           <th> <p> Bus interface </p> </th> 
+           <th> <p> <a href="Wired Equivalent Privacy">WEP</a> </p> </th> 
+           <th> <p> <a href="Wi-Fi Protected Access">WPA</a> </p> </th> 
+           <th> <p> <a href="Wi-Fi Protected Access">WPA2</a> </p> </th> 
+           <th> <p> <a href="Monitor mode">Monitor mode</a> </p> </th> 
+           <th> <p> Master mode </p> </th> 
+           <th> <p> Ad-Hoc mode </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://acx100.sourceforge.net/">acx1xx</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="PC card">PC card</a>, <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://aluminum.sourmilk.net/adm8211/">adm8211</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://wireless.kernel.org/en/users/Drivers/ath5k">ath5k</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="PC card">PC card</a>, <a href="AMBA High-performance Bus">AHB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> (since 2.6.31) </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://wireless.kernel.org/en/users/Drivers/ath9k">ath9k</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a>, <a href="802.11n">802.11n</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="AMBA High-performance Bus">AHB</a>, <a href="PCI Express Mini Card">PCI Express Mini Card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/b43">b43</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="Secure Digital card#SDIO">SDIO</a> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://bcm43xx.berlios.de/">bcm43xx</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="PC card">PC card</a>, <a href="Cardbus">Cardbus</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/brcm80211">brcmfmac</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a>, <a href="802.11n">802.11n</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a>, <a href="Secure Digital card#SDIO">SDIO</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/brcm80211">brcmsmac</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a>, <a href="802.11n">802.11n</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="PCI Express Mini Card">PCI Express Mini Card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://hostap.epitest.fi/">hostap</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="PC card">PC card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://ipw2100.sourceforge.net/">ipw2100</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://ipw2200.sourceforge.net/">ipw2200</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://ipw2200-ap.sourceforge.net/">ipw2200-ap</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://ipw3945.sourceforge.net/">ipw3945</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a>, <a href="PCI Express Mini Card">PCI Express Mini Card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.prism54.org">islsm</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://intellinuxwireless.org/?p=iwlwifi">iwlwifi</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a>, <a href="PCI Express Mini Card">PCI Express Mini Card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> Experimental<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://intellinuxwireless.org/?p=iwlagn">iwlagn</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11g">802.11g</a>, <a href="802.11n">802.11n</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a>, <a href="PCI Express Mini Card">PCI Express Mini Card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/libertas">libertas</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a>, <a href="CompactFlash">CF</a>, <a href="Secure Digital card#SDIO">SDIO</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://madwifi-project.org/">MadWifi</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="PC card">PC card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> some issues in HAL, outdoor sensitivity?<span class="unknown-node">{{Citation needed|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.nongnu.org/orinoco/">orinoco</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a>, <a href="PC card">PC card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/p54">p54</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a>, <a href="Cardbus">Cardbus</a>, <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.prism54.org">prism54</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linuxwireless.org/en/users/Drivers/rndis_wlan">rndis_wlan</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rt2x00.serialmonkey.com">rt2x00</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rtl8180-sa2400.sourceforge.net/">rtl8180</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="PC card">PC card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://rtl-wifi.sourceforge.net/">rtl-wifi</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a>, <a href="PC card">PC card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://linux-lc100020.sourceforge.net/">zd1201</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://zd1211.wiki.sourceforge.net/VendorBasedDriver">zd1211</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{dunno}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://zd1211.ath.cx/wiki/DriverRewrite">zd1211rw</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>DragonFly BSD</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="font-size: 85%; text-align: center; width: 99%;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Driver </p> </th> 
+         <th> <p> Chipset </p> </th> 
+         <th> <p> Integration </p> </th> 
+         <th> <p> Non-free firmware required<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Original/Primary developer </p> </th> 
+         <th> <p> Development </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=acx">acx</a> </p> </td> 
+         <td> <p> <a href="Texas Instruments">Texas Instruments</a> ACX100/ACX111 </p> </td> 
+         <td> <p> Integrated since 1.5 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=an">an</a> </p> </td> 
+         <td> <p> <a href="Cisco Systems">Aironet</a> 4500/4800 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Bill Paul (FreeBSD) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=ath">ath</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR5210/ AR5211/ AR5212/ AR5416 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=bwi">bwi</a> </p> </td> 
+         <td> <p> <a href="Broadcom">Broadcom</a> BCM430x/4318 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Sepherosa Ziehau </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=iwi">iwi</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2200BG/2915ABG </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=iwl&amp;section=4">iwl</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2100 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=iwn&amp;section=4">iwn</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> 4965/1000/5000/5150/5300/6000/6050 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=ral&amp;section=ANY">ral</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2500/ RT2501/ RT2600 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td> <p> Ported from FreeBSD </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=rtw&amp;section=ANY">rtw</a> </p> </td> 
+         <td> <p> <a href="Realtek">Realtek</a> RTL8180L </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Ported from NetBSD </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=rum&amp;section=ANY">rum</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2501USB/ RT2601USB </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td> <p> Ported from FreeBSD </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=wi">wi</a> </p> </td> 
+         <td> <p> <a href="Lucent">Lucent</a> Hermes (WaveLAN/ <a href="ORiNOCO">ORiNOCO</a>); <a href="Intersil">Intersil</a> <a href="PRISM (chipset)">PRISM</a>-II, PRISM-2.5; <a href="Symbol Technologies">Symbol</a> Spectrum24 802.11B </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Bill Paul (FreeBSD) </p> </td> 
+         <td style="background: green; color: yellow;"> <p> Documentation based </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=wpi&amp;section=ANY">wpi</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> 3945ABG </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>FreeBSD</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="font-size: 85%; text-align: center; width: 99%;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Driver </p> </th> 
+         <th> <p> Chipset </p> </th> 
+         <th> <p> Integration </p> </th> 
+         <th> <p> Non-free firmware required<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Original/Primary developer </p> </th> 
+         <th> <p> Development </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://dev.kewl.org/acx100+111/">acx</a> </p> </td> 
+         <td> <p> <a href="Texas Instruments">Texas Instruments</a> ACX100/ACX111 </p> </td> 
+         <td> <p> Separate project </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=an">an</a> </p> </td> 
+         <td> <p> <a href="Cisco Systems">Aironet</a> 4500/4800, <a href="Cisco Systems">Cisco</a> Aironet 340/350, Xircom Wireless Ethernet </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Bill Paul (FreeBSD) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=arl&amp;manpath=FreeBSD+7.2-RELEASE">arl</a> </p> </td> 
+         <td> <p> Aironet Arlan 655 </p> </td> 
+         <td> <p> Integrated / Removed in 8.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ath">ath</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR5210/ AR5211/ AR5212/ AR5416 /AR9130 /AR9160 /AR9280 /AR9285 /AR9287 (and derivatives) </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Originally by Atheros via Sam Leffler (FreeBSD); supported by the community </p> </td> 
+         <td style="background: green; color: yellow;"> <p> Documentation based </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=awi&amp;manpath=FreeBSD+7.2-RELEASE">awi</a> </p> </td> 
+         <td> <p> <a href="AMD">AMD</a> PCnetMobile </p> </td> 
+         <td> <p> Integrated / Removed in 8.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Bill Sommerfeld (NetBSD) and Atsushi Onoe (NetBSD) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=bwi">bwi</a> </p> </td> 
+         <td> <p> <a href="Broadcom">Broadcom</a> BCM43xx/4318 </p> </td> 
+         <td> <p> Integrated since 8.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Sepherosa Ziehau (DragonFly BSD), Andrew Thompson (FreeBSD), Sam Leffler (FreeBSD) </p> </td> 
+         <td> <p> Ported from DragonFly BSD </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=cnw&amp;manpath=FreeBSD+7.2-RELEASE">cnw</a> </p> </td> 
+         <td> <p> Netwave AirSurfer </p> </td> 
+         <td> <p> Integrated / Removed in 8.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Imported from NetBSD </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ipw">ipw</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2100 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD/ FreeBSD) </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=iwi">iwi</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2200BG/ 2225BG/ 2915ABG </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD/ FreeBSD) </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=iwn">iwn</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 4965 ABGN/ 5100/ 5300/ 5350/ 1000/ 6000/ 6250/ 6205a </p> </td> 
+         <td> <p> Integrated since 8.0 / Available for 7.1 and above as separate patch </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a>, Benjamin Close, Sam Leffler (OpenBSD/ FreeBSD) </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=malo">malo</a> </p> </td> 
+         <td> <p> <a href="Marvell Technology Group">Marvell</a> 88W8335 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Weongyo Jeong (FreeBSD), Sam Leffler (FreeBSD) </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=mwl">mwl</a> </p> </td> 
+         <td> <p> <a href="Marvell Technology Group">Marvell</a> 88W8363 </p> </td> 
+         <td> <p> Integrated since 8.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Sam Leffler (FreeBSD) </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ral">ral</a> </p> </td> 
+         <td> <p> Ralink Technology RT2500/ RT2501/ RT2600 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD/ FreeBSD) </p> </td> 
+         <td style="background: yellow;"> <p> Based on partial documentation </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ray&amp;manpath=FreeBSD+7.2-RELEASE">ray</a> </p> </td> 
+         <td> <p> Raytheon Raylink/Webgear Aviator </p> </td> 
+         <td> <p> Integrated / Removed in 8.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Imported from NetBSD </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=rum">rum</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2501USB/ RT2601USB </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Niall&nbsp;O'Higgins and <a href="Damien Bergamini">Damien&nbsp;Bergamini</a> </p> </td> 
+         <td style="background: yellow;"> <p> Based on partial documentation </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://svn.freebsd.org/viewvc/base/stable/8/sys/dev/usb/wlan/if_run.c?view=log">run</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2700U/ RT2800U/ RT3000U </p> </td> 
+         <td> <p> Integrated since 8.1 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD), Imported from OpenBSD by Akinori Furukoshi </p> </td> 
+         <td style="background: yellow;"> <p> Based on partial documentation </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=uath">uath</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR5005UG/ AR5005UX </p> </td> 
+         <td> <p> Integrated since 8.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Weongyo Jeong (FreeBSD), Sam Leffler (FreeBSD) </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=upgt">upgt</a> </p> </td> 
+         <td> <p> GW3887 (<a href="Conexant">Conexant</a>/Intersil PrismGT series) </p> </td> 
+         <td> <p> Integrated since 8.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Imported from OpenBSD </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ural">ural</a> </p> </td> 
+         <td> <p> Ralink Technology RT2500USB </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD/ FreeBSD) </p> </td> 
+         <td style="background: yellow;"> <p> Based on partial documentation </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=urtw">urtw</a> </p> </td> 
+         <td> <p> <a href="Realtek">Realtek</a> RTL8187L/ RTL8187B </p> </td> 
+         <td> <p> Integrated since 8.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Weongyo Jeong (FreeBSD) </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=wi">wi</a> </p> </td> 
+         <td> <p> <a href="Lucent">Lucent</a> Hermes (WaveLAN/ <a href="ORiNOCO">ORiNOCO</a>); <a href="Intersil">Intersil</a> <a href="PRISM (chipset)">PRISM</a>-2, PRISM-2.5, PRISM-3; <a href="Symbol Technologies">Symbol</a> Spectrum24 802.11B (Symbol support removed in 8.0) </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Bill Paul (FreeBSD) </p> </td> 
+         <td style="background: green; color: yellow;"> <p> Documentation based </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=wpi">wpi</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 3945ABG </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a>, Benjamin Close </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=zyd">zyd</a> </p> </td> 
+         <td> <p> ZyDAS ZD1211/ZD1211B </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Florian Stoehr, <a href="Damien Bergamini">Damien Bergamini</a> and Jonathan Gray (OpenBSD) </p> </td> 
+         <td style="background: green; color: yellow;"> <p> Documentation based </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>NetBSD</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="font-size: 85%; text-align: center; width: 99%;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Driver </p> </th> 
+         <th> <p> Chipset </p> </th> 
+         <th> <p> Integration </p> </th> 
+         <th> <p> Free firmware<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Original/Primary developer </p> </th> 
+         <th> <p> Development methodologies </p> </th> 
+         <th> <p> <a href="Free software">Free software</a><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?an++NetBSD-5.0">an</a> </p> </td> 
+         <td> <p> <a href="Cisco Systems">Aironet</a> 4500/4800, <a href="Cisco Systems">Cisco</a> Aironet 340/350 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Ported from FreeBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?ath++NetBSD-5.1">ath</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR521*/ AR2413/ AR2417/ AR5413/ AR5416/ AR5424/ AR9160 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <a href="Binary blob">Binary blobs</a> ported from FreeBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?ath++NetBSD-5.1">athn</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR5008 up to the AR9287 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?atu++NetBSD-5.0">atu</a> </p> </td> 
+         <td> <p> <a href="Atmel">Atmel</a> at76c503/ at76c503a/ at76c505/ at76c505a </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?atw++NetBSD-5.0">atw</a> </p> </td> 
+         <td> <p> <a href="ADMtek">ADMtek</a> ADM8211 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?awi++NetBSD-5.0">awi</a> </p> </td> 
+         <td> <p> <a href="AMD">AMD</a> PCnetMobile </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?bwi++NetBSD-5.0">bwi</a> </p> </td> 
+         <td> <p> <a href="Broadcom">Broadcom</a> BCM430x/4318 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Ported from Dragonfly BSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?cnw++NetBSD-5.0">cnw</a> </p> </td> 
+         <td> <p> <a href="Netwave">Netwave</a> AirSurfer </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?ipw++NetBSD-5.0">ipw</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2100 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?iwi++NetBSD-5.0">iwi</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2200BG/2915ABG </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?iwn++NetBSD-5.0">iwn</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> Wireless WiFi Link 4965/ 5000/ 1000/ 6000 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?iwn++NetBSD-5.0">iwn</a> </p> </td> 
+         <td> <p> <a href="Marvell">Marvell</a> 88W8335/88W8310 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Claudio Jeker">Claudio Jeker</a> (OpenBSD) </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?ral++NetBSD-5.0">ral</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2500/ RT2501/ RT2600/ RT2500USB </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?ray++NetBSD-5.0">ray</a> </p> </td> 
+         <td> <p> <a href="Raytheon">Raytheon</a> Raylink / WebGear Aviator </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?rtw++NetBSD-5.0">rtw</a> </p> </td> 
+         <td> <p> <a href="Realtek">Realtek</a> RTL8180L </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> David Young </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?rtw++NetBSD-5.0">run</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2700U, RT2800U and RT3000U </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?wi++NetBSD-5.0">wi</a> </p> </td> 
+         <td> <p> <a href="Lucent">Lucent</a> Hermes (WaveLAN/<a href="ORiNOCO">ORiNOCO</a>), <a href="Intersil">Intersil</a> <a href="PRISM (chipset)">PRISM</a> II </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Ported from FreeBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?wpi++NetBSD-5.0">wpi</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 3945ABG </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://netbsd.gw.com/cgi-bin/man-cgi?zyd++NetBSD-5.0">zyd</a> </p> </td> 
+         <td> <p> <a href="ZyDAS">ZyDAS</a> ZD1211/ ZD1211B </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> (OpenBSD) </p> </td> 
+         <td> <p> Ported from OpenBSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>OpenBSD</h2> 
+     <div class="section-body"> 
+      <p> (A full list of supported wireless devices may be obtained by searching OpenBSD's online <a href="manual page">manual pages</a>, i.e. by typing <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=wireless&amp;apropos=1">apropos wireless</a> in the console. For information on development methodologies, see <a href="Theo de Raadt">Theo de Raadt</a>'s 2006 <a href="http://www.openbsd.org/papers/opencon06-docs/mgp00014.html">presentation on Open Documentation for Hardware</a>.) </p> 
+      <table class="wikitable" style="font-size: 85%; text-align: center; width: 99%;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Driver </p> </th> 
+         <th> <p> Chipset </p> </th> 
+         <th> <p> Integration </p> </th> 
+         <th> <p> Non-free firmware required<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Original/Primary developer </p> </th> 
+         <th> <p> Development </p> </th> 
+         <th> <p> <a href="Free software">Free software</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=acx">acx</a> </p> </td> 
+         <td> <p> <a href="Texas Instruments">Texas Instruments</a> ACX100/ACX111 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from DragonFlyBSD </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=an">an</a> </p> </td> 
+         <td> <p> <a href="Cisco Systems">Aironet</a> 4500/4800, <a href="Cisco Systems">Cisco</a> Aironet 340/350 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=ath">ath</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR5210/ AR5211/ AR5212 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=athn">athn</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR5416/AR9160/AR928X </p> </td> 
+         <td> <p> Integrated (since 4.7) </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien&nbsp;Bergamini</a> </p> </td> 
+         <td> <p> Partly based on the ath9k driver for <a href="Linux">Linux</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=atu">atu</a> </p> </td> 
+         <td> <p> <a href="Atmel">Atmel</a> AT76C503/ AT76C503A/ AT76C505/ AT76C505A </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=atw">atw</a> </p> </td> 
+         <td> <p> <a href="ADMtek">ADMtek</a> ADM8211 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td style="background: green; color: yellow;"> <p> Documentation based </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=awi">awi</a> </p> </td> 
+         <td> <p> <a href="BayStack">BayStack</a> 650 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://leaf.dragonflybsd.org/cgi/web-man?command=bwi">bwi</a> </p> </td> 
+         <td> <p> <a href="Broadcom">Broadcom</a> BCM430x/4318 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Sepherosa Ziehau </p> </td> 
+         <td> <p> Ported from DragonFly BSD </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=cnw">cnw</a> </p> </td> 
+         <td> <p> NetWave AirSurfer </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://damien.bergamini.free.fr/ipw/">ipw</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2100 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=iwi">iwi</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2200BG/ 2225BG/ 2915ABG </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=iwn">iwn</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> Wireless WiFi Link 4965/ 5000/ 1000/ 6000 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=malo">malo</a> </p> </td> 
+         <td> <p> <a href="Marvell Technology Group">Marvell</a> 88W8335/ 88W8310 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Marcus Glocker and Claudio Jeker </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=otus">otus</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR9170 </p> </td> 
+         <td> <p> Integrated (since 4.6) </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien&nbsp;Bergamini</a> </p> </td> 
+         <td> <p> Based on source code released by <a href="Atheros">Atheros</a> for <a href="Linux">Linux</a> under the ISC </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=pgt&amp;sektion=4">pgt</a> </p> </td> 
+         <td> <p> <a href="Conexant">Conexant</a>/Intersil Prism GT Full-MAC ISL3877, ISL3880, and ISL3890 chips </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from FreeBSD </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=ral">ral</a>/<a href="http://www.openbsd.org/cgi-bin/man.cgi?query=ural">ural</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2500, RT2501, RT2600, RT2700, and RT2800 (ral), RT2500USB (ural) </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td style="background: yellow;"> <p> Based on partial documentation </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=ray&amp;sektion=4">ray</a> </p> </td> 
+         <td> <p> Raytheon Raylink/WebGear Aviator IEEE 802.11FH </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=rsu">rsu</a> </p> </td> 
+         <td> <p> <a href="Realtek">Realtek</a> RTL8188SU/RTL8191SU/RTL8192SU </p> </td> 
+         <td> <p> Integrated (since 4.9) </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=rtw">rtw</a> </p> </td> 
+         <td> <p> <a href="Realtek">Realtek</a> RTL8180L </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from NetBSD </p> </td> 
+         <td style="background: green; color: yellow;"> <p> Documentation based </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=rum">rum</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2501USB/ RT2601USB </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Niall&nbsp;O'Higgins and <a href="Damien Bergamini">Damien&nbsp;Bergamini</a> </p> </td> 
+         <td style="background: yellow;"> <p> Based on partial documentation </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=run">run</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2700U/ RT2800U/ RT3000U </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien&nbsp;Bergamini</a> </p> </td> 
+         <td style="background: yellow;"> <p> Based on partial documentation </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=uath">uath</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR5005UG/ AR5005UX </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td style="background: black; color: white;"> <p> Reverse Engineering<span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=upgt&amp;sektion=4">upgt</a> </p> </td> 
+         <td> <p> GW3887 (<a href="Conexant">Conexant</a>/Intersil PrismGT series) </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Marcus Glocker </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=urtw">urtw</a> </p> </td> 
+         <td> <p> <a href="Realtek">Realtek</a> RTL8187L </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Weongyo Jeong (FreeBSD) </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=urtwn">urtwn</a> </p> </td> 
+         <td> <p> <a href="Realtek">Realtek</a> RTL8188CU/RTL8192CU </p> </td> 
+         <td> <p> Integrated (since 4.9) </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=wi">wi</a> </p> </td> 
+         <td> <p> <a href="Lucent">Lucent</a> Hermes (WaveLAN/ <a href="ORiNOCO">ORiNOCO</a>); <a href="Intersil">Intersil</a> <a href="PRISM (chipset)">PRISM</a>-2, PRISM-2.5, PRISM-3; <a href="Symbol Technologies">Symbol</a> Spectrum24 </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td style="background: yellow;"> <p> Yes for Spectrum24<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> and N/A for others </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Bill Paul </p> </td> 
+         <td style="background: green; color: yellow;"> <p> Documentation based </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=wpi">wpi</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 3945ABG </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> <a href="Damien Bergamini">Damien Bergamini</a> </p> </td> 
+         <td style="background: black; color: white; "> <p> Reverse engineering </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=zyd">zyd</a> </p> </td> 
+         <td> <p> ZyDAS ZD1211/ZD1211B </p> </td> 
+         <td> <p> Integrated </p> </td> 
+         <td> <p> <span class="unknown-node">{{No|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Florian&nbsp;Stoehr, <a href="Damien Bergamini">Damien&nbsp;Bergamini</a> and Jonathan&nbsp;Gray </p> </td> 
+         <td style="background: green; color: yellow;"> <p> Documentation based </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Solaris and OpenSolaris</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="font-size: 85%; text-align: center; width: 99%;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Driver </p> </th> 
+         <th> <p> Chipset </p> </th> 
+         <th> <p> Integration </p> </th> 
+         <th> <p> Free firmware<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Development </p> </th> 
+         <th> <p> <a href="Free software">Free software</a><span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/ath/">ath</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> AR5211/ AR5212/ AR5213/ AR5214 </p> </td> 
+         <td> <p> Integrated with Solaris Nevada build 29 </p> </td> 
+         <td> <p> No firmware required<span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+         <td> <p> Dual <a href="GPL">GPL</a>/<a href="BSD">BSD</a> with proprietary HAL </p> </td> 
+         <td> <p> Port of Madwifi </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/ipw/">ipw</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2100 </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="OpenBSD">OpenBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/iwi/">iwi</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2200BG/2225BG/2915ABG </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="OpenBSD">OpenBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/pcan/">pcan</a> </p> </td> 
+         <td> <p> <a href="Cisco">Cisco</a> Aironet 340/350 </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="FreeBSD">FreeBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/pcwl/">pcwl</a> </p> </td> 
+         <td> <p> <a href="Lucent">Lucent</a>/<a href="Agere Systems">Agere Systems</a> Hermes (WaveLAN/<a href="ORiNOCO">ORiNOCO</a>), <a href="Intersil">Intersil</a> <a href="PRISM (chipset)">PRISM</a>-2 802.11b </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="FreeBSD">FreeBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/ral/">ral</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> RT2500 </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="OpenBSD">OpenBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/rtw/">rtw</a> </p> </td> 
+         <td> <p> <a href="Realtek">Realtek</a> RTL8180L </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="NetBSD">NetBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/malo/">malo</a> </p> </td> 
+         <td> <p> <a href="Marvell Technology Group">Marvell</a> 88W8335/ 88W8310 </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="OpenBSD">OpenBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/wpi/">wpi</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 3945ABG </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="OpenBSD">OpenBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/iwk/">iwk</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> Wireless WiFi Link 4965AGN </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="OpenBSD">OpenBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/arn/">arn</a> </p> </td> 
+         <td> <p> <a href="Atheros">Atheros</a> Atheros 9000 </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> based on ath9k </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/rwd/">rwd</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> Ralink RT2561/RT2561S/RT2661 </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/rwn/">rwn</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> Ralink RT2700/2800 </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/urtw/">urtw</a> </p> </td> 
+         <td> <p> <a href="RealTek">RealTek</a> RealTek RTL8187L/B USB </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/atu/">atu</a> </p> </td> 
+         <td> <p> <a href="Atmel">Atmel</a> Atmel AT76C50x </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/mwl/">mwl</a> </p> </td> 
+         <td> <p> <a href="Marvell Technology Group">Marvell</a> Marvell 88W8363 </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/ural/">ural</a> </p> </td> 
+         <td> <p> <a href="Ralink">Ralink</a> Ralink RT2500USB </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.opensolaris.org/os/community/laptop/wireless/zyd">zyd</a> </p> </td> 
+         <td> <p> ZyDAS ZD1211 chipsets </p> </td> 
+         <td> <p> Community project </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> <p> Ported from <a href="OpenBSD">OpenBSD</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Darwin, OpenDarwin and Mac OS X</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="font-size: 85%; text-align: center; width: 99%;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Driver </p> </th> 
+         <th> <p> Chipset </p> </th> 
+         <th> <p> Free firmware<span class="unknown-node">&lt;ref .../&gt;</span> </p> </th> 
+         <th> <p> License </p> </th> 
+         <th> <p> Development </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://code.google.com/p/iwidarwin">IWIDarwin</a> </p> </td> 
+         <td> <p> <a href="Intel">Intel</a> PRO/Wireless 2100/2200BG/2225BG/2915ABG/3945ABG/4965AGN </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> <p> Port from Linux </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://wirelessdriver.sourceforge.net/">WirelessDriver</a><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <a href="Lucent">Lucent</a>/<a href="Agere Systems">Agere Systems</a> Hermes (WaveLAN/<a href="ORiNOCO">ORiNOCO</a>), <a href="Intersil">Intersil</a> <a href="PRISM (chipset)">PRISM</a>-2 802.11b </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="BSD">BSD</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://gtdriver.binaervarianz.de/">GTdriver</a> </p> </td> 
+         <td> <p> <a href="PRISM (chipset)">PRISM</a>-GT 802.11b/g </p> </td> 
+         <td> <p> <span class="unknown-node">{{n/a}}</span> </p> </td> 
+         <td> <p> <a href="GPL">GPL</a> </p> </td> 
+         <td> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Driver capabilities</h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3>FreeBSD</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="font-size: 85%; text-align: center; width: 99%;"> 
+         <tbody>
+          <tr> 
+           <th> <p> Driver </p> </th> 
+           <th> <p> <a href="802.11">802.11</a> </p> </th> 
+           <th> <p> Bus interface </p> </th> 
+           <th> <p> <a href="Wired Equivalent Privacy">WEP</a> </p> </th> 
+           <th> <p> <a href="Wi-Fi Protected Access">WPA</a> </p> </th> 
+           <th> <p> <a href="Wi-Fi Protected Access">WPA2</a> </p> </th> 
+           <th> <p> <a href="Monitor mode">Monitor mode</a> </p> </th> 
+           <th> <p> Master mode </p> </th> 
+           <th> <p> Ad-Hoc mode </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://dev.kewl.org/acx100+111/">acx</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>?, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=an">an</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a>, <a href="Industry Standard Architecture">ISA</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=arl&amp;manpath=FreeBSD+7.2-RELEASE">arl</a> </p> </td> 
+           <td> <p> N/A </p> </td> 
+           <td> <p> <a href="Industry Standard Architecture">ISA</a> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ath">ath</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a>, <a href="802.11n">802.11n</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=awi&amp;manpath=FreeBSD+7.2-RELEASE">awi</a> </p> </td> 
+           <td> <p> N/A </p> </td> 
+           <td> <p> <a href="PC Card">PC Card</a> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=bwi">bwi</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=cnw&amp;manpath=FreeBSD+7.2-RELEASE">cnw</a> </p> </td> 
+           <td> <p> N/A </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ipw">ipw</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=iwi">iwi</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=iwn">iwn</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a>, <a href="802.11n">802.11n</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=malo">malo</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=mwl">mwl</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a>, <a href="802.11n">802.11n</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ral">ral</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ray&amp;manpath=FreeBSD+7.2-RELEASE">ray</a> </p> </td> 
+           <td> <p> N/A </p> </td> 
+           <td> <p> <a href="PC Card">PC Card</a> </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> ? </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=rum">rum</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://svn.freebsd.org/viewvc/base/stable/8/sys/dev/usb/wlan/if_run.c?view=log">run</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=uath">uath</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=upgt">upgt</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=ural">ural</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=urtw">urtw</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=wi">wi</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="PC Card">PC Card</a>, <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 8.0) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 8.0) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> (since 8.0?) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=wpi">wpi</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.freebsd.org/cgi/man.cgi?query=zyd">zyd</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3>OpenBSD</h3> 
+       <div class="section-body"> 
+        <table class="wikitable" style="font-size: 85%; text-align: center; width: 99%;"> 
+         <tbody>
+          <tr> 
+           <th> <p> Driver </p> </th> 
+           <th> <p> <a href="802.11">802.11</a> </p> </th> 
+           <th> <p> Bus interface </p> </th> 
+           <th> <p> <a href="Wired Equivalent Privacy">WEP</a> </p> </th> 
+           <th> <p> <a href="Wi-Fi Protected Access">WPA</a> </p> </th> 
+           <th> <p> <a href="Wi-Fi Protected Access">WPA2</a> </p> </th> 
+           <th> <p> <a href="Monitor mode">Monitor mode</a> </p> </th> 
+           <th> <p> Master mode </p> </th> 
+           <th> <p> Ad-Hoc mode </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=acx">acx</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=an">an</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="PC Card">PC Card</a>, <a href="Peripheral Component Interconnect">PCI</a>, <a href="Industry Standard Architecture">ISA</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=ath">ath</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=athn">athn</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=atu">atu</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=atw">atw</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=bwi">bwi</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=cnw">cnw</a> </p> </td> 
+           <td> <p> N/A </p> </td> 
+           <td> <p> <a href="PC Card">PC Card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=ipw">ipw</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=iwi">iwi</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=iwn">iwn</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=malo">malo</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="PC Card">PC Card</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=otus">otus</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=pgt">pgt</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=ral">ral</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a>, <a href="Mini PCI">Mini PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=ray">ray</a> </p> </td> 
+           <td> <p> N/A </p> </td> 
+           <td> <p> <a href="PC Card">PC Card</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=rtw">rtw</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="Cardbus">Cardbus</a>, <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=rum">rum</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=run">run</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=uath">uath</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=upgt">upgt</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=ural">ural</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=urtw">urtw</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=urtwn">urtwn</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=wi">wi</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a> </p> </td> 
+           <td> <p> <a href="PC Card">PC Card</a>, <a href="Peripheral Component Interconnect">PCI</a>, <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=wpi">wpi</a> </p> </td> 
+           <td> <p> <a href="802.11a">802.11a</a>, <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="Peripheral Component Interconnect">PCI</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=zyd">zyd</a> </p> </td> 
+           <td> <p> <a href="802.11b">802.11b</a>, <a href="802.11g">802.11g</a> </p> </td> 
+           <td> <p> <a href="USB">USB</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>Notes</h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist|...}}</span> </p> 
+      <div class="section"> 
+       <h3>References</h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li><a href="http://support.intel.com/support/notebook/sb/CS-006408.htm">http://support.intel.com/support/notebook/sb/CS-006408.htm</a></li> 
+         <li>The Sourceforge IPW websites (<a href="http://ipw2100.sourceforge.net/">ipw 2100</a>,<a href="http://ipw2200.sourceforge.net/">ipw2200</a> and <a href="http://ipw3945.sourceforge.net/">ipw3945</a>)</li> 
+         <li>The <a href="http://www.fsf.org/resources/hw/net/wireless/cards.html">FSF website</a> for the Ralink and Realtek cards</li> 
+         <li><a href="http://kerneltrap.org/node/4818">Kerneltrap</a> for the list of OpenBSD drivers</li> 
+         <li>The <a href="http://www.opensolaris.org/os/community/laptop/wireless/">OpenSolaris website</a> for the list of OpenSolaris and Solaris drivers</li> 
+         <li><a href="http://rt2x00.serialmonkey.com/phpBB2/viewtopic.php?t=2084">http://rt2x00.serialmonkey.com/phpBB2/viewtopic.php?t=2084</a></li> 
+         <li><a href="http://rt2x00.serialmonkey.com/wiki/index.php/Rt2x00_beta">http://rt2x00.serialmonkey.com/wiki/index.php/Rt2x00_beta</a></li> 
+         <li><a href="http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/Wireless.html">http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/Wireless.html</a></li> 
+         <li>rt2x00 README from cvs</li> 
+         <li><a href="http://lkml.org/lkml/2007/2/9/323">http://lkml.org/lkml/2007/2/9/323</a></li> 
+        </ul> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2>External links </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="http://www.seattlewireless.net/index.cgi/LinuxDrivers">Seattle Wireless</a> Linux drivers</li> 
+       <li><a href="http://www.seattlewireless.net/MacOS">Seattle Wireless</a> Mac OS drivers</li> 
+      </ul> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Open-source wireless drivers}}</span> <a href="Category:Free software lists and comparisons">Category:Free software lists and comparisons</a> <a href="Category:Wireless networking">Category:Wireless networking</a> <a href="Category:Free device drivers">Wireless drivers</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

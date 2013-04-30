@@ -1,0 +1,2829 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of file archivers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of file archivers</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Dynamic list}}</span> The following tables compare general and technical information for a number of <b><a href="file archiver">file archivers</a></b>. Please see the individual products' articles for further information. They are neither all-inclusive nor are some entries necessarily up to date. Unless otherwise specified in the footnotes section, comparisons are based on the stable versions--<i>without</i> add-ons, extensions or external programs. </p> 
+    <div class="section"> 
+     <h2> Archivers </h2> 
+     <div class="section-body"> 
+      <p> <i>Note: Archivers in purple are no longer in development.</i> </p> 
+      <div class="section"> 
+       <h3> General information </h3> 
+       <div class="section-body"> 
+        <p> Basic general information about the archivers: creator/company, license/price etc. </p> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width:12em"> </th> 
+           <th> <p> Creator(s) </p> </th> 
+           <th> <p> First public release date </p> </th> 
+           <th> <p> Latest stable version </p> </th> 
+           <th> <p> Cost (<a href="United States dollar">USD</a>) </p> </th> 
+           <th> <p> <a href="Software license">Software license</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="7-Zip">7-Zip</a> </p> </td> 
+           <td> <p> <a href="Igor Pavlov (programmer)">Igor Pavlov</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Start date and age|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/7-Zip}}</span><br /><span class="unknown-node">{{Latest preview software release/7-Zip}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ALZip">ALZip</a> </p> </td> 
+           <td> <p> <a href="ESTsoft">ESTsoft</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span><br /> (as a WinZip translation) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/ALZip}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ALZip for Mac">ALZip for Mac</a> </p> </td> 
+           <td> <p> <a href="ESTsoft">ESTsoft</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span><br /> (as a WinZip translation) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/ALZip for Mac}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Archive Utility">Archive Utility</a> </p> </td> 
+           <td> <p> <a href="Apple Inc.">Apple Inc.</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/Archive Utility}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Ark (software)">Ark</a> </p> </td> 
+           <td> <p> <a href="KDE">KDE</a> team </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> 2.14<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Bandizip">Bandizip</a> </p> </td> 
+           <td> <p> Bandisoft </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 1.0.4<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="BetterZip">BetterZip</a> </p> </td> 
+           <td> <p> BetterZip </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/BetterZip}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Bitser (software)">Bitser</a> </p> </td> 
+           <td> <p> Bitser </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 1.0 Beta<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ZIP (file format)">Compressed Folders</a> </p> </td> 
+           <td> <p> <a href="Microsoft Inc.">Microsoft Inc.</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> Windows Small Business Server 2011<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="DAR (Disk Archiver)">Disk ARchiver</a> </p> </td> 
+           <td> <p> Denis Corbin </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 2.4.1<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="File Roller">File Roller</a> </p> </td> 
+           <td> <p> Paolo Bacchilega </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/File Roller}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Filzip">Filzip</a> </p> </td> 
+           <td> <p> Philipp Engel </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/Filzip}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="FreeArc">FreeArc</a> </p> </td> 
+           <td> <p> Bulat Ziganshin </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span><br />v0.36 </p> </td> 
+           <td> <p> 0.666<br />(<span class="unknown-node">{{start date and age|...}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span>) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="iArchiver">iArchiver</a> </p> </td> 
+           <td> <p> Dare to be Creative Ltd. </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 1.4.1<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Info-ZIP">Info-ZIP</a> (Wzip) </p> </td> 
+           <td> <p> Samuel Smith </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 6.0<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="IZArc">IZArc</a> </p> </td> 
+           <td> <p> IZSoftware </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/IZArc}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="KGB Archiver">KGB Archiver</a> </p> </td> 
+           <td> <p> Tomasz Pawlak </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 1.2.1.24 <span class="unknown-node">{{start date and age|...}}</span><br />2.0 Beta 2 <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PeaZip">PeaZip</a> </p> </td> 
+           <td> <p> Giorgio Tani </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 4.9.2<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PKZIP">PKZIP</a> </p> </td> 
+           <td> <p> <a href="Phil Katz">Phil Katz</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 12.4<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span><br />(ca. <span class="unknown-node">{{start date and age|...}}</span>) </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PowerArchiver">PowerArchiver</a> </p> </td> 
+           <td> <p> ConexWare </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 12.11<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="StuffIt">StuffIt</a> </p> </td> 
+           <td> <p> <a href="Smith Micro Software">Smith Micro Software</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 15.0.4 (MacOS), 14.0.1 (Windows)<br /><span class="unknown-node">{{start date and age|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Tar (file format)">TAR</a> </p> </td> 
+           <td> <p> <a href="American Telephone &amp; Telegraph">AT&amp;T</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> GNU tar: <span class="unknown-node">{{Latest stable software release/Tar}}</span>; star: 1.5.1; BSD tar: 2.6.0 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="The Unarchiver">The Unarchiver</a> </p> </td> 
+           <td> <p> Circlesoft </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 2.5<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="TUGZip">TUGZip</a> </p> </td> 
+           <td> <p> Christian Kindahl </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 3.5.0.0<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="WinAce">WinAce</a> </p> </td> 
+           <td> <p> e-merge GmbH </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> 2.69<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="WinRAR">WinRAR</a> </p> </td> 
+           <td> <p> <a href="Eugene Roshal">Eugene Roshal</a> / Alexander Roshal </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/WinRAR}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="WinZip">WinZip</a> </p> </td> 
+           <td> <p> WinZip Computing, Inc </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Latest stable software release/WinZip}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="XAD (software)">XAD</a> a.k.a. XADMaster.library </p> </td> 
+           <td> <p> Dirk Stoecker </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 13.1 </p> </td> 
+           <td> <p> <span class="unknown-node">{{Nonfree|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Xarchiver">Xarchiver</a> </p> </td> 
+           <td> <p> Giuseppe Torelli </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> 0.5.2<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free|...}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ZipGenius">ZipGenius</a> </p> </td> 
+           <td> <p> Matteo Riso of M.Dev Software </p> </td> 
+           <td> <p> <span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> 6.3.0.2400<br /><span class="unknown-node">{{start date and age|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Free}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Proprietary}}</span> </p> </td> 
+          </tr> 
+          <tr class="sortbottom"> 
+           <th style="width:12em"> </th> 
+           <th> Creator(s) </th> 
+           <th> First public release date </th> 
+           <th> <p> Latest stable version </p> </th> 
+           <th> Cost (<a href="United States dollar">USD</a>) </th> 
+           <th> <p> <a href="Software license">Software license</a> </p> </th> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Operating system support </h3> 
+       <div class="section-body"> 
+        <p> The <a href="operating system">operating systems</a> the archivers can run on without emulation or compatibility layer. Linux Ubuntu's own GUI <i>Archive manager,</i> for example, can open and create many archive formats (including Rar archives) even to the extent of splitting into parts and encryption and ability to be read by the <i>native program</i>. This is presumably a &quot;compatibility layer.&quot; </p> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width:12em"> </th> 
+           <th> <p> <a href="Microsoft Windows">Windows</a><br /> </p> </th> 
+           <th> <p> <a href="DOS">DOS</a> </p> </th> 
+           <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+           <th> <p> <a href="Linux">Linux</a> </p> </th> 
+           <th> <p> <a href="Berkeley Software Distribution">BSD</a> </p> </th> 
+           <th> <p> Other <a href="Unix">Unix</a> </p> </th> 
+           <th> <p> <a href="AmigaOS">AmigaOS</a><br /> </p> </th> 
+           <th> <p> <a href="Android (operating system)">Android</a><br /> </p> </th> 
+           <th> <p> <a href="Windows Mobile">Windows Mobile</a> </p> </th> 
+           <th> <p> <a href="Windows Phone">Windows Phone</a> </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="7-Zip">7-Zip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ALZip">ALZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ALZip for Mac">ALZip for Mac</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Archive Utility">Archive Utility</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Ark (computing)">Ark</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Bandizip">Bandizip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="BetterZip">BetterZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Bitser (software)">Bitser</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Tar (file format)#Key implementations">bsdtar/libarchive</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="DAR (Disk Archiver)">Disk ARchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="File Roller">File Roller</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Filzip">Filzip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="FreeArc">FreeArc</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Tar (file format)#Key implementations">GNU tar</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="iArchiver">iArchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Info-ZIP">Info-ZIP</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="IZArc">IZArc</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="KGB Archiver">KGB Archiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PeaZip">PeaZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PKZIP">PKZIP</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PowerArchiver">PowerArchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Tar (file format)#Key implementations">Star</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="StuffIt">StuffIt</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="The Unarchiver">The Unarchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="TUGZip">TUGZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="WinAce">WinAce</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="WinRAR">WinRAR</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="WinZip">WinZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="XAD (software)">XAD</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Xarchiver">Xarchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ZipGenius">ZipGenius</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+          </tr> 
+          <tr class="sortbottom"> 
+           <th> </th> 
+           <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+           <th> <p> <a href="DOS">DOS</a> </p> </th> 
+           <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+           <th> <p> <a href="Linux">Linux</a> </p> </th> 
+           <th> <p> <a href="Berkeley Software Distribution">BSD</a> </p> </th> 
+           <th> <p> <a href="Unix">Unix</a> </p> </th> 
+           <th> <p> <a href="AmigaOS">AmigaOS</a> </p> </th> 
+           <th> <p> <a href="Android (operating system)">Android</a> </p> </th> 
+           <td> <p> <a href="Windows Mobile">Windows Mobile</a> </p> </td> 
+           <th> <p> <a href="Windows Phone">Windows Phone</a> </p> </th> 
+          </tr> 
+          <tr> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <b>Notes:</b> </p> 
+        <ol> 
+         <li> <span class="unknown-node">{{note|...}}</span> A separate 64-bit <a href="Windows XP editions#Windows XP Professional x64 Edition">Windows x64 Edition</a> version is also available.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> The <a href="Unix-like">Unix-like</a> system port is known as <a href="p7zip">p7zip</a>. p7zip also is provided by FreeDOS.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> A <a href="Windows Mobile">Windows Mobile</a> release (version 9.05-alpha onward) is available.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> Aminet contains several solution for 7zip under both classic and newage Amiga OS. <a href="http://aminet.net/search?query=7z">1</a></li> 
+         <li> <span class="unknown-node">{{note|...}}</span> The programs for other platforms are called Unace, do not have the same <a href="GUI">GUI</a>, and can only perform decompression.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> The programs for other platforms are called RAR.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> This program also has a <a href="POSIX">POSIX</a> version available.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> General <a href="Windows CE">Windows CE</a> version.</li> 
+        </ol> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Archiver features </h3> 
+       <div class="section-body"> 
+        <p> Information about what common archiver features are implemented natively (without third-party add-ons). </p> 
+        <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+         <tbody>
+          <tr> 
+           <th style="width:12em; text-align:left"> </th> 
+           <th> <p> <a href="Data compression">Data compression</a><br /> </p> </th> 
+           <th> <p> <a href="Shell (computing)">Shell</a> integration<br /> </p> </th> 
+           <th> <p> Password protection<br /> </p> </th> 
+           <th> <p> Multiple volumes<br /> </p> </th> 
+           <th> <p> Self extraction<br /> </p> </th> 
+           <th> <p> File repairing<br /> </p> </th> 
+           <th> <p> Batch conversion<br /> </p> </th> 
+           <th> <p> <a href="Unicode">Unicode</a> file /<br />directory names<span class="unknown-node">{{Ref label|...}}</span> </p> </th> 
+           <th> <p> Encryption<br /> </p> </th> 
+           <th> <p> Filename Encryption<br /> </p> </th> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="7-Zip">7-Zip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ALZip">ALZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Archive Utility">Archive Utility</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ARJ">ARJ</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Ark (computing)">Ark</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Bandizip">Bandizip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="BetterZip">BetterZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Bitser (software)">Bitser</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Tar (file format)#Key implementations">bsdtar/libarchive</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="DAR (Disk Archiver)">Disk ARchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="File Roller">File Roller</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Filzip">Filzip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="FreeArc">FreeArc</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Tar (file format)#Key implementations">GNU tar</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span>Separate </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="iArchiver">iArchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Info-ZIP">Info-ZIP</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span>Weak </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="IZArc">IZArc</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="KGB Archiver">KGB Archiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span>Not enabled by default </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Peazip">PeaZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PKZIP">PKZIP</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span>Separate </p> </td> 
+           <td> <p> <span class="unknown-node">{{partial|...}}</span>Separate </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="PowerArchiver">PowerArchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="StuffIt">StuffIt</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="The Unarchiver">The Unarchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> some formats </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="TUGZip">TUGZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="WinAce">WinAce</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="WinRAR">WinRAR</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="WinZip">WinZip</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="XAD (software)">XAD</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="Xarchiver">Xarchiver</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr> 
+           <td> <p> <a href="ZipGenius">ZipGenius</a> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+           <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+          </tr> 
+          <tr class="sortbottom"> 
+           <th> </th> 
+           <th> <p> <a href="Data compression">Data compression</a> </p> </th> 
+           <th> <p> <a href="Operating system shell">Shell</a> integration </p> </th> 
+           <th> <p> Password protection </p> </th> 
+           <th> <p> Multiple volumes </p> </th> 
+           <th> <p> Self extraction </p> </th> 
+           <th> <p> File repairing </p> </th> 
+           <th> <p> Batch conversion </p> </th> 
+           <th> <p> <a href="Unicode">Unicode</a> file /<br />directory names<span class="unknown-node">{{Ref label|...}}</span> </p> </th> 
+           <th> <p> Encryption </p> </th> 
+           <th> <p> Filename Encryption </p> </th> 
+          </tr> 
+         </tbody>
+        </table> 
+        <p> <b>Notes:</b> </p> 
+        <ol> 
+         <li> <span class="unknown-node">{{note|...}}</span> Application is only for decompression.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> <a href="GNU">GNU</a> tar calls the external programs gzip and bzip2 to perform compression; these external programs usually come with systems that contain GNU tar.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> Allows adding a variable amount of <a href="redundancy (information theory)">redundancy</a> for much better error recovery. See also <a href="RAR (file format)">RAR (file format)</a>.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> Extracting/adding file and/or directory names into archive in either <a href="UTF-7">UTF-7</a>, <a href="UTF-8">UTF-8</a> or <a href="UTF-16/UCS-2">UTF-16/UCS-2</a> encoding to support single file/directory name which contains characters from different languages. More recent versions of the zip file format have support for Unicode filenames.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> In WinRAR 3.60, when opening 7-Zip archives which contains Unicode file/directory names, they will not be displayed correctly. There will be no problem extracting them, however.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> Does support Unicode names, but not under the default (initial) option settings: the user must tick &quot;Use OEM conversion for filenames&quot; under &quot;General&quot; on the &quot;Miscellaneous&quot; tab in the Configuration dialog to enable Unicode name support. Full support for Unicode files names by default is supported only for 7-Zip and RAR archive formats.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> Commandline batch compression is available only for ZIP and ALZ formats.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> UTF-8 support was completed in release 2.5. On Unix systems the support is full, while on Windows systems, due to limitation of the Windows shell environment, double-character encoded characters cannot currently be displayed in filenames of archived objects, and those chars are replaced by a <a href="Mojibake">corrupted</a> character. Optionally, extended characters can be set to be always replaced by a 'corrupted' &quot;?&quot; character to avoid possible issues between archive's and system's character encodings.<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span></li> 
+         <li> <span class="unknown-node">{{note|...}}</span> Commandline batch compression and expansion requires free add-on software downloaded from the WinZip website.<span class="unknown-node">{{ref}}</span></li> 
+         <li> <span class="unknown-node">{{note|...}}</span> Peazip supports file encryption and file name encryption, although only in certain types of archives, including its own Pea format, 7-zip, zip and Arc.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> Many shells have built-in zip file support. <a href="Windows Explorer">Windows Explorer</a> has &quot;Send To&quot;-&gt;&quot;ZIP-compressed folder&quot;.</li> 
+         <li> <span class="unknown-node">{{note|...}}</span> Since version 3.0 (2008).</li> 
+        </ol> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Archive format support </h3> 
+       <div class="section-body"> 
+        <div class="section"> 
+         <h4> Reading </h4> 
+         <div class="section-body"> 
+          <p> Information about what <a href="List of archive formats">archive formats</a> the archivers can read. External links lead to information about support in future versions of the archiver or extensions that provide such functionality. Note that gzip, bzip2 and xz are rather compression formats than archive formats. </p> 
+          <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+           <tbody>
+            <tr> 
+             <th style="width:12em"> </th> 
+             <th> <p> <a href="ZIP (file format)">ZIP</a><br /> </p> </th> 
+             <th> <p> <a href="Tar (file format)">TAR</a><br /> </p> </th> 
+             <th> <p> <a href="gzip#File format">GZ</a><br /> </p> </th> 
+             <th> <p> <a href="bzip2">BZ/BZ2</a><br /> </p> </th> 
+             <th> <p> <a href="7z">7z</a><br /> </p> </th> 
+             <th> <p> <a href="xz">xz</a><br /> </p> </th> 
+             <th> <p> <a href="RAR (file format)">RAR</a><br /> </p> </th> 
+             <th> <p> <a href="LHA (file format)">LHA/LZH</a><br /> </p> </th> 
+             <th> <p> <a href="ACE (file format)">ACE</a><br /> </p> </th> 
+             <th> <p> <a href="StuffIt">SIT</a><br /> </p> </th> 
+             <th> <p> <a href="StuffIt">SITX</a><br /> </p> </th> 
+             <th> <p> <a href="ARJ">ARJ</a><br /> </p> </th> 
+             <th> <p> <a href="KGB Archiver">KGB</a><br /> </p> </th> 
+             <th> <p> <a href="DAR (Disk Archiver)">DAR</a><br /> </p> </th> 
+             <th> <p> <a href="ARC (file format)">ARC</a><br /> </p> </th> 
+             <th> <p> <a href="Cabinet (file format)">CAB</a><br /> </p> </th> 
+             <th> <p> <a href="ALZip">ALZ</a><br /> </p> </th> 
+             <th> <p> <a href="ISO image">ISO/CD Image</a><br /> </p> </th> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="7-Zip">7-Zip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="ALZip">ALZip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Archive Utility">Archive Utility</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Ark (computing)">Ark</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Bandizip">Bandizip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="BetterZip">BetterZip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Bitser (software)">Bitser</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Tar (file format)#Key implementations">bsdtar/libarchive</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="cpio">cpio</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="DAR (Disk Archiver)">Disk ARchiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="File Roller">File Roller</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Filzip">Filzip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="FreeArc">FreeArc</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Tar (file format)#Key implementations">GNU tar</a><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="iArchiver">iArchiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Info-ZIP">Info-ZIP</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="IZArc">IZArc</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="KGB Archiver">KGB Archiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="PeaZip">PeaZip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="PKZIP">PKZIP</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="PowerArchiver">PowerArchiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Tar (file format)#Key implementations">Star</a><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="StuffIt">StuffIt</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="The Unarchiver">The Unarchiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{Partial}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{Partial}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="TUGZip">TUGZip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="WinAce">WinAce</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="WinRAR">WinRAR</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="WinZip">WinZip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="XAD (software)">XAD</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{Partial}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Xarchiver">Xarchiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="ZipGenius">ZipGenius</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr class="sortbottom"> 
+             <th> </th> 
+             <th> <p> <a href="ZIP (file format)">ZIP</a> </p> </th> 
+             <th> <p> <a href="Tar (file format)">TAR</a> </p> </th> 
+             <th> <p> <a href="gzip#File format">GZ</a> </p> </th> 
+             <th> <p> <a href="bzip2">BZ/BZ2</a> </p> </th> 
+             <th> <p> <a href="7z">7z</a> </p> </th> 
+             <th> <p> <a href="xz">xz</a> </p> </th> 
+             <th> <p> <a href="RAR (file format)">RAR</a> </p> </th> 
+             <th> <p> <a href="LHA (file format)">LHA/LZH</a> </p> </th> 
+             <th> <p> <a href="ACE (file format)">ACE</a> </p> </th> 
+             <th> <p> <a href="StuffIt">SIT</a> </p> </th> 
+             <th> <p> <a href="StuffIt">SITX</a> </p> </th> 
+             <th> <p> <a href="ARJ">ARJ</a> </p> </th> 
+             <th> <p> <a href="KGB Archiver">KGB</a> </p> </th> 
+             <th> <p> <a href="DAR (Disk Archiver)">DAR</a> </p> </th> 
+             <th> <p> <a href="ARC (file format)">ARC</a> </p> </th> 
+             <th> <p> <a href="Cabinet (file format)">CAB</a> </p> </th> 
+             <th> <p> <a href="ALZip">ALZ</a> </p> </th> 
+             <th> <p> <a href="ISO image">ISO/CD Image</a> </p> </th> 
+            </tr> 
+           </tbody>
+          </table> 
+          <p> <b>Notes:</b> </p> 
+          <ol> 
+           <li> <span class="unknown-node">{{note|...}}</span> Used to, but no longer does, due to technical and legal issues.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Tar implementations call external programs (like <a href="compress">compress</a>, <a href="gzip">gzip</a> or <a href="bzip2">bzip2</a> or any other programs working with <a href="Stream (computing)">abstract streams</a> and supporting the &quot;-d&quot; option) to perform (de)compression, and allowing you to implement your own filters<span class="unknown-node">{{ref|...}}</span>. These external programs may be shipped with your Operating System.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> GNU tar lets you implement your own filters <a href="http://www.gnu.org/software/tar/manual/tar.html#index-use_002dcompress_002dprogram-460">2</a>, allowing you to use other compression programs (p7zip, ...) and filters (GPG, ...).</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Starting from version 11.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Requires external program. <a href="http://www.winzip.com/wzdifs.htm">More info</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Archive Utility itself is unable to open ISO files, but <a href="Disk Utility">Disk Utility</a>, which also comes with Mac OS X, is able to mount them as virtual disks.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Requires external program.<a href="http://www.zipgenius.it/eng/?page_id=3">3</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Only partial support for reading proprietary SITX format. <a href="http://wakaba.c3.cx/sup/kareha.pl/1151796773/">4</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span> FreeARC uses <tt>.arc</tt> as its filename extension, but this format is not the same as the <a href="ARC (file format)">traditional ARC file</a>.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Supports these formats as compression stream of other archive formats like tar.bz2 or iso.xz but does not support the format as an archive itself.</li> 
+          </ol> 
+         </div> 
+        </div> 
+        <div class="section"> 
+         <h4> Writing </h4> 
+         <div class="section-body"> 
+          <p> Information about what <a href="List of archive formats">archive formats</a> the archivers<span class="unknown-node">{{Ref label|...}}</span> can write and create. External links lead to information about support in future versions of the archiver or extensions that provide such functionality. Note that gzip, bzip2 and xz are rather compression formats than archive formats. </p> 
+          <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto;"> 
+           <tbody>
+            <tr> 
+             <th style="width:12em"> </th> 
+             <th> <p> <a href="ZIP (file format)">ZIP</a><br /> </p> </th> 
+             <th> <p> <a href="Tar (file format)">TAR</a><br /> </p> </th> 
+             <th> <p> <a href="gzip">gzip</a><br /> </p> </th> 
+             <th> <p> <a href="bzip2">bzip2</a><br /> </p> </th> 
+             <th> <p> <a href="7z">7z</a><br /> </p> </th> 
+             <th> <p> <a href="xz">xz</a><br /> </p> </th> 
+             <th> <p> <a href="RAR (file format)">RAR</a><br /> </p> </th> 
+             <th> <p> <a href="LHA (file format)">LHA/LZH</a><br /> </p> </th> 
+             <th> <p> <a href="ACE (file format)">ACE</a><br /> </p> </th> 
+             <th> <p> <a href="StuffIt">StuffIt</a><br /> </p> </th> 
+             <th> <p> <a href="StuffIt">StuffIt X</a><br /> </p> </th> 
+             <th> <p> <a href="ARJ">ARJ</a><br /> </p> </th> 
+             <th> <p> <a href="KGB Archiver">KGB</a><br /> </p> </th> 
+             <th> <p> <a href="DAR (Disk Archiver)">DAR</a><br /> </p> </th> 
+             <th> <p> <a href="ARC (file format)">ARC</a><br /> </p> </th> 
+             <th> <p> <a href="Cabinet (file format)">CAB</a><br /> </p> </th> 
+             <th> <p> <a href="ALZip">ALZ</a><br /> </p> </th> 
+             <th> <p> <a href="ISO image">ISO/CD Image</a><br /> </p> </th> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="7-Zip">7-Zip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="ALZip">ALZip</a><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Archive Utility">Archive Utility</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Ark (computing)">Ark</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Bandizip">Bandizip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="BetterZip">BetterZip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Bitser (software)">Bitser</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Tar (file format)">bsdtar/libarchive</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="DAR (Disk Archiver)">Disk ARchiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="File Roller">File Roller</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Filzip">Filzip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="FreeArc">FreeArc</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref ...&gt;...&lt;/ref&gt;</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">&lt;ref .../&gt;</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Tar (file format)">GNU tar</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="iArchiver">iArchiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Info-ZIP">Info-ZIP</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="IZArc">IZArc</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="KGB Archiver">KGB Archiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Peazip">PeaZip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="PKZIP">PKZIP</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="PowerArchiver">PowerArchiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Tar (file format)#Key implementations">Star</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="StuffIt">StuffIt</a><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="TUGZip">TUGZip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="WinAce">WinAce</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="WinRAR">WinRAR</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="WinZip">WinZip</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="Xarchiver">Xarchiver</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+            </tr> 
+            <tr> 
+             <td> <p> <a href="ZipGenius">ZipGenius</a> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{unk}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{yes}}</span><span class="unknown-node">{{Ref label|...}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+             <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+            </tr> 
+            <tr class="sortbottom"> 
+             <th> </th> 
+             <th> <p> <a href="ZIP (file format)">ZIP</a> </p> </th> 
+             <th> <p> <a href="Tar (file format)">TAR</a> </p> </th> 
+             <th> <p> <a href="gzip">GZ</a> </p> </th> 
+             <th> <p> <a href="bzip2">BZ/BZ2</a> </p> </th> 
+             <th> <p> <a href="7z">7z</a> </p> </th> 
+             <th> <p> <a href="xz">xz</a> </p> </th> 
+             <th> <p> <a href="RAR (file format)">RAR</a> </p> </th> 
+             <th> <p> <a href="LHA (file format)">LHA/LZH</a> </p> </th> 
+             <th> <p> <a href="ACE (file format)">ACE</a> </p> </th> 
+             <th> <p> <a href="StuffIt">SIT</a> </p> </th> 
+             <th> <p> <a href="StuffIt">SITX</a> </p> </th> 
+             <th> <p> <a href="ARJ">ARJ</a> </p> </th> 
+             <th> <p> <a href="KGB Archiver">KGB</a> </p> </th> 
+             <th> <p> <a href="DAR (Disk Archiver)">DAR</a> </p> </th> 
+             <th> <p> <a href="ARC (file format)">ARC</a> </p> </th> 
+             <th> <p> <a href="Cabinet (file format)">CAB</a> </p> </th> 
+             <th> <p> <a href="ALZip">ALZ</a> </p> </th> 
+             <th> <p> <a href="ISO image">ISO/CD Image</a> </p> </th> 
+            </tr> 
+           </tbody>
+          </table> 
+          <p> <b>Notes:</b> </p> 
+          <ol> 
+           <li> <span class="unknown-node">{{note|...}}</span> Tar implementations call the external programs gzip and bzip2, 7z, xz, ... to perform compression; these external programs usually come with systems that contain tar.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Requires rar.exe from WinRAR.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Requires external program(if you are using WinZip 11.1 or earlier). <a href="http://kb.winzip.com/kb/entry/107">More info</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Requires Ace32.exe from WinAce.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> The Extractor and XAD are not included in this list because they only expand archives.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> ALZip can also write to the following formats: BH, JAR, and LZH</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Updating archives is not supported.<a href="http://www.zipgenius.it/eng/?page_id=3">5</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Requires external program.<a href="http://www.zipgenius.it/eng/?page_id=3">6</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span>Stuffit supported file formats <a href="http://my.smithmicro.com/stuffitcompression/fileformats.html">7</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Ark is a <a href="frontend">front-end</a> only and requires appropriate command-line programs be installed. Programs like bzip2, gzip, tar, zip usually come with systems that contain Ark; writing in <a href=".rar">.rar</a> format requires a <a href="non-free software">commercial</a> program. <a href="http://utils.kde.org/projects/ark/">8</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span> Xarchiver is a front-end only and requires appropriate command-line programs be installed. Programs like bzip2, gzip, tar, zip usually come with systems that contain Xarchiver; writing in .rar format requires a commercial program. <a href="http://xarchiver.xfce.org/doc/ch01.html">9</a><a href="http://xarchiver.xfce.org/doc/ch03s03.html">10</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span> File-Roller is a front-end only and requires appropriate command-line programs be installed. Programs like bzip2, gzip, tar, zip usually come with systems that contain File-Roller. writing in .rar format requires a commercial program.<a href="http://fileroller.sourceforge.net/features.html">11</a></li> 
+           <li> <span class="unknown-node">{{note|...}}</span> If there are more than one, files must be grouped in a .tar before being compressed.</li> 
+           <li> <span class="unknown-node">{{note|...}}</span> supports the formats as stream compression of other archive format and can create compressed format like tar.bz2 or iso.xz but cannot create an archive in these formats</li> 
+          </ol> 
+         </div> 
+        </div> 
+        <div class="section"> 
+         <h4> Uncommon archive format support </h4> 
+         <div class="section-body"> 
+          <p> PeaZip has full support for various LPAQ and <a href="PAQ">PAQ</a> formats, QUAD and BALZ (highly efficient <a href="ROLZ">ROLZ</a> based compressors), <a href="FreeArc">FreeArc</a> format, and for its native <a href="List of archive formats">PEA</a> format. </p> 
+          <pre>
+</pre> 
+          <p> 7-Zip includes read support for <a href=".msi">.msi</a>, <a href="cpio">cpio</a> and <a href="xar (archiver)">xar</a>, plus Apple's <a href="Apple Disk Image">dmg</a>/<a href="Hierarchical File System">HFS</a> disk images and the <a href="deb (file format)">deb</a>/<a href="RPM Package Manager">.rpm</a> package distribution formats; beta versions (9.07 onwards) have full support for the LZMA2-compressed .<a href="xz">xz</a> format.<span class="unknown-node">&lt;ref .../&gt;</span> </p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Comparison of archive formats">Comparison of archive formats</a></li> 
+       <li> <a href="Lossless compression benchmarks">Lossless compression benchmarks</a></li> 
+       <li> <a href="Comparison of file systems">Comparison of file systems</a></li> 
+       <li> <a href="List of archive formats">List of archive formats</a></li> 
+       <li> <a href="List of file systems">List of file systems</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">&lt;references /&gt;</span> </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Further reading </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="http://www.maximumcompression.com">Maximum Compression</a> site benchmarking compressors for several filetypes (text, executable, jpeg etc.).</li> 
+       <li> Kingsley G. Morse Jr., &quot;<a href="http://www.linuxjournal.com/article/8051">Compression Tools Compared</a>&quot;, <i><a href="Linux Journal">Linux Journal</a></i>, issue 137, September 2005</li> 
+       <li> Patrick Schmid, Achim Roos, (March 10, 2010) &quot;<a href="http://www.tomshardware.com/reviews/archive-zip-compression,2572.html">Four Compression And Archiving Solutions Compared</a>&quot;, <i><a href="Tom's Hardware">Tom's Hardware</a></i></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{Compression software implementations}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison Of File Archivers}}</span> <a href="Category:Data compression software"> </a> <a href="Category:Software comparisons">File archivers</a> <a href="Category:File archivers"> </a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

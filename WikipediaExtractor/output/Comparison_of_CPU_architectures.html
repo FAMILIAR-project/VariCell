@@ -1,0 +1,1164 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of CPU architectures</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of CPU architectures</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Context|...}}</span> <span class="unknown-node">{{Expert-subject|...}}</span> </p> 
+    <div class="section"> 
+     <h2> Factors </h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3> Bits </h3> 
+       <div class="section-body"> 
+        <p> <a href="Computer architecture">Computer architectures</a> are often described as <i>n</i>-bit architectures. Today <i>n</i> is often 8, 16, 32, or 64, but other sizes have been used. This is actually a strong simplification. A computer architecture often has a few more or less &quot;natural&quot; datasizes in the <a href="instruction set">instruction set</a>, but the hardware implementation of these may be very different. Many architectures have instructions operating on half and/or twice the size of respective processors major internal datapaths. Examples of this are the 8080, Z80, MC68000 as well as many others. On this type of implementations, a twice as wide operation typically also takes around twice as many clock cycles (which is not the case on high performance implementations). On the 68000, for instance, this means 8 instead of 4 clock ticks, and this particular chip may be described as a 32-bit architecture with a 16-bit implementation. The external databus width is often not useful to determine the width of the architecture; the NS32008, NS32016 and NS32032 were basically the same 32-bit chip with different external data buses. The NS32764 had a 64-bit bus, but used 32-bit registers. </p> 
+        <p> The width of addresses may or may not be different than the width of data. Early 32-bit microprocessors often had a 24-bit address, as did the <a href="System/360">System/360</a> processors. </p> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Operands </h3> 
+       <div class="section-body"> 
+        <p> <span class="unknown-node">{{main|...}}</span> </p> 
+        <p> The number of operands is one of the factors that may give an indication about the performance of the instruction set. A three-operand architecture will allow </p> 
+        <pre>A := B + C
+</pre> 
+        <p> to be computed in one instruction. </p> 
+        <p> A two-operand architecture will allow </p> 
+        <pre>A := A + B
+</pre> 
+        <p> to be computed in one instruction, so two instructions will need to be executed to simulate a single three-operand instruction </p> 
+        <pre>A := B
+A := A + C
+</pre> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Endianness </h3> 
+       <div class="section-body"> 
+        <p> An architecture may use &quot;big&quot; or &quot;little&quot; endianness, or both, or be configurable to use either. Little endian processors order bytes in memory with the least significant byte of a multi-byte value in the lowest-numbered memory location. Big endian architectures instead order them with the most significant byte at the lowest-numbered address. The x86 and the ARM architectures as well as several 8-bit architectures are little endian. Most RISC architectures (SPARC, Power, PowerPC, MIPS) were originally big endian, but many (including ARM) are now configurable. </p> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Architectures </h2> 
+     <div class="section-body"> 
+      <p> The table below compares basic information about CPU architectures. </p> 
+      <table class="wikitable sortable" border="1"> 
+       <tbody>
+        <tr> 
+         <th> <p> Architecture </p> </th> 
+         <th> <p> Bits </p> </th> 
+         <th> <p> Version </p> </th> 
+         <th> <p> Introduced </p> </th> 
+         <th> <p> Max # <a href="Operand">Operands</a> </p> </th> 
+         <th> <p> Type </p> </th> 
+         <th> <p> Design </p> </th> 
+         <th> <p> <a href="Processor register">Registers</a> </p> </th> 
+         <th> <p> Instruction encoding </p> </th> 
+         <th> <p> <a href="Branch (computer science)">Branch</a> Evaluation </p> </th> 
+         <th> <p> <a href="Endianness">Endianness</a> </p> </th> 
+         <th> <p> Extensions </p> </th> 
+         <th> <p> Open </p> </th> 
+         <th> <p> Royalty-free </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DEC Alpha">Alpha</a> </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> </td> 
+         <td> <p> 1992 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> <a href="Reduced instruction set computer">RISC</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> Fixed </p> </td> 
+         <td> <p> Condition register </p> </td> 
+         <td> <p> Bi </p> </td> 
+         <td> <p> <span class="unknown-node">{{H:title|...}}</span>, <span class="unknown-node">{{H:title|...}}</span>, <span class="unknown-node">{{H:title|...}}</span>, <span class="unknown-node">{{H:title|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM architecture">ARM</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> ARMv7 and earlier </p> </td> 
+         <td> <p> 1983 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> Fixed <small>(32-bit)</small>, Thumb: Fixed <small>(16-bit)</small>, Thumb-2: Variable <small>(16 and 32-bit)</small> </p> </td> 
+         <td> <p> Condition code </p> </td> 
+         <td> <p> Bi </p> </td> 
+         <td> <p> NEON, <a href="Jazelle">Jazelle</a>, <span class="unknown-node">{{H:title|...}}</span>, <a href="ARM architecture#Security Extensions (TrustZone)">TrustZone</a>, <span class="unknown-node">{{Abbr|...}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM_architecture#ARMv8_and_64-bit">ARM</a> </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> <p> ARMv8<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2011<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 31 </p> </td> 
+         <td> <p> Fixed <small>(32-bit)</small>, Thumb: Fixed <small>(16-bit)</small>, Thumb-2: Variable <small>(16 and 32-bit)</small>, A64 </p> </td> 
+         <td> <p> Condition code </p> </td> 
+         <td> <p> Bi </p> </td> 
+         <td> <p> NEON, <a href="Jazelle">Jazelle</a>, <span class="unknown-node">{{H:title|...}}</span>, <a href="ARM architecture#Security Extensions (TrustZone)">TrustZone</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AVR32">AVR32</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> Rev 2 </p> </td> 
+         <td> <p> 2006 </p> </td> 
+         <td> <p> 2-3 </p> </td> 
+         <td> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 15 </p> </td> 
+         <td> <p> Variable<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> Big </p> </td> 
+         <td> <p> <a href="Java Virtual Machine">Java Virtual Machine</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Blackfin">Blackfin</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> </td> 
+         <td> <p> 2000 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> RISC<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Little<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DLX">DLX</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> </td> 
+         <td> <p> 1990 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> Fixed <small>(32-bit)</small> </p> </td> 
+         <td> </td> 
+         <td> <p> Big </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="eSi-RISC">eSi-RISC</a> </p> </td> 
+         <td> <p> 16/32 </p> </td> 
+         <td> </td> 
+         <td> <p> 2009 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 8-72 </p> </td> 
+         <td> <p> Variable<small>(16 or 32-bit)</small> </p> </td> 
+         <td> <p> Compare and branch and condition register </p> </td> 
+         <td> <p> Bi </p> </td> 
+         <td> <p> User-defined instructions </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Itanium">Itanium</a> (IA-64) </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> </td> 
+         <td> <p> 2001 </p> </td> 
+         <td> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> <a href="Explicitly parallel instruction computing">EPIC</a> </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> </td> 
+         <td> <p> Condition register </p> </td> 
+         <td> <p> Bi (selectable) </p> </td> 
+         <td> <p> Intel Virtualization Technology </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="M32R">M32R</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> </td> 
+         <td> <p> 1997 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> Fixed <small>(16- or 32-bit)</small> </p> </td> 
+         <td> </td> 
+         <td> <p> Bi </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Motorola 68000">MC68K</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> </td> 
+         <td> <p> 1979 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> Register-Memory </p> </td> 
+         <td> <p> <a href="Complex instruction set computer">CISC</a> </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> Variable </p> </td> 
+         <td> <p> Condition register </p> </td> 
+         <td> <p> Big </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="LatticeMico32">Mico32</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> </td> 
+         <td> <p> 2006 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 32<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Fixed <small>(32-bit)</small> </p> </td> 
+         <td> <p> Compare and branch </p> </td> 
+         <td> <p> Big </p> </td> 
+         <td> <p> User-defined instructions </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MIPS architecture">MIPS</a> </p> </td> 
+         <td> <p> 64 <small>(32?64)</small> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> 1981 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> Fixed <small>(32-bit)<small> </small></small> </p> </td> 
+         <td> <p> Condition register </p> </td> 
+         <td> <p> Bi </p> </td> 
+         <td> <p> <a href="MDMX">MDMX</a>, <a href="MIPS-3D">MIPS-3D</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="MMIX">MMIX</a> </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> </td> 
+         <td> <p> 1999 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 256 </p> </td> 
+         <td> <p> Fixed <small>(32-bit)</small> </p> </td> 
+         <td> </td> 
+         <td> <p> Big </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PA-RISC">PA-RISC</a> (HP/PA) </p> </td> 
+         <td> <p> 64 <small>(32?64)</small> </p> </td> 
+         <td> <p> 2.0 </p> </td> 
+         <td> <p> 1986 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> Fixed </p> </td> 
+         <td> <p> Compare and branch </p> </td> 
+         <td> <p> Big </p> </td> 
+         <td> <p> <a href="Multimedia Acceleration eXtensions">Multimedia Acceleration eXtensions</a> (MAX), MAX-2 </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC">PowerPC</a> </p> </td> 
+         <td> <p> 32/64 <small>(32?64)</small> </p> </td> 
+         <td> <p> 2.06<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 1991 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> Fixed, Variable </p> </td> 
+         <td> <p> Condition code </p> </td> 
+         <td> <p> Big/Bi </p> </td> 
+         <td> <p> <a href="AltiVec">AltiVec</a>, APU, <a href="AltiVec#VSX">VSX</a>, <a href="Cell (microprocessor)">Cell</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="S+core">S+core</a> </p> </td> 
+         <td> <p> 16/32 </p> </td> 
+         <td> </td> 
+         <td> <p> 2005 </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Little </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Series 32000">Series 32000</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> </td> 
+         <td> <p> 1982 </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> Memory-Memory </p> </td> 
+         <td> <p> CISC </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> Variable Huffman coded, up to 23 bytes long </p> </td> 
+         <td> <p> Condition Code </p> </td> 
+         <td> <p> Little </p> </td> 
+         <td> <p> BitBlt instructions </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SPARC">SPARC</a> </p> </td> 
+         <td> <p> 64 <small>(32?64)</small> </p> </td> 
+         <td> <p> V9 </p> </td> 
+         <td> <p> 1985 </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Register-Register </p> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 31 (of at least 55) </p> </td> 
+         <td> <p> Fixed </p> </td> 
+         <td> <p> Condition code </p> </td> 
+         <td> <p> Big ? Bi </p> </td> 
+         <td> <p> <a href="Visual Instruction Set">VIS</a> 1.0, 2.0, 3.0 </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span><span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SuperH">SuperH</a> (SH) </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> </td> 
+         <td> <p> 1990s </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> Register-Register/ Register-Memory </p> </td> 
+         <td> <p> RISC </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> Fixed </p> </td> 
+         <td> <p> Condition Code (Single Bit) </p> </td> 
+         <td> <p> Bi </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="System/360">System/360</a> / <a href="System/370">System/370</a> / <a href="z/Architecture">z/Architecture</a> </p> </td> 
+         <td> <p> 64 <small>(32?64)</small> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> 1964 </p> </td> 
+         <td> </td> 
+         <td> <p> Register-Memory/Memory-Memory </p> </td> 
+         <td> <p> CISC </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> Fixed </p> </td> 
+         <td> <p> Condition code </p> </td> 
+         <td> <p> Big </p> </td> 
+         <td> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="VAX">VAX</a> </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> </td> 
+         <td> <p> 1977 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> Memory-Memory </p> </td> 
+         <td> <p> CISC </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> Variable </p> </td> 
+         <td> <p> Compare and branch </p> </td> 
+         <td> <p> Little </p> </td> 
+         <td> <p> VAX Vector Architecture </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Unk}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="x86">x86</a> </p> </td> 
+         <td> <p> 32 <small>(16?32)</small> </p> </td> 
+         <td> </td> 
+         <td> <p> 1978 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> Register-Memory </p> </td> 
+         <td> <p> CISC </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> Variable </p> </td> 
+         <td> <p> Condition code </p> </td> 
+         <td> <p> Little </p> </td> 
+         <td> <p> <a href="MMX (instruction set)">MMX</a>, <a href="3DNow!">3DNow!</a>, <a href="Streaming SIMD Extensions">SSE</a>, <a href="Physical Address Extension">PAE</a>, </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="x86-64">x86-64</a> </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> </td> 
+         <td> <p> 2003 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> Register-Memory </p> </td> 
+         <td> <p> CISC </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> Variable </p> </td> 
+         <td> <p> Condition code </p> </td> 
+         <td> <p> Little </p> </td> 
+         <td> <p> <a href="MMX (instruction set)">MMX</a>, <a href="3DNow!">3DNow!</a>, <a href="Physical Address Extension">PAE</a>, <a href="Advanced Vector Extensions">AVX</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{No}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th> <p> Architecture </p> </th> 
+         <th> <p> Bits </p> </th> 
+         <th> <p> Version </p> </th> 
+         <th> <p> Introduced </p> </th> 
+         <th> <p> Max # <a href="Operand">Operands</a> </p> </th> 
+         <th> <p> Type </p> </th> 
+         <th> <p> Design </p> </th> 
+         <th> <p> <a href="Processor register">Registers</a> </p> </th> 
+         <th> <p> Instruction encoding </p> </th> 
+         <th> <p> <a href="Branch (computer science)">Branch</a> Evaluation </p> </th> 
+         <th> <p> <a href="Endianness">Endianness</a> </p> </th> 
+         <th> <p> Extensions </p> </th> 
+         <th> <p> Open </p> </th> 
+         <th> <p> Royalty-free </p> </th> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Microarchitectures </h2> 
+     <div class="section-body"> 
+      <p> The following table compares specific <a href="microarchitecture">microarchitectures</a>. </p> 
+      <table class="wikitable"> 
+       <tbody>
+        <tr> 
+         <th> <p> Microarchitecture </p> </th> 
+         <th> <p> Pipeline stages </p> </th> 
+         <th> <p> Misc </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AMD K5">AMD K5</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Out-of-order execution, register renaming, speculative execution </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AMD K6">AMD K6</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar, branch prediction </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AMD K6-III">AMD K6-III</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Branch prediction, speculative execution, out-of-order execution<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Athlon">AMD K7</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Out-of-order execution, branch prediction, Harvard architecture </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AMD K8">AMD K8</a> </p> </td> 
+         <td> </td> 
+         <td> <p> 64-bit, integrated memory controller, 16 byte instruction prefetching </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AMD K10">AMD K10</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar, out-of-order execution, 32-way set associative L3 victim cache, 32-byte instruction prefetching </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM7">ARM7TDMI(-S)</a> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM7">ARM7EJ-S</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> ARM810 </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM9">ARM9TDMI</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> ARM1020E </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="XScale">XScale PXA210/PXA250</a> </p> </td> 
+         <td> <p> 7 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM11">ARM1136J(F)-S</a> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM11">ARM1156T2(F)-S</a> </p> </td> 
+         <td> <p> 9 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM Cortex-A5">ARM Cortex-A5</a> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> Single issue, in-order </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM Cortex-A7 MPCore">ARM Cortex-A7 MPCore</a> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> Partial dual-issue, in-order </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM Cortex-A8">ARM Cortex-A8</a> </p> </td> 
+         <td> <p> 13 </p> </td> 
+         <td> <p> Dual-issue </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM Cortex-A9 MPCore">ARM Cortex-A9 MPCore</a> </p> </td> 
+         <td> <p> 8-11 </p> </td> 
+         <td> <p> Out-of-order, speculative issue, superscalar </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ARM Cortex-A15 MPCore">ARM Cortex-A15 MPCore</a> </p> </td> 
+         <td> <p> 15 </p> </td> 
+         <td> <p> Multicore (up to 16), out-of-order, speculative issue, 3-way superscalar </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> ARM Cortex-A53 </p> </td> 
+         <td> </td> 
+         <td> <p> Partial dual-issue, in-order </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> ARM Cortex-A57 </p> </td> 
+         <td> </td> 
+         <td> <p> Deeply out-of-order, wide multi-issue, 3-way superscalar </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AVR32#AP7 Core">AVR32 AP7</a> </p> </td> 
+         <td> <p> 7 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="AVR32#UC3 Core">AVR32 UC3</a> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> <p> Harvard architecture </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Bobcat (processor)">Bobcat</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Out-of-order execution </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Bulldozer (processor)">Bulldozer</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Shared L3 cache, multithreading, multicore, integrated memory controller </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Transmeta Crusoe">Crusoe</a> </p> </td> 
+         <td> </td> 
+         <td> <p> In-order execution, 128-bit VLIW, integrated memory controller </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Efficeon">Efficeon</a> </p> </td> 
+         <td> </td> 
+         <td> <p> In-order execution, 256-bit VLIW, fully integrated memory controller </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Cyrix Cx5x86">Cyrix Cx5x86</a> </p> </td> 
+         <td> <p> 6<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Branch prediction </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Cyrix 6x86">Cyrix 6x86</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar, superpipelined, register renaming, speculative execution, out-of-order execution </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="DLX">DLX</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="eSi-RISC">eSi-3200</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> In-order, speculative issue </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="eSi-RISC">eSi-3250</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> In-order, speculative issue </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Alpha 21064">EV4 (Alpha 21064)</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Alpha 21364">EV7 (Alpha 21364)</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar design with out-of-order execution, branch prediction, 4-way SMT, integrated memory controller </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Alpha 21464">EV8 (Alpha 21464)</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar design with <a href="out-of-order execution">out-of-order execution</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="P5 (microarchitecture)">P5</a> (Pentium) </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> Superscalar </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="P6 (microarchitecture)">P6</a> (<a href="Pentium Pro">Pentium Pro</a>) </p> </td> 
+         <td> <p> 14 </p> </td> 
+         <td> <p> Speculative execution, Register renaming, superscalar design with <a href="out-of-order execution">out-of-order execution</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> P6 (<a href="Pentium II">Pentium II</a>) </p> </td> 
+         <td> </td> 
+         <td> <p> Branch prediction </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> P6 (<a href="Pentium III">Pentium III</a>) </p> </td> 
+         <td> <p> 10 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Itanium">Itanium</a> </p> </td> 
+         <td> <p> 8<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> Speculative execution, branch prediction, register renaming, 30 execution units, multithreading </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="NetBurst (microarchitecture)">NetBurst</a> (<a href="Pentium 4#Willamette">Willamette</a>) </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> Simultaneous multithreading </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> NetBurst (<a href="Pentium 4#Northwood">Northwood</a>) </p> </td> 
+         <td> <p> 20 </p> </td> 
+         <td> <p> Simultaneous multithreading </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> NetBurst (<a href="Pentium 4#Prescott">Prescott</a>) </p> </td> 
+         <td> <p> 31 </p> </td> 
+         <td> <p> Simultaneous multithreading </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> NetBurst (<a href="Pentium 4#Cedar Mill">Cedar Mill</a>) </p> </td> 
+         <td> <p> 31 </p> </td> 
+         <td> <p> Simultaneous multithreading </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Core (microarchitecture)">Core</a> </p> </td> 
+         <td> <p> 14 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Intel Atom">Intel Atom</a> </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> Simultaneous multithreading, in-order. No instruction reordering, speculative execution, or register renaming. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Nehalem (microarchitecture)">Nehalem</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Simultaneous multithreading, integrated memory controller, L1/L2/L3 cache </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Sandy Bridge (microarchitecture)">Sandy Bridge</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Simultaneous multithreading, multicore, integrated memory controller, L1/L2/L3 cache. 2 threads per core. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Haswell (microarchitecture)">Haswell</a> </p> </td> 
+         <td> <p> 14 </p> </td> 
+         <td> <p> Multicore </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="LatticeMico32">LatticeMico32</a> </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> Harvard architecture </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="POWER1">POWER1</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar, out-of-order execution </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="POWER3">POWER3</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar, out-of-order execution </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="POWER4">POWER4</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar, speculative execution, out-of-order execution </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="POWER5">POWER5</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Simultaneous multithreading, out-of-order execution, integrated memory controller </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="POWER6">POWER6</a> </p> </td> 
+         <td> </td> 
+         <td> <p> 2-way simultaneous multithreading, in-order execution </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="POWER7">POWER7</a> </p> </td> 
+         <td> </td> 
+         <td> <p> 4 SMT threads per core, 12 execution units per core </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC 400#PowerPC 401">PowerPC 401</a> </p> </td> 
+         <td> <p> 3 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC 400#PowerPC 405">PowerPC 405</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC 400#PowerPC 440">PowerPC 440</a> </p> </td> 
+         <td> <p> 7 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC 400#PowerPC 470">PowerPC 470</a> </p> </td> 
+         <td> <p> 9 </p> </td> 
+         <td> <p> SMP </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC A2">PowerPC A2</a> </p> </td> 
+         <td> <p> 15 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC e300">PowerPC e300</a> </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> Superscalar, Branch prediction </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC e500">PowerPC e500</a> </p> </td> 
+         <td> <p> Dual 7 stage </p> </td> 
+         <td> <p> Multicore </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC e600">PowerPC e600</a> </p> </td> 
+         <td> <p> 3-issue 7 stage </p> </td> 
+         <td> <p> Superscalar out-of-order execution, branch prediction </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC e5500">PowerPC e5500</a> </p> </td> 
+         <td> <p> 4-issue 7 stage </p> </td> 
+         <td> <p> Out-of-order, multicore </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC e6500">PowerPC e6500</a> </p> </td> 
+         <td> </td> 
+         <td> <p> multicore </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC 600#PowerPC 603">PowerPC 603</a> </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> 5 execution units, branch prediction. No SMP. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC 600#PowerPC 603q">PowerPC 603q</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> In-order </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC 600#PowerPC 604">PowerPC 604</a> </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> Superscalar, out-of-order execution, 6 execution units. SMP support. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PowerPC 600#PowerPC 620">PowerPC 620</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> Out-of-order execution- SMP support. </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="PWRficient">PWRficient</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar, out-of-order execution, 6 execution units </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="R4000">R4000</a> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> Scalar </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="StrongARM#SA-110">StrongARM SA-110</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> Scalar, in-order </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SuperH#SH-2">SuperH SH2</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SuperH#SH-2A">SuperH SH2A</a> </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> Superscalar, Harvard architecture </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SPARC">SPARC</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="HyperSPARC">HyperSPARC</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SuperSPARC">SuperSPARC</a> </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar, in-order </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> SPARC64 VI/VII/VII+ </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar, out-of-order<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="UltraSPARC">UltraSPARC</a> </p> </td> 
+         <td> <p> 9 </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="UltraSPARC T1">UltraSPARC T1</a> </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> Open source, multithreading, multi-core, 4 threads per core, integrated memory controller </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="UltraSPARC T2">UltraSPARC T2</a> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> Open source, multithreading, multi-core, 8 threads per core </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SPARC T3">SPARC T3</a> </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> Multithreading, multi-core, 8 threads per core, SMP </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SPARC T4">SPARC T4</a> </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> Multithreading, multi-core, 8 threads per core, SMP, out-of-order </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="VIA C7">VIA C7</a> </p> </td> 
+         <td> </td> 
+         <td> <p> In-order execution </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="VIA Nano">VIA Nano</a> (Isaiah) </p> </td> 
+         <td> </td> 
+         <td> <p> Superscalar out-of-order execution, branch prediction, 7 execution units </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="WinChip">WinChip</a> </p> </td> 
+         <td> <p> 4 </p> </td> 
+         <td> <p> In-order execution </p> </td> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Portal|...}}</span> </p> 
+      <ul> 
+       <li> <a href="Central processing unit">Central processing unit</a> (CPU)</li> 
+       <li> <a href="CPU design">CPU design</a></li> 
+       <li> <a href="Instruction set">Instruction set</a></li> 
+       <li> <a href="List of instruction sets">List of instruction sets</a></li> 
+       <li> <a href="Microprocessor">Microprocessor</a></li> 
+       <li> <a href="Benchmark (computing)">Benchmark (computing)</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{CPU technologies}}</span> </p> 
+      <p> <a href="Category:Instruction set architectures">Category:Instruction set architectures</a> <a href="Category:Computer architecture">Category:Computer architecture</a> <a href="Category:Computing comparisons">Category:Computing comparisons</a> </p> 
+      <p> <span class="unknown-node">{{compu-hardware-stub}}</span> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

@@ -1,0 +1,297 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of different machine translation approaches</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of different machine translation approaches</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{multiple issues|...}}</span> </p> 
+    <div class="section"> 
+     <h2> Rule-based and corpus-based machine translation </h2> 
+     <div class="section-body"> 
+      <p> Rule-based machine translation (RBMT) is generated on the basis of morphological, syntactic, and semantic analysis of both the source and the target languages. Corpus-based machine translation (CBMT) is generated on the analysis of bilingual text corpora. The former belongs to the domain of rationalism and the latter empiricism . Given large-scale and fine-grained linguistic rules, RBMT systems are capable of producing translations with reasonable quality, but constructing the system is very time-consuming and labor-intensive because such linguistic resources need to be hand-crafted, frequently referred to as knowledge acquisition problem. Moreover, it is of great difficulty to correct the input or add new rules to the system to generate a translation. By contrast, however, adding more examples to a CBMT system can improve the system since it is based on the data, though the accumulation and management of the huge bilingual data corpus can also be costly. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Direct, transfer and interlingual machine translation </h2> 
+     <div class="section-body"> 
+      <p> The direct, transfer-based and interlingual methods of machine translation all belong to RBMT but differ in the depth of analysis of the source language and the extent to which they attempt to reach a language-independent representation of meaning or intent between the source and target languages . Their dissimilarities can be obviously observed through the Vauquois Triangle which illustrates these levels of analysis. Starting with the shallowest level at the bottom, direct transfer is made at the word level. Depending on finding direct correspondences between source language and target language lexical units, DMT is a word-by-word translation approach with some simple grammatical adjustments. A DMT system is designed for a specific source and target language pair and the translation unit of which is usually a word. </p> 
+      <p> And then translation occurs on representations of the source sentence structure and meaning respectively through syntactic and semantic transfer approaches. A TBMT system involves three stages. The first stage makes analysis of the source text and converts it into abstract representations; the second stage converts those into equivalent target language-oriented representations; and the third generates the final target text. The representation is specific for each language pair. The transfer strategy can be viewed as ?a practical compromise between the efficient use of resources of interlingua systems, and the ease of implementation of direct systems? . </p> 
+      <p> Finally, at the interlingual level, the notion of transfer is replaced by the interlingua. The IMT operates over two phrases: analyzing the SL text into an abstract universal language-independent representation of meaning, i.e. the interlingua, which is the phrase of analysis; generating this meaning using the lexical units and the syntactic constructions of the TL, which is the phrase of synthesis. Theoretically, the higher the triangle, the less cost the analysis and synthesis. For example, to translate one SL to N TLs, (1+N) steps are needed using an interlingua compared to N steps of transfer. But to translate all the languages, only 2N steps are needed by the IMS approach compared to N&sup2; by the TBMT approach, which is a significant reduction. Though no transfer component has to be created for each language pair by adopting the approach of IMT, the definition of an interlingua is of great difficulty and even maybe impossible for a wider domain. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Statistical and example-based machine translation </h2> 
+     <div class="section-body"> 
+      <p> Statistical machine translation (SMT) is generated on the basis of statistical models whose parameters are derived from the analysis of bilingual text corpora. The initial model of SMT, based on Bayes Theorem, proposed by Brown et al. takes the view that every sentence in one language is a possible translation of any sentence in the other and the most appropriate is the translation that is assigned the highest probability by the system. Example-based machine translation (EBMT) is characterized by its use of bilingual corpus with parallel texts as its main knowledge, in which translation by analogy is the main idea. There are four tasks in EBMT: example acquisition, example base and management, example application and synthesis. </p> 
+      <p> Both belonging to CBMT, sometimes referred to as data-driven MT, EBMT and SMT have something in common which distinguish them from RBMT. First, they both use a bitext as the fundamental data source. Second, they are both empirical with the principle of machine learning instead of rational with the principle of linguists writing rules. Third, they both can be improved by getting more data. Fourth, new language pairs can be developed just by finding suitable parallel corpus data, if possible. Apart from these similarities, there are also some dissimilarities. SMT essentially uses statistical data such as parameters and probabilities derived from the bitext, in which preprocessing the data is essential and even if the input is in the training data, the same translation is not guaranteed to occur. By contrast, EBMT uses the bitext as its primary data source, in which preprocessing the data is optional and if the input is in the example set, the same translation is to occur. </p> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Machine translation">Machine translation</a></li> 
+       <li> <a href="Rule-based machine translation">Rule-based machine translation</a></li> 
+       <li> <a href="Transfer-based machine translation">Transfer-based machine translation</a></li> 
+       <li> <a href="Interlingual machine translation">Interlingual machine translation</a></li> 
+       <li> <a href="Statistical machine translation">Statistical machine translation</a></li> 
+       <li> <a href="Example-based machine translation">Example-based machine translation</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{refbegin}}</span> </p> 
+      <ul> 
+       <li> Nano Gough and Andy Way. 2004. Example-Based Controlled Translation. In Proceedings of the Ninth EAMT Workshop, Valletta, Malta, pp.&nbsp;73?81.</li> 
+       <li> <span class="unknown-node">{{cite journal|...}}</span></li> 
+       <li> <span class="unknown-node">{{cite journal|...}}</span></li> 
+       <li> <span class="unknown-node">{{cite journal|...}}</span></li> 
+       <li> <span class="unknown-node">{{cite journal|...}}</span></li> 
+       <li> <span class="unknown-node">{{cite book|...}}</span></li> 
+       <li> <span class="unknown-node">{{cite journal|...}}</span></li> 
+      </ul> 
+      <p> <span class="unknown-node">{{refend}}</span> </p> 
+      <p> <a href="Category:Machine translation">Category:Machine translation</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

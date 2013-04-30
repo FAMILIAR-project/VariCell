@@ -1,0 +1,684 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of application servers</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of application servers</h1> 
+   <div class="article-content"> 
+    <p> <span class="unknown-node">{{Multiple issues|...}}</span> Application servers are system software upon which <a href="web application">web applications</a> run. Application Servers consist of web server connectors, computer <a href="programming language">programming languages</a>, <a href="runtime library">runtime libraries</a>, database connectors, and the administration code needed to deploy, configure, manage, and connect these components on a web host. An application server runs behind a <a href="web Server">web Server</a> (e.g. <a href="Apache HTTP Server">Apache</a> or <a href="Internet Information Services">Microsoft IIS</a>) and (almost always) in front of an <a href="SQL">SQL database</a> (e.g. <a href="PostgreSQL">PostgreSQL</a>, <a href="MySQL">MySQL</a> or <a href="Oracle Database">Oracle</a>). Web applications are computer code which run on top of application servers and are written in the language(s) the application server supports and call the runtime libraries and components the application server offers. </p> 
+    <p> There are many application servers and the choice impacts the cost, performance, reliability, scalability, and maintainability of a web application. </p> 
+    <p> Proprietary application servers provide system services in a well-defined but proprietary manner. The application developers develop programs according to the specification of the application server. Dependence on a particular vendor is the drawback of this approach. </p> 
+    <p> An opposite but analogous case is the <a href="Java EE">Java EE</a> platform discussed below. </p> 
+    <p> Java EE application servers provide system services in a well-defined, open, industry standard. The application developers develop programs according to the Java EE specification and not according to the application server. </p> 
+    <p> A Java EE application developed according to Java EE standard can be deployed in any Java EE application server making it vendor independent. </p> 
+    <p> This article compares the features and functionality of <a href="application server">application servers</a>, grouped by the hosting environment that is offered by that particular application server. </p> 
+    <div class="section"> 
+     <h2> BASIC </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Run BASIC">Run BASIC</a> - An all-in-one BASIC scriptable application server, can automatically manage session and state</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> C++ </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Tuxedo (software)">Tuxedo</a> - Based on the ATMI standard, is one of the original application servers.</li> 
+       <li> <a href="Tntnet">Tntnet</a> - Includes a template engine which allows embedding C++ code in HTML pages. Templates are compiled before run-time, and thus very fast. Multi-threaded, supports object lifetime via scoped variables.</li> 
+       <li> <a href="CPPSERV">CPPSERV</a> - C++ servlet container.</li> 
+       <li> <a href="Wt (web toolkit)">Wt</a> - A web toolkit similar to <a href="Qt (framework)">Qt</a> permitting GUI-application-like web development with built-in <a href="Ajax (programming)">Ajax</a> abilities.</li> 
+       <li> [[POCO_C%2B%2B_Libraries|POCO C++ Libraries]] - A collection of open source class libraries including Poco.Net.HTTPServer.html</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Haskell </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Happstack">Happstack</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Java </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="font-size: 85%; text-align: center; width: auto;"> 
+       <tbody>
+        <tr> 
+         <th> <p> Product </p> </th> 
+         <th> <p> Vendor </p> </th> 
+         <th> <p> Edition </p> </th> 
+         <th> <p> Release date </p> </th> 
+         <th> <p> <a href="Java EE">Java EE</a><br />compatibility <span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </th> 
+         <th> <p> <a href="Servlet">Servlet</a><br />spec </p> </th> 
+         <th> <p> <a href="JavaServer Pages">JSP</a><br />spec </p> </th> 
+         <th> <p> License </p> </th> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="ColdFusion">ColdFusion</a> </p> </td> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> <p> 9.0.1 </p> </td> 
+         <td> <p> 2010-07-13 </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> 2.5 </p> </td> 
+         <td> <p> 2.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Dynamo Application Server">Dynamo AS</a> </p> </td> 
+         <td> <p> <a href="Art Technology Group">ATG</a> </p> </td> 
+         <td> <p> 6.3 </p> </td> 
+         <td> <p> 2005-03 </p> </td> 
+         <td> <p> 1.3 </p> </td> 
+         <td> <p> 2.3 </p> </td> 
+         <td> <p> 1.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Enhydra_Server "> Enhydra</a> </p> </td> 
+         <td> <p> <a href="Lutris">Lutris</a> </p> </td> 
+         <td> <p> 5.1.9 </p> </td> 
+         <td> <p> March 23, 2005 </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Borland Enterprise Server">Enterprise Server</a> </p> </td> 
+         <td> <p> <a href="Borland">Borland</a> </p> </td> 
+         <td> <p> 6.7 </p> </td> 
+         <td> <p> 2007-01 </p> </td> 
+         <td> <p> 1.4 </p> </td> 
+         <td> <p> 2.4 </p> </td> 
+         <td> <p> 2.0 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apache Geronimo">Geronimo</a> </p> </td> 
+         <td> <p> <a href="Apache Software Foundation">ASF</a> </p> </td> 
+         <td> <p> 3.0.0 </p> </td> 
+         <td> <p> 2012-07-13 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> <a href="Apache License">Apache License</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apache Geronimo">Geronimo</a> </p> </td> 
+         <td> <p> <a href="Apache Software Foundation">ASF</a> </p> </td> 
+         <td> <p> 2.2.1 </p> </td> 
+         <td> <p> 2010-12-11 </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> 2.5 </p> </td> 
+         <td> <p> 2.1 </p> </td> 
+         <td> <p> Apache License </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="GlassFish">GlassFish</a> </p> </td> 
+         <td> <p> <a href="GlassFish Community">GlassFish Community</a> </p> </td> 
+         <td> <p> 3.1.2.2 </p> </td> 
+         <td> <p> 2012-07-17 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> <a href="Common Development and Distribution License">CDDL</a>, <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Oracle GlassFish Server">GlassFish Server</a> </p> </td> 
+         <td> <p> <a href="Oracle Corporation">Oracle Corporation</a> </p> </td> 
+         <td> <p> 9.1 </p> </td> 
+         <td> <p> 2007-09-17 </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> 2.5 </p> </td> 
+         <td> <p> 2.1 </p> </td> 
+         <td> <p> Free of charge,<br />no changes allowed </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.fujitsu.com/global/services/software/windows-azure">Interstage AS / Windows Azure</a> </p> </td> 
+         <td> <p> <a href="Fujitsu">Fujitsu</a> </p> </td> 
+         <td> <p> 1 </p> </td> 
+         <td> <p> 2011-07-29 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="http://www.fujitsu.com/global/news/pr/archives/month/2011/20111220-02.html">Interstage Application Server</a> </p> </td> 
+         <td> <p> <a href="Fujitsu">Fujitsu</a> </p> </td> 
+         <td> <p> 10.1 </p> </td> 
+         <td> <p> 2011-12-27 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Oracle iPlanet Web Server">iPlanet Web Server</a> </p> </td> 
+         <td> <p> <a href="Oracle Corporation">Oracle Corporation</a> </p> </td> 
+         <td> <p> 7.0u5 </p> </td> 
+         <td> <p> December 21, 2007 </p> </td> 
+         <td> <p> Yes<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 2.5 </p> </td> 
+         <td> <p> 2.1 </p> </td> 
+         <td> <p> Free of charge,<br />no changes allowed </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JBoss AS">JBoss AS</a> </p> </td> 
+         <td> <p> <a href="Red Hat">Red Hat</a> </p> </td> 
+         <td> <p> 7.1.1.Final </p> </td> 
+         <td> <p> 2012-03-09 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Jetty (web server)">Jetty</a> </p> </td> 
+         <td> <p> <a href="Eclipse Foundation">Eclipse Foundation</a> </p> </td> 
+         <td> <p> 9.0.2 </p> </td> 
+         <td> <p> April 4, 2013 </p> </td> 
+         <td> <p> partial<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.1 </p> </td> 
+         <td> <p> <a href="Apache License">Apache 2.0</a>, <a href="Eclipse Public License">EPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> JEUS </p> </td> 
+         <td> <p> <a href="TmaxSoft">TmaxSoft</a> </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 2007-06-07 </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> 2.5 </p> </td> 
+         <td> <p> 2.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JOnAS">JOnAS</a> </p> </td> 
+         <td> <p> <a href="OW2 Consortium">OW2 Consortium</a> (formerly <a href="ObjectWeb">ObjectWeb</a>) </p> </td> 
+         <td> <p> 5.2.4 </p> </td> 
+         <td> <p> 2013-01-22 </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> 2.5 </p> </td> 
+         <td> <p> 2.1 </p> </td> 
+         <td> <p> <a href="GNU Lesser General Public License">LGPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="JRun">JRun</a> </p> </td> 
+         <td> <p> Adobe Systems </p> </td> 
+         <td> <p> 4 updater 7 </p> </td> 
+         <td> <p> 2007-11-06 </p> </td> 
+         <td> <p> 1.3 </p> </td> 
+         <td> <p> 2.3 </p> </td> 
+         <td> <p> 1.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="SAP NetWeaver Application Server">NetWeaver Application Server</a> </p> </td> 
+         <td> <p> <a href="SAP AG">SAP AG</a> </p> </td> 
+         <td> <p> 7.3 </p> </td> 
+         <td> <p> 2011-05-31 </p> </td> 
+         <td> <p> 5 </p> </td> 
+         <td> <p> 2.5 </p> </td> 
+         <td> <p> 2.1 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Oracle Application Server#OC4J">Oracle Containers for J2EE|OC4J</a> </p> </td> 
+         <td> <p> Oracle Corporation </p> </td> 
+         <td> <p> 10.1.3.5.0 </p> </td> 
+         <td> <p> 2009-08 </p> </td> 
+         <td> <p> 1.4 </p> </td> 
+         <td> <p> 2.4 </p> </td> 
+         <td> <p> 2.0 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Orion Application Server">Orion Application Server</a> </p> </td> 
+         <td> <p> <a href="IronFlare">IronFlare</a> </p> </td> 
+         <td> <p> 2.0.7 </p> </td> 
+         <td> <p> 2006-03-09 </p> </td> 
+         <td> <p> 1.3 </p> </td> 
+         <td> <p> 2.3 </p> </td> 
+         <td> <p> 1.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Resin Server">Resin Open Source</a> </p> </td> 
+         <td> <p> <a href="Caucho Technology">Caucho Technology</a> </p> </td> 
+         <td> <p> 4.0.24 </p> </td> 
+         <td> <p> 2011-11 </p> </td> 
+         <td> <p> 6<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Resin Server">Resin Professional</a> </p> </td> 
+         <td> <p> <a href="Caucho Technology">Caucho Technology</a> </p> </td> 
+         <td> <p> 4.0.24 </p> </td> 
+         <td> <p> 2011-11 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Siwpas">Siwpas</a> </p> </td> 
+         <td> <p> <a href="MechSoft">MechSoft</a> </p> </td> 
+         <td> <p> 2.0.0 </p> </td> 
+         <td> <p> 2011-07-29 </p> </td> 
+         <td> <p> yes<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Apache TomEE">TomEE</a> </p> </td> 
+         <td> <p> <a href="Apache Software Foundation">ASF</a> </p> </td> 
+         <td> <p> 1.0.0 </p> </td> 
+         <td> <p> 2012-04-30 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> <a href="Apache License">Apache License</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="Oracle WebLogic Server">WebLogic Server</a> </p> </td> 
+         <td> <p> <a href="Oracle Corporation">Oracle Corporation</a> <a href="BEA Systems">BEA Systems</a> </p> </td> 
+         <td> <p> 12c (12.1.1) </p> </td> 
+         <td> <p> 2011-12 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> Proprietary </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="WebObjects">WebObjects</a> </p> </td> 
+         <td> <p> <a href="Apple Inc.">Apple Inc.</a> </p> </td> 
+         <td> <p> 5.4.3 </p> </td> 
+         <td> <p> 2008-09-15 </p> </td> 
+         <td> <p> partial<span class="unknown-node">&lt;ref&gt;...&lt;/ref&gt;</span> </p> </td> 
+         <td> </td> 
+         <td> </td> 
+         <td> <p> Proprietary<br /> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="WebSphere Application Server">WebSphere Application Server</a> </p> </td> 
+         <td> <p> <a href="IBM">IBM</a> </p> </td> 
+         <td> <p> 8.5.0.0 </p> </td> 
+         <td> <p> 2012-06-15 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> <a href="proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <td> <p> <a href="IBM WebSphere Application Server Community Edition">WebSphere AS Community Edition</a> </p> </td> 
+         <td> <p> <a href="IBM">IBM</a> </p> </td> 
+         <td> <p> 3.0.0.3 </p> </td> 
+         <td> <p> 2012-11-30 </p> </td> 
+         <td> <p> 6 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+         <td> <p> 2.2 </p> </td> 
+         <td> <p> Free to use, embed and distribute<br /> <a href="http://www14.software.ibm.com/cgi-bin/weblap/lap.pl?la_formnum=&amp;li_formnum=L-TGEE-7F57GL&amp;title=WebSphere+Application+Server+Community+Edition+3.0.0.0&amp;l=en">IBM ILANWP</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> JavaScript </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Broadvision">Broadvision</a> - Server-side <a href="JavaScript">JavaScript</a> AS. One of the early entrants in the market during the <a href="eCommerce">eCommerce</a> <a href="dot-com bubble">dot-com bubble</a>, they have vertical solution packages catering to the eCommerce industry.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> .NET </h2> 
+     <div class="section-body"> 
+      <div class="section"> 
+       <h3> Microsoft </h3> 
+       <div class="section-body"> 
+        <p> Microsoft positions their middle-tier applications and services infrastructure in the <a href="Windows Server">Windows Server</a> operating system and the <a href=".NET Framework">.NET Framework</a> technologies in the role of an application server: </p> 
+        <ul> 
+         <li> <a href="Internet Information Services">Internet Information Services</a> web server</li> 
+         <li> <a href="AppFabric#Windows Server AppFabric">Windows Server AppFabric</a></li> 
+         <li> <a href=".NET Framework">.NET Framework</a> (<a href="Windows Communication Foundation">Windows Communication Foundation</a>, <a href="Web Services">Web Services</a>, <a href=".NET Remoting">.NET Remoting</a>, <a href="Microsoft Message Queuing">MSMQ</a>, <a href="ASP.NET">ASP.NET</a>, <a href="ADO.NET">ADO.NET</a>)</li> 
+         <li> <a href="Microsoft Transaction Server">Distributed Transactions</a>, <a href="COM+">COM+</a></li> 
+         <li> <a href="Active Directory#Lightweight Directory Service">Active Directory Lightweight Directory Service</a> (ADLDS), <a href="Active Directory Federation Services">Active Directory Federation Services</a> (ADFS), Authorization Manager</li> 
+        </ul> 
+       </div> 
+      </div> 
+      <div class="section"> 
+       <h3> Third-party </h3> 
+       <div class="section-body"> 
+        <ul> 
+         <li> <a href="Mono (software)">Mono</a> - Developed by <a href="Novell">Novell</a>, Inc., licensed under GPL.</li> 
+         <li> <a href="Base4">Base4</a> - An open source project.</li> 
+         <li> <a href="TNAPS Application Server">TNAPS Application Server</a> - A freeware application server, developed by TN, LLC.</li> 
+        </ul> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Objective-C </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="GNUstepWeb">GNUstepWeb</a> - WebObjects 4.5 compatible, released under the LGPL.</li> 
+       <li> SOPE inspired by WebObjects extended with Zope concepts, used as foundation for <a href="SOGo">SOGo</a>.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Python </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="django-cms">django-cms</a> - By Divio AG</li> 
+       <li> <a href="Gunicorn (HTTP server)">Gunicorn</a></li> 
+       <li> <a href="mod_python">mod_python</a></li> 
+       <li> <a href="mod_wsgi">mod_wsgi</a></li> 
+       <li> <a href="Python Paste">Paste</a></li> 
+       <li> <a href="Tornado (web server)">Tornado</a></li> 
+       <li> <a href="Zope">Zope</a> - By Zope, Inc.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Perl </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Catalyst (software)">Catalyst</a></li> 
+       <li> <a href="Dancer (software)">Dancer</a></li> 
+       <li> <a href="mod_perl">mod_perl</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> PHP </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Resin Server#Quercus">Quercus</a></li> 
+       <li> <a href="Zend Server">Zend Server</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Smalltalk </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Seaside (software)">Seaside</a> - A continuations based web application server based on Smalltalk</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Tcl </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="AOLserver">AOLserver</a> - Released as NaviServer before being bought by AOL in 1995, this was a pioneering web application server - for the first time integrating a multi-threaded HTTP server with built in scripting language and database pools with abstraction layer.</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Application server">Application server</a></li> 
+       <li> <a href="Content management system">Content management system</a></li> 
+       <li> <a href="Web application framework">Web application framework</a></li> 
+       <li> <a href="Comparison of web application frameworks">Comparison of web application frameworks</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <span class="unknown-node">{{Web interfaces}}</span> </p> 
+      <p> <span class="unknown-node">{{DEFAULTSORT:Comparison of application servers}}</span> <a href="Category:Java enterprise platform">Category:Java enterprise platform</a> <a href="Category:Software comparisons">Application servers</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>
