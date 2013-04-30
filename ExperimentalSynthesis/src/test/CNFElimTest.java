@@ -3,17 +3,22 @@ package test;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
+import dk.itu.fms.PIG;
 import dk.itu.fms.formula.Clause;
 import dk.itu.fms.formula.Formula;
 import dk.itu.fms.formula.cnf.CNF;
+import dk.itu.fms.formula.cnf.CNFClause;
 import dk.itu.fms.formula.cnf.VariableElimination;
 import fr.unice.polytech.modalis.familiar.experimental.FGroup;
 import fr.unice.polytech.modalis.familiar.experimental.OrGroup;
+import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDD;
 import fr.unice.polytech.modalis.familiar.operations.featureide.SATFMLFormula;
 import fr.unice.polytech.modalis.familiar.parser.FMBuilder;
 import fr.unice.polytech.modalis.familiar.test.FMLTest;
@@ -73,6 +78,65 @@ public class CNFElimTest extends FMLTest {
 				
 	}
 	
+	@Test
+	public void mergeOr() throws Exception {
+		FeatureModelVariable fm1 = FM ("fm1", "A : B [C] ; ");
+		FeatureModelVariable fm2 = FM ("fm2", "A : [B] C ; ");
+		Collection<FeatureModelVariable> fms = new ArrayList<FeatureModelVariable>() ;
+		fms.add(fm1);
+		fms.add(fm2);
+		FeatureModelVariable fm3 = new FMLMergerBDD(fms, _builder).union() ; 
+		
+		System.err.println("fm3=" + fm3);
+		
+		Set<OrGroup> pOrGroupsA1 = _getPotentialOrGroups("A", fm1); 
+		System.err.println("pOrgroupsA1=" + pOrGroupsA1);
+		
+		System.err.println("fm1 primes: " + _getPrimeImplicants (fm2));
+		
+		Set<OrGroup> pOrGroupsA2 = _getPotentialOrGroups("A", fm2) ; 
+		System.err.println("pOrgroupsA2=" + pOrGroupsA2);
+		
+		Set<OrGroup> pOrGroupsA3 = _getPotentialOrGroups("A", fm3) ; 
+		System.err.println("pOrgroupsA3=" + pOrGroupsA3);
+		
+		
+	}
+	
+	private Set<Set<String>> _getPrimeImplicants(FeatureModelVariable fm1) {
+		
+		String dimacs1 = new SATFMLFormula(fm1).toDIMACS() ;
+		FMLDimacsReaderCNF dimacsReader = new FMLDimacsReaderCNF() ; 
+		CNF cnf1 = dimacsReader.parse(dimacs1);
+		
+		Set<Set<String>> result = new HashSet<Set<String>>();
+		CNF clone = cnf1.clone();
+		for(Clause prime : new PIG(clone).getPositivePrimeImplicates()){
+				if(prime.size() > 1) {
+					result.add(_clauseToSetString(prime, dimacsReader));
+					
+				}
+		}
+		
+		
+		
+		return result;
+		
+		
+	}
+
+	private Set<String> _clauseToSetString(Clause prime, FMLDimacsReaderCNF dimacsReader) {
+		Set<String> result = new HashSet<String>();
+		Set<Integer> lts = prime.getPositiveLiterals() ;
+		for (Integer lt : lts) {
+			String source = dimacsReader.getVariable(lt) ;
+			result.add(source);
+			
+		}
+		return result ; 
+		
+	}
+
 	@Test
 	public void simpleOr3() throws Exception {
 		FeatureModelVariable fm1 = FM ("fm1", "A : (B|C|D)+ E ; E : (F|G) ; F : (H|I|J) ; "); // Xor-groups can form Or-groups here

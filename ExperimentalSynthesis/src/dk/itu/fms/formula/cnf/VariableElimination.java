@@ -48,8 +48,8 @@ public class VariableElimination {
 		return clone;
 	}
 	
-	/**
-	 * 
+	/** 
+	 * AM
 	 * @param formula
 	 * @param vars : the variables to eliminate.
 	 * @return an equisatisfiable formula which does not contain the variables given
