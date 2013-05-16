@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,12 +19,19 @@ import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.sweble.wikitext.engine.CompilerException;
 import org.sweble.wikitext.lazy.LinkTargetException;
+import org.xtext.example.mydsl.fML.FMFormat;
 
+import fr.unice.polytech.modalis.familiar.experimental.KSynthesisConfiguration;
+import fr.unice.polytech.modalis.familiar.operations.AggregatorFM;
 import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDDSPLOT;
 import fr.unice.polytech.modalis.familiar.operations.Mode;
 import fr.unice.polytech.modalis.familiar.test.FMLTest;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariableBDDFormula;
+import fr.unice.polytech.modalis.utils.FileSerializer;
+import gsd.graph.ImplicationGraph;
+import gsd.graph.SimpleEdge;
+import gsd.synthesis.Expression;
 
 
 public class ExtractorContentTest extends FMLTest {
@@ -179,7 +187,7 @@ public class ExtractorContentTest extends FMLTest {
 			Collection<CatalogStat> catalogStats = stat.getCatalogStats() ;
 			int i = 1 ;
 			for (CatalogStat catalogStat : catalogStats) {
-				System.err.println("table(" + i + ")");
+				System.err.println("table(" + i++ + ")");
 				System.err.println("#headers=" + catalogStat.getNumbersOfHeaders());
 				System.err.println("#products=" + catalogStat.getNumbersOfProduct());
 			}
@@ -250,22 +258,40 @@ public class ExtractorContentTest extends FMLTest {
 	}
 
 	@Test
-	public void test() throws FileNotFoundException, IOException, LinkTargetException, CompilerException {
+	public void test() throws Exception {
 		
-				     
-		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
+		
 		String wikiPageName = "Comparison_of_Java_virtual_machines"; 
-				// "Comparison_of_XML_editors" ;   
-				//"Comparison_of_free_web_hosting_services"; 
-				//"Comparison_of_free_and_open-source_software_licenses" ;  
-				//"Comparison_of_file_systems" ;
-				//"Comparison_of_Subversion_clients"; 
-				//"Comparison_of_SSH_clients" ; 
-				//"Comparison_of_Prolog_implementations" ;    
-				//"Comparison_of_BitTorrent_clients" ; 
-							 //"Comparison_of_FTP_client_software" ; 
-							 //"Comparison_of_hardware_random_number_generators" ; //"Comparison_of_image_formats" ; //"Comparison_of_video_editing_software" ; // "Comparison_of_video_codecs" ; //"Comparison_of_container_formats" ; 
-							 //"Comparison_of_video_converters" ;
+		// "Comparison_of_XML_editors" ;   
+		//"Comparison_of_free_web_hosting_services"; 
+		//"Comparison_of_free_and_open-source_software_licenses" ;  
+		//"Comparison_of_file_systems" ;
+		//"Comparison_of_Subversion_clients"; 
+		//"Comparison_of_SSH_clients" ; 
+		//"Comparison_of_Prolog_implementations" ;    
+		//"Comparison_of_BitTorrent_clients" ; 
+					 //"Comparison_of_FTP_client_software" ; 
+					 //"Comparison_of_hardware_random_number_generators" ; //"Comparison_of_image_formats" ; //"Comparison_of_video_editing_software" ; // "Comparison_of_video_codecs" ; //"Comparison_of_container_formats" ; 
+					 //"Comparison_of_video_converters" ;
+				     
+		
+		/*
+		 * Scoping directives here
+		 */
+		String[] excludeColumnNames = { "Other", "Status", "Latest release date", "Latest stable version", "First public release", "Creator", "Name" }  ; // {} ; 
+		String[] excludeProductNames =  { "IKVM.NET" } ; 		
+		executeWikipediaToFML(wikiPageName, excludeColumnNames, excludeProductNames);
+		
+		
+		
+		
+		
+	}
+	
+	private void executeWikipediaToFML(String wikiPageName,	String[] excludeColumnNames, String[] excludeProductNames) throws Exception {
+		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
+		
+		
 		String content = wikipediaExtractor.getContent(wikiPageName) ;
 		
 		assertNotNull(content);
@@ -305,13 +331,9 @@ public class ExtractorContentTest extends FMLTest {
 		
 		// FIXME here it is specific 
 		
-		/*
-		 * Scoping directives here
-		 */
-		
+			
 		for (Catalog catalog : catalogs) {
-			String[] columnNames = {} ; //{ "Latest release date", "Latest stable version", "First public release", "Creator", "Name" }  ;
-			for (String columnName : columnNames) {
+			for (String columnName : excludeColumnNames) {
 				if (!catalog.hasHeader(columnName)) 
 					continue ; 
 				if (!catalog.removeColumn(columnName)) {
@@ -323,14 +345,21 @@ public class ExtractorContentTest extends FMLTest {
 			
 		}
 		
+		Set<String> excludeProductIDs = new HashSet<String>(Arrays.asList(excludeProductNames)) ;
+		
 		
 		List<FeatureModelVariable> fmvs = new ArrayList<FeatureModelVariable>() ; 
 		for (Catalog catalog : catalogs) {
 			System.err.println("***" +  catalog.getStructuralInformation() + "****");
+			/*
 			if (!catalog.getName().equals("General information"))
-				continue ; 
+				continue ; */
 			for (Product product : catalog) {
 				FeatureModelVariable fmv = product.toFeatureDiagram() ;
+				String id = fmv.getIdentifier() ; 
+				if (excludeProductIDs.contains(id))
+					continue ; 
+				
 				fmvs.add(fmv);
 				
 			}
@@ -338,31 +367,91 @@ public class ExtractorContentTest extends FMLTest {
 		}
 		
 		
-		for (FeatureModelVariable fmv : fmvs) {
-			System.err.println("\n" + fmv.getIdentifier() + " = " + fmv);
-			
+		List<FeatureModelVariable> fmvsToMerge = new ArrayList<FeatureModelVariable>() ;
+		
+		
+		
+		
+		if (catalogs.size() == 1) {
+			fmvsToMerge = fmvs ; 
+		}
+		// aggregate feature models with same identifiers when there are numerous catalogs (dimensions)
+		else {
+			Set<String> idsDone = new HashSet<String>() ; 
+			for (FeatureModelVariable fmv : fmvs) {
+				String id1 = fmv.getIdentifier() ; 
+				if (idsDone.contains(id1))
+					continue ; 
+				//System.err.println("Aggregating..." + id1) ; // + " = " + fmv);
+				
+				List<FeatureModelVariable> toAggreagte = new ArrayList<FeatureModelVariable>() ; 
+				
+				for (FeatureModelVariable fmv2 : fmvs) {
+					String id2 = fmv2.getIdentifier() ; 
+					if (id1.equals(id2)) {
+						toAggreagte.add (fmv2);
+					}
+				}
+				if (!toAggreagte.isEmpty()) {
+					fmvsToMerge.add(new AggregatorFM().build(toAggreagte, new HashSet<Expression<String>>(), wikiPageName));
+				}
+				else {
+					System.err.println("Didn't find another for " + id1);
+					continue ; 
+				}
+				
+				idsDone.add(id1);
+			}
 		}
 		
-		_shell.setVerbose(true);
-		FeatureModelVariable fmMerged = //new FMLMergerDisjunctiveSAT(fmvs).union();
-				 // new FMLMergerBDDSPLOT(fmvs, _builder).union() ; 
-					new FeatureModelVariableBDDFormula("", new FMLMergerBDDSPLOT(fmvs, _builder).calculateFormula(Mode.Union), _builder); 
-		//System.err.println("#IG " + fmMerged.computeImplicationGraph().edges().size()); 
+		
+		//_shell.setVerbose(true);
+		FeatureModelVariable fmMerged = //new FMLMergerDisjunctiveSAT(fmvsToMerge).union();
+				  new FMLMergerBDDSPLOT(fmvsToMerge, _builder).union(new KSynthesisConfiguration() {
+
+					@Override
+					public boolean isAddingCrossTreeConstraints() {
+						return false;
+					}
+					  
+				  }) ; 
+		
+		
+		ImplicationGraph<String> big = fmMerged.computeImplicationGraph() ; 
+		System.err.println("#IG (edges) " + big.edges().size());
+		Collection<String> vtxs = big.vertices() ;
+		int t = 0 ; 
+		for (String ft : vtxs) {
+			Collection<SimpleEdge> iedges = big.outgoingEdges(ft);
+			int n = iedges.size() ; 
+			//System.err.println("ft=" + ft + " " + n);
+			t += n ; 
+		}
+		int nFts = fmMerged.features().size() ; 
+		System.err.println("#IG " + nFts);
+		System.err.println("(average) " + t / nFts);
 		//System.err.println("fmMerged = " + fmMerged);
+		
+		String OUTPUT_DIRECTORY = "./outputFML/wikipedia-comparison-tables/" ; 
+		String bddContent = fmMerged.convert(FMFormat.FMLBDD) ; 
+		FileSerializer.write(OUTPUT_DIRECTORY + wikiPageName + ".fmlbdd", bddContent);
+		
+		FileSerializer.write(OUTPUT_DIRECTORY + wikiPageName + ".fml", fmMerged + "");
+		
+		
+		/*
+		FeatureModelVariableBDDFormula flaMerged = new FeatureModelVariableBDDFormula("", new FMLMergerBDDSPLOT(fmvsToMerge, _builder).calculateFormula(Mode.Union), _builder);
+		
+		System.err.println("#" + flaMerged.counting());*/
+		
 		
 		
 		//System.err.println("doc=" + sections);
 		//System.err.println("doc=" + doc.getElementsByTag("title"));
 		//System.err.println("doc=" + doc.title());
 		
-		
-		
-		
-		
-		
-		
 	}
-	
+
 	private void treatTable(Element table, List<Catalog> catalogs) {
 			// 1. get section name
  

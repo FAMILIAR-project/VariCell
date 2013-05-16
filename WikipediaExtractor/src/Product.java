@@ -243,7 +243,9 @@ public class Product {
 	}
 
 	private boolean isNot(String val) {
-		return val.contains("No")
+		return
+				(val.contains("no") ||
+				val.contains("No"))
 				&& !val.contains("Nonfree") // FIXME HACK
 				;
 	}
