@@ -1,7 +1,6 @@
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,23 +10,19 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
-import org.sweble.wikitext.engine.CompilerException;
-import org.sweble.wikitext.lazy.LinkTargetException;
 import org.xtext.example.mydsl.fML.FMFormat;
 
 import fr.unice.polytech.modalis.familiar.experimental.KSynthesisConfiguration;
 import fr.unice.polytech.modalis.familiar.operations.AggregatorFM;
+import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDD;
 import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDDSPLOT;
-import fr.unice.polytech.modalis.familiar.operations.Mode;
 import fr.unice.polytech.modalis.familiar.test.FMLTest;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
-import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariableBDDFormula;
 import fr.unice.polytech.modalis.utils.FileSerializer;
 import gsd.graph.ImplicationGraph;
 import gsd.graph.SimpleEdge;
@@ -262,12 +257,10 @@ public class ExtractorContentTest extends FMLTest {
 		
 		
 		String wikiPageName = "Comparison_of_Java_virtual_machines"; 
-		// "Comparison_of_XML_editors" ;   
 		//"Comparison_of_free_web_hosting_services"; 
 		//"Comparison_of_free_and_open-source_software_licenses" ;  
 		//"Comparison_of_file_systems" ;
 		//"Comparison_of_Subversion_clients"; 
-		//"Comparison_of_SSH_clients" ; 
 		//"Comparison_of_Prolog_implementations" ;    
 		//"Comparison_of_BitTorrent_clients" ; 
 					 //"Comparison_of_FTP_client_software" ; 
@@ -280,7 +273,15 @@ public class ExtractorContentTest extends FMLTest {
 		 */
 		String[] excludeColumnNames = { "Other", "Status", "Latest release date", "Latest stable version", "First public release", "Creator", "Name" }  ; // {} ; 
 		String[] excludeProductNames =  { "IKVM.NET" } ; 		
-		executeWikipediaToFML(wikiPageName, excludeColumnNames, excludeProductNames);
+		executeWikipediaToFML(wikiPageName, excludeColumnNames, excludeProductNames, new String[] {});
+		
+		
+		
+		executeWikipediaToFML("Comparison_of_XML_editors", new String[]{"Name", "Version", "Price for commercial version (exc. VAT)"}, 
+				new String[]{}, new String[] {});
+		
+		executeWikipediaToFML("Comparison_of_SSH_clients", new String[]{"Name", "Latest release", "Developer"}, 
+				new String[]{}, new String[] {"Platform", "Technical", "Features"});
 		
 		
 		
@@ -288,7 +289,7 @@ public class ExtractorContentTest extends FMLTest {
 		
 	}
 	
-	private void executeWikipediaToFML(String wikiPageName,	String[] excludeColumnNames, String[] excludeProductNames) throws Exception {
+	private void executeWikipediaToFML(String wikiPageName,	String[] excludeColumnNames, String[] excludeProductNames, String[] excludeSectionNames) throws Exception {
 		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
 		
 		
@@ -346,11 +347,15 @@ public class ExtractorContentTest extends FMLTest {
 		}
 		
 		Set<String> excludeProductIDs = new HashSet<String>(Arrays.asList(excludeProductNames)) ;
+		Set<String> excludeSections = new HashSet<String>(Arrays.asList(excludeSectionNames)) ;
 		
 		
 		List<FeatureModelVariable> fmvs = new ArrayList<FeatureModelVariable>() ; 
 		for (Catalog catalog : catalogs) {
-			System.err.println("***" +  catalog.getStructuralInformation() + "****");
+			String catalogName = catalog.getName() ;  
+			if (excludeSections.contains(catalogName))
+				continue ; 
+			System.err.println("***" +  catalogName + "****");
 			/*
 			if (!catalog.getName().equals("General information"))
 				continue ; */
@@ -404,10 +409,11 @@ public class ExtractorContentTest extends FMLTest {
 			}
 		}
 		
-		
-		//_shell.setVerbose(true);
+		FMLMergerBDD fmlMerger = new FMLMergerBDD(fmvsToMerge, _builder) ; // new FMLMergerBDDSPLOT(fmvsToMerge, _builder) ; 
+		_shell.setVerbose(true);
+	
 		FeatureModelVariable fmMerged = //new FMLMergerDisjunctiveSAT(fmvsToMerge).union();
-				  new FMLMergerBDDSPLOT(fmvsToMerge, _builder).union(new KSynthesisConfiguration() {
+				  fmlMerger.union(new KSynthesisConfiguration() {
 
 					@Override
 					public boolean isAddingCrossTreeConstraints() {

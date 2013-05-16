@@ -224,13 +224,14 @@ public class Product {
 	}
 
 	private FeatureNode<String> mkFeatureNode(String hS, FeatureModel<String> rFM) {
+		String ftName = _interop(hS);
 		FeatureGraph<String> g = rFM.getDiagram() ; 
 		try {
-			FeatureNode<String> fn = g.findVertex(hS) ;
+			FeatureNode<String> fn = g.findVertex(ftName) ;
 			return fn ;
 		}
 		catch(Exception e) {
-			FeatureNode<String> fn = new FeatureNode<String>(hS); //if it already exists
+			FeatureNode<String> fn = new FeatureNode<String>(ftName); //if it already exists
 			g.addVertex(fn);
 			return fn ; 
 		}
@@ -238,8 +239,14 @@ public class Product {
 		
 	}
 
+	private String _interop(String hS) {
+		return hS.replaceAll("\\{", "")
+				.replaceAll("\\}", "")
+				;
+	}
+
 	private boolean isYes(String val) {
-		return val.contains("Yes");
+		return val.contains("Yes") || val.contains("yes");
 	}
 
 	private boolean isNot(String val) {
