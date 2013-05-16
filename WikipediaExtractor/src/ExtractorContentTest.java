@@ -271,6 +271,8 @@ public class ExtractorContentTest extends FMLTest {
 		/*
 		 * Scoping directives here
 		 */
+		
+		
 		String[] excludeColumnNames = { "Other", "Status", "Latest release date", "Latest stable version", "First public release", "Creator", "Name" }  ; // {} ; 
 		String[] excludeProductNames =  { "IKVM.NET" } ; 		
 		executeWikipediaToFML(wikiPageName, excludeColumnNames, excludeProductNames, new String[] {});
@@ -282,9 +284,19 @@ public class ExtractorContentTest extends FMLTest {
 		
 		executeWikipediaToFML("Comparison_of_SSH_clients", new String[]{"Name", "Latest release", "Developer"}, 
 				new String[]{}, new String[] {"Platform", "Technical", "Features"});
+				
 		
 		
-		
+		executeWikipediaToFML("Comparison_of_webmail_providers", 
+				new String[]{
+				//"Product", "Service name", "Owner", "Release", "Attachment limit",
+		//"Language support", "URL"
+		}, 
+				new String[]{
+				//"Alternative Fuse"
+				}, 
+				
+				new String[] {"General information", "Language support", "Unique features"});
 		
 		
 	}
@@ -362,13 +374,11 @@ public class ExtractorContentTest extends FMLTest {
 			for (Product product : catalog) {
 				FeatureModelVariable fmv = product.toFeatureDiagram() ;
 				String id = fmv.getIdentifier() ; 
-				if (excludeProductIDs.contains(id))
-					continue ; 
-				
-				fmvs.add(fmv);
+				if (!excludeProductIDs.contains(id))
+					fmvs.add(fmv);
 				
 			}
-			System.err.println("\n\n");
+			System.err.println("\n\nfmvs=" + fmvs);
 		}
 		
 		
@@ -496,14 +506,19 @@ public class ExtractorContentTest extends FMLTest {
 			List<Header> rHeaders = collectHeaders(table);		
 			
 			boolean sortable = !table.select("[class=sortable wikitable]").isEmpty() 
-					||  !table.select("[class=wikitable sortable]").isEmpty() 
-					;
+					||  !table.select("[class=wikitable sortable]").isEmpty() ;  
+				//	|| !table.select("[class=sortable wikitable jquery-tablesorter]").isEmpty() ; 
+					
 			// FIXME: other cases
-			Elements heads = table.select("thead") ; 
+			Elements heads = table.select("thead") ;
+			
 			if (sortable && 
 					(!heads.isEmpty())) {
 				rHeaders =  collectHeaders(heads.first());
 			}
+			
+			System.err.println("SORTABLE:" + sortable + " rHeaders=" + rHeaders);
+			
 			
 			// 2 treat row					
 			Catalog product = null ;
@@ -609,6 +624,7 @@ public class ExtractorContentTest extends FMLTest {
 			boolean sortable = !table.select("[class=sortable wikitable]").isEmpty() 
 					||  !table.select("[class=wikitable sortable]").isEmpty() 
 					;
+			
 			// FIXME: other cases
 			Elements heads = table.select("thead") ; 
 			if (sortable && 
@@ -691,6 +707,9 @@ public class ExtractorContentTest extends FMLTest {
 		
 		for (Element row : table.select("tr")) {
 			
+			if (isEmpty(row))  // sometimes the first row, especially in sortable table, is empty (the second row is relevant for headers) 
+				continue ; 
+			
 			
 			if (levelHeader == 0) {
 				for (Element header : row.select("th")) {
@@ -728,7 +747,9 @@ public class ExtractorContentTest extends FMLTest {
 		// FIXME assign a "number" of appearance for headers 
 		// especially important for nested headers (colspan="3")
 		List<Header> rHeaders = new ArrayList<Header>() ; 
-		List<Header> nHeaders = nestedHeaders.get(0); // FIXME 0 at the moment but normally it can be refined
+		List<Header> nHeaders = new ArrayList<Header>() ;
+		if (nestedHeaders.size() > 0)
+			nHeaders = nestedHeaders.get(0); // FIXME 0 at the moment but normally it can be refined
 
 		int lastIndex = 0 ; 
 		for (Header header : headers) {
@@ -763,6 +784,16 @@ public class ExtractorContentTest extends FMLTest {
 		}
 		//System.err.println("rHeaders=" + rHeaders);
 		return rHeaders ; 
+	}
+
+	private boolean isEmpty(Element row) {
+		for (Element header : row.select("th")) {
+			String headerV = header.text() ;
+			if (!headerV.isEmpty())
+				return false ; 
+		}
+		// all empty
+		return true ;
 	}
 
 	private Tree<String> mkStructuralInformation(String... fts) {
