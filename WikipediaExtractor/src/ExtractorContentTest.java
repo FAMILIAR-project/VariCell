@@ -256,6 +256,8 @@ public class ExtractorContentTest extends FMLTest {
 	public void test() throws Exception {
 		
 		
+		final String[] _EMPTY = new String[]{};
+		
 		String wikiPageName = "Comparison_of_Java_virtual_machines"; 
 		//"Comparison_of_free_web_hosting_services"; 
 		//"Comparison_of_free_and_open-source_software_licenses" ;  
@@ -299,6 +301,11 @@ public class ExtractorContentTest extends FMLTest {
 				new String[] {"General information", "Language support", "Unique features"});
 		
 		
+	
+		
+		executeWikipediaToFML("Comparison_of_video_converters", new String[]{
+				"Developer", "Video converter", "Website"
+		}, _EMPTY, _EMPTY) ; 
 	}
 	
 	private void executeWikipediaToFML(String wikiPageName,	String[] excludeColumnNames, String[] excludeProductNames, String[] excludeSectionNames) throws Exception {
