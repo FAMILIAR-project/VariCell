@@ -33,6 +33,74 @@ public class ExtractorContentTest extends FMLTest {
 	
 	public static String URL_BASE_NAME = "http://en.wikipedia.org" ; 
 	
+	Set<String> excludePCMs = new HashSet<String>(Arrays.asList(new String[] {
+			// not relevant (and actually it does not parse)
+			"Comparison_between_Esperanto_and_Ido", 
+			"Comparison_between_Esperanto_and_Interlingua", 
+			"Comparison_between_Esperanto_and_Novial", 
+			"Comparison_between_Ido_and_Interlingua",
+			"Comparison_between_Ido_and_Novial", 
+			"Comparison_between_U.S._states_and_countries_by_GDP_(PPP)",
+			"Comparison_of_ALGOL_68_and_C%2B%2B",
+			"Comparison_of_Afrikaans_and_Dutch",
+			"Comparison_of_Asian_national_space_programs",
+			"Comparison_of_Axis_%26_Allies_games",
+			
+			"Comparison_of_C_Sharp_and_Visual_Basic_.NET", // no table !
+			"Comparison_of_Chernobyl_and_other_radioactivity_releases", // no table !
+			
+			"Comparison_of_Home_Owners%27_and_Civic_Associations", // no table !
+			
+			"Comparison_of_IOC,_FIFA,_and_ISO_3166_country_codes", // limited interest
+			
+			"Comparison_of_Java_and_C%2B%2B", // limited interest (rather a qualitative comparison, based on natural language)
+			
+			"Comparison_of_MD_and_DO_in_the_United_States", // no table and interest ! 
+			
+			"Comparison_of_Norwegian_Bokm%C3%A5l_and_Standard_Danish", // limited interest
+			
+			"Comparison_of_Portuguese_and_Spanish", // limited interest (pattern: comparison of "languages" being Esperanto, Norwe., Spanish, etc.)
+			
+			"Comparison_of_privilege_authorization_features", // no table  (rather a qualitative comparison, based on natural language)
+			
+			"Comparison_of_the_Hare_and_Droop_quotas", // limited interest
+			
+			"Comparison_of_the_imperial_and_US_customary_measurement_systems", // out of the scope  
+			
+			
+			// due to the current status of the parser
+			// FIXME
+			"Comparison_of_Android_e-book_reader_software",
+			"Comparison_of_Exchange_ActiveSync_clients",
+			"Comparison_of_Linux_distributions",
+			"Comparison_of_Symbian_devices",
+			"Comparison_of_browser_synchronizers",
+			"Comparison_of_business_integration_software",
+			"Comparison_of_consumer_brain%E2%80%93computer_interfaces",
+			"Comparison_of_domestic_robots",
+			"Comparison_of_e-book_formats",
+			"Comparison_of_e-book_readers",
+			"Comparison_of_file_hosting_services",
+			"Comparison_of_layout_engines_(Cascading_Style_Sheets)",
+			"Comparison_of_layout_engines_(MathML)",
+			"Comparison_of_machine_translation_applications",
+			"Comparison_of_mobile_operating_systems",
+			"Comparison_of_network_diagram_software",
+			"Comparison_of_numerical_analysis_software",
+			"Comparison_of_statistics_journals",
+			"Comparison_of_text_editors",
+			"Comparison_of_web_server_software",
+			"Comparison_of_TeX_editors",
+			// limited interest IMO 
+			"Comparison_of_United_States_presidential_candidates,_2008",
+			"Comparison_of_World_War_I_tanks",
+			"Comparison_of_programming_languages_(object-oriented_programming)",
+			"Comparison_of_programming_languages_(string_functions)",
+			
+			
+			
+	}));
+	
 	@Test
 	public void collectAllComparisonOf() throws IOException {
 		
@@ -87,73 +155,7 @@ public class ExtractorContentTest extends FMLTest {
 		List<Element> hrefs = new ArrayList<Element>() ; 
 		_collectAllComparisonOf("/w/index.php?title=Special%3APrefixIndex&prefix=Comparison&namespace=0&hideredirects=1",  hrefs);
 
-		Set<String> excludePCMs = new HashSet<String>(Arrays.asList(new String[] {
-				// not relevant (and actually it does not parse)
-				"Comparison_between_Esperanto_and_Ido", 
-				"Comparison_between_Esperanto_and_Interlingua", 
-				"Comparison_between_Esperanto_and_Novial", 
-				"Comparison_between_Ido_and_Interlingua",
-				"Comparison_between_Ido_and_Novial", 
-				"Comparison_between_U.S._states_and_countries_by_GDP_(PPP)",
-				"Comparison_of_ALGOL_68_and_C%2B%2B",
-				"Comparison_of_Afrikaans_and_Dutch",
-				"Comparison_of_Asian_national_space_programs",
-				"Comparison_of_Axis_%26_Allies_games",
-				
-				"Comparison_of_C_Sharp_and_Visual_Basic_.NET", // no table !
-				"Comparison_of_Chernobyl_and_other_radioactivity_releases", // no table !
-				
-				"Comparison_of_Home_Owners%27_and_Civic_Associations", // no table !
-				
-				"Comparison_of_IOC,_FIFA,_and_ISO_3166_country_codes", // limited interest
-				
-				"Comparison_of_Java_and_C%2B%2B", // limited interest (rather a qualitative comparison, based on natural language)
-				
-				"Comparison_of_MD_and_DO_in_the_United_States", // no table and interest ! 
-				
-				"Comparison_of_Norwegian_Bokm%C3%A5l_and_Standard_Danish", // limited interest
-				
-				"Comparison_of_Portuguese_and_Spanish", // limited interest (pattern: comparison of "languages" being Esperanto, Norwe., Spanish, etc.)
-				
-				"Comparison_of_privilege_authorization_features", // no table  (rather a qualitative comparison, based on natural language)
-				
-				"Comparison_of_the_Hare_and_Droop_quotas", // limited interest
-				
-				"Comparison_of_the_imperial_and_US_customary_measurement_systems", // out of the scope  
-				
-				
-				// due to the current status of the parser
-				// FIXME
-				"Comparison_of_Android_e-book_reader_software",
-				"Comparison_of_Exchange_ActiveSync_clients",
-				"Comparison_of_Linux_distributions",
-				"Comparison_of_Symbian_devices",
-				"Comparison_of_browser_synchronizers",
-				"Comparison_of_business_integration_software",
-				"Comparison_of_consumer_brain%E2%80%93computer_interfaces",
-				"Comparison_of_domestic_robots",
-				"Comparison_of_e-book_formats",
-				"Comparison_of_e-book_readers",
-				"Comparison_of_file_hosting_services",
-				"Comparison_of_layout_engines_(Cascading_Style_Sheets)",
-				"Comparison_of_layout_engines_(MathML)",
-				"Comparison_of_machine_translation_applications",
-				"Comparison_of_mobile_operating_systems",
-				"Comparison_of_network_diagram_software",
-				"Comparison_of_numerical_analysis_software",
-				"Comparison_of_statistics_journals",
-				"Comparison_of_text_editors",
-				"Comparison_of_web_server_software",
-				
-				// limited interest IMO 
-				"Comparison_of_United_States_presidential_candidates,_2008",
-				"Comparison_of_World_War_I_tanks",
-				"Comparison_of_programming_languages_(object-oriented_programming)",
-				"Comparison_of_programming_languages_(string_functions)",
-				
-				
-				
-		}));
+	
 	
 		int j = 0 ; // j-th comparison 
 		int nRelevant = 0 ; 
@@ -202,6 +204,174 @@ public class ExtractorContentTest extends FMLTest {
 		
 	}
 	
+	@Test
+	public void testQuantitativeStats() throws Exception {
+		
+		
+		
+		List<Element> hrefs = new ArrayList<Element>() ; 
+		_collectAllComparisonOf("/w/index.php?title=Special%3APrefixIndex&prefix=Comparison&namespace=0&hideredirects=1",  hrefs);
+
+	
+	
+		int j = 0 ; // j-th comparison 
+		int nRelevant = 0 ; 
+		
+		
+		int nHeaders = 0 ; 
+		int nProducts = 0 ; 
+		//int nUncertains = 0 ;
+		int nBooleanValues = 0 ; 
+		int nEmpty = 0 ; 
+		int nTotalValues = 0 ; 
+		
+		int nMultiValues = 0 ;
+		int nSingleValues = 0 ;
+		int nUnknowns = 0 ; 
+		int nConstrains = 0 ; 
+		
+		for (Element href : hrefs) { // for each page
+			String hURL = href.attr("href") ;
+			int n = "/wiki/".length() ; 
+			String wikiPageName = hURL.substring(n);
+			System.err.println("(" + j++ + ") " + wikiPageName);
+			
+			if (excludePCMs.contains(wikiPageName)) {
+				System.err.println("Ignoring");
+				continue ; 
+			}
+			
+			
+			PCMStatistic stat = computeStatistic (wikiPageName);
+			int nTable = stat.getNumbersOfTables() ; 
+			System.err.println("numbers of tables:" + nTable);
+			
+			if (nTable > 0)
+				nRelevant++ ; 
+			
+			//analyzeStat (stat);
+			
+			Collection<CatalogStat> catalogStats = stat.getCatalogStats() ;
+			
+			
+			for (CatalogStat catalogStat : catalogStats) { // for each table
+				// System.err.println("table(" + i++ + ")");
+				nHeaders += catalogStat.getNumbersOfHeaders() ;
+				nProducts += catalogStat.getNumbersOfProduct() ;
+				//nUncertains += catalogStat.getnUncertains() ; 
+				nBooleanValues += catalogStat.getnBooleans();
+				nEmpty += catalogStat.getnEmpty();
+				nMultiValues += catalogStat.getnMultiValues();
+				nSingleValues += catalogStat.getnSingleV() ; 
+				nUnknowns += catalogStat.getnUnknowns() ; 
+				nConstrains += catalogStat.getnConstrained() ; 
+				
+				int lHeaders = catalogStat.getNumbersOfHeaders()  ; 
+				int lProducts = catalogStat.getNumbersOfProduct() ; 
+				nTotalValues += lHeaders * lProducts ; 
+				
+				nSingleValues -= lHeaders + lProducts ; // not cell values but headers or product names
+				
+				// 1 pattern
+				 
+				
+			}
+			
+			System.err.println("#headers=" + nHeaders);
+			System.err.println("#products=" + nProducts);
+			
+			System.err.println("#nBooleanValues(1)=" + nBooleanValues);
+			System.err.println("#nSingleValues(3)=" + nSingleValues);
+			System.err.println("#nMultiValues(4)=" + nMultiValues);
+			//System.err.println("#nUncertains()=" + nUncertains);
+			
+			System.err.println("#nEmpty(6)=" + nEmpty);
+		
+			System.err.println("#nUnknowns(5)="+ nUnknowns);
+			System.err.println("#nConstrains(2)="+ nConstrains);
+			System.err.println("\n\n\n"); 
+			System.err.println("#nTotalValues=" + nTotalValues);
+			
+			
+			
+		}
+		
+		System.err.println("number of relevant PCMs: " + nRelevant);
+		
+		
+	//	String wikiPageName = "Comparison_of_Java_virtual_machines"; 
+		
+		
+		
+		
+	
+		
+	}
+	
+	private void analyzeStat(PCMStatistic stat) {
+		// we exploit here the stats by printing 
+		
+			
+			
+			Collection<CatalogStat> catalogStats = stat.getCatalogStats() ;
+			int i = 1 ;
+			int nHeaders = 0 ; 
+			int nProducts = 0 ; 
+			//int nUncertains = 0 ;
+			int nBooleanValues = 0 ; 
+			int nEmpty = 0 ; 
+			int nTotalValues = 0 ; 
+			
+			int nMultiValues = 0 ;
+			int nSingleValues = 0 ;
+			int nUnknowns = 0 ; 
+			int nConstrains = 0 ; 
+			
+			for (CatalogStat catalogStat : catalogStats) { // for each table
+				// System.err.println("table(" + i++ + ")");
+				nHeaders += catalogStat.getNumbersOfHeaders() ;
+				nProducts += catalogStat.getNumbersOfProduct() ;
+				//nUncertains += catalogStat.getnUncertains() ; 
+				nBooleanValues += catalogStat.getnBooleans();
+				nEmpty += catalogStat.getnEmpty();
+				nMultiValues += catalogStat.getnMultiValues();
+				nSingleValues += catalogStat.getnSingleV() ; 
+				nUnknowns += catalogStat.getnUnknowns() ; 
+				nConstrains += catalogStat.getnConstrained() ; 
+				
+				int lHeaders = catalogStat.getNumbersOfHeaders()  ; 
+				int lProducts = catalogStat.getNumbersOfProduct() ; 
+				nTotalValues += lHeaders * lProducts ; 
+				
+				
+				// 1 pattern
+				 
+				
+			}
+			
+			System.err.println("#headers=" + nHeaders);
+			System.err.println("#products=" + nProducts);
+			
+			System.err.println("#nBooleanValues(1)=" + nBooleanValues);
+			System.err.println("#nSingleValues(3)=" + nSingleValues);
+			System.err.println("#nMultiValues(4)=" + nMultiValues);
+			//System.err.println("#nUncertains()=" + nUncertains);
+			
+			System.err.println("#nEmpty(6)=" + nEmpty);
+		
+			System.err.println("#nUnknowns(5)="+ nUnknowns);
+			System.err.println("#nConstrains(2)="+ nConstrains);
+			System.err.println("\n\n\n"); 
+			System.err.println("#nTotalValues=" + nTotalValues);
+		
+	}
+
+	@Test
+	public void testAdobe() throws Exception {
+		PCMStatistic stat = computeStatistic("Comparison_of_Adobe_Flex_charts");
+		analyzeStat(stat);
+	}
+	
 
 	private PCMStatistic computeStatistic (String wikiPageName) throws Exception {
 		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
@@ -238,8 +408,59 @@ public class ExtractorContentTest extends FMLTest {
 		Collection<CatalogStat> catalogStats = new ArrayList<CatalogStat>() ; 
 		for (Catalog catalog : catalogs) {
 			int nHeaders = catalog.getHeaders().size() ; 
-			int nProduct = catalog.size() ; 
-			catalogStats.add(new CatalogStat(nHeaders, nProduct));
+			int nProduct = catalog.size() ;
+			CatalogStat catalogStat = new CatalogStat();
+			catalogStat.setNHeaders(nHeaders);
+			catalogStat.setNProduct(nProduct);
+			
+			// analyze each product and all values
+			int nUncertain = 0 ; 
+			int nBoolean = 0 ;
+			int nEmpty = 0 ; 
+			int nMulti = 0 ; 
+			int nSingleV = 0 ;
+			int nUnknowns = 0 ;
+			int nConstrained = 0 ; 
+			
+			for (Product product : catalog) {
+				Collection<String> values = product.getAllValues() ;
+				for (String val : values) {
+					if (VariabilityPatternsUtils.isUncertain(val)) {
+						nUncertain++ ; 
+					}
+					
+					else if (VariabilityPatternsUtils.isYes(val) || 
+							VariabilityPatternsUtils.isNot(val)
+							) { // pattern #1
+						nBoolean++ ; 
+					}
+					else if (VariabilityPatternsUtils.isBlanked(val)) { // pattern #6
+						nEmpty++ ; 
+					}
+					else if (VariabilityPatternsUtils.isMultiValues(val)) { // pattern #4
+						nMulti++ ; 
+					}
+					else if (VariabilityPatternsUtils.isUnknowns(val)) { // pattern #5
+						nUnknowns++ ; 
+					}
+					else if (VariabilityPatternsUtils.isConstrained(val)) { // pattern #2
+						nConstrained++ ; 
+					}
+					else { // pattern #3
+						nSingleV++ ; 
+					}
+				}
+				
+			}
+			
+			catalogStat.setnConstrained(nConstrained);
+			catalogStat.setnUnknowns(nUnknowns);
+			catalogStat.setnSingleV(nSingleV);
+			catalogStat.setnMultiValues(nMulti) ; 
+			catalogStat.setnEmpty(nEmpty);
+			catalogStat.setnBooleans(nBoolean);
+			catalogStat.setnUncertains(nUncertain);			
+			catalogStats.add(catalogStat);
 			
 		}
 		

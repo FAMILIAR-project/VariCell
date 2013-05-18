@@ -166,31 +166,31 @@ public class Product {
 			
 			String val = entry.getValue() ;
 			
-			if (isNot(val)) {
+			if (VariabilityPatternsUtils.isNot(val)) {
 				FeatureNode<String> pFt = mkFeatureNode(headerID, rFM) ; 
 				g.addEdge(pFt, currentTopFeature, FeatureEdge.HIERARCHY); // FIXME: negated afterwards
 				rFM.addConstraint(new Expression<String>(headerID).not());
 			}
 			
-			else if (isYes(val)) {
+			else if (VariabilityPatternsUtils.isYes(val)) {
 				// mandatory ?
 				FeatureNode<String> cFt = mkFeatureNode(headerID, rFM) ; 
 				g.addEdge(cFt, currentTopFeature, FeatureEdge.HIERARCHY);
 				g.addEdge(cFt, currentTopFeature, FeatureEdge.MANDATORY);
 				
 			}
-			else if (isBlanked(val)) {
+			else if (VariabilityPatternsUtils.isBlanked(val)) {
 				// nothing ?
 				
 			}
 			
-			else if (isUncertain(val)) {
+			else if (VariabilityPatternsUtils.isUncertain(val)) {
 				FeatureNode<String> pFt = mkFeatureNode(headerID, rFM) ; 
 				g.addEdge(pFt, currentTopFeature, FeatureEdge.HIERARCHY); // optional
 				
 			}
 			
-			else if (isPartial(val)) {
+			else if (VariabilityPatternsUtils.isConstrained(val)) {
 				FeatureNode<String> pFt = mkFeatureNode(headerID, rFM) ; 
 				g.addEdge(pFt, currentTopFeature, FeatureEdge.HIERARCHY); // optional
 				
@@ -211,17 +211,7 @@ public class Product {
 		return new FeatureModelVariable(idFM, rFM) ; 
 	}
 
-	private boolean isPartial(String val) {
-		return val.contains("partial");
-	}
 
-	private boolean isUncertain(String val) {
-		return val.contains("dunno");
-	}
-
-	private boolean isBlanked(String val) {
-		return val.isEmpty() ; 
-	}
 
 	private FeatureNode<String> mkFeatureNode(String hS, FeatureModel<String> rFM) {
 		String ftName = _interop(hS);
@@ -245,23 +235,17 @@ public class Product {
 				;
 	}
 
-	private boolean isYes(String val) {
-		return val.contains("Yes") || val.contains("yes");
-	}
-
-	private boolean isNot(String val) {
-		return
-				(val.contains("no") ||
-				val.contains("No"))
-				&& !val.contains("Nonfree") // FIXME HACK
-				;
-	}
+	
 
 	public boolean removeColumn(String headerName) {
 		Header h = getHeader(headerName) ;
 		if (h == null)
 			return false ; 
 		return removeColumn(h);		
+	}
+
+	public Collection<String> getAllValues() {
+		return _headers2Values.values() ; 	
 	}
 
 	
