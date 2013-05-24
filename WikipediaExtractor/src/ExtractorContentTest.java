@@ -17,12 +17,16 @@ import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.xtext.example.mydsl.fML.FMFormat;
 
+import z3.TseitinTransformationDisjunctive;
 import fr.unice.polytech.modalis.familiar.experimental.KSynthesisConfiguration;
 import fr.unice.polytech.modalis.familiar.operations.AggregatorFM;
+import fr.unice.polytech.modalis.familiar.operations.ExpressionUtility;
 import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDD;
-import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDDSPLOT;
+import fr.unice.polytech.modalis.familiar.operations.FMLMergerDisjunctiveSAT;
+import fr.unice.polytech.modalis.familiar.operations.featureide.SATFMLFormula;
 import fr.unice.polytech.modalis.familiar.test.FMLTest;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
+import fr.unice.polytech.modalis.familiar.variable.featureide.FeatureModelVariableSATFormula;
 import fr.unice.polytech.modalis.utils.FileSerializer;
 import gsd.graph.ImplicationGraph;
 import gsd.graph.SimpleEdge;
@@ -268,7 +272,7 @@ public class ExtractorContentTest extends FMLTest {
 				
 				int lHeaders = catalogStat.getNumbersOfHeaders()  ; 
 				int lProducts = catalogStat.getNumbersOfProduct() ; 
-				nTotalValues += lHeaders * lProducts ; 
+				nTotalValues += (lHeaders * lProducts) - (lHeaders + lProducts); // effective values 
 				
 				nSingleValues -= lHeaders + lProducts ; // not cell values but headers or product names
 				
@@ -291,6 +295,7 @@ public class ExtractorContentTest extends FMLTest {
 			System.err.println("#nConstrains(2)="+ nConstrains);
 			System.err.println("\n\n\n"); 
 			System.err.println("#nTotalValues=" + nTotalValues);
+			System.err.println("#nTotalValues (bis)=" + (nBooleanValues + nSingleValues + nMultiValues + nEmpty + nUnknowns + nConstrains));
 			
 			
 			
@@ -496,6 +501,8 @@ public class ExtractorContentTest extends FMLTest {
 		 */
 		
 		
+		/*
+		
 		String[] excludeColumnNames = { "Other", "Status", "Latest release date", "Latest stable version", "First public release", "Creator", "Name" }  ; // {} ; 
 		String[] excludeProductNames =  { "IKVM.NET" } ; 		
 		executeWikipediaToFML(wikiPageName, excludeColumnNames, excludeProductNames, new String[] {});
@@ -527,6 +534,35 @@ public class ExtractorContentTest extends FMLTest {
 		executeWikipediaToFML("Comparison_of_video_converters", new String[]{
 				"Developer", "Video converter", "Website"
 		}, _EMPTY, _EMPTY) ; 
+		
+		
+		executeWikipediaToFML("Comparison_of_video_converters", new String[]{
+				"Developer", "Video converter", "Website"
+		}, _EMPTY, _EMPTY) ; */
+		
+		/*
+		executeWikipediaToFML("Comparison_of_Android_devices", new String[] {
+				"Android version", "Name", "Maker", "GPU", "chipset", "Capacities", "Camera(s)", "Special?features"
+		}, _EMPTY, new String[] {
+				//"Unofficial and community ports", 
+				//"Officially released",
+				//"Future", 
+				
+		});*/
+		
+
+		/*
+		executeWikipediaToFML("Comparison_of_BSD_operating_systems", new String[] {
+				"First public release", 
+				//"Version", 
+				//"First release date"
+		}, _EMPTY, _EMPTY);
+		*/
+		
+		executeWikipediaToFML("Comparison_of_HTML_editors",  _EMPTY, _EMPTY, _EMPTY);
+		
+		//executeWikipediaToFML("Comparison_of_file_archivers", _EMPTY, _EMPTY, _EMPTY);
+		
 	}
 	
 	private void executeWikipediaToFML(String wikiPageName,	String[] excludeColumnNames, String[] excludeProductNames, String[] excludeSectionNames) throws Exception {
@@ -606,7 +642,7 @@ public class ExtractorContentTest extends FMLTest {
 					fmvs.add(fmv);
 				
 			}
-			System.err.println("\n\nfmvs=" + fmvs);
+			//System.err.println("\n\nfmvs=" + fmvs);
 		}
 		
 		
@@ -647,18 +683,50 @@ public class ExtractorContentTest extends FMLTest {
 			}
 		}
 		
-		FMLMergerBDD fmlMerger = new FMLMergerBDD(fmvsToMerge, _builder) ; // new FMLMergerBDDSPLOT(fmvsToMerge, _builder) ; 
-		_shell.setVerbose(true);
+		FMLMergerBDD fmlMerger = new FMLMergerBDD(fmvsToMerge, _builder) ; // 
+		
 	
-		FeatureModelVariable fmMerged = //new FMLMergerDisjunctiveSAT(fmvsToMerge).union();
-				  fmlMerger.union(new KSynthesisConfiguration() {
+		FeatureModelVariable fmMerged = null ;
+		
+		
+		_shell.setVerbose(true);
+		boolean _SAT_EVALUATION = false ; 
+		if (_SAT_EVALUATION) {
+			fmMerged = new FMLMergerDisjunctiveSAT(fmvsToMerge).union();
+			return ; 
+		}
+		
+		boolean _SAT_EVALUATION_2 = false ;
+		if (_SAT_EVALUATION_2) {
+			Collection<Expression<String>> exprs = new TseitinTransformationDisjunctive(fmvsToMerge.toArray(new FeatureModelVariable[]{})).compute(); //new TseitinTransformation(_z3, b12).compute();
+			//System.err.println("exprs:" + exprs);
+			// SMT bridges
+			System.err.println("" + new FeatureModelVariableSATFormula("", new SATFMLFormula(ExpressionUtility.mkConjunction(exprs))).computeImplicationGraph());
+			return ; 
+		}
+		
+		
+		
+		//Formula<String> flaMerged = fmlMerger.calculateFormula(Mode.StrictUnion);
+		//System.err.println("#fla=" + flaMerged.getDomain().size());
+		
+		fmMerged =  fmlMerger.union(new KSynthesisConfiguration() {
 
 					@Override
 					public boolean isAddingCrossTreeConstraints() {
 						return false;
 					}
+
+					@Override
+					public boolean hasOrGroupSupport() {
+						return false;
+					}
 					  
 				  }) ; 
+		
+		
+		int nFts = fmMerged.features().size() ; 
+		System.err.println("#fts " + nFts);
 		
 		
 		ImplicationGraph<String> big = fmMerged.computeImplicationGraph() ; 
@@ -671,9 +739,9 @@ public class ExtractorContentTest extends FMLTest {
 			//System.err.println("ft=" + ft + " " + n);
 			t += n ; 
 		}
-		int nFts = fmMerged.features().size() ; 
-		System.err.println("#IG " + nFts);
+		
 		System.err.println("(average) " + t / nFts);
+		
 		//System.err.println("fmMerged = " + fmMerged);
 		
 		String OUTPUT_DIRECTORY = "./outputFML/wikipedia-comparison-tables/" ; 

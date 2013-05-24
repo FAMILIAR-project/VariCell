@@ -202,8 +202,10 @@ public class Product {
 				g.addEdge(pFt, currentTopFeature, FeatureEdge.MANDATORY);
 				
 				FeatureNode<String> cFt = mkFeatureNode(val, rFM) ; 
-				g.addEdge(cFt, pFt, FeatureEdge.HIERARCHY);
-				g.addEdge(cFt, pFt, FeatureEdge.MANDATORY);
+				if (cFt != pFt) {
+					g.addEdge(cFt, pFt, FeatureEdge.HIERARCHY);
+					g.addEdge(cFt, pFt, FeatureEdge.MANDATORY);
+				}
 			}	
 
 		}

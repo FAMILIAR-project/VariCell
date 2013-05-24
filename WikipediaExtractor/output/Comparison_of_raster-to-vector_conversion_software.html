@@ -1,0 +1,974 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of raster-to-vector conversion software</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of raster-to-vector conversion software</h1> 
+   <div class="article-content"> 
+    <p> The following tables contain general and technical information about a number of <a href="Vectorization (image tracing)">raster-to-vector conversion</a> software products. Please see the individual products' articles for further information. </p> 
+    <div class="section"> 
+     <h2> General information </h2> 
+     <div class="section-body"> 
+      <p> This table gives basic general information about the different vector graphics editors: </p> 
+      <table class="wikitable sortable" style="font-size: 85%; text-align: center; width: auto"> 
+       <tbody>
+        <tr> 
+         <th style="width:12em"> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Released </p> </th> 
+         <th> <p> Latest version </p> </th> 
+         <th> <p> List price (<a href="United States dollar">USD</a>) </p> </th> 
+         <th> <p> <a href="Software license">License</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="CorelDRAW">CorelDRAW</a> </p> </th> 
+         <td> <p> <a href="Corel">Corel</a> </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td> <p> X5 </p> </td> 
+         <td> <p> $499, $199 upgrade </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Easy Trace">Easy Trace</a> </p> </th> 
+         <td> <p> Easy Trace Group </p> </td> 
+         <td> <p> 2009 </p> </td> 
+         <td> <p> 9.0 build 1856 </p> </td> 
+         <td> <p> 1500 Euro, 750 Euro upgrade </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Macromedia Freehand">Freehand</a> </p> </th> 
+         <td> <p> <a href="Macromedia">Macromedia</a> </p> </td> 
+         <td> <p> 1988 </p> </td> 
+         <td> <p> 11.0.2 discontinued (MX) </p> </td> 
+         <td> <p> $399, $99 upgrade </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Adobe Illustrator">Illustrator</a> </p> </th> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> <p> 1985 </p> </td> 
+         <td> <p> 16.0.0 (CS6) </p> </td> 
+         <td> <p> $499, $169 upgrade </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Potrace">Potrace</a> </p> </th> 
+         <td> <p> Peter Selinger </p> </td> 
+         <td> <p> 2001 </p> </td> 
+         <td> <p> 1.9 </p> </td> 
+         <td> <p> free </p> </td> 
+         <td> <p> <a href="GNU General Public License">GPL</a> </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Scan2CAD">Scan2CAD</a> </p> </th> 
+         <td> <p> Avia Systems </p> </td> 
+         <td> <p> 2010 </p> </td> 
+         <td> <p> Version 8 </p> </td> 
+         <td> <p> $249 ? $399 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Adobe Streamline">Adobe Streamline</a> </p> </th> 
+         <td> <p> <a href="Adobe Systems">Adobe Systems</a> </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> 4.0 </p> </td> 
+         <td> <p> ? </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo Freeware</a> </p> </th> 
+         <td> <p> SoftSoft </p> </td> 
+         <td> <p> 1998 </p> </td> 
+         <td> <p> 1.74 </p> </td> 
+         <td> <p> free </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo Pro</a> </p> </th> 
+         <td> <p> SoftSoft </p> </td> 
+         <td> <p> 1998 </p> </td> 
+         <td> <p> 3.501 </p> </td> 
+         <td> <p> $340 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Xara Photo &amp; Graphic Designer">Xara Photo &amp; Graphic Designer</a> </p> </th> 
+         <td> <p> <a href="Xara">Xara</a> Group Ltd. </p> </td> 
+         <td> <p> 1994 </p> </td> 
+         <td> <p> 2013 (v8) </p> </td> 
+         <td> <p> $89 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> WiseImage </p> </th> 
+         <td> <p> CSoft </p> </td> 
+         <td> <p> 1990 </p> </td> 
+         <td> <p> v.12.0 </p> </td> 
+         <td> <p> $2700 </p> </td> 
+         <td> <p> <a href="Proprietary software">Proprietary</a> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> </th> 
+         <th> <p> Creator </p> </th> 
+         <th> <p> Released </p> </th> 
+         <th> <p> Latest version </p> </th> 
+         <th> <p> List price (<a href="United States dollar">USD</a>) </p> </th> 
+         <th> <p> <a href="Software license">License</a> </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Operating system support </h2> 
+     <div class="section-body"> 
+      <p> This table lists the <a href="operating system">operating systems</a> that different programs can run on without emulation: </p> 
+      <table class="sortable wikitable" style="font-size: 85%; text-align: center; width: auto"> 
+       <tbody>
+        <tr> 
+         <td style="width:12em"> <p> <b>NAME</b> </p> </td> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+         <th> <p> <a href="BSD">BSD</a> </p> </th> 
+         <th> <p> <a href="AmigaOS">AmigaOS</a>/<a href="AROS">AROS</a> </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Easy Trace">Easy Trace</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Macromedia Freehand">Freehand</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Adobe Illustrator">Illustrator</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Potrace">Potrace</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Scan2CAD">Scan2CAD</a> </p> </th> 
+         <td> <p> using <a href="Wine (software)">Wine</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo</a> </p> </th> 
+         <td> <p> using <a href="Wine (software)">Wine</a> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> WiseImage </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> <p> <a href="Name">Name</a> </p> </th> 
+         <th> <p> <a href="Linux">Linux</a> </p> </th> 
+         <th> <p> <a href="Microsoft Windows">Windows</a> </p> </th> 
+         <th> <p> <a href="Mac OS X">Mac OS X</a> </p> </th> 
+         <th> <p> <a href="BSD">BSD</a> </p> </th> 
+         <th> <p> <a href="AmigaOS">AmigaOS</a>/<a href="AROS">AROS</a> </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Basic features </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="font-size: 85%; text-align: center; width: auto"> 
+       <tbody>
+        <tr> 
+         <th style="width:12em"> <p> <b>NAME</b> </p> </th> 
+         <th> <p> Maximum zoom </p> </th> 
+         <th> <p> Object limit per document </p> </th> 
+         <th> <p> Control point limit </p> </th> 
+         <th> <p> Color management for print </p> </th> 
+         <th> <p> Thumbnails </p> </th> 
+         <th> <p> Adjust Image (functions) </p> </th> 
+         <th> <p> Text Recognition (<a href="Optical character recognition">OCR</a>) </p> </th> 
+         <th> <p> Scripting support </p> </th> 
+         <th> <p> Raster 2 Vector </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Easy Trace">Easy Trace</a> </p> </th> 
+         <td> <p> 12800x </p> </td> 
+         <td> <p> No Limit </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Macromedia Freehand">Freehand</a> </p> </th> 
+         <td> <p> 64x </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Adobe Illustrator">Illustrator</a> </p> </th> 
+         <td> <p> 64x </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Potrace">Potrace</a> </p> </th> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Potrace">Potrace</a> </p> </th> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Scan2CAD">Scan2CAD</a> </p> </th> 
+         <td> <p> 64K </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo Pro</a> </p> </th> 
+         <td> <p> +/-512x </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> WiseImage </p> </th> 
+         <td> <p> 64K </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> No limit </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> </th> 
+         <th> <p> Maximum zoom </p> </th> 
+         <th> <p> Object limit per document </p> </th> 
+         <th> <p> Control point limit </p> </th> 
+         <th> <p> Color management for print </p> </th> 
+         <th> <p> Thumbnails </p> </th> 
+         <th> <p> adjust image (functions) </p> </th> 
+         <th> <p> Text Recognition (<a href="Optical character recognition">OCR</a>) </p> </th> 
+         <th> <p> Scripting support </p> </th> 
+         <th> <p> Raster 2 Vector </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> AutoCAD features </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="font-size: 85%; text-align: center; width: auto"> 
+       <tbody>
+        <tr> 
+         <th style="width:12em"> <p> <b>NAME</b> </p> </th> 
+         <th> <p> Export universal <a href="AutoCAD DXF">DXF</a> </p> </th> 
+         <th> <p> inside <a href="AutoCAD">AutoCAD</a> application available </p> </th> 
+         <th> <p> Curve recognition </p> </th> 
+         <th> <p> Circle recognition </p> </th> 
+         <th> <p> Arc recognition </p> </th> 
+         <th> <p> Orthogonal line detection </p> </th> 
+         <th> <p> Corner detection </p> </th> 
+         <th> <p> Line connection </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Easy Trace">Easy Trace</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Macromedia Freehand">Freehand</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Adobe Illustrator">Illustrator</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Potrace">Potrace</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{?}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Scan2CAD">Scan2CAD</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo Freeware</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo Pro</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> WiseImage </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> </th> 
+         <th> <p> Export universal <a href="AutoCAD DXF">DXF</a> </p> </th> 
+         <th> <p> inside <a href="AutoCAD">AutoCAD</a> application available </p> </th> 
+         <th> <p> Curve recognition </p> </th> 
+         <th> <p> Circle recognition </p> </th> 
+         <th> <p> Arc recognition </p> </th> 
+         <th> <p> Orthogonal line detection </p> </th> 
+         <th> <p> Corner detection </p> </th> 
+         <th> <p> Line connection </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Raster editing features </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="font-size: 85%; text-align: center; width: auto"> 
+       <tbody>
+        <tr> 
+         <th style="width:12em"> </th> 
+         <th> <p> Scanner support </p> </th> 
+         <th> <p> Freehand sketch </p> </th> 
+         <th> <p> Raster filters </p> </th> 
+         <th> <p> Change color depth </p> </th> 
+         <th> <p> Image resize </p> </th> 
+         <th> <p> Rotate </p> </th> 
+         <th> <p> Crop </p> </th> 
+         <th> <p> Raster shapes </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Easy Trace">Easy Trace</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Macromedia Freehand">Freehand</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Adobe Illustrator">Illustrator</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Potrace">Potrace</a> </p> </th> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Scan2CAD">Scan2CAD</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo Freeware</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo Pro</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> WiseImage </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> </th> 
+         <th> <p> Scanner Support </p> </th> 
+         <th> <p> Freehand sketch </p> </th> 
+         <th> <p> Raster Filters </p> </th> 
+         <th> <p> Change color depth </p> </th> 
+         <th> <p> Image resize </p> </th> 
+         <th> <p> Rotate </p> </th> 
+         <th> <p> Crop </p> </th> 
+         <th> <p> Raster Shapes </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Vector editing features </h2> 
+     <div class="section-body"> 
+      <table class="sortable wikitable" style="font-size: 85%; text-align: center; width: auto"> 
+       <tbody>
+        <tr> 
+         <th style="width:12em"> </th> 
+         <th> <p> Fills &amp; hatch </p> </th> 
+         <th> <p> Vector combine </p> </th> 
+         <th> <p> Rotate &amp; move </p> </th> 
+         <th> <p> Polylines </p> </th> 
+         <th> <p> Spline curves </p> </th> 
+         <th> <p> Lines to curves cmd. &amp; vice versa </p> </th> 
+         <th> <p> Vector shapes </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Easy Trace">Easy Trace</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Macromedia Freehand">Freehand</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Adobe Illustrator">Illustrator</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Potrace">Potrace</a> </p> </th> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+         <td> <p> N/A </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="Scan2CAD">Scan2CAD</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{Yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo Freeware</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> <a href="wintopo">WinTopo Pro</a> </p> </th> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{no}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> WiseImage </p> </th> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+         <td> <p> <span class="unknown-node">{{yes}}</span> </p> </td> 
+        </tr> 
+        <tr class="sortbottom"> 
+         <th> </th> 
+         <th> <p> Fills &amp; hatch </p> </th> 
+         <th> <p> Vector combine </p> </th> 
+         <th> <p> Rotate &amp; move </p> </th> 
+         <th> <p> Polylines </p> </th> 
+         <th> <p> Spline curves </p> </th> 
+         <th> <p> Lines to curves cmd. &amp; vice versa </p> </th> 
+         <th> <p> Vector shapes </p> </th> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> <a href="Free software">Free software</a> </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Inkscape">Inkscape</a> ? conversion and creation tool (uses Potrace for raster-to-vector conversion)</li> 
+       <li><a href="Potrace">Potrace</a> ? cross-platform utility for tracing a bitmap into a smooth, scalable image</li> 
+       <li>AutoTrace ? a program for converting bitmap to vector graphics for Linux and Windows (seems old).</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> Proprietary software </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li><a href="Adobe Illustrator">Adobe Illustrator</a></li> 
+       <li><a href="Adobe Streamline">Adobe Streamline</a></li> 
+       <li><a href="Corel PowerTRACE">Corel PowerTRACE</a></li> 
+       <li><a href="Easy Trace">Easy Trace</a></li> 
+       <li><a href="Macromedia FreeHand">Macromedia FreeHand</a></li> 
+       <li><a href="Macromedia Flash">Macromedia Flash</a></li> 
+       <li><a href="Scan2CAD">Scan2CAD</a></li> 
+       <li><a href="Wintopo">WinTopo</a></li> 
+       <li><a href="Xara Photo &amp; Graphic Designer">Xara Photo &amp; Graphic Designer</a></li> 
+       <li>Vector Magic</li> 
+       <li>Imagaro Z</li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> See also </h2> 
+     <div class="section-body"> 
+      <ul> 
+       <li> <a href="Vectorization (image tracing)">Vectorization (image tracing)</a></li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="section"> 
+     <h2> References </h2> 
+     <div class="section-body"> 
+      <p> <span class="unknown-node">{{Reflist}}</span> </p> 
+      <p> <a href="Category:raster to vector conversion software">*</a> <a href="Category:Software comparisons">raster to vector software</a> </p> 
+      <p> <a href="bs:Spisak vektorskih grafi?kih programa">bs:Spisak vektorskih grafi?kih programa</a> <a href="pt:Compara&ccedil;&atilde;o de programas de covers&atilde;o raster para vectorial">pt:Compara&ccedil;&atilde;o de programas de covers&atilde;o raster para vectorial</a> <a href="ru:?????? ?? ??? ????????????">ru:?????? ?? ??? ????????????</a> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

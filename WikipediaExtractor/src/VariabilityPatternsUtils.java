@@ -11,8 +11,9 @@ public class VariabilityPatternsUtils {
 		// For instance, in Figure 1a, AOL Mail propose en client access only via POP3, IMAP and SMTP protocols 
 		// (SSL or TLS are not mentioned, we can suppose that these protocols are not supported).
 	public static boolean isConstrained(String val) {
-		return val.contains("partial") || val.contains("only")
-				|| val.contains("if") || val.contains("paid") || val.contains("registered") || val.contains("via");
+		return val.contains("partial") || val.contains("only") || val.contains("Only") || val.contains("Partial")
+				|| val.contains("if")  || val.contains("If")  || val.contains("Registered")  || val.contains("Via")  
+				|| val.contains("paid") || val.contains("registered") || val.contains("via");
 	}
 
 	public static boolean isUncertain(String val) {
