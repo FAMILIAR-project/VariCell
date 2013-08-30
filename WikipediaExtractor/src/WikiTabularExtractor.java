@@ -61,7 +61,7 @@ public class WikiTabularExtractor {
         
         
 
-        HtmlPrinter p = new HtmlPrinter(w, pageTitle.getFullTitle());
+        MyHtmlPrinter p = new MyHtmlPrinter(w, pageTitle.getFullTitle());
         p.setCssResource("/org/sweble/wikitext/engine/utils/HtmlPrinter.css", "");
         p.setStandaloneHtml(true, "");
         

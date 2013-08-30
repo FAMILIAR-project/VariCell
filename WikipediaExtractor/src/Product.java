@@ -184,7 +184,7 @@ public class Product {
 				
 			}
 			
-			else if (VariabilityPatternsUtils.isUncertain(val)) {
+			else if (VariabilityPatternsUtils.isUncertain(val) || VariabilityPatternsUtils.isUnknowns(val)) {
 				FeatureNode<String> pFt = mkFeatureNode(headerID, rFM) ; 
 				g.addEdge(pFt, currentTopFeature, FeatureEdge.HIERARCHY); // optional
 				
@@ -232,8 +232,15 @@ public class Product {
 	}
 
 	private String _interop(String hS) {
+		
+		if (hS.contains(")")) {
+		//	hS = hS.substring(0, hS.lastIndexOf(")"));
+		}
 		return hS.replaceAll("\\{", "")
 				.replaceAll("\\}", "")
+				.replaceAll("<ref>...</ref>", "") // hack
+				.replaceAll("<ref .../>", "")
+				.replaceAll("<ref ...>...</ref>", "")
 				;
 	}
 

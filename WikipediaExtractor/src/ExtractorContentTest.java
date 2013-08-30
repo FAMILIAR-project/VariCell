@@ -509,8 +509,7 @@ public class ExtractorContentTest extends FMLTest {
 		
 		
 		
-		executeWikipediaToFML("Comparison_of_XML_editors", new String[]{"Name", "Version", "Price for commercial version (exc. VAT)"}, 
-				new String[]{}, new String[] {});
+		
 		
 		executeWikipediaToFML("Comparison_of_SSH_clients", new String[]{"Name", "Latest release", "Developer"}, 
 				new String[]{}, new String[] {"Platform", "Technical", "Features"});
@@ -559,7 +558,176 @@ public class ExtractorContentTest extends FMLTest {
 		}, _EMPTY, _EMPTY);
 		*/
 		
-		executeWikipediaToFML("Comparison_of_HTML_editors",  _EMPTY, _EMPTY, _EMPTY);
+		/*
+		 * OK
+		executeWikipediaToFML("Comparison_of_HTML_editors",  
+				
+				 new String[] {
+				"Website", "Editor", "Creator", "Version", "Cost (USD)", "XHTML"
+				}
+				, new String[] {
+			"Maqetta", "Brackets", 
+		},
+				new String[] {
+				"HTML/XHTML specification support"
+		});
+		*/
+		/*
+		 * OK
+		 * Poorly structured (Linux, Windows, ..., editors...) 
+		 * -- note that there are ordered (implicit hierarchy in the order IMO) 
+		executeWikipediaToFML("Comparison_of_XML_editors", 
+				new String[]{"Name", "Version", "Price for commercial version (exc. VAT)"}, 
+				_EMPTY, _EMPTY);
+				*/
+				
+		
+		
+		// OK perhaps some scoping directives to add
+		/*
+		executeWikipediaToFML("Comparison_of_Java_virtual_machines", new String[] {
+				"Latest supported Java version", "Other", "Creator", "First public release", "Latest stable version", "Latest release date"
+		}, new String[] {
+				"IKVM.NET"
+		}, _EMPTY) ; 
+		*/
+		
+		
+		/* very OK
+		executeWikipediaToFML("Comparison_of_audio_synthesis_environments", new String[] {
+				"Most recent update", "First release date", "Cost", "Creator", "Most recent version", "Name"
+		}, _EMPTY, _EMPTY);
+		*/
+		
+		/* very OK
+		executeWikipediaToFML("Comparison_of_photo_gallery_software", new String[] {
+				"Name"
+		}		, _EMPTY, new String[] {
+		
+			"Desktop applications"	
+		});
+		*/
+		
+		/* interesting have to hack here
+		executeWikipediaToFML("Comparison_of_instant_messaging_clients", new String[] {"Author, creator", "Latest stable version", "First public release"}, new String[] {
+				"XMPP-related features", "Features"
+		}, _EMPTY);
+		*/
+		
+		/* interesting have to hack here
+		executeWikipediaToFML("Comparison_of_SSH_clients", _EMPTY, _EMPTY, _EMPTY);
+		*/
+		
+		// interesting also 
+		// maybe hide Client
+		/*
+		executeWikipediaToFML("Comparison_of_Internet_Relay_Chat_clients", new String[] {"Primary developers"
+				
+		},
+				_EMPTY, new String[] {
+				"Release history"
+		});*/
+		
+		// Data storage is missing surprinsingly 
+		/*
+		executeWikipediaToFML("Comparison_of_Internet_forum_software", new String[] {
+			"Creator", "Latest release date", "Current stable version", 	 
+		},
+				_EMPTY, _EMPTY);
+				*/
+		
+		// have to FIX it 
+		//executeWikipediaToFML("Comparison_of_Linux_distributions", _EMPTY, _EMPTY, _EMPTY);
+		
+		// have to FIX it
+		//executeWikipediaToFML("Comparison_of_SSH_servers", _EMPTY, _EMPTY, _EMPTY);
+		
+		//executeWikipediaToFML("Comparison_of_Subversion_clients", _EMPTY, _EMPTY, _EMPTY);
+		
+		
+		// have to fix it
+		/*
+		executeWikipediaToFML("Comparison_of_operating_systems", new String[] {
+				"Latest stable version", "Latest release date", "First public release"
+		}, 
+				
+				_EMPTY,
+				
+				_EMPTY);*/
+		
+		// good
+		//executeWikipediaToFML("Comparison_of_YouTube_downloaders", _EMPTY, _EMPTY, _EMPTY);
+		
+		// have to fix it but rather good
+		/*
+		executeWikipediaToFML("Comparison of accounting software", _EMPTY, _EMPTY, new String[] {
+				"Proprietary software", "Latest stable version", "Latest release date", "Stable release date"
+		});*/
+		
+		// have to fix it but rather good
+		// executeWikipediaToFML("Comparison_of_audio_formats", _EMPTY, _EMPTY, _EMPTY);
+		
+		// have to fix it
+		// executeWikipediaToFML("Comparison of audio player software", _EMPTY, _EMPTY, _EMPTY);
+		
+		//GOOD executeWikipediaToFML("Comparison of behavioral experiment software", _EMPTY, _EMPTY, _EMPTY);
+		
+		// GOOD executeWikipediaToFML("Comparison_of_birth_control_methods", _EMPTY, _EMPTY, _EMPTY);
+		
+		// executeWikipediaToFML("Comparison_of_boot_loaders", _EMPTY, _EMPTY, _EMPTY);
+		
+		// executeWikipediaToFML("Comparison_of_brainwave_entrainment_software", _EMPTY, _EMPTY, _EMPTY);
+		
+		// FIXIT
+		//executeWikipediaToFML("Comparison of business integration software ", _EMPTY, _EMPTY, _EMPTY);
+		
+		// scope and some directives (OR / XOR)
+		// executeWikipediaToFML("Comparison_of_BPEL_engines", _EMPTY, _EMPTY, _EMPTY);
+		
+		//executeWikipediaToFML("Comparison of chess video games", _EMPTY, _EMPTY, _EMPTY);
+		
+		//executeWikipediaToFML("Comparison_of_code_generation_tools", _EMPTY, _EMPTY, _EMPTY);
+		
+		executeWikipediaToFML("Comparison_of_command_shells", _EMPTY, _EMPTY, _EMPTY);
+		
+		// Comparison of cognitive architectures : very incomplete
+		
+		// can be fixed: Comparison of cluster software but rather poor
+		
+		// Comparison of X Window System desktop environments : exotic
+		// Comparison of antivirus software : exotic but can be adapted 
+		// Comparison of archive formats : poor
+		// Comparison of browser synchronizers : exotic, poor
+		
+		// ridiculous: http://en.wikipedia.org/wiki/Comparison_of_free_software_eCommerce_web_application_frameworks
+		
+		// Comparison of TeX editors exotic structure + poor content
+		
+		// Comparison of VMware Fusion and Parallels Desktop  : interesting but poorly structured
+		
+		// Comparison of JavaScript frameworks : poorly structured and exotic structure
+		// Comparison of MIDI standards : nothing
+		// Comparison of Macintosh models : close to very technical description (numbers)
+		// Comparison of Nikon DSLR cameras : same as above 
+		// http://en.wikipedia.org/wiki/Comparison_of_MySQL_database_engines : too poor
+		// bof poorly structured 
+		// executeWikipediaToFML("Comparison_of_distributed_file_systems", _EMPTY, _EMPTY, _EMPTY);
+		// very poor: http://en.wikipedia.org/wiki/Comparison_of_Skype_recorders
+		// bof http://en.wikipedia.org/wiki/Comparison_of_PSA_systems
+		// poorly structured http://en.wikipedia.org/wiki/Comparison_of_defragmentation_software
+		// poorly structured http://en.wikipedia.org/wiki/Comparison_of_DEX_software
+		
+		// poor and numerics all around: 
+		//http://en.wikipedia.org/wiki/Comparison_of_Toyota_hybrids
+		
+		/* poorly structured
+		executeWikipediaToFML("Comparison_of_antivirus_software", 
+				_EMPTY, 
+				_EMPTY, _EMPTY);
+				*/
+		
+		// no interest: http://en.wikipedia.org/wiki/Comparison_of_AMD_CPU_microarchitectures
+		// very poorly structured: http://en.wikipedia.org/wiki/Comparison_of_application_virtual_machines
 		
 		//executeWikipediaToFML("Comparison_of_file_archivers", _EMPTY, _EMPTY, _EMPTY);
 		
@@ -714,7 +882,7 @@ public class ExtractorContentTest extends FMLTest {
 
 					@Override
 					public boolean isAddingCrossTreeConstraints() {
-						return false;
+						return false ; //false;
 					}
 
 					@Override
@@ -744,13 +912,13 @@ public class ExtractorContentTest extends FMLTest {
 		
 		//System.err.println("fmMerged = " + fmMerged);
 		
-		String OUTPUT_DIRECTORY = "./outputFML/wikipedia-comparison-tables/" ; 
+		String OUTPUT_DIRECTORY = "outputFML/wikipedia-comparison-tables/" ; 
 		String bddContent = fmMerged.convert(FMFormat.FMLBDD) ; 
-		FileSerializer.write(OUTPUT_DIRECTORY + wikiPageName + ".fmlbdd", bddContent);
 		
+		FileUtils.writeStringToFile(new File(OUTPUT_DIRECTORY + wikiPageName + ".fmlbdd"), bddContent);
+			
 		FileSerializer.write(OUTPUT_DIRECTORY + wikiPageName + ".fml", fmMerged + "");
-		
-		
+						
 		/*
 		FeatureModelVariableBDDFormula flaMerged = new FeatureModelVariableBDDFormula("", new FMLMergerBDDSPLOT(fmvsToMerge, _builder).calculateFormula(Mode.Union), _builder);
 		
