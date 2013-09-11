@@ -17,7 +17,8 @@ public class VariabilityPatternsUtils {
 	}
 
 	public static boolean isUncertain(String val) {
-		return val.contains("dunno") || val.contains("depends")	;
+		return val.contains("dunno") || val.contains("depends") || val.contains("partly") || val.contains("optional") || 
+				val.contains("Experimental") || val.contains("experimental") || val.contains("Optional") || val.contains("Maybe") ;
 	}
 
 	public static boolean isBlanked(String val) {
@@ -27,7 +28,7 @@ public class VariabilityPatternsUtils {
 	 // ”yes/no”, ”true/false”, ”1/0”, ”x/-”, ”safe/un- safe”
 	public static boolean isYes(String val) {
 		return val.contains("Yes") || val.contains("yes")
-				|| val.equals("1") || val.equals("x") 		
+				|| val.equals("1") || val.equals("x") || val.contains("experimental") || val.equals("Expected")	|| val.contains("included")	
 				;
 	}
 
@@ -50,7 +51,7 @@ public class VariabilityPatternsUtils {
 
 	// Unknown value. One does not know if the criterion is satisfied. Cells are generally filled with ”?”, ”unknown”, ”-”, ”N/A”
 	public static boolean isUnknowns(String val) {
-		return val.contains("?") || val.contains("unknown")  ;
+		return val.contains("?") || val.contains("unknown") || val.contains("n/a") || val.contains("N/A") || val.equals("NA")  ;
 	}
 	
 	

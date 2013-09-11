@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -24,16 +26,22 @@ import fr.unice.polytech.modalis.familiar.operations.ExpressionUtility;
 import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDD;
 import fr.unice.polytech.modalis.familiar.operations.FMLMergerDisjunctiveSAT;
 import fr.unice.polytech.modalis.familiar.operations.featureide.SATFMLFormula;
+import fr.unice.polytech.modalis.familiar.parser.FMBuilder;
+import fr.unice.polytech.modalis.familiar.parser.MyExpressionParser;
 import fr.unice.polytech.modalis.familiar.test.FMLTest;
 import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
 import fr.unice.polytech.modalis.familiar.variable.featureide.FeatureModelVariableSATFormula;
-import fr.unice.polytech.modalis.utils.FileSerializer;
 import gsd.graph.ImplicationGraph;
 import gsd.graph.SimpleEdge;
 import gsd.synthesis.Expression;
+import gsd.synthesis.Formula;
 
 
 public class ExtractorContentTest extends FMLTest {
+	
+	
+	
+	public static String OUTPUT_DIRECTORY = "outputFML/wikipedia-comparison-tables/" ; 
 	
 	public static String URL_BASE_NAME = "http://en.wikipedia.org" ; 
 	
@@ -500,20 +508,149 @@ public class ExtractorContentTest extends FMLTest {
 		 * Scoping directives here
 		 */
 		
+		_shell.setVerbose(false);
 		
-		/*
+		/****
+		 * DONE 
+		 */
 		
-		String[] excludeColumnNames = { "Other", "Status", "Latest release date", "Latest stable version", "First public release", "Creator", "Name" }  ; // {} ; 
+		
+		String[] excludeColumnNames = { "Latest supported Java version", "Other", "Status", "Latest release date", "Latest stable version", "First public release", "Creator", "Name" }  ; // {} ; 
 		String[] excludeProductNames =  { "IKVM.NET" } ; 		
-		executeWikipediaToFML(wikiPageName, excludeColumnNames, excludeProductNames, new String[] {});
-		
-		
-		
-		
-		
-		executeWikipediaToFML("Comparison_of_SSH_clients", new String[]{"Name", "Latest release", "Developer"}, 
-				new String[]{}, new String[] {"Platform", "Technical", "Features"});
+		postTreatFM (
+				executeWikipediaToFML("Comparison_of_Java_virtual_machines", excludeColumnNames, excludeProductNames, new String[] {}),
+				new String[] {"Under development", "Preliminary ARMv5 support", "On Jailbroken iPhone", "Port", "With third-party patches", "Java true.6"}
+				);
+
+		postTreatFM (
+		executeWikipediaToFML("Comparison_of_SSH_clients", new String[]{"Name", 
+				"iPhone,{{Noteiphone}} iPod Touch, iPad", "Based on", "Latest release", "Status", "First release", "Developer", "Compromised by the NSA <ref>...</ref>"
+		, 
+		"Port forwarding", "SOCKS{{NoteSOCKS}}", "VPN{{NoteVPN}}", "Port forwarding", "SOCKS{{NoteSOCKS}}", "VPN{{NoteVPN}}", "Session multiplexing{{Notemux}}", "Kerberos", "IPv6", "Terminal", "SFTP/SCP", "Proxy client{{NoteconnectViaProxy}}"
+		}, 
+				new String[]{}, new String[] {"Features"}),
+				new String[] {"Port forwarding"}
+				); 
 				
+		postTreatFM (executeWikipediaToFML("Comparison_of_audio_synthesis_environments", new String[] {
+				"Primary Purpose(s)", "Most recent update", "First release date", "Cost", "Creator", "Most recent version", "Name",
+				"Other technical features", "Programming (plugin) API language(s)" // due to problem with multi-features
+		}, _EMPTY, new String[] {"Data interface methods"}), _EMPTY);
+	
+		postTreatFM (executeWikipediaToFML("Comparison_of_HTML_editors",  
+				
+				 new String[] {
+				"Website", "Editor", "Creator", "Version", "Cost (USD)", "XHTML"
+				}
+				, new String[] {
+			"Maqetta", "Brackets", 
+		},
+				new String[] {
+				"HTML/XHTML specification support"
+		}), _EMPTY);
+		
+		
+		postTreatFM (
+		executeWikipediaToFML("Comparison_of_photo_gallery_software", new String[] {
+				"Name"
+		}		, _EMPTY, new String[] {
+		
+			"Desktop applications"	
+		}), 
+		_EMPTY)	;
+		
+		postTreatFM (
+		executeWikipediaToFML("Comparison_of_Internet_Relay_Chat_clients", new String[] {"Primary developers", "Client"
+				
+		},
+				_EMPTY, new String[] {
+				"Release history"
+		}),
+		_EMPTY) ;
+		
+		
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_YouTube_downloaders", _EMPTY, _EMPTY, _EMPTY), 
+		_EMPTY);
+		
+		
+		// 8. 
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_file_comparison_tools", 
+				new String[] {"Name", "Other platforms", "Creator", "Cost", "First public release date", "Year of latest stable version", "Max Supported File Size" }, 
+				_EMPTY, _EMPTY),
+		new String[] {"both", "Both"});
+		
+		
+		
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_iOS_e-book_reader_software", new String[] {"Product", "total # of formats"}, 
+				_EMPTY, new String[] {"Special features"}),
+				new String[] {"as of v2.0", "Unlimited"});
+				
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_iPod_managers", 
+				new String[] {"Manager", "Creator(s)", "First public release date", "Latest stable version"}, _EMPTY, _EMPTY),
+				new String[] {"", ""}
+				);
+				
+		
+		
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_image_viewers", 
+				new String[] {"Name", "other / special", "Program", "View functions", "Other functions 3", "Price", "Comic book"}, _EMPTY, _EMPTY),
+				new String[] {"", ""}
+				);
+		
+		// 12.
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_mobile_Internet_Relay_Chat_clients", 
+				new String[] {"Client", "Primary developers", "Website"}, _EMPTY, new String[] {"Release history"}),
+				new String[] {"", ""}
+				);
+				
+				
+				
+		// 13.
+		Map<String, String> renamings = new HashMap<String, String>() ; 
+		renamings.put("See also", "Comparison_of_help_desk_issue_tracking_software");
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_help_desk_issue_tracking_software", 
+				new String[] {"System", "Creator", "Launch Date"}, _EMPTY, _EMPTY, renamings),
+				new String[] {""}, 
+				new String[] {"License", "Back end", "Implementation language(s)"}
+				);
+		
+		/* very OK
+		executeWikipediaToFML("Comparison_of_relational_database_management_systems", new String[] {
+				"Maintainer", "First public release date", "Latest stable version", "Latest release date",
+		}, 
+				_EMPTY, new String[] {"Limits", "Data types"});
+				*/		
+		
+		
+		
+		/****
+		 * 
+		 * END (done)
+		 * 
+		 */
+		
+		
+		
+		// hack due to parsers :( 
+		/*postTreatFM(
+		 executeWikipediaToFML("Comparison_of_behavioral_experiment_software", new String[] {"Name"}, _EMPTY, _EMPTY), 
+		 _EMPTY);*/
+		
+
+		// exostic
+		/*
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_birth_control_methods", _EMPTY, _EMPTY, _EMPTY),
+		_EMPTY);*/
+		
+		/*		
 		
 		
 		executeWikipediaToFML("Comparison_of_webmail_providers", 
@@ -558,20 +695,7 @@ public class ExtractorContentTest extends FMLTest {
 		}, _EMPTY, _EMPTY);
 		*/
 		
-		/*
-		 * OK
-		executeWikipediaToFML("Comparison_of_HTML_editors",  
-				
-				 new String[] {
-				"Website", "Editor", "Creator", "Version", "Cost (USD)", "XHTML"
-				}
-				, new String[] {
-			"Maqetta", "Brackets", 
-		},
-				new String[] {
-				"HTML/XHTML specification support"
-		});
-		*/
+		
 		/*
 		 * OK
 		 * Poorly structured (Linux, Windows, ..., editors...) 
@@ -593,20 +717,8 @@ public class ExtractorContentTest extends FMLTest {
 		*/
 		
 		
-		/* very OK
-		executeWikipediaToFML("Comparison_of_audio_synthesis_environments", new String[] {
-				"Most recent update", "First release date", "Cost", "Creator", "Most recent version", "Name"
-		}, _EMPTY, _EMPTY);
-		*/
 		
-		/* very OK
-		executeWikipediaToFML("Comparison_of_photo_gallery_software", new String[] {
-				"Name"
-		}		, _EMPTY, new String[] {
-		
-			"Desktop applications"	
-		});
-		*/
+	
 		
 		/* interesting have to hack here
 		executeWikipediaToFML("Comparison_of_instant_messaging_clients", new String[] {"Author, creator", "Latest stable version", "First public release"}, new String[] {
@@ -618,15 +730,7 @@ public class ExtractorContentTest extends FMLTest {
 		executeWikipediaToFML("Comparison_of_SSH_clients", _EMPTY, _EMPTY, _EMPTY);
 		*/
 		
-		// interesting also 
-		// maybe hide Client
-		/*
-		executeWikipediaToFML("Comparison_of_Internet_Relay_Chat_clients", new String[] {"Primary developers"
-				
-		},
-				_EMPTY, new String[] {
-				"Release history"
-		});*/
+	
 		
 		// Data storage is missing surprinsingly 
 		/*
@@ -655,8 +759,7 @@ public class ExtractorContentTest extends FMLTest {
 				
 				_EMPTY);*/
 		
-		// good
-		//executeWikipediaToFML("Comparison_of_YouTube_downloaders", _EMPTY, _EMPTY, _EMPTY);
+		
 		
 		// have to fix it but rather good
 		/*
@@ -670,9 +773,7 @@ public class ExtractorContentTest extends FMLTest {
 		// have to fix it
 		// executeWikipediaToFML("Comparison of audio player software", _EMPTY, _EMPTY, _EMPTY);
 		
-		//GOOD executeWikipediaToFML("Comparison of behavioral experiment software", _EMPTY, _EMPTY, _EMPTY);
-		
-		// GOOD executeWikipediaToFML("Comparison_of_birth_control_methods", _EMPTY, _EMPTY, _EMPTY);
+
 		
 		// executeWikipediaToFML("Comparison_of_boot_loaders", _EMPTY, _EMPTY, _EMPTY);
 		
@@ -688,7 +789,180 @@ public class ExtractorContentTest extends FMLTest {
 		
 		//executeWikipediaToFML("Comparison_of_code_generation_tools", _EMPTY, _EMPTY, _EMPTY);
 		
-		executeWikipediaToFML("Comparison_of_command_shells", _EMPTY, _EMPTY, _EMPTY);
+		// executeWikipediaToFML("Comparison_of_command_shells", _EMPTY, _EMPTY, _EMPTY);
+		
+		//executeWikipediaToFML("Comparison_of_continuous_integration_software", _EMPTY, _EMPTY, _EMPTY);
+		
+		// executeWikipediaToFML("Comparison_of_data_modeling_tools", _EMPTY, _EMPTY, _EMPTY);
+		
+		// have to fix executeWikipediaToFML("Comparison of database tools", _EMPTY, _EMPTY, _EMPTY);
+		
+		//executeWikipediaToFML("Comparison of debuggers", _EMPTY, _EMPTY, _EMPTY);
+		
+		//executeWikipediaToFML("Comparison_of_defragmentation_software", _EMPTY, _EMPTY, _EMPTY);
+		
+		// executeWikipediaToFML("Comparison_of_dental_practice_management_software", _EMPTY, _EMPTY, _EMPTY);
+		
+		// TODO scoping
+		//executeWikipediaToFML("Comparison_of_desktop_publishing_software", _EMPTY, _EMPTY, new String[] {
+		//		"Output format"
+		//});
+		
+		//executeWikipediaToFML("Comparison_of_development_estimation_software", _EMPTY, _EMPTY, _EMPTY);
+		
+		//executeWikipediaToFML("Comparison_of_digital_audio_editors", _EMPTY, _EMPTY, _EMPTY);
+		
+		// executeWikipediaToFML("Comparison_of_documentation_generators", _EMPTY, _EMPTY, _EMPTY);
+		// FIXME
+		/*executeWikipediaToFML("Comparison_of_email_clients", new String[] {"Creator"}, _EMPTY, new String[] {
+			"Release history"	
+		});*/
+		
+		// FIXME executeWikipediaToFML("Comparison of enterprise bookmarking platforms", _EMPTY, _EMPTY, _EMPTY); 
+			
+		// TODO FIXME (scoping) executeWikipediaToFML("Comparison_of_download_managers", new String[] {"Latest stable release"}, _EMPTY, _EMPTY);
+		
+		// TODO FIXME executeWikipediaToFML("Comparison_of_document_markup_languages", _EMPTY, _EMPTY, _EMPTY);
+		// TODO Comparison of disk encryption software 
+		
+		// TODO Comparison_of_disk_cloning_software (I think we have to hack here)
+		
+		// TODO Comparison of disc authoring software 
+		
+		// TODO Comparison_of_desktop_application_launchers
+		
+		
+		
+		// FIXME executeWikipediaToFML("Comparison_of_file_archivers", _EMPTY, _EMPTY, new String[] {"Writing"}); 
+		
+		// FIXME
+		/*
+		executeWikipediaToFML("Comparison_of_file_managers", new String[] {"First public version (date)",
+				"Latest stable version (date, number)"		
+		
+		}, _EMPTY, _EMPTY);*/
+		
+		//executeWikipediaToFML("Comparison_of_file_verification_software", new String[] {"Developer", "First public release", "Latest stable date (version)"}, _EMPTY, _EMPTY);
+		
+		// FIXME executeWikipediaToFML("Comparison of free and open-source software licenses ", _EMPTY, _EMPTY, _EMPTY);
+		
+		// FIXME executeWikipediaToFML("Comparison of genealogy software ", _EMPTY, _EMPTY, _EMPTY);
+		
+		// FIXME executeWikipediaToFML("Comparison of geographic information systems software ", _EMPTY, _EMPTY, _EMPTY);
+		
+		// exotic actually: I would give up
+		/*
+		executeWikipediaToFML("Comparison_of_container_formats", _EMPTY, 
+				_EMPTY, 
+				new String[] {
+				"Caption (Subtitle) formats supported"
+		});*/
+		
+		
+		/*FIXME
+		 * executeWikipediaToFML("Comparison of hex editors ", new String[] {
+				"Cost", "Latest version", "Latest release date"
+		}, _EMPTY, _EMPTY);*/
+		
+		
+		
+		
+		
+		// does not scale
+		/*
+		executeWikipediaToFML("Comparison_of_issue-tracking_systems", 
+				new String[] {"Launch Date", "Refs", "Creator"}, // "System", 
+				_EMPTY, _EMPTY);*/
+		
+		// almost done (post-directives) 
+		// executeWikipediaToFML("Comparison_of_mail_servers", new String[] {"Other" }, _EMPTY, _EMPTY);
+		
+		
+		/*
+		executeWikipediaToFML("Comparison_of_open-source_operating_systems", 
+				new String[] {"Name", "Kernel type",  "Oldest non-EOL version{{Notea1}}", "Kernel thread support", 
+				"other special file system features", "Others", "Other special file systems"
+				}
+				
+				, _EMPTY, _EMPTY);*/
+		
+		/* hack the sections
+		executeWikipediaToFML("Comparison_of_open-source_software_hosting_facilities", new String[] {
+		}, _EMPTY, new String[] {"Popularity"});
+		*/
+		
+		// OK (perhaps post directives) 
+		// executeWikipediaToFML("Comparison_of_project_management_software", new String[] {"Software"}, _EMPTY, _EMPTY);
+		
+		/*
+		executeWikipediaToFML("Comparison_of_reference_management_software", new String[] {"Software",
+				"Developer", "First public release", "Latest stable version", "Cost (USD)", "Notes", "Other",
+				"RTF scan<ref ...>...</ref>", "LaTeX<ref>...</ref>", "User-specific permissions<ref>...</ref>"
+		}, _EMPTY, new String[] {"Import file formats"}); */
+		
+	
+		
+		/*
+		executeWikipediaToFML("Comparison_of_remote_desktop_software", new String[] {"Software", "Creator", 
+				"First public release date", "Latest stable version", "Maximum simultaneous connections",		
+		}, _EMPTY, _EMPTY);
+		*/
+		
+		
+		// TODO http://en.wikipedia.org/wiki/Comparison_of_revision_control_software
+		
+		
+		// Comparison of regular expression engines : exostic
+		
+		// http://en.wikipedia.org/wiki/Comparison_of_mobile_operating_systems exotic
+		// Comparison of mobile phone standards technical, poor, exotic
+		// Comparison of movie cameras  bench style
+		// Comparison of online backup services limited and bench style
+		// Comparison of online music stores flattened 
+		// Comparison of massively multiplayer online role-playing games  benchmark like
+		// Comparison of memory cards bench like
+		// Comparison of metadata editors (exotic) 
+		// Comparison of management accounting and financial accounting plain texte
+		// Comparison of lightweight web servers erroneous
+		// Comparison of macro recorder software very poor
+		// Comparison of karate styles  plain text
+		// Comparison of layout engines (Cascading Style Sheets) (bench style)
+		// Comparison of layout engines (Document Object Model) same as above
+		// http://en.wikipedia.org/wiki/Comparison_of_integrated_development_environments exotic
+		// Comparison of instant messaging protocols : poor content/structure
+		// Comparison of iSCSI targets (too poor)
+		// Comparison of high definition optical disc formats : poor
+		// Comparison of hub gears bench style
+		// Comparison of hardware random number generators  pure text and poor
+		// Comparison of graphics file formats poor and poorly structured
+		// Comparison of free web hosting services very bof
+		// Comparison of file sharing applications  very pooor
+		// Comparison of file synchronization software very poor
+		
+		// Comparison of free credit report websites : very poor
+		// Comparison of free software eCommerce web application frameworks  : very very poor
+		// Comparison of firewalls very pooor
+		// very poor Comparison of file hosting services 
+		
+		// Comparison of feed aggregators (seems that the data are really "in progress" lots of blanked cells)
+		
+		// Comparison of executable file formats (very poor)
+				// Comparison of facial image datasets (too poor)
+		
+		// Comparison of early HTML editors very poor
+		// Comparison of eDonkey software (exotic structure)
+		
+		// Comparison of e-book readers (benchmark)
+		// Comparison of e-book formats (plain text)
+		// Comparison of dosimeters benchmark style 
+		// Comparison of domestic robots exotic and very poor
+		// Comparison of data serialization formats : too poor
+		// Comparison of database access : too poor
+		
+		
+		// Comparison of crowd funding services very pooor
+		// Comparison of cryptographic hash functions too technical with numerics values
+		// Comparison of dance video games too poor
 		
 		// Comparison of cognitive architectures : very incomplete
 		
@@ -733,8 +1007,86 @@ public class ExtractorContentTest extends FMLTest {
 		
 	}
 	
-	private void executeWikipediaToFML(String wikiPageName,	String[] excludeColumnNames, String[] excludeProductNames, String[] excludeSectionNames) throws Exception {
-		WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
+
+
+	private void postTreatFM(FeatureModelVariable fmMerged, String[] negatedFts, String[] positiveFts) throws Exception {
+		/*
+		 * Post-process
+		 */
+		
+		// 1. negated features (irrelevant values of the cell)
+		for (String negatedFt : negatedFts) {
+			fmMerged.getFormula().andWith(new Formula<String>(_builder.nget(negatedFt), Arrays.asList(negatedFt), _builder));
+			fmMerged.removeFeature(negatedFt);
+			fmMerged.addConstraint(new Expression<String>(negatedFt).not());
+		}
+		
+		// 1. positive features (force the mandatory)
+		for (String positiveFt : positiveFts) {
+			fmMerged.getFormula().andWith(new Formula<String>(_builder.get(positiveFt), Arrays.asList(positiveFt), _builder));
+			fmMerged.setMandatory(fmMerged.getFeature(positiveFt));
+			fmMerged.addConstraint(new Expression<String>(positiveFt));
+		}
+		
+				
+		System.err.println("cliques: " + fmMerged.cliques().names());
+		
+		
+		int nFts = fmMerged.features().size() ; 
+		System.err.println("#fts " + nFts);
+		
+		
+		ImplicationGraph<String> big = fmMerged.computeImplicationGraph() ; 
+		System.err.println("#IG (edges) " + big.edges().size());
+		Collection<String> vtxs = big.vertices() ;
+		int t = 0 ; 
+		for (String ft : vtxs) {
+			Collection<SimpleEdge> iedges = big.outgoingEdges(ft);
+			int n = iedges.size() ; 
+			//System.err.println("ft=" + ft + " " + n);
+			t += n ; 
+		}
+		
+		System.err.println("(average) " + t / nFts);
+		System.err.println("(rfm) " + fmMerged);
+		
+		//System.err.println("fmMerged = " + fmMerged);
+
+		String bddContent = fmMerged.convert(FMFormat.FMLBDD) ; 
+		
+		
+		String wikiPageName = fmMerged.getIdentifier() ;
+		File f = new File(OUTPUT_DIRECTORY + wikiPageName + ".fmlbdd") ; 
+		FileUtils.writeStringToFile(f, bddContent);
+		
+		File f2 = new File (OUTPUT_DIRECTORY + wikiPageName + ".fml") ; 
+		FileUtils.writeStringToFile(f2, fmMerged + "");
+
+		
+
+		FeatureModelVariable fmv1 = FMBuilder.parseFMLBDD(OUTPUT_DIRECTORY + wikiPageName + ".fmlbdd", _builder);
+		System.err.println("#" + fmv1.counting());
+		assertNotNull(fmv1);
+		
+						
+		/*
+		FeatureModelVariableBDDFormula flaMerged = new FeatureModelVariableBDDFormula("", new FMLMergerBDDSPLOT(fmvsToMerge, _builder).calculateFormula(Mode.Union), _builder);
+		
+		System.err.println("#" + flaMerged.counting());*/
+		
+		
+		
+		//System.err.println("doc=" + sections);
+		//System.err.println("doc=" + doc.getElementsByTag("title"));
+		//System.err.println("doc=" + doc.title());
+		
+	}
+
+	private FeatureModelVariable executeWikipediaToFML(String wikiPageName,	String[] excludeColumnNames, 
+			String[] excludeProductNames, String[] excludeSectionNames,
+			Map<String, String> renamings) throws Exception {
+		
+	WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
 		
 		
 		String content = wikipediaExtractor.getContent(wikiPageName) ;
@@ -785,9 +1137,7 @@ public class ExtractorContentTest extends FMLTest {
 					System.err.println("Unable to remove the column " + columnName);
 				}
 			}
-			
-			
-			
+				
 		}
 		
 		Set<String> excludeProductIDs = new HashSet<String>(Arrays.asList(excludeProductNames)) ;
@@ -805,7 +1155,18 @@ public class ExtractorContentTest extends FMLTest {
 				continue ; */
 			for (Product product : catalog) {
 				FeatureModelVariable fmv = product.toFeatureDiagram() ;
-				String id = fmv.getIdentifier() ; 
+				/*
+				 * POST
+				 */
+				
+				// renaming
+				
+				Set<String> oFts = renamings.keySet() ; // features to rename
+				for (String oFt : oFts) {
+					fmv.renameFeature(oFt, renamings.get(oFt));
+				}
+				
+				String id = fmv.getIdentifier() ;
 				if (!excludeProductIDs.contains(id))
 					fmvs.add(fmv);
 				
@@ -840,7 +1201,7 @@ public class ExtractorContentTest extends FMLTest {
 					}
 				}
 				if (!toAggreagte.isEmpty()) {
-					fmvsToMerge.add(new AggregatorFM().build(toAggreagte, new HashSet<Expression<String>>(), wikiPageName));
+					fmvsToMerge.add(new AggregatorFM().build(toAggreagte, new HashSet<Expression<String>>(), _interop(wikiPageName)));
 				}
 				else {
 					System.err.println("Didn't find another for " + id1);
@@ -850,6 +1211,16 @@ public class ExtractorContentTest extends FMLTest {
 				idsDone.add(id1);
 			}
 		}
+		
+		// serialize product by product (for debug)
+		StringBuffer sb = new StringBuffer();
+		int i = 0 ; 
+		for (FeatureModelVariable fmv : fmvsToMerge) {
+			sb.append("fmProduct" + i++ + " = FM (" + fmv + "\n)\n\n");
+		}
+		File f = new File(OUTPUT_DIRECTORY + wikiPageName + "_FMLMergingScript" + ".fml") ; 
+		FileUtils.writeStringToFile(f, sb.toString());
+
 		
 		FMLMergerBDD fmlMerger = new FMLMergerBDD(fmvsToMerge, _builder) ; // 
 		
@@ -861,7 +1232,8 @@ public class ExtractorContentTest extends FMLTest {
 		boolean _SAT_EVALUATION = false ; 
 		if (_SAT_EVALUATION) {
 			fmMerged = new FMLMergerDisjunctiveSAT(fmvsToMerge).union();
-			return ; 
+			fmMerged.setIdentifier(wikiPageName);
+			return fmMerged ; 
 		}
 		
 		boolean _SAT_EVALUATION_2 = false ;
@@ -870,7 +1242,7 @@ public class ExtractorContentTest extends FMLTest {
 			//System.err.println("exprs:" + exprs);
 			// SMT bridges
 			System.err.println("" + new FeatureModelVariableSATFormula("", new SATFMLFormula(ExpressionUtility.mkConjunction(exprs))).computeImplicationGraph());
-			return ; 
+			return null ; 
 		}
 		
 		
@@ -893,44 +1265,41 @@ public class ExtractorContentTest extends FMLTest {
 				  }) ; 
 		
 		
-		int nFts = fmMerged.features().size() ; 
-		System.err.println("#fts " + nFts);
+
 		
-		
-		ImplicationGraph<String> big = fmMerged.computeImplicationGraph() ; 
-		System.err.println("#IG (edges) " + big.edges().size());
-		Collection<String> vtxs = big.vertices() ;
-		int t = 0 ; 
-		for (String ft : vtxs) {
-			Collection<SimpleEdge> iedges = big.outgoingEdges(ft);
-			int n = iedges.size() ; 
-			//System.err.println("ft=" + ft + " " + n);
-			t += n ; 
+				
+		// post-process: mandatory status for 		
+		for (Catalog catalog : catalogs) {
+			String catalogName = catalog.getName() ;  
+			if (excludeSections.contains(catalogName))
+				continue ; 
+			if (fmMerged.features().names().contains(catalogName)) {
+				fmMerged.setMandatory(fmMerged.getFeature(catalogName));
+			//  fmMerged.addConstraint(new Expression<String>(catalogName));
+				fmMerged.getFormula().andWith(new Formula<String>(_builder.mkExpression(new Expression<String>(catalogName)), Arrays.asList(catalogName), _builder));
+			}
 		}
 		
-		System.err.println("(average) " + t / nFts);
-		
-		//System.err.println("fmMerged = " + fmMerged);
-		
-		String OUTPUT_DIRECTORY = "outputFML/wikipedia-comparison-tables/" ; 
-		String bddContent = fmMerged.convert(FMFormat.FMLBDD) ; 
-		
-		FileUtils.writeStringToFile(new File(OUTPUT_DIRECTORY + wikiPageName + ".fmlbdd"), bddContent);
-			
-		FileSerializer.write(OUTPUT_DIRECTORY + wikiPageName + ".fml", fmMerged + "");
-						
-		/*
-		FeatureModelVariableBDDFormula flaMerged = new FeatureModelVariableBDDFormula("", new FMLMergerBDDSPLOT(fmvsToMerge, _builder).calculateFormula(Mode.Union), _builder);
-		
-		System.err.println("#" + flaMerged.counting());*/
-		
-		
-		
-		//System.err.println("doc=" + sections);
-		//System.err.println("doc=" + doc.getElementsByTag("title"));
-		//System.err.println("doc=" + doc.title());
+		fmMerged.setIdentifier(wikiPageName);
+		return fmMerged ; 
+	}
+
+	private void postTreatFM(FeatureModelVariable fmMerged, String[] negatedFts) throws Exception {
+		postTreatFM(fmMerged, negatedFts, new String[] {});
+	}
+
+	private FeatureModelVariable executeWikipediaToFML(String wikiPageName,	String[] excludeColumnNames, String[] excludeProductNames, String[] excludeSectionNames) throws Exception {
+	
+		return executeWikipediaToFML(wikiPageName, excludeColumnNames, excludeProductNames, excludeSectionNames, new HashMap<String, String>());
 		
 	}
+
+	private String _interop(String hS) {
+
+			return hS.replaceAll("-", "")
+					;
+	}
+	
 
 	private void treatTable(Element table, List<Catalog> catalogs) {
 			// 1. get section name

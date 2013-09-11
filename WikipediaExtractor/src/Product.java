@@ -167,6 +167,10 @@ public class Product {
 			String val = entry.getValue() ;
 			
 			if (VariabilityPatternsUtils.isNot(val)) {
+			// more restrictive
+				/*if (VariabilityPatternsUtils.isNot(val) 
+					||	VariabilityPatternsUtils.isUncertain(val) 
+				|| VariabilityPatternsUtils.isUnknowns(val)) {*/
 				FeatureNode<String> pFt = mkFeatureNode(headerID, rFM) ; 
 				g.addEdge(pFt, currentTopFeature, FeatureEdge.HIERARCHY); // FIXME: negated afterwards
 				rFM.addConstraint(new Expression<String>(headerID).not());

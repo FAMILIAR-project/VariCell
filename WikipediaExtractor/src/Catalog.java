@@ -130,4 +130,5 @@ public class Catalog implements Collection<Product> {
 		return getStructuralInformation().getHead() ; 
 	}
 
+
 }
