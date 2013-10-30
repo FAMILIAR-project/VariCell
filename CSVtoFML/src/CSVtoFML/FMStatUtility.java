@@ -1,22 +1,22 @@
 package CSVtoFML;
 
+import fr.familiar.experimental.FGroup;
+import fr.familiar.interpreter.VariableNotExistingException;
+import fr.familiar.parser.FMLCommandInterpreter;
+import fr.familiar.parser.VariableAmbigousConflictException;
+import fr.familiar.variable.FeatureModelVariable;
+import fr.familiar.variable.FeatureName;
+import fr.familiar.variable.FeatureVariable;
+import fr.familiar.variable.SetVariable;
+import fr.familiar.variable.VariabilityOperatorVariable;
+import fr.familiar.variable.Variable;
+import gsd.synthesis.Expression;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
 import org.xtext.example.mydsl.fML.FeatureEdgeKind;
-
-import fr.unice.polytech.modalis.familiar.experimental.FGroup;
-import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
-import fr.unice.polytech.modalis.familiar.parser.FMLCommandInterpreter;
-import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
-import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
-import fr.unice.polytech.modalis.familiar.variable.FeatureName;
-import fr.unice.polytech.modalis.familiar.variable.FeatureVariable;
-import fr.unice.polytech.modalis.familiar.variable.SetVariable;
-import fr.unice.polytech.modalis.familiar.variable.VariabilityOperatorVariable;
-import fr.unice.polytech.modalis.familiar.variable.Variable;
-import gsd.synthesis.Expression;
 
 public class FMStatUtility {
 

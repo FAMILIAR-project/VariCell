@@ -1,0 +1,1860 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of CDMI server implementations</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of CDMI server implementations</h1> 
+   <div class="article-content"> 
+    <table class="wikitable"> 
+     <tbody>
+      <tr> 
+       <th> Implementation </th> 
+       <th> SNIA Reference Implementation </th> 
+       <th> CDMI-Serve </th> 
+       <th> CDMI-Proxy </th> 
+       <th> CDMI for OpenStack's Swift </th> 
+       <th> <p> CDMI-z </p> </th> 
+      </tr> 
+      <tr> 
+       <td> Version </td> 
+       <td> <a href="http://www.snia.org/forums/csi/programs/CDMIportal">1.0e</a> </td> 
+       <td> <a href="https://github.com/koenbollen/cdmi-serve">238c28fc7c</a> </td> 
+       <td> <a href="https://github.com/livenson/vcdm">0.1</a> </td> 
+       <td> <a href="https://github.com/osaddon/cdmi">f0e3ad9bac</a> </td> 
+       <td> <p> 1 </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="CDMI">CDMI</a> Version </td> 
+       <td> 1.0.2 </td> 
+       <td> ? </td> 
+       <td> 1.0.1 </td> 
+       <td> ? </td> 
+       <td> <p> 1.0.2 </p> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="6" align="center"> <p> <b>HTTP features</b> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="HTTPS">HTTPS</a> </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> <span class="unknown-node">{{Yes}}</span> </td> 
+       <td> ? </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="Basic authentication">Basic authentication</a> </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> <span class="unknown-node">{{Yes}}</span> </td> 
+       <td> ? </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td> <a href="Digest authentication">Digest authentication</a> </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> <span class="unknown-node">{{Yes}}</span> </td> 
+       <td> ? </td> 
+       <td> <p> ? </p> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="6" align="center"> <p> <b>System-Wide CDMI Capabilities</b> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_domains </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_cifs </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_dataobjects </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_iscsi </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_nfs </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_occi_iscsi </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_webdav </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_metadata_maxitems </td> 
+       <td> 1024 </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> <p> 4096 </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_metadata_maxsize </td> 
+       <td> 4096 </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> <p> 4096 </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_metadata_maxtotalsize </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> ? </td> 
+       <td> <p> 1048576 </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_notification </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_logging </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_query </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_query_regex </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_query_contains </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_query_tags </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_query_value </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_queues </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_security_access_control </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_security_audit </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_security_data_integrity </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_security_encryption </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_security_immutability </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_security_sanitization </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_serialization_json </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_snapshots </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_references </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_object_move_from_local </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_object_move_from_remote </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_object_move_from_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_object_move_to_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_object_copy_from_local </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_object_copy_from_remote </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_object_access_by_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_post_dataobject_by_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_post_queue_by_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_deserialize_dataobject_by_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_deserialize_queue_by_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_serialize_dataobject_to_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_serialize_domain_to_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_serialize_container_to_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_serialize_queue_to_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_copy_dataobject_by_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_copy_queue_by_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_create_reference_by_ID </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="6" align="center"> <p> <b>Data Object Capabilities</b> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_read_value </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_read_value_range </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_read_metadata </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_value </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_value_range </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_metadata </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_deserialize_dataobject </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_delete_dataobject </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_acl </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_size </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_ctime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_atime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_mtime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_acount </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_mcount </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_assignedsize </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_dispersion </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_retention </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_autodelete </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_holds </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_encryption </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_geographic_placement </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_immediate_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_infrastructure_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_latency </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_RPO </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_RTO </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_sanitization_method </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_throughput </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_value_hash </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="6" align="center"> <p> <b>Container Capabilities</b> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_list_children </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_list_children_range </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_read_metadata </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_metadata </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_deserialize_container </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_snapshot </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_serialize_dataobject </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_serialize_container </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_serialize_queue </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_serialize_domain </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_deserialize_container </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_deserialize_queue </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_deserialize_dataobject </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_create_dataobject </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_post_dataobject </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_post_queue </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_create_container </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_create_queue </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_create_reference </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_container_cifs </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_container_nfs </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_container_iscsi </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_container_occi </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_export_container_webdav </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_delete_container </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_move_container </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_copy_container </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_move_dataobject </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_copy_dataobject&quot; </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_acl </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_size </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_ctime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_atime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_mtime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_acount </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_mcount </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_assignedsize </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_dispersion </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_retention </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_autodelete </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_holds </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_encryption </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_geographic_placement </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_immediate_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_infrastructure_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_latency </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_RPO </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_RTO </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_sanitization_method </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_throughput </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_value_hash </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="6" align="center"> <p> <b>Domain Object Capabilities</b> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_create_domain </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_delete_domain </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_domain_summary </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_domain_members </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_list_children </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_read_metadata </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_metadata </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_deserialize_domain </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_copy_domain </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_deserialize_domain </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_acl </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_size </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_ctime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_atime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_mtime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_acount </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_mcount </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_assignedsize </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_dispersion </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_retention </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_autodelete </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_holds </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_encryption </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_geographic_placement </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_immediate_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_infrastructure_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_latency </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_RPO </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_RTO </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_sanitization_method </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_throughput </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_value_hash </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td colspan="6" align="center"> <p> <b>Queue Object Capabilities</b> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_read_value </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_read_metadata </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_value </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_metadata </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_modify_deserialize_queue </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_delete_queue </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_move_queue </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_copy_queue </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_reference_queue </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_acl </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_size </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_ctime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_atime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_mtime </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_acount </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_mcount </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_assignedsize </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_dispersion </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_retention </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_autodelete </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_data_holds </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_encryption </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_geographic_placement </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_immediate_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_infrastructure_redundancy </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_latency </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_RPO </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_RTO </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_sanitization_method </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_throughput </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+      <tr> 
+       <td> cdmi_value_hash </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <span class="unknown-node">{{)}}</span> </td> 
+       <td> <p> <span class="unknown-node">{{)}}</span> </p> </td> 
+      </tr> 
+     </tbody>
+    </table> 
+    <p> <a href="Category:Cloud storage">Category:Cloud storage</a> <a href="Category:Data management">Category:Data management</a> </p> 
+   </div> 
+  </div>    
+ </body>
+</html>

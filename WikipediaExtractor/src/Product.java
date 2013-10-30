@@ -242,6 +242,8 @@ public class Product {
 		}
 		return hS.replaceAll("\\{", "")
 				.replaceAll("\\}", "")
+				.replaceAll("(See notes)", "")
+				.replaceAll("()", "")
 				.replaceAll("<ref>...</ref>", "") // hack
 				.replaceAll("<ref .../>", "")
 				.replaceAll("<ref ...>...</ref>", "")

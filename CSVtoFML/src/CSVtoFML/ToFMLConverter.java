@@ -3,7 +3,7 @@ package CSVtoFML;
 import java.io.File;
 import java.util.ArrayList;
 
-import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
+import fr.familiar.interpreter.FMLShell;
 
 /**
  * 

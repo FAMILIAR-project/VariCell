@@ -1,19 +1,21 @@
 package CSVtoFML.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Iterator;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
-import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
-import fr.unice.polytech.modalis.familiar.variable.StringVariable;
+
 import CSVtoFML.CSVParser;
 import CSVtoFML.ConversionModel;
 import CSVtoFML.FMLConvert;
-import CSVtoFML.SkeletonIdentifierGroup;
 import CSVtoFML.Skeleton;
+import CSVtoFML.SkeletonIdentifierGroup;
 import CSVtoFML.SkeletonView;
+import fr.familiar.variable.FeatureModelVariable;
+import fr.familiar.variable.StringVariable;
 
 /**
  * 

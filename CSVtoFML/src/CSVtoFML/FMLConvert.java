@@ -1,5 +1,16 @@
 package CSVtoFML;
 
+import fr.familiar.interpreter.FMLShell;
+import fr.familiar.interpreter.VariableNotExistingException;
+import fr.familiar.operations.FDOverApproximationStrategy;
+import fr.familiar.operations.FMLMergerBDD;
+import fr.familiar.operations.Mode;
+import fr.familiar.parser.VariableAmbigousConflictException;
+import fr.familiar.variable.FeatureModelVariable;
+import fr.familiar.variable.FeatureName;
+import fr.familiar.variable.Variable;
+import gsd.synthesis.FeatureModel;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -14,16 +25,6 @@ import java.util.Set;
 import java.util.Vector;
 
 import Exceptions.ErrorInFMLConversion;
-import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
-import fr.unice.polytech.modalis.familiar.interpreter.VariableNotExistingException;
-import fr.unice.polytech.modalis.familiar.operations.FDOverApproximationStrategy;
-import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDD;
-import fr.unice.polytech.modalis.familiar.operations.Mode;
-import fr.unice.polytech.modalis.familiar.parser.VariableAmbigousConflictException;
-import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
-import fr.unice.polytech.modalis.familiar.variable.FeatureName;
-import fr.unice.polytech.modalis.familiar.variable.Variable;
-import gsd.synthesis.FeatureModel;
 
 /**
  * Class used to convert a ConversionModel into a Feature model containing all
@@ -1776,7 +1777,7 @@ public class FMLConvert {
 		catch (Exception e) {
 			throw new ErrorInFMLConversion("Impossible to retrieve variable name " + varName);
 		}
-		
+		//return writeFinalFeatureModelToFile(path, varName, verbose, FMLShell.instantiateStandalone(System.in));
 		
 	}
 

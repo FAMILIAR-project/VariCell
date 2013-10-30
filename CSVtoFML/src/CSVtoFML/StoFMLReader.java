@@ -43,8 +43,6 @@ import Exceptions.NotValidCSVFileException;
 
 import com.google.inject.Injector;
 
-import fr.unice.polytech.modalis.utils.FileListing;
-
 /**
  * @author mathieuacher Domain-Specific Language for extracting feature models
  *         from sources (e.g., CSV)

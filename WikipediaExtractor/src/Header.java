@@ -19,7 +19,7 @@ public class Header {
 	}
 
 	public String getName() {
-		return _name;
+		return _name.replaceAll("<ref>...</ref>", "");
 	}
 
 	public void setName(String _name) {

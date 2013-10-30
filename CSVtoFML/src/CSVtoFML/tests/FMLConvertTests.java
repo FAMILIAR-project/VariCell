@@ -3,6 +3,13 @@ package CSVtoFML.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import fr.familiar.operations.FMLMergerBDD;
+import fr.familiar.operations.Mode;
+import fr.familiar.variable.FeatureModelVariable;
+import fr.familiar.variable.SetVariable;
+import fr.familiar.variable.Variable;
+import gsd.synthesis.FeatureModel;
+import gsd.synthesis.Formula;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,13 +30,6 @@ import CSVtoFML.FMLConvert;
 import CSVtoFML.MultiValuedMode;
 import Exceptions.ErrorInFMLConversion;
 import Exceptions.NotValidCSVFileException;
-import fr.unice.polytech.modalis.familiar.operations.FMLMergerBDD;
-import fr.unice.polytech.modalis.familiar.operations.Mode;
-import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
-import fr.unice.polytech.modalis.familiar.variable.SetVariable;
-import fr.unice.polytech.modalis.familiar.variable.Variable;
-import gsd.synthesis.FeatureModel;
-import gsd.synthesis.Formula;
 
 @Ignore
 public class FMLConvertTests extends CSVtoFMLTests {

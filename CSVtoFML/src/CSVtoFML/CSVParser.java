@@ -229,7 +229,7 @@ public class CSVParser extends CSVAbstract {
 	private void stringArrayHeaderToList(String[] input) throws NotValidCSVFileException {
 		int i = 0;
 		while (i < input.length) {
-			input[i] = input[i].trim() ; // replace(" ", "");
+			input[i] = input[i].replace(" ", ""); // input[i] = input[i].trim() ; 
 			if (input[i].compareTo(_identifior) == 0)
 				_identifiorID = i;
 			else {

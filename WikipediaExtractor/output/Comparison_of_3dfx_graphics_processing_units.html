@@ -1,0 +1,642 @@
+<!--?xml version="1.0" encoding="UTF-8" ?--><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <title>Comparison of 3dfx graphics processing units</title> 
+  <style type="text/css">
+		<!--
+			/**
+			 * Copyright 2011 The Open Source Research Group,
+			 *                University of Erlangen-N??rnberg
+			 *
+			 * Licensed under the Apache License, Version 2.0 (the "License");
+			 * you may not use this file except in compliance with the License.
+			 * You may obtain a copy of the License at
+			 *
+			 *     http://www.apache.org/licenses/LICENSE-2.0
+			 *
+			 * Unless required by applicable law or agreed to in writing, software
+			 * distributed under the License is distributed on an "AS IS" BASIS,
+			 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			 * See the License for the specific language governing permissions and
+			 * limitations under the License.
+			 */
+			
+			/******************************************************************************* 
+			 * Default CSS styles for HtmlPrinters
+			 ******************************************************************************/
+			h1,h2,h3,h4,h5,h6 {
+				background: none repeat scroll 0 0 transparent;
+				border-bottom: 1px solid #AAAAAA;
+				color: black;
+				font-weight: normal;
+				margin: 0;
+				padding-bottom: 0.17em;
+				width: auto;
+				text-align: left;
+			}
+			
+			h1,h2 {
+				margin-bottom: 0.6em;
+			}
+			
+			h3,h4,h5,h6 {
+				border-bottom: medium none;
+				font-weight: bold;
+			}
+			
+			h3,h4,h5 {
+				margin-bottom: 0.3em;
+			}
+			
+			h1 {
+				font-size: 188%;
+			}
+			
+			h2 {
+				font-size: 150%;
+			}
+			
+			h3 {
+				font-size: 132%;
+			}
+			
+			p {
+				line-height: 1.5em;
+				margin: 0.4em 0 0.5em;
+				/* DEBUG: */
+				border: 1px solid silver;
+				margin: 1px;
+			}
+			
+			pre {
+				padding: 1em;
+				border: 1px dashed #2F6FAB;
+				color: black;
+				background-color: #F9F9F9;
+				line-height: 1.1em;
+				font-family: monospace, "Courier New";
+			}
+			
+			.content {
+				line-height: 1.5em;
+				color: black;
+				font-family: sans-serif;
+			}
+			
+			.article-heading {
+				font-size: 1.6em;
+				line-height: 1.2em;
+				margin-bottom: 0.1em;
+				margin-top: 0;
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			
+			.article-content {
+				line-height: 1.5em;
+				position: relative;
+				width: 100%;
+				font-size: 0.8em;
+			}
+			
+			.section {
+				padding-top: 0.5em;
+				/* DEBUG: */
+				border-left: 2px solid #FF6633;
+				padding-top: 0;
+				padding-left: 1em;
+				margin-top: 1em;
+				margin-bottom: 1em;
+			}
+			
+			/******************************************************************************* 
+			 * Images 
+			 ******************************************************************************/
+			div.thumb {
+				background-color: transparent;
+				border-color: white;
+				border-style: solid;
+				margin-bottom: 0.5em;
+				max-width: 234px;
+			}
+			
+			div.thumbinner {
+				background-color: #F9F9F9;
+				border: 1px solid #CCCCCC;
+				font-size: 94%;
+				overflow: hidden;
+				padding: 3px !important;
+				text-align: center;
+			}
+			
+			img.thumbimage {
+				border: 1px solid #CCCCCC;
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			img.plainimage {
+				max-width: 220px;
+				max-height: 225px;
+			}
+			
+			div.thumbcaption {
+				border: medium none;
+				font-size: 94%;
+				line-height: 1.4em;
+				padding: 3px !important;
+				text-align: left;
+			}
+			
+			div.tright {
+				border-width: 0.5em 0 0.8em 1.4em;
+				clear: right;
+				float: right;
+			}
+			
+			div.tleft {
+				border-width: 0.5em 1.4em 0.8em 0;
+				clear: left;
+				float: left;
+				margin-right: 0.5em;
+			}
+			
+			img.thumbborder {
+				border: 1px solid #DDDDDD;
+			}
+			
+			/******************************************************************************* 
+			 * Misc 
+			 ******************************************************************************/
+			.illegal {
+				color: #CC3300;
+				font-weight: normal;
+			}
+			
+			.redirect {
+				color: #FFCC00;
+				font-weight: normal;
+			}
+			
+			.magic-word {
+				color: #9900CC;
+				font-weight: bold;
+			}
+			
+			/******************************************************************************* 
+			 * Tables 
+			 ******************************************************************************/
+			table {
+				font-size: 100%;
+				color: black;
+				background-color: white;
+			}
+			
+			fieldset table {
+				background: none;
+			}
+			
+			table.wikitable {
+				background: none repeat scroll 0 0 #F9F9F9;
+				border: 1px solid #AAAAAA;
+				border-collapse: collapse;
+				margin: 1em 1em 1em 0;
+			}
+			
+			.wikitable th,.wikitable td {
+				border: 1px solid #AAAAAA;
+				padding: 0.2em;
+			}
+			
+			.wikitable th {
+				background: none repeat scroll 0 0 #F2F2F2;
+				text-align: center;
+			}
+			
+			.wikitable caption {
+				font-weight: bold;
+			}
+			
+			table.collapsed tr.collapsable {
+				display: none;
+			}
+			
+			/******************************************************************************* 
+			 * Debug 
+			 ******************************************************************************/
+			.unknown-node {
+				color: #FFBBBB;
+				font-weight: normal;
+			}
+			/******************************************************************************* 
+			 * End of file 
+			 ******************************************************************************/
+		-->
+	</style> 
+ </head> 
+ <body> 
+  <div class="content"> 
+   <h1 class="article-heading">Comparison of 3dfx graphics processing units</h1> 
+   <div class="article-content"> 
+    <p> This page contains general information about the GPUs and video cards by <a href="3dfx interactive">3dfx interactive</a>, in table form. </p> 
+    <div class="section"> 
+     <h2>Comparison table: Desktop GPUs</h2> 
+     <div class="section-body"> 
+      <table class="wikitable" style="font-size: 85%; text-align: center"> 
+       <tbody>
+        <tr> 
+         <th rowspan="2"> <p> Model </p> </th> 
+         <th rowspan="2"> <p> Launch </p> </th> 
+         <th rowspan="2"> <p> <a href="Code name">Code name</a> </p> </th> 
+         <th rowspan="2"> <p> Fab (<a href="nanometer">nm</a>) </p> </th> 
+         <th rowspan="2"> <p> <a href="Computer bus">Bus</a> <a href="I/O interface">interface</a> </p> </th> 
+         <th rowspan="2"> <p> Memory (<a href="Mebibyte">MiB</a>) </p> </th> 
+         <th rowspan="2"> <p> Core clock (<a href="Hertz">MHz</a>) </p> </th> 
+         <th rowspan="2"> <p> Memory clock (<a href="Hertz">MHz</a>) </p> </th> 
+         <th rowspan="2"> <p> Config core<sup>1</sup> </p> </th> 
+         <th colspan="4"> <p> <a href="Fillrate">Fillrate</a> </p> </th> 
+         <th colspan="3"> <p> Memory </p> </th> 
+         <th rowspan="2"> <p> <a href="DirectX">DirectX</a> support </p> </th> 
+        </tr> 
+        <tr> 
+         <th> <p> MOperations/s </p> </th> 
+         <th> <p> MPixels/s </p> </th> 
+         <th> <p> MTextels/s </p> </th> 
+         <th> <p> MVertices/s </p> </th> 
+         <th> <p> Bandwidth (<a href="Gigabyte">GB</a>/s) </p> </th> 
+         <th> <p> Bus type </p> </th> 
+         <th> <p> Bus width (<a href="bit">bit</a>) </p> </th> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo Graphics </p> </th> 
+         <td> <p> October 1, 1996 </p> </td> 
+         <td> <p> SST1 </p> </td> 
+         <td> <p> 500 </p> </td> 
+         <td> <p> PCI </p> </td> 
+         <td> <p> 2, 4 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 1:0:1:1 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.8 </p> </td> 
+         <td> <p> EDO </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo Rush </p> </th> 
+         <td> <p> April 1997 </p> </td> 
+         <td> <p> SST96 </p> </td> 
+         <td> <p> 500 </p> </td> 
+         <td> <p> AGP 2x, PCI </p> </td> 
+         <td> <p> 2, 4 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 1:0:1:1 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 50 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.4 </p> </td> 
+         <td> <p> EDO </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo2 </p> </th> 
+         <td> <p> March 1, 1998 </p> </td> 
+         <td> <p> SST96 </p> </td> 
+         <td> <p> 350 </p> </td> 
+         <td> <p> PCI </p> </td> 
+         <td> <p> 8, 12 </p> </td> 
+         <td> <p> 90 </p> </td> 
+         <td> <p> 90 </p> </td> 
+         <td> <p> 1:0:2:1 </p> </td> 
+         <td> <p> 90 </p> </td> 
+         <td> <p> 90 </p> </td> 
+         <td> <p> 180 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 0.72 </p> </td> 
+         <td> <p> EDO </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> <p> 3.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo Banshee </p> </th> 
+         <td> <p> June 22, 1998 </p> </td> 
+         <td> <p> Banshee </p> </td> 
+         <td> <p> 350 </p> </td> 
+         <td> <p> AGP 2x, PCI </p> </td> 
+         <td> <p> 8, 16 </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> 1:0:1:1 </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> 100 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.6 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Velocity 100 </p> </th> 
+         <td> <p> July 26, 1999 </p> </td> 
+         <td> <p> Avenger </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 2x </p> </td> 
+         <td> <p> 8 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 1:0:2:1 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 286 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.288 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Velocity 200 </p> </th> 
+         <td> <p> July 26, 1999 </p> </td> 
+         <td> <p> Avenger </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 2x </p> </td> 
+         <td> <p> 12 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 1:0:2:1 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 286 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.288 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo3 1000 </p> </th> 
+         <td> <p> March 1999 </p> </td> 
+         <td> <p> Avenger </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 2x, PCI </p> </td> 
+         <td> <p> 8, 16 </p> </td> 
+         <td> <p> 125 </p> </td> 
+         <td> <p> 125 </p> </td> 
+         <td> <p> 1:0:2:1 </p> </td> 
+         <td> <p> 125 </p> </td> 
+         <td> <p> 125 </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo3 2000 </p> </th> 
+         <td> <p> April 3, 1999 </p> </td> 
+         <td> <p> Avenger </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 2x, PCI </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 1:0:2:1 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 143 </p> </td> 
+         <td> <p> 286 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.288 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo3 3000 </p> </th> 
+         <td> <p> April 3, 1999 </p> </td> 
+         <td> <p> Avenger </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 2x, PCI </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 1:0:2:1 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 333 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.66 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo3 3500 TV </p> </th> 
+         <td> <p> June 1999 </p> </td> 
+         <td> <p> Avenger </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 2x, PCI </p> </td> 
+         <td> <p> 16 </p> </td> 
+         <td> <p> 183 </p> </td> 
+         <td> <p> 183 </p> </td> 
+         <td> <p> 1:0:2:1 </p> </td> 
+         <td> <p> 183 </p> </td> 
+         <td> <p> 183 </p> </td> 
+         <td> <p> 366 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.928 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo4 4200 </p> </th> 
+         <td> <p> Never Released </p> </td> 
+         <td> <p> VSA-100 </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 4x, PCI </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> 183 </p> </td> 
+         <td> <p> 183 </p> </td> 
+         <td> <p> 2:0:2:2 </p> </td> 
+         <td> <p> 366 </p> </td> 
+         <td> <p> 366 </p> </td> 
+         <td> <p> 366 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 1.464 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo4 4500 </p> </th> 
+         <td> <p> October 13, 2000 </p> </td> 
+         <td> <p> VSA-100 </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 4x, PCI </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 2:0:2:2 </p> </td> 
+         <td> <p> 332 </p> </td> 
+         <td> <p> 332 </p> </td> 
+         <td> <p> 332 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.656 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo4 4800 </p> </th> 
+         <td> <p> Never Released </p> </td> 
+         <td> <p> VSA-100 </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 4x, PCI </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> 200 </p> </td> 
+         <td> <p> 200 </p> </td> 
+         <td> <p> 2:0:2:2 </p> </td> 
+         <td> <p> 400 </p> </td> 
+         <td> <p> 400 </p> </td> 
+         <td> <p> 400 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 3.2 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo5 5000 </p> </th> 
+         <td> <p> Never Released </p> </td> 
+         <td> <p> VSA-100 x2 </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 4x, PCI </p> </td> 
+         <td> <p> 32 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 2:0:2:2 x2 </p> </td> 
+         <td> <p> 664 </p> </td> 
+         <td> <p> 664 </p> </td> 
+         <td> <p> 664 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.656 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo5 5500 </p> </th> 
+         <td> <p> June 22, 2000 </p> </td> 
+         <td> <p> VSA-100 x2 </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 4x, PCI </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 2:0:2:2 x2 </p> </td> 
+         <td> <p> 664 </p> </td> 
+         <td> <p> 664 </p> </td> 
+         <td> <p> 664 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 2.656 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Voodoo5 6000 </p> </th> 
+         <td> <p> Never Released </p> </td> 
+         <td> <p> VSA-100 x4 </p> </td> 
+         <td> <p> 250 </p> </td> 
+         <td> <p> AGP 4x, PCI </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 166 </p> </td> 
+         <td> <p> 2:0:2:2 x4 </p> </td> 
+         <td> <p> 1328 </p> </td> 
+         <td> <p> 1328 </p> </td> 
+         <td> <p> 1328 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 5.312 </p> </td> 
+         <td> <p> SDR </p> </td> 
+         <td> <p> 256 </p> </td> 
+         <td> <p> 6.0 </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Spectre 1000 </p> </th> 
+         <td> <p> Never Released </p> </td> 
+         <td> <p> Rampage </p> </td> 
+         <td> <p> 180 </p> </td> 
+         <td> <p> AGP 4x </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> <p> 200 </p> </td> 
+         <td> <p> 400 </p> </td> 
+         <td> <p> 4:0:4:4 </p> </td> 
+         <td> <p> 800 </p> </td> 
+         <td> <p> 800 </p> </td> 
+         <td> <p> 800 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 6.4 </p> </td> 
+         <td> <p> DDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Spectre 2000 </p> </th> 
+         <td> <p> Never Released </p> </td> 
+         <td> <p> Rampage + Sage </p> </td> 
+         <td> <p> 180 </p> </td> 
+         <td> <p> AGP 4x </p> </td> 
+         <td> <p> 64 </p> </td> 
+         <td> <p> 200 </p> </td> 
+         <td> <p> 400 </p> </td> 
+         <td> <p> 4:0:4:4 </p> </td> 
+         <td> <p> 800 </p> </td> 
+         <td> <p> 800 </p> </td> 
+         <td> <p> 800 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 6.4 </p> </td> 
+         <td> <p> DDR </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+         <th style="text-align:left"> <p> Spectre 3000 </p> </th> 
+         <td> <p> Never Released </p> </td> 
+         <td> <p> Rampage x2 + Sage </p> </td> 
+         <td> <p> 180 </p> </td> 
+         <td> <p> AGP 4x </p> </td> 
+         <td> <p> 128 </p> </td> 
+         <td> <p> 200 </p> </td> 
+         <td> <p> 400 </p> </td> 
+         <td> <p> 4:0:4:4 x2 </p> </td> 
+         <td> <p> 800 </p> </td> 
+         <td> <p> 800 </p> </td> 
+         <td> <p> 800 </p> </td> 
+         <td> <p> 0 </p> </td> 
+         <td> <p> 12.8 </p> </td> 
+         <td> <p> DDR </p> </td> 
+         <td> <p> 256 </p> </td> 
+         <td> <p> ? </p> </td> 
+        </tr> 
+        <tr> 
+        </tr> 
+       </tbody>
+      </table> 
+      <p> <span class="unknown-node">{{August 2013)}}</span> </p> 
+     </div> 
+    </div> 
+   </div> 
+  </div>    
+ </body>
+</html>

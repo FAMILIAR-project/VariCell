@@ -423,7 +423,7 @@ public abstract class ConversionModelArray {
 			return false;
 		if (_data.get(identifier).size() > this.getNbActualColumns())
 			return false;
-		return _data.get(identifier).add(value.trim());
+		return _data.get(identifier).add(value.trim()); 
 	}
 
 	/**

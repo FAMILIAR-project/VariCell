@@ -1,7 +1,9 @@
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -33,6 +35,7 @@ import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
 import fr.unice.polytech.modalis.familiar.variable.featureide.FeatureModelVariableSATFormula;
 import gsd.graph.ImplicationGraph;
 import gsd.graph.SimpleEdge;
+import gsd.graph.TransitiveReduction;
 import gsd.synthesis.Expression;
 import gsd.synthesis.Formula;
 
@@ -515,6 +518,7 @@ public class ExtractorContentTest extends FMLTest {
 		 */
 		
 		
+		
 		String[] excludeColumnNames = { "Latest supported Java version", "Other", "Status", "Latest release date", "Latest stable version", "First public release", "Creator", "Name" }  ; // {} ; 
 		String[] excludeProductNames =  { "IKVM.NET" } ; 		
 		postTreatFM (
@@ -535,7 +539,9 @@ public class ExtractorContentTest extends FMLTest {
 		postTreatFM (executeWikipediaToFML("Comparison_of_audio_synthesis_environments", new String[] {
 				"Primary Purpose(s)", "Most recent update", "First release date", "Cost", "Creator", "Most recent version", "Name",
 				"Other technical features", "Programming (plugin) API language(s)" // due to problem with multi-features
-		}, _EMPTY, new String[] {"Data interface methods"}), _EMPTY);
+		}, _EMPTY, new String[] {"Data interface methods"}), _EMPTY, new String[] {
+			"Programming language features", "General", "Technical"
+		});
 	
 		postTreatFM (executeWikipediaToFML("Comparison_of_HTML_editors",  
 				
@@ -601,6 +607,9 @@ public class ExtractorContentTest extends FMLTest {
 				new String[] {"Name", "other / special", "Program", "View functions", "Other functions 3", "Price", "Comic book"}, _EMPTY, _EMPTY),
 				new String[] {"", ""}
 				);
+				
+				
+		
 		
 		// 12.
 		postTreatFM(
@@ -621,12 +630,197 @@ public class ExtractorContentTest extends FMLTest {
 				new String[] {"License", "Back end", "Implementation language(s)"}
 				);
 		
-		/* very OK
+		
+		
+		postTreatFM(
 		executeWikipediaToFML("Comparison_of_relational_database_management_systems", new String[] {
 				"Maintainer", "First public release date", "Latest stable version", "Latest release date",
 		}, 
-				_EMPTY, new String[] {"Limits", "Data types"});
-				*/		
+				_EMPTY, new String[] {"Limits", "Data types"}),
+				new String[] {""}
+				);
+		
+		
+		
+			
+		// 15.
+		postTreatFM(
+		 executeWikipediaToFML("Comparison_of_project_management_software", new String[] {"Software"}, _EMPTY, _EMPTY),
+				new String[] {"unk", "Programming Language"}, 
+				new String[] {"License", "Programming language"}
+				);
+		
+		
+	
+				
+		
+
+	
+		
+	    // 18.
+		
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_open-source_operating_systems", 
+				new String[] {"Name", "Kernel type",  "Oldest non-EOL version{{Notea1}}", "Kernel thread support", "Forks", 
+				"other special file system features", "Others", "other"
+				}
+				
+				, _EMPTY, _EMPTY),
+				_EMPTY)
+				;
+						
+		
+		// 19.		
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_remote_desktop_software", new String[] {"Software", "Creator", 
+				"First public release date", "Latest stable version", "Maximum simultaneous connections",		
+		}, _EMPTY, _EMPTY),
+		_EMPTY)
+		;
+		
+		
+		// 20. 
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_video_converters", new String[]{
+				"Developer", "Video converter", "Website", "Input"
+		}, _EMPTY, _EMPTY),
+		_EMPTY)
+		; 
+		
+		// 21.
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_Subversion_clients", new String[] {"Current version", "Last release date", 
+				"Name"}, _EMPTY, new String[] {"Standalone Subversion clients comparison table"})
+		,
+		_EMPTY)
+		; 
+			
+		
+		// 22. (not very satisfied with the quality)
+		postTreatFM(
+				executeWikipediaToFML("Comparison_of_audio_formats", new String[] {"Codec", "Audio compression format", "Creator",
+				"First public release date", "Latest stable version", "Sample Rate", "Bit Rate", "Bit rate", "Latency", 
+				"Bits per sample", "Algorithm"		
+				}, _EMPTY, new String[] {"Technical details"}),
+				_EMPTY,
+				_EMPTY)
+				// new String[] {"General information"})
+				;
+				
+				
+		// 23
+		postTreatFM( executeWikipediaToFML("Comparison_of_documentation_generators", new String[]
+				{"Name", "", "Creator", "First public release date", "Latest stable version", "Other features"}
+				, _EMPTY, _EMPTY),
+				new String[]{"with Plugin2"}, 
+				new String[]{"Software license"})
+				;
+	
+				
+				
+		// 24. 
+		postTreatFM( 
+		executeWikipediaToFML("Comparison_of_desktop_publishing_software", new String[] {
+				"Desktop publishing software", "Developer(s)", "Latest stable version", "Initial release", "Other"
+		}, _EMPTY, new String[] {
+				"Output format"
+		}), 
+		new String[] {"supported versions<11", "supported versions<7", "supported versions<8"}
+				);	
+		
+		
+		
+	
+		
+		
+		
+		// 17.
+		
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_reference_management_software", new String[] {"Software",
+				"Developer", "First public release", "Latest stable version", "Cost (USD)", "Notes", "Other",
+				"RTF scan<ref ...>...</ref>", 
+		}, _EMPTY, new String[] {"Import file formats"}),
+		_EMPTY
+				); 
+		
+	
+				
+		// 26
+		postTreatFM(
+			executeWikipediaToFML("Comparison_of_enterprise_bookmarking_platforms", new String[]{"Notes",
+			"Latest stable release", "Developed by", "Software"		
+			}, _EMPTY, _EMPTY),
+			_EMPTY); 
+		
+
+        // 27
+		postTreatFM(
+				executeWikipediaToFML("Comparison_of_file_managers", new String[] {"First public version (date)",
+						"Latest stable version (date, number)", "Content dependent <ref ...>...</ref>", "File manager", "File Manager", "Creator"	
+				
+				}, _EMPTY, _EMPTY), new String[]{"Plugin", "With helper apps", "Needs [[POSIX]]-compliant platform POSIX", 
+				"Needs [[KDE]] KDE",
+				"Needs [[X Window System|X]]X"});
+
+		// 28
+		postTreatFM(
+					executeWikipediaToFML("Comparison_of_disk_encryption_software", new String[] {"Name",
+								"Encryption", "Developer", "First released", 
+						
+				}, _EMPTY, _EMPTY), new String[]{"Last update to web site 2009-07-02"}); 
+				
+		// 16.
+				postTreatFM(
+				executeWikipediaToFML("Comparison_of_mail_servers", new String[] {"Other" }, _EMPTY, _EMPTY),
+				new String[] {"zzzzzUsers", "zzzzzFeatures", "zzzzzStorage", "zzzzzServer OS support", "V 5.0", "with patch"}
+						);
+						
+						
+		
+		// 25
+		
+		postTreatFM( 
+		executeWikipediaToFML("Comparison_of_genealogy_software", new String[] {"", "Software", "Name", "Latest version", "Latest release"}, _EMPTY, _EMPTY),
+		new String[] {"Winebbb", "Javaaaa", "(v4.x/5.x)", "(v4.x)", "(v5.x)", " public<br />test"})
+		;
+				
+				
+				
+	
+		
+		// 29. 		
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_Internet_forum_software", new String[] {
+			"Creator", "Latest release date", "Current stable version", ""	 
+		},
+				_EMPTY, _EMPTY), new String[] {"Planned (Version 8.0)", "Planned", "Full", "Session", "Plugin"});
+				
+		
+		
+		// 30.
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_SSH_servers", new String[] {"Name", "Last release date", "iOS: iPhone,{{Noteiphone}} iPod Touch"
+		, "Official web page", "Developer", 		"Last release", "First release date"
+		}, 
+				_EMPTY, _EMPTY), 
+		_EMPTY); 
+				
+				
+				// have to FIX it 
+				//executeWikipediaToFML("Comparison_of_Linux_distributions", _EMPTY, _EMPTY, _EMPTY);
+				
+				
+				// have to fix it
+				/*
+				executeWikipediaToFML("Comparison_of_operating_systems", new String[] {
+						"Latest stable version", "Latest release date", "First public release"
+				}, 
+						
+						_EMPTY,
+						
+						_EMPTY);*/
+		
 		
 		
 		
@@ -637,6 +831,87 @@ public class ExtractorContentTest extends FMLTest {
 		 */
 		
 		
+		
+		/**
+		 * TODO
+		 */
+		
+
+		/* should be easy
+		postTreatFM(
+				executeWikipediaToFML("Comparison_of_disc_authoring_software", _EMPTY, _EMPTY, _EMPTY), 
+				_EMPTY); */
+		
+		/*	problem with sections	
+		postTreatFM( executeWikipediaToFML("Comparison_of_file_archivers", new String[] {
+				"Creator(s)", "First public release date", "Latest stable version", "", 
+				"Unicode file / directory names{{unicode-names5}}"
+		}, _EMPTY, new String[] {"Writing"}), 
+				new String[]{"unk", "some formats", "Separate"}); */
+				
+		// TODO interesting have to hack here
+				/*
+				postTreatFM(
+				executeWikipediaToFML("Comparison_of_instant_messaging_clients", new String[] {"Author, creator", "Latest stable version", "First public release"}, new String[] {
+						"XMPP-related features", "Features",  "Features", "General information", "Protocol support"
+				}, _EMPTY),
+				_EMPTY)
+				;*/
+		// TODO FIXME (scoping) 
+		/*
+				postTreatFM( 
+				executeWikipediaToFML("Comparison_of_download_managers", new String[] {"Latest stable release",
+						"Adware, Malware & Spyware<ref ...>...</ref>"
+						
+						
+				}, _EMPTY, _EMPTY),
+				_EMPTY)
+				;*/
+		
+		/* may be fixed
+		postTreatFM( 
+		executeWikipediaToFML("Comparison_of_email_clients", new String[] {"Client", "Creator",
+		"TLS?{{NoteIMAPPOP}}", "TLS?{{NoteIMAPPOP}}", "TLS?{{NoteIMAPPOP}}", "forced recode {{Noterecode}}", 
+		"MD5 APOP?{{NoteAPOP}}", "OCSP?{{NoteOCSP}}", "" 
+		
+		}, _EMPTY, new String[] {
+					"Release history"	
+				}), _EMPTY);*/
+		/*
+		postTreatFM( 
+				executeWikipediaToFML("Comparison_of_document_markup_languages", new String[] {"Language", "Creator", "First public release date", "Editor"}, 
+						
+						_EMPTY, _EMPTY), 
+				_EMPTY
+				);*/
+		
+		/* 3 for free 
+		postTreatFM(
+				executeWikipediaToFML("Comparison_of_desktop_application_launchers", new String[]{"Creator",
+				"Latest stable version", "Latest release date", ""		
+				}, _EMPTY, new String[] {"Linux"}),
+				_EMPTY);*/
+		
+		/**
+		 * 
+		 * end (TODO)
+		 * 
+		 */
+		
+		
+		
+		/**
+		 * 
+		 * EXOTIC
+		 * 
+		 */
+		
+		// too poor
+		/*
+				postTreatFM( 
+				executeWikipediaToFML("Comparison_of_geographic_information_systems_software", new String[] {"GIS software"}, _EMPTY, 
+						new String[]{"Mobile clients", "Pure web client", "Pure server"}
+						), _EMPTY);*/
 		
 		// hack due to parsers :( 
 		/*postTreatFM(
@@ -650,9 +925,28 @@ public class ExtractorContentTest extends FMLTest {
 		executeWikipediaToFML("Comparison_of_birth_control_methods", _EMPTY, _EMPTY, _EMPTY),
 		_EMPTY);*/
 		
-		/*		
+		// exotic and poorly structured
+				/*
+				postTreatFM(		
+				executeWikipediaToFML("Comparison of accounting software", _EMPTY, _EMPTY, new String[] {
+						"Proprietary software", "Latest stable version", "Latest release date", "Stable release date"
+				}),
+				new String[] {""}
+				);*/
 		
+		/* difficult to hack the sections
+		postTreatFM(
+		executeWikipediaToFML("Comparison_of_open-source_software_hosting_facilities", new String[] {"Users", "Established",
+				"Projects", "Prominent projects", "Name"
+		}, _EMPTY, new String[] {"Popularity"}),
+		_EMPTY)
+		;
+		*/
 		
+	
+		
+		/* rather poor
+		postTreatFM(			
 		executeWikipediaToFML("Comparison_of_webmail_providers", 
 				new String[]{
 				//"Product", "Service name", "Owner", "Release", "Attachment limit",
@@ -662,21 +956,12 @@ public class ExtractorContentTest extends FMLTest {
 				//"Alternative Fuse"
 				}, 
 				
-				new String[] {"General information", "Language support", "Unique features"});
+				new String[] {"General information", "Language support", "Unique features"}), _EMPTY);
 		
+		*/
 		
-	
-		
-		executeWikipediaToFML("Comparison_of_video_converters", new String[]{
-				"Developer", "Video converter", "Website"
-		}, _EMPTY, _EMPTY) ; 
-		
-		
-		executeWikipediaToFML("Comparison_of_video_converters", new String[]{
-				"Developer", "Video converter", "Website"
-		}, _EMPTY, _EMPTY) ; */
-		
-		/*
+		/* BENCHMARK
+		postTreatFM(
 		executeWikipediaToFML("Comparison_of_Android_devices", new String[] {
 				"Android version", "Name", "Maker", "GPU", "chipset", "Capacities", "Camera(s)", "Special?features"
 		}, _EMPTY, new String[] {
@@ -684,16 +969,32 @@ public class ExtractorContentTest extends FMLTest {
 				//"Officially released",
 				//"Future", 
 				
-		});*/
+		}), _EMPTY);*/
 		
-
-		/*
+		
+		
+		/* poor and structure hard to parse
+		postTreatFM(
 		executeWikipediaToFML("Comparison_of_BSD_operating_systems", new String[] {
 				"First public release", 
-				//"Version", 
-				//"First release date"
-		}, _EMPTY, _EMPTY);
-		*/
+				"Version", 
+				"First release date"
+		}, _EMPTY, _EMPTY),
+		_EMPTY);*/
+		
+		
+		
+		
+	
+		/**
+		 *  END (exostic)
+		 * 
+		 */
+		
+	
+		
+
+	
 		
 		
 		/*
@@ -706,69 +1007,20 @@ public class ExtractorContentTest extends FMLTest {
 				*/
 				
 		
-		
-		// OK perhaps some scoping directives to add
-		/*
-		executeWikipediaToFML("Comparison_of_Java_virtual_machines", new String[] {
-				"Latest supported Java version", "Other", "Creator", "First public release", "Latest stable version", "Latest release date"
-		}, new String[] {
-				"IKVM.NET"
-		}, _EMPTY) ; 
-		*/
+			
 		
 		
 		
 	
-		
-		/* interesting have to hack here
-		executeWikipediaToFML("Comparison_of_instant_messaging_clients", new String[] {"Author, creator", "Latest stable version", "First public release"}, new String[] {
-				"XMPP-related features", "Features"
-		}, _EMPTY);
-		*/
-		
-		/* interesting have to hack here
-		executeWikipediaToFML("Comparison_of_SSH_clients", _EMPTY, _EMPTY, _EMPTY);
-		*/
-		
 	
 		
-		// Data storage is missing surprinsingly 
-		/*
-		executeWikipediaToFML("Comparison_of_Internet_forum_software", new String[] {
-			"Creator", "Latest release date", "Current stable version", 	 
-		},
-				_EMPTY, _EMPTY);
-				*/
-		
-		// have to FIX it 
-		//executeWikipediaToFML("Comparison_of_Linux_distributions", _EMPTY, _EMPTY, _EMPTY);
-		
-		// have to FIX it
-		//executeWikipediaToFML("Comparison_of_SSH_servers", _EMPTY, _EMPTY, _EMPTY);
-		
-		//executeWikipediaToFML("Comparison_of_Subversion_clients", _EMPTY, _EMPTY, _EMPTY);
-		
-		
-		// have to fix it
-		/*
-		executeWikipediaToFML("Comparison_of_operating_systems", new String[] {
-				"Latest stable version", "Latest release date", "First public release"
-		}, 
-				
-				_EMPTY,
-				
-				_EMPTY);*/
 		
 		
 		
-		// have to fix it but rather good
-		/*
-		executeWikipediaToFML("Comparison of accounting software", _EMPTY, _EMPTY, new String[] {
-				"Proprietary software", "Latest stable version", "Latest release date", "Stable release date"
-		});*/
 		
-		// have to fix it but rather good
-		// executeWikipediaToFML("Comparison_of_audio_formats", _EMPTY, _EMPTY, _EMPTY);
+		
+		
+		
 		
 		// have to fix it
 		// executeWikipediaToFML("Comparison of audio player software", _EMPTY, _EMPTY, _EMPTY);
@@ -803,52 +1055,19 @@ public class ExtractorContentTest extends FMLTest {
 		
 		// executeWikipediaToFML("Comparison_of_dental_practice_management_software", _EMPTY, _EMPTY, _EMPTY);
 		
-		// TODO scoping
-		//executeWikipediaToFML("Comparison_of_desktop_publishing_software", _EMPTY, _EMPTY, new String[] {
-		//		"Output format"
-		//});
+	
 		
 		//executeWikipediaToFML("Comparison_of_development_estimation_software", _EMPTY, _EMPTY, _EMPTY);
 		
 		//executeWikipediaToFML("Comparison_of_digital_audio_editors", _EMPTY, _EMPTY, _EMPTY);
+
 		
-		// executeWikipediaToFML("Comparison_of_documentation_generators", _EMPTY, _EMPTY, _EMPTY);
-		// FIXME
-		/*executeWikipediaToFML("Comparison_of_email_clients", new String[] {"Creator"}, _EMPTY, new String[] {
-			"Release history"	
-		});*/
-		
-		// FIXME executeWikipediaToFML("Comparison of enterprise bookmarking platforms", _EMPTY, _EMPTY, _EMPTY); 
-			
-		// TODO FIXME (scoping) executeWikipediaToFML("Comparison_of_download_managers", new String[] {"Latest stable release"}, _EMPTY, _EMPTY);
-		
-		// TODO FIXME executeWikipediaToFML("Comparison_of_document_markup_languages", _EMPTY, _EMPTY, _EMPTY);
-		// TODO Comparison of disk encryption software 
-		
-		// TODO Comparison_of_disk_cloning_software (I think we have to hack here)
-		
-		// TODO Comparison of disc authoring software 
-		
-		// TODO Comparison_of_desktop_application_launchers
-		
-		
-		
-		// FIXME executeWikipediaToFML("Comparison_of_file_archivers", _EMPTY, _EMPTY, new String[] {"Writing"}); 
-		
-		// FIXME
-		/*
-		executeWikipediaToFML("Comparison_of_file_managers", new String[] {"First public version (date)",
-				"Latest stable version (date, number)"		
-		
-		}, _EMPTY, _EMPTY);*/
 		
 		//executeWikipediaToFML("Comparison_of_file_verification_software", new String[] {"Developer", "First public release", "Latest stable date (version)"}, _EMPTY, _EMPTY);
 		
 		// FIXME executeWikipediaToFML("Comparison of free and open-source software licenses ", _EMPTY, _EMPTY, _EMPTY);
 		
-		// FIXME executeWikipediaToFML("Comparison of genealogy software ", _EMPTY, _EMPTY, _EMPTY);
 		
-		// FIXME executeWikipediaToFML("Comparison of geographic information systems software ", _EMPTY, _EMPTY, _EMPTY);
 		
 		// exotic actually: I would give up
 		/*
@@ -874,39 +1093,10 @@ public class ExtractorContentTest extends FMLTest {
 				new String[] {"Launch Date", "Refs", "Creator"}, // "System", 
 				_EMPTY, _EMPTY);*/
 		
-		// almost done (post-directives) 
-		// executeWikipediaToFML("Comparison_of_mail_servers", new String[] {"Other" }, _EMPTY, _EMPTY);
-		
-		
-		/*
-		executeWikipediaToFML("Comparison_of_open-source_operating_systems", 
-				new String[] {"Name", "Kernel type",  "Oldest non-EOL version{{Notea1}}", "Kernel thread support", 
-				"other special file system features", "Others", "Other special file systems"
-				}
-				
-				, _EMPTY, _EMPTY);*/
-		
-		/* hack the sections
-		executeWikipediaToFML("Comparison_of_open-source_software_hosting_facilities", new String[] {
-		}, _EMPTY, new String[] {"Popularity"});
-		*/
-		
-		// OK (perhaps post directives) 
-		// executeWikipediaToFML("Comparison_of_project_management_software", new String[] {"Software"}, _EMPTY, _EMPTY);
-		
-		/*
-		executeWikipediaToFML("Comparison_of_reference_management_software", new String[] {"Software",
-				"Developer", "First public release", "Latest stable version", "Cost (USD)", "Notes", "Other",
-				"RTF scan<ref ...>...</ref>", "LaTeX<ref>...</ref>", "User-specific permissions<ref>...</ref>"
-		}, _EMPTY, new String[] {"Import file formats"}); */
-		
 	
 		
-		/*
-		executeWikipediaToFML("Comparison_of_remote_desktop_software", new String[] {"Software", "Creator", 
-				"First public release date", "Latest stable version", "Maximum simultaneous connections",		
-		}, _EMPTY, _EMPTY);
-		*/
+		
+	
 		
 		
 		// TODO http://en.wikipedia.org/wiki/Comparison_of_revision_control_software
@@ -1063,9 +1253,9 @@ public class ExtractorContentTest extends FMLTest {
 		FileUtils.writeStringToFile(f2, fmMerged + "");
 
 		
-
+		_shell.reset() ; 
 		FeatureModelVariable fmv1 = FMBuilder.parseFMLBDD(OUTPUT_DIRECTORY + wikiPageName + ".fmlbdd", _builder);
-		System.err.println("#" + fmv1.counting());
+//		System.err.println("#" + fmv1.counting());
 		assertNotNull(fmv1);
 		
 						
@@ -1080,11 +1270,137 @@ public class ExtractorContentTest extends FMLTest {
 		//System.err.println("doc=" + doc.getElementsByTag("title"));
 		//System.err.println("doc=" + doc.title());
 		
+		_shell.reset() ; 
+		
+	}
+	
+	@Test
+	public void testGeneralizedNotation() throws Exception {
+		
+		FeatureModelVariable fmv1 = new FeatureModelVariable("", FMBuilder.getInternalFM("FM (" +
+				 "WikiMatrix: General ; " +
+				 "General: (LicenseCostFee|Unicode)+ [Storage] [Language] License RSS ;" + 
+				 "LicenseCostFee: (DifferentLicences|US10|Community)? ;" +  
+				 "Language: (Java|Python|PHP|Perl) ; " + 
+				 "License: (Commercial|GPL|GPL2|Nolimit) ;" + 
+				 "Storage: (Files|Database|FileRCS) ;" +  
+				 "(Java -> Database);" + 
+				 "(Nolimit -> !Unicode);" +
+				 "(Nolimit -> LicenseCostFee); " +
+				 "(GPL2 -> Storage);" + 
+				 "(DifferentLicences -> GPL2);" + 
+				 "(GPL2 -> PHP);" + 
+				 "(DifferentLicences -> Database);" + 
+				 "(GPL -> Unicode);" + 
+				 "(Community -> GPL);" + 
+				 "(Storage <-> Unicode);" + 
+				 "(Python -> GPL);" + 
+				 "(Files -> !LicenseCostFee);" +
+				 "(Community <-> FileRCS);" +
+				 "(Commercial <-> US10);" + 
+				 "(Python -> Files);" + 
+				 "(FileRCS <-> Perl); " + 
+				 "(Unicode <-> Language);" +
+				 "(US10 <-> Java);"  + ")")); 
+		
+		FeatureModelVariable fmv1bis = fmv1.toGeneralizedNotationWithoutOR();
+		System.err.println("fmv1bis=" + fmv1bis);
+	}
+	
+	@Test
+	public void testStatisticsBIG() throws Exception {
+		
+		final String OUTPUT_DIR = "/Users/macher1/Documents/RESEARCH/INPROGRESS/ICSE2014-KSynthesis/PCMs/";
+		
+		File dir = new File(OUTPUT_DIR);
+		File[] fileFMs = dir.listFiles(new FileFilter() {
+			
+			@Override
+			public boolean accept(File pathname) {
+				return pathname.getName().contains("fmlbdd");
+			}
+		});
+		_shell.setVerbose(false);
+		int i = 1 ; 
+		int totalAverage = 0 ; 
+		int totalNft = 0 ; 
+		int totalEdges = 0 ;
+		for (File fileFM : fileFMs) {
+			_shell.reset() ; 
+			FeatureModelVariable fmv1 = 
+ 					FMBuilder.parseFMLBDD(fileFM.getAbsolutePath(), _builder);
+			assertNotNull(fmv1);
+			
+			/* new FeatureModelVariable("", FMBuilder.getInternalFM("FM (" +
+					 "WikiMatrix: General ; " +
+					 "General: (LicenseCostFee|Unicode)+ [Storage] [Language] License RSS ;" + 
+					 "LicenseCostFee: (DifferentLicences|US10|Community)? ;" +  
+					 "Language: (Java|Python|PHP|Perl) ; " + 
+					 "License: (Commercial|GPL|GPL2|Nolimit) ;" + 
+					 "Storage: (Files|Database|FileRCS) ;" +  
+					 "(Java -> Database);" + 
+					 "(Nolimit -> !Unicode);" +
+					 "(Nolimit -> LicenseCostFee); " +
+					 "(GPL2 -> Storage);" + 
+					 "(DifferentLicences -> GPL2);" + 
+					 "(GPL2 -> PHP);" + 
+					 "(DifferentLicences -> Database);" + 
+					 "(GPL -> Unicode);" + 
+					 "(Community -> GPL);" + 
+					 "(Storage <-> Unicode);" + 
+					 "(Python -> GPL);" + 
+					 "(Files -> !LicenseCostFee);" +
+					 "(Community <-> FileRCS);" +
+					 "(Commercial <-> US10);" + 
+					 "(Python -> Files);" + 
+					 "(FileRCS <-> Perl); " + 
+					 "(Unicode <-> Language);" +
+					 "(US10 <-> Java);"  + ")"));  */
+			
+			System.err.println("====== " + i++ + " ===========");
+			
+			int nFts = fmv1.features().size() ; 
+			System.err.println("#fts " + nFts);
+			
+			
+			ImplicationGraph<String> big = fmv1.computeImplicationGraph() ;
+			//TransitiveReduction.INSTANCE.reduce(big);
+			
+			System.err.println("#IG (edges) " + big.edges().size());
+			Collection<String> vtxs = big.vertices() ;
+			int t = 0 ; 
+			for (String ft : vtxs) {
+				Collection<SimpleEdge> iedges = big.outgoingEdges(ft);
+				int n = iedges.size() ; 
+				//System.err.println("ft=" + ft + " " + n);
+				t += n ; 
+			}
+			
+			int nAverage = t / nFts ; 
+			System.err.println("(average) " + nAverage);
+			//System.err.println("(rfm) " + fmv1);
+			
+			totalAverage += nAverage ; 
+			
+			_shell.reset() ; 
+			
+			totalNft += nFts ; 
+			totalEdges += t ; 
+			
+			
+			
+			
+		}
+		
+		//System.err.println("" + (double) ((double)totalAverage / (double)i));
+		System.err.println("" + (double) ((double)totalEdges / (double)totalNft));
+		
 	}
 
 	private FeatureModelVariable executeWikipediaToFML(String wikiPageName,	String[] excludeColumnNames, 
 			String[] excludeProductNames, String[] excludeSectionNames,
 			Map<String, String> renamings) throws Exception {
+		
 		
 	WikiPageContentExtractor wikipediaExtractor = new WikiPageContentExtractor() ;
 		

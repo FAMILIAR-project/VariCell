@@ -11,10 +11,10 @@ import Metric.DoubleMetric;
 import Metric.IntegerMetric;
 import Metric.Metric;
 import Metric.TextualMetric;
-import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
-import fr.unice.polytech.modalis.familiar.parser.FMLCommandInterpreter;
-import fr.unice.polytech.modalis.familiar.variable.FeatureModelVariable;
-import fr.unice.polytech.modalis.familiar.variable.IntegerVariable;
+import fr.familiar.interpreter.FMLShell;
+import fr.familiar.parser.FMLCommandInterpreter;
+import fr.familiar.variable.FeatureModelVariable;
+import fr.familiar.variable.IntegerVariable;
 
 /**
  * 

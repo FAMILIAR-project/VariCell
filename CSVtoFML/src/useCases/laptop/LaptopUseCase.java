@@ -1,7 +1,7 @@
 package useCases.laptop;
 
-import fr.unice.polytech.modalis.familiar.interpreter.FMLShell;
 import CSVtoFML.UseCase;
+import fr.familiar.interpreter.FMLShell;
 
 public class LaptopUseCase extends UseCase {
 

@@ -13,12 +13,14 @@ public class VariabilityPatternsUtils {
 	public static boolean isConstrained(String val) {
 		return val.contains("partial") || val.contains("only") || val.contains("Only") || val.contains("Partial")
 				|| val.contains("if")  || val.contains("If")  || val.contains("Registered")  || val.contains("Via")  
-				|| val.contains("paid") || val.contains("registered") || val.contains("via");
+				|| val.contains("paid") || val.contains("registered") || val.contains("via") || val.contains("Indirectly");
 	}
 
 	public static boolean isUncertain(String val) {
 		return val.contains("dunno") || val.contains("depends") || val.contains("partly") || val.contains("optional") || 
-				val.contains("Experimental") || val.contains("experimental") || val.contains("Optional") || val.contains("Maybe") ;
+				val.contains("Experimental") || val.contains("experimental") || val.contains("Optional") || val.contains("Maybe") 
+				
+				;
 	}
 
 	public static boolean isBlanked(String val) {
@@ -51,7 +53,7 @@ public class VariabilityPatternsUtils {
 
 	// Unknown value. One does not know if the criterion is satisfied. Cells are generally filled with ”?”, ”unknown”, ”-”, ”N/A”
 	public static boolean isUnknowns(String val) {
-		return val.contains("?") || val.contains("unknown") || val.contains("n/a") || val.contains("N/A") || val.equals("NA")  ;
+		return val.contains("?") || val.contains("unknown") || val.contains("n/a") || val.contains("N/A") || val.equals("NA") || val.contains("Possible, but never implemented")  ;
 	}
 	
 	

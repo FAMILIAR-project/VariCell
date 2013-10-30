@@ -2,7 +2,8 @@ package CSVtoFML.tests;
 
 import org.junit.After;
 import org.junit.Before;
-import fr.unice.polytech.modalis.familiar.test.FMLTest;
+
+import fr.familiar.test.FMLTest;
 
 public abstract class CSVtoFMLTests extends FMLTest {
 
