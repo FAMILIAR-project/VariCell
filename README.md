@@ -1,14 +1,12 @@
-VariCell
-========
+# VariCell
 
 ``VariCell``(a pun with variability, cells as in tabular data/spreadsheets, and varicella aka chickenpox) is an old project for synthesizing variability models from tabular product descriptions. 
 More details can be found in the VaMoS'12 paper [1]
 
 Since 2012, the work has evolved towards richer constucts for variability models [3] (e.g., attributes) and a better understanding of product comparison matrices [4]. 
-In other words, the project is now alive in the projects [[familiar|familiar-project.github.com]] and [[opencompare.org|opencompare.org]]
+In other words, the project is now alive in the projects [familiar](familiar-project.github.com) and [opencompare.org](opencompare.org)
 
-Basic description
-====
+## Basic description
 
 see also [2] 
 
@@ -21,10 +19,20 @@ The language provides some facilities for:
   * ```Transforming Data```: It includes renaming or rewriting facilities or more complex mapping. Importantly, the interpretation of data in terms of variability (e.g., to define when a feature is considered to be optional) can be specified either for all data sources and views or for a specific view.
   * ```Specifying Structure```: Views are possibly related to each other (e.g., to describe a sub-domain) and this structuring information is usually not explicit in the format. By default, the feature model of a view is inserted be- low the root feature. A practitioner may want to impose a specific hierarchy. For example, hosting below general means that the feature model of the hosting view is inserted below the feature model of the general view. This information has an impact on the hierarchy of the resulting feature model and is used by the extraction procedure.
 
+## Contributors
 
+in alphabetical order:
 
-References 
-====
+  * Mathieu Acher (University of Rennes 1, France / University of Namur, Belgium)
+  * Anthony Cleve (University of Namur, Belgium)
+  * Philippe Collet (University of Nice Sophia Antipolis, France)
+  * Patrick Heymans (University of Namur, Belgium)
+  * Philippe Lahire (University of Nice Sophia Antipolis, France)
+  * Gilles Perrouin (University of Namur, Belgium)
+  * Charles Vanbeneden (University of Namur, Belgium)
+
+## References 
+
  * [1] Mathieu Acher, Anthony Cleve, Gilles Perrouin, Patrick Heymans, Philippe Collet, Philippe Lahire, and Charles Vanbeneden. On Extracting Feature Models From Product Descriptions (2012). In Sixth International Workshop on Variability Modelling of Software-intensive Systems (VaMoS'12)
  * [2] Original page: https://nyx.unice.fr/projects/familiar/wiki/VariCell
  * [3] Guillaume Bécan, Razieh Behjati, Arnaud Gotlieb, and Mathieu Acher. Synthesis of Attributed Feature Models From Product Descriptions (2015). In 19th International Software Product Line Conference (SPLC'15)
