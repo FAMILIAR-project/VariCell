@@ -1,10 +1,10 @@
 # VariCell
 
 **VariCell** (a pun with *variability*, *cells* as in tabular data/spreadsheets, and *varicella* aka chickenpox) is an old project for synthesizing variability models from tabular product descriptions. 
-More details can be found in the VaMoS'12 paper [1]
+More details can be found in the VaMoS'12 paper [1].
 
 Since 2012, the work has evolved towards richer constucts for variability models [3] and a better understanding of product comparison matrices [4]. 
-In other words, the project is now alive in the projects [familiar](http://familiar-project.github.com) and [opencompare.org](http://opencompare.org)
+In other words, the project is no longer maintained here and now alive in the projects [familiar](http://familiar-project.github.com) and [opencompare.org](http://opencompare.org)
 
 ## Basic description
 
@@ -17,6 +17,15 @@ The language provides some facilities for:
   * **Scoping**: A practitioner may scope the data in various ways and for many purposes. For instance, not all products have to be integrated in the family of products since some products are considered as too poor in terms of supported features or not competitive enough. An- other example is that not all features have to be considered, for example, the version number of the product may not be a relevant information. The language directives except products and only products are specified to (not) consider products for all imported views. Note that the DSL directives except features and only features can be specified within a specific view.
   * **Transforming Data**: It includes renaming or rewriting facilities or more complex mapping. Importantly, the interpretation of data in terms of variability (e.g., to define when a feature is considered to be optional) can be specified either for all data sources and views or for a specific view.
   * **Specifying Structure**: Views are possibly related to each other (e.g., to describe a sub-domain) and this structuring information is usually not explicit in the format. By default, the feature model of a view is inserted be- low the root feature. A practitioner may want to impose a specific hierarchy. For example, hosting below general means that the feature model of the hosting view is inserted below the feature model of the general view. This information has an impact on the hierarchy of the resulting feature model and is used by the extraction procedure.
+
+## Architecture/content 
+
+  The **Xtext projects** are here for the domain-specific language of VariCell. 
+  *Wikipedia extractor* is a quick and old hack for extracting Wikipedia pages, especially tabular data
+  *Experimental synthesis* is an attempt to reuse a synthesis algorithm with efficient support of OR-groups and prime implicants
+  *CSVToFML* is a bunch of utility for launching VariCell 
+
+
 
 ## Contributors
 
