@@ -3,8 +3,8 @@
 ``VariCell``(a pun with variability, cells as in tabular data/spreadsheets, and varicella aka chickenpox) is an old project for synthesizing variability models from tabular product descriptions. 
 More details can be found in the VaMoS'12 paper [1]
 
-Since 2012, the work has evolved towards richer constucts for variability models [3] (e.g., attributes) and a better understanding of product comparison matrices [4]. 
-In other words, the project is now alive in the projects [familiar](familiar-project.github.com) and [opencompare.org](opencompare.org)
+Since 2012, the work has evolved towards richer constucts for variability models [3] and a better understanding of product comparison matrices [4]. 
+In other words, the project is now alive in the projects [familiar](http://familiar-project.github.com) and [opencompare.org](http://opencompare.org)
 
 ## Basic description
 
@@ -30,6 +30,10 @@ in alphabetical order:
   * Philippe Lahire (University of Nice Sophia Antipolis, France)
   * Gilles Perrouin (University of Namur, Belgium)
   * Charles Vanbeneden (University of Namur, Belgium)
+
+## Contact
+
+[Mathieu Acher](http://www.mathieuacher.com)
 
 ## References 
 
