@@ -20,10 +20,10 @@ The language provides some facilities for:
 
 ## Architecture/content 
 
-  The **Xtext projects** are here for the domain-specific language of VariCell. 
-  *Wikipedia extractor* is a quick and old hack for extracting Wikipedia pages, especially tabular data
-  *Experimental synthesis* is an attempt to reuse a synthesis algorithm with efficient support of OR-groups and prime implicants
-  *CSVToFML* is a bunch of utility for launching VariCell 
+  * The **Xtext projects** are here for the domain-specific language of VariCell. 
+  * *Wikipedia extractor* is a quick and old hack for extracting Wikipedia pages, especially tabular data
+  * *Experimental synthesis* is an attempt to reuse a synthesis algorithm with efficient support of OR-groups and prime implicants
+  * *CSVToFML* is a bunch of utility for launching VariCell 
 
 
 
